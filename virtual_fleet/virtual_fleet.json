@@ -1,0 +1,50 @@
+{
+  "data": {
+    "CarQuery": {
+      "cars": {
+        "nodes": [
+          {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDYXJJZCI6IjIiLCJDYXJOYW1lIjoiQnJpbmdBdXRvIiwiaXNzIjoiQnJpbmcuQXV0by5hcnRpbi5jeiIsImF1ZCI6IkJyaW5nLkF1dG8ifQ.6w11EkV3zKvG3Ly_CcF_SPsxSEbVEUOY9u0HvDw_Cr0",
+            "route": "brno_luzanky"
+          },
+          {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDYXJJZCI6IjQiLCJDYXJOYW1lIjoiQnJpbmdBdXRvMSIsImlzcyI6IkJyaW5nLkF1dG8uYXJ0aW4uY3oiLCJhdWQiOiJCcmluZy5BdXRvIn0.EPIXtAMkGyW7q-Iieol5E1YgJv12WCI00G5fMop8KUM",
+            "route": "brno_kounicova"
+          },
+          {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDYXJJZCI6IjUiLCJDYXJOYW1lIjoiQnJpbmdBdXRvMiIsImlzcyI6IkJyaW5nLkF1dG8uYXJ0aW4uY3oiLCJhdWQiOiJCcmluZy5BdXRvIn0.Xe321Qqlw8d8I7iK8Lu7Hg2SD7gyvok-SR3Vi2jdoW8",
+            "route": "brno_okruh"
+          },
+          {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDYXJJZCI6IjYiLCJDYXJOYW1lIjoiQnJpbmdBdXRvMyIsImlzcyI6IkJyaW5nLkF1dG8uYXJ0aW4uY3oiLCJhdWQiOiJCcmluZy5BdXRvIn0.37tD1dcCXjg_28Gzh7v29h5fRxhmNWkN-AWj0rzLy2Y",
+            "route": "brno_krpole"
+          },
+          {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDYXJJZCI6IjciLCJDYXJOYW1lIjoiQnJpbmdBdXRvNCIsImlzcyI6IkJyaW5nLkF1dG8uYXJ0aW4uY3oiLCJhdWQiOiJCcmluZy5BdXRvIn0.kv8UXc3WM89gc6Lbz-FYCnJdcdKNsFaKPR5mVX_lwJw",
+            "route": "brno_centrum"
+          },
+          {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDYXJJZCI6IjgiLCJDYXJOYW1lIjoiQnJpbmdBdXRvNSIsImlzcyI6IkJyaW5nLkF1dG8uYXJ0aW4uY3oiLCJhdWQiOiJCcmluZy5BdXRvIn0.V8kcsJ8J18cN9Y-HYsU_XOjlF7M-YXgtJUZZnxHtOQc",
+            "route": "ostrava_borsodchem"
+          },
+          {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDYXJJZCI6IjkiLCJDYXJOYW1lIjoiQnJpbmdBdXRvNiIsImlzcyI6IkJyaW5nLkF1dG8uYXJ0aW4uY3oiLCJhdWQiOiJCcmluZy5BdXRvIn0.gvKQ2hbV1whv3u0tFFb_BgVWVLY-0i4_I0Fabrt9jNs",
+            "route": "ostrava_1"
+          },
+          {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDYXJJZCI6IjEwIiwiQ2FyTmFtZSI6IkJyaW5nQXV0bzciLCJpc3MiOiJCcmluZy5BdXRvLmFydGluLmN6IiwiYXVkIjoiQnJpbmcuQXV0byJ9.g_0x6DmJPbTkxWKh6UZL1GsRmC2bqLoDXT9_KR3cuSI",
+            "route": "ostrava_2"
+          },
+          {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDYXJJZCI6IjExIiwiQ2FyTmFtZSI6IkJyaW5nQXV0bzgiLCJpc3MiOiJCcmluZy5BdXRvLmFydGluLmN6IiwiYXVkIjoiQnJpbmcuQXV0byJ9.lxXRfFUmihFNYf3W-apyYT3Mf_Fa-aaqKS0nTASLXcA",
+            "route": "ostrava_3"
+          },
+          {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDYXJJZCI6IjEyIiwiQ2FyTmFtZSI6IkJyaW5nQXV0bzkiLCJpc3MiOiJCcmluZy5BdXRvLmFydGluLmN6IiwiYXVkIjoiQnJpbmcuQXV0byJ9.SwXevYEjMNqobQG7tRX8bCmjOZTw2cqJbRIH4Xz_wNw",
+            "route": "ostrava_4"
+          }
+        ]
+      }
+    }
+  }
+}
