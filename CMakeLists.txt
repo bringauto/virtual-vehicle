@@ -39,17 +39,9 @@ ADD_LIBRARY(protobuff_lib STATIC "${PROTO_DIR}/BringAutoDaemon.pb.cc")
 TARGET_LINK_LIBRARIES(protobuff_lib PUBLIC protobuf::libprotobuf)
 TARGET_INCLUDE_DIRECTORIES(protobuff_lib PUBLIC "${PROTO_DIR}")
 
-#------------gtest-------------------#
-
-
-add_executable(tests tests/src/osmiumTest.cpp tests/include/osmiumTest.h tests/src/mainTests.cpp)
-target_link_libraries(tests gmock gtest pthread gtest_main bringautolib)
-
-add_custom_command(
-        TARGET tests POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-        ${CMAKE_SOURCE_DIR}/tests/maps/luzanky.osm
-        ${CMAKE_CURRENT_BINARY_DIR}/luzanky.osm)
+#------------tests----------------------#
+include(${CMAKE_CURRENT_SOURCE_DIR}/tests/CMakeLists.txt)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/tests/)
 
 #------------binaries-------------------#
 
@@ -62,5 +54,9 @@ target_link_libraries(bringautolib PUBLIC spdlog::spdlog_header_only protobuff_l
 add_executable(VirtualVehicle main.cpp)
 target_include_directories(VirtualVehicle PUBLIC "include/")
 target_link_libraries(VirtualVehicle PUBLIC bringautolib)
+
+
+
+
 
 
