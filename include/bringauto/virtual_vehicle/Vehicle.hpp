@@ -3,6 +3,7 @@
 #include <bringauto/osm/OsmStructures.hpp>
 #include <bringauto/communication/ICommunication.hpp>
 #include <bringauto/virtual_vehicle/GlobalContext.hpp>
+
 #include <utility>
 
 namespace bringauto::virtual_vehicle {
