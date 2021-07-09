@@ -14,4 +14,4 @@ gtest_discover_tests(vvutests)
 
 add_custom_command(TARGET vvutests PRE_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_CURRENT_LIST_DIR}/maps ${CURRENT_BINARY_DIR}/maps)
+        ${CMAKE_CURRENT_LIST_DIR}/maps ${CMAKE_CURRENT_BINARY_DIR}/maps)
