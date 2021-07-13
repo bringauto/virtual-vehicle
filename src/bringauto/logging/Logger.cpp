@@ -1,7 +1,9 @@
 #include <bringauto/logging/Logger.hpp>
+
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_sinks.h>
 #include <spdlog/sinks/rotating_file_sink.h>
+
 #include <iostream>
 
 void bringauto::logging::Logger::initLogger(const std::string &logPath, bool verbose, const std::string &logName) {

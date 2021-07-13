@@ -6,6 +6,7 @@
 
 
 TEST(MapCreation, MapTest){
+    bringauto::logging::Logger::initLogger("./", false, "tests");
     std::string mapPath = "maps/virtual_vehicle_map.osm";
     std::string emptyMapPath = "maps/empty.osm";
     std::string wrongPath = "maps/fake.osm";

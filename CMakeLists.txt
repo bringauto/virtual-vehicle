@@ -1,27 +1,28 @@
-cmake_minimum_required(VERSION 3.16)
-project(VirtualVehicle)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.16)
+PROJECT(VirtualVehicle)
 
-set(CMAKE_CXX_STANDARD 17)
+SET(CMAKE_CXX_STANDARD 17)
 
 
 #------------spdlog----------------#
-if (NOT TARGET spdlog)
+IF (NOT TARGET spdlog)
     # Stand-alone build
-    find_package(spdlog REQUIRED)
-endif ()
+    FIND_PACKAGE(spdlog REQUIRED)
+ENDIF ()
 
 #------------osmium----------------#
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-find_package(Osmium REQUIRED COMPONENTS XML)
+LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+FIND_PACKAGE(Osmium REQUIRED COMPONENTS XML)
 
-if (NOT OSMIUM_FOUND)
-    message(WARNING "Libosmium not found!\n")
-endif ()
+IF (NOT OSMIUM_FOUND)
+    MESSAGE(WARNING "Libosmium not found!\n")
+ENDIF ()
 
-include_directories(${OSMIUM_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(${OSMIUM_INCLUDE_DIRS})
 
 #------------protobuf----------------#
-SET(PROTO_DIR "${CMAKE_CURRENT_LIST_DIR}/proto_compiled")
+FIND_PACKAGE(Protobuf REQUIRED)
+SET(PROTO_DIR "${CMAKE_CURRENT_BINARY_DIR}/proto_compiled/")
 SET(ORIG_PROTO_DIR "${CMAKE_CURRENT_LIST_DIR}/proto")
 
 MESSAGE(STATUS "${Protobuf_PROTOC_EXECUTABLE}")
@@ -33,27 +34,25 @@ EXECUTE_PROCESS(
         WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
 )
 
-find_package(Protobuf REQUIRED)
 
 ADD_LIBRARY(protobuff_lib STATIC "${PROTO_DIR}/BringAutoDaemon.pb.cc")
 TARGET_LINK_LIBRARIES(protobuff_lib PUBLIC protobuf::libprotobuf)
 TARGET_INCLUDE_DIRECTORIES(protobuff_lib PUBLIC "${PROTO_DIR}")
 
 #------------tests----------------------#
-include(${CMAKE_CURRENT_SOURCE_DIR}/tests/CMakeLists.txt)
-#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/tests/)
+INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/tests/CMakeLists.txt)
 
 #------------binaries-------------------#
 
-file(GLOB_RECURSE source_files "src/*")
-add_library(bringautolib STATIC ${source_files})
-target_include_directories(bringautolib PUBLIC "${PROTO_DIR}" "include/")
-target_link_libraries(bringautolib PUBLIC spdlog::spdlog_header_only protobuff_lib ${OSMIUM_XML_LIBRARIES})
+FILE(GLOB_RECURSE source_files "src/*")
+ADD_LIBRARY(bringautolib STATIC ${source_files})
+TARGET_INCLUDE_DIRECTORIES(bringautolib PUBLIC "${PROTO_DIR}" "include/")
+TARGET_LINK_LIBRARIES(bringautolib PUBLIC spdlog::spdlog_header_only protobuff_lib ${OSMIUM_XML_LIBRARIES})
 
 
-add_executable(VirtualVehicle main.cpp)
-target_include_directories(VirtualVehicle PUBLIC "include/")
-target_link_libraries(VirtualVehicle PUBLIC bringautolib)
+ADD_EXECUTABLE(VirtualVehicle main.cpp src/bringauto/osm/Point.cpp include/bringauto/osm/Point.hpp src/bringauto/osm/Route.cpp include/bringauto/osm/Route.hpp)
+TARGET_INCLUDE_DIRECTORIES(VirtualVehicle PUBLIC "include/")
+TARGET_LINK_LIBRARIES(VirtualVehicle PUBLIC bringautolib)
 
 
 

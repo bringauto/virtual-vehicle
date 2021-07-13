@@ -30,6 +30,9 @@ cxxopts::ParseResult parseArgs(int argc, char *argv[]) { // NOLINT
     options.add_options()("l, log", "Path to logs", cxxopts::value<std::string>()->default_value("./"));
     options.add_options()("i, ip", "IPv4 address of server side application", cxxopts::value<std::string>());
     options.add_options()("p, port", "Port of server side application", cxxopts::value<int>());
+    options.add_options()("c, cruise", "Turn on cruise mode, car will drive along route even without orders.");
+    options.add_options()("w, wait", "Wait time in stops in seconds, default is 10s",
+                          cxxopts::value<double>()->default_value("10.0"));
     options.add_options()("h, help", "Print usage");
     auto args = options.parse(argc, argv);
 
@@ -51,19 +54,22 @@ int main(int argc, char **argv) {
     bringauto::logging::Logger::initLogger(args["log"].as<std::string>(), args.count("verbose"), "virtual_vehicle");
 
     try {
-
         bringauto::virtual_vehicle::Map map;
         map.loadMapFromFile(args["map"].as<std::string>());
         auto route = map.getRoute(args["route"].as<std::string>());
 
-        std::shared_ptr<bringauto::communication::ICommunication> com{new bringauto::communication::ProtoBuffer(args["ip"].as<std::string>(), args["port"].as<int>())};
-        //std::shared_ptr<bringauto::communication::ICommunication> com(new bringauto::communication::TerminalOutput());
-        com->initializeConnection();
-
         auto context = std::make_shared<bringauto::virtual_vehicle::GlobalContext>();
+        context->cruise = args.count("cruise") > 0;
+        context->stopWaitSeconds = args["wait"].as<double>();
         boost::asio::signal_set signals{context->ioContext, SIGINT, SIGTERM};
         signals.async_wait([context](auto, auto) { context->ioContext.stop(); });
         std::thread thread([context]() { context->ioContext.run(); });
+
+        auto com = std::make_shared<bringauto::communication::ICommunication>(
+                bringauto::communication::ProtoBuffer(args["ip"].as<std::string>(), args["port"].as<int>(), context));
+        //auto com = std::make_shared<bringauto::communication::ICommunication>(bringauto::communication::TerminalOutput());
+        com->initializeConnection();
+
 
         bringauto::virtual_vehicle::Vehicle vehicle(route, com, context);
 

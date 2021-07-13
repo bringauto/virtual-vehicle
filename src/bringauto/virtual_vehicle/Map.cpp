@@ -1,7 +1,8 @@
 #include <bringauto/virtual_vehicle/Map.hpp>
+
 #include <osmium/io/any_input.hpp>
 #include <osmium/visitor.hpp>
-#include <iostream>
+
 
 void bringauto::virtual_vehicle::Map::loadMapFromFile(const std::string &filePath) {
     auto objectTypes = osmium::osm_entity_bits::node | osmium::osm_entity_bits::way | osmium::osm_entity_bits::relation;

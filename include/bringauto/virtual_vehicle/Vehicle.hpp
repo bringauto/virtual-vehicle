@@ -1,6 +1,6 @@
 #pragma once
 
-#include <bringauto/osm/OsmStructures.hpp>
+#include <bringauto/osm/OsmiumHandler.hpp>
 #include <bringauto/communication/ICommunication.hpp>
 #include <bringauto/virtual_vehicle/GlobalContext.hpp>
 
@@ -31,10 +31,13 @@ namespace bringauto::virtual_vehicle {
         std::shared_ptr<bringauto::communication::ICommunication> com_;
         std::shared_ptr<bringauto::virtual_vehicle::GlobalContext> globalContext_;
 
-        std::shared_ptr<bringauto::osm::Point> actualPosition;
-        std::shared_ptr<bringauto::osm::Point> nextPosition;
+        std::shared_ptr<bringauto::osm::Point> actualPosition_;
+        std::shared_ptr<bringauto::osm::Point> nextPosition_;
+        double actualSpeed_{0}; //m/s
+        std::vector<std::string> stopNameList_;
+        std::string nextStopName_;
 
-        const int stopTimeSec_{10};
+        bringauto::communication::ICommunication::State state_{bringauto::communication::ICommunication::State::IDLE};
 
         /**
          * Vehicle will simulate driving from current point to next point
@@ -48,14 +51,25 @@ namespace bringauto::virtual_vehicle {
         double distanceToNextPosition();
 
         /**
-         * Method will change actual position to next position and get new next position
-         */
-        void setNextPosition();
-
-        /**
          * Method will wait for stopTimeSec_ if actualPosition_ is a stop
          */
-        void waitIfInStop();
+        void waitIfStopOrIdle();
+
+        void sendVehicleStatus();
+
+        void evaluateCommand();
+
+        bool isChangeInStops(const std::vector<std::string> &stopNames);
+
+        void setNextStop();
+
+        void updateVehicleState(bringauto::communication::ICommunication::State state);
+
+        void checkForStop();
+
+        void setVehicleActionFromCommand(bringauto::communication::ICommunication::Command::Action action);
+
+        void updateVehicleStopsFromCommand(const std::vector<std::string> &stopNames);
     };
 }
 

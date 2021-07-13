@@ -1,6 +1,6 @@
 #pragma once
 
-#include <bringauto/osm/OsmStructures.hpp>
+#include <bringauto/osm/OsmiumHandler.hpp>
 #include <string>
 
 namespace bringauto::virtual_vehicle {
