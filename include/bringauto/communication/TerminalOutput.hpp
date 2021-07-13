@@ -9,11 +9,13 @@ namespace bringauto::communication {
 
         /**
          * Print status to standard output
-         * @param lon
-         * @param lat
-         * @param speed
+         * @param lon longitude
+         * @param lat latitude
+         * @param speed actual vehicle speed
+         * @param state vehicle state
+         * @param nextStop next planned stop
          */
-        void sendStatus(double lon, double lat, double speed) override;
+        void sendStatus(double lon, double lat, double speed, State state, const std::string &nextStop) override;
 
         ~TerminalOutput() override;
     };

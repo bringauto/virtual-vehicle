@@ -1,4 +1,7 @@
-#include <bringauto/osm/OsmStructures.hpp>
+#include <bringauto/osm/OsmiumHandler.hpp>
+#include <bringauto/osm/Point.hpp>
+#include <bringauto/osm/Way.hpp>
+#include <bringauto/osm/Route.hpp>
 #include <bringauto/logging/Logger.hpp>
 
 #include <gtest/gtest.h>
@@ -25,6 +28,7 @@ TEST(EmptyFile, FileErrors) {
 
 
 TEST(RouteParsing, OsmiumStructures) {
+    bringauto::logging::Logger::initLogger("./", false, "tests");
     auto objectTypes = osmium::osm_entity_bits::node | osmium::osm_entity_bits::way | osmium::osm_entity_bits::relation;
     std::string filePath = "maps/virtual_vehicle_map.osm";
 
@@ -40,6 +44,7 @@ TEST(RouteParsing, OsmiumStructures) {
 }
 
 TEST(RouteName, OsmiumStructures) {
+    bringauto::logging::Logger::initLogger("./", false, "tests");
     auto objectTypes = osmium::osm_entity_bits::node | osmium::osm_entity_bits::way | osmium::osm_entity_bits::relation;
     std::string filePath = "maps/virtual_vehicle_map.osm";
 
@@ -65,9 +70,9 @@ TEST(Points, OsmiumStructures) {
     double longitude1 = 10.0;
     double speed1 = 10.0;
     auto point1 = std::make_shared<bringauto::osm::Point>(
-            bringauto::osm::Point(1, latitude1, longitude1, true, speed1));
+            bringauto::osm::Point(1, latitude1, longitude1, true, "", speed1));
     auto point2 = std::make_shared<bringauto::osm::Point>(
-            bringauto::osm::Point(2, 20.01, 20.02, false));
+            bringauto::osm::Point(2, 20.01, 20.02, false, ""));
 
     EXPECT_TRUE(point1->isStop());
     EXPECT_FALSE(point2->isStop());
@@ -83,22 +88,25 @@ TEST(Points, OsmiumStructures) {
 TEST(RoutesOneWay, OsmiumStructures) {
     bringauto::logging::Logger::initLogger("./", false, "tests");
     auto point1 = std::make_shared<bringauto::osm::Point>(
-            bringauto::osm::Point(1, 10.0, 10.0, true, 10.0));
+            bringauto::osm::Point(1, 10.0, 10.0, true, "", 10.0));
     auto point2 = std::make_shared<bringauto::osm::Point>(
-            bringauto::osm::Point(2, 20.01, 20.02, false));
+            bringauto::osm::Point(2, 20.01, 20.02, false, ""));
     auto point3 = std::make_shared<bringauto::osm::Point>(
-            bringauto::osm::Point(3, 30.01, 30.02, true));
+            bringauto::osm::Point(3, 30.01, 30.02, true, ""));
     auto point4 = std::make_shared<bringauto::osm::Point>(
-            bringauto::osm::Point(4, 40.01, 40.02, false, 20.0));
+            bringauto::osm::Point(4, 40.01, 40.02, false, "", 20.0));
     auto point5 = std::make_shared<bringauto::osm::Point>(
-            bringauto::osm::Point(4, 40.01, 40.02, true, 40.0));
+            bringauto::osm::Point(4, 40.01, 40.02, true, "", 40.0));
     auto route = std::make_shared<bringauto::osm::Route>(bringauto::osm::Route(0));
+    auto way = std::make_shared<bringauto::osm::Way>(bringauto::osm::Way(0));
 
-    route->appendPoint(point1);
-    route->appendPoint(point2);
-    route->appendPoint(point3);
-    route->appendPoint(point4);
-    route->appendPoint(point5);
+    way->appendPoint(point1);
+    way->appendPoint(point2);
+    way->appendPoint(point3);
+    way->appendPoint(point4);
+    way->appendPoint(point5);
+
+    route->appendWay(way);
 
     route->propagateSpeed();
     EXPECT_DOUBLE_EQ(point1->getSpeedInMetersPerSecond(), 10.0);
@@ -124,23 +132,26 @@ TEST(RoutesOneWay, OsmiumStructures) {
 TEST(RoutesCircular, OsmiumStructures) {
     bringauto::logging::Logger::initLogger("./", false, "tests");
     auto point1 = std::make_shared<bringauto::osm::Point>(
-            bringauto::osm::Point(1, 10.0, 10.0, true));
+            bringauto::osm::Point(1, 10.0, 10.0, true, ""));
     auto point2 = std::make_shared<bringauto::osm::Point>(
-            bringauto::osm::Point(2, 20.01, 20.02, false));
+            bringauto::osm::Point(2, 20.01, 20.02, false, ""));
     auto point3 = std::make_shared<bringauto::osm::Point>(
-            bringauto::osm::Point(3, 30.01, 30.02, true));
+            bringauto::osm::Point(3, 30.01, 30.02, true, ""));
     auto point4 = std::make_shared<bringauto::osm::Point>(
-            bringauto::osm::Point(4, 40.01, 40.02, false, 20.0));
+            bringauto::osm::Point(4, 40.01, 40.02, false, "", 20.0));
     auto point5 = std::make_shared<bringauto::osm::Point>(
-            bringauto::osm::Point(4, 10.0, 10.00, true, 40.0));
+            bringauto::osm::Point(4, 10.0, 10.00, true, "", 40.0));
     auto route = std::make_shared<bringauto::osm::Route>(bringauto::osm::Route(0));
 
-    route->appendPoint(point1);
-    route->appendPoint(point2);
-    route->appendPoint(point3);
-    route->appendPoint(point4);
-    route->appendPoint(point5);
+    auto way = std::make_shared<bringauto::osm::Way>(bringauto::osm::Way(0));
 
+    way->appendPoint(point1);
+    way->appendPoint(point2);
+    way->appendPoint(point3);
+    way->appendPoint(point4);
+    way->appendPoint(point5);
+
+    route->appendWay(way);
     route->propagateSpeed();
     EXPECT_DOUBLE_EQ(point1->getSpeedInMetersPerSecond(), 5.0);
     EXPECT_DOUBLE_EQ(point2->getSpeedInMetersPerSecond(), 5.0);
