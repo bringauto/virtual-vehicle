@@ -65,9 +65,9 @@ int main(int argc, char **argv) {
         signals.async_wait([context](auto, auto) { context->ioContext.stop(); });
         std::thread thread([context]() { context->ioContext.run(); });
 
-        auto com = std::make_shared<bringauto::communication::ICommunication>(
-                bringauto::communication::ProtoBuffer(args["ip"].as<std::string>(), args["port"].as<int>(), context));
-        //auto com = std::make_shared<bringauto::communication::ICommunication>(bringauto::communication::TerminalOutput());
+        auto com = std::make_shared<bringauto::communication::ProtoBuffer>(args["ip"].as<std::string>(), args["port"].as<int>(), context);
+
+        //auto com = std::make_shared<bringauto::communication::TerminalOutput>();
         com->initializeConnection();
 
 
