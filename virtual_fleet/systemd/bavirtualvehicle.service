@@ -1,0 +1,16 @@
+[Unit]
+Description=Bringauro virtual vehicle.
+
+[Service]
+Type=simple
+ExecStart=/home/ubuntu/apps/virtual-vehicle-utility/build/VirtualVehicle -m /home/ubuntu/apps/virtual-vehicle-utility/tests/maps/BorsodChem.osm -v -r borsodchem -i 127.0.0.1 -p 1536 -w 30
+Restart=always
+RestartSec=10
+
+[Unit]
+After=network-online.target
+Wants=network-online.target
+After=badaemon.service
+
+[Install]
+WantedBy=multi-user.target

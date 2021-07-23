@@ -48,6 +48,7 @@ void bringauto::virtual_vehicle::Vehicle::waitIfStopOrIdle() {
         case bringauto::communication::ICommunication::State::IN_STOP:
             setNextStop();
         case bringauto::communication::ICommunication::State::IDLE:
+            //todo sleep until new command
             std::this_thread::sleep_for(std::chrono::duration<double>(globalContext_->stopWaitSeconds));
             break;
         default:
@@ -61,9 +62,6 @@ void bringauto::virtual_vehicle::Vehicle::sendVehicleStatus() {
 }
 
 void bringauto::virtual_vehicle::Vehicle::evaluateCommand() {
-    if(!com_->isNewCommand()){
-        return;
-    }
     auto command = com_->getCommand();
     updateVehicleStopsFromCommand(command.stops);
     setVehicleActionFromCommand(command.action);
@@ -85,17 +83,12 @@ void bringauto::virtual_vehicle::Vehicle::setNextStop() {
         nextStopName_.clear();
         if(globalContext_->cruise){
             logging::Logger::logInfo("Car have fulfilled all its orders, car will continue cruising until the end of universe...or this simulation");
-            //todo remove after order removal from daemon
-            updateVehicleState(bringauto::communication::ICommunication::State::DRIVE);
         }else{
             logging::Logger::logInfo("Car have fulfilled all its orders, awaiting next command");
-            //todo remove after order removal from daemon
-            updateVehicleState(bringauto::communication::ICommunication::State::IDLE);
         }
     }else{
         nextStopName_ = stopNameList_.front();
         logging::Logger::logInfo("Driving to next stop: " + nextStopName_);
-        updateVehicleState(bringauto::communication::ICommunication::State::DRIVE);
     }
 }
 

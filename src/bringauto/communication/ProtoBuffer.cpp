@@ -25,6 +25,7 @@ void bringauto::communication::ProtoBuffer::sendStatus(double lat, double lon, d
     stop->set_to(nextStop);
 
     carStatus.set_allocated_telemetry(telemetry);
+    carStatus.set_state((BringAutoDaemon::CarStatus_State)state);
     telemetry->set_allocated_position(position);
     carStatus.set_allocated_stop(stop);
 
@@ -52,7 +53,6 @@ bringauto::communication::ProtoBuffer::~ProtoBuffer() {
 }
 
 const bringauto::communication::ProtoBuffer::Command &bringauto::communication::ProtoBuffer::getCommand() {
-    isNewCommand_ = false;
     return command_;
 }
 
@@ -105,11 +105,5 @@ void bringauto::communication::ProtoBuffer::processBufferData() {
     for (const auto &messageStop: protobuffCommandMessage.stops()) {
         newCommand.stops.push_back(messageStop.to());
     }
-
-    //todo this control wont be necessary after deleting orders from industrial portal
-    if(newCommand.action != command_.action || newCommand.stops != command_.stops){
-        command_ = newCommand;
-        logging::Logger::logWarning("Received new command!");
-        isNewCommand_ = true;
-    }
+    command_ = newCommand;
 }

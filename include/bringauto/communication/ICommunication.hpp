@@ -47,14 +47,13 @@ namespace bringauto::communication {
          * See if new command was received
          * @return true if new command was received
          */
-        virtual bool isNewCommand() { return isNewCommand_; };
+        //virtual bool isNewCommand() { return isNewCommand_; };
 
         /**
          * Get latest command
          * @return command structure
          */
         virtual const Command &getCommand() {
-            isNewCommand_ = false;
             return command_;
         };
 
@@ -62,7 +61,6 @@ namespace bringauto::communication {
 
     protected:
         Command command_;
-        bool isNewCommand_{false};
     };
 
 

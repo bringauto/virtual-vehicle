@@ -1,6 +1,7 @@
-cmake-build-debug
-cmake-build-debug-coverage
+cmake-build-*
 .idea
 daemon
 virtual_vehicle_error_log.*
 VirtualVehicle
+_tmp
+build

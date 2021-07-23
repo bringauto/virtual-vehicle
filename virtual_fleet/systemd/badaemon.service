@@ -1,0 +1,15 @@
+[Unit]
+Description=Bringauro daemon.
+
+[Service]
+Type=simple
+ExecStart=/home/ubuntu/apps/bringauto-daemon/build/BringAutoDaemon --vehicle-token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDYXJJZCI6IjIiLCJDYXJOYW1lIjoiQnJpbmdBdXRvIiwiaXNzIjoiQnJpbmcuQXV0by5hcnRpbi5jeiIsImF1ZCI6IkJyaW5nLkF1dG8ifQ.6w11EkV3zKvG3Ly_CcF_SPsxSEbVEUOY9u0HvDw_Cr0 --vehicle-name BringAuto --port 1536
+Restart=always
+RestartSec=10
+
+[Unit]
+After=network-online.target
+Wants=network-online.target
+
+[Install]
+WantedBy=multi-user.target

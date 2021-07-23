@@ -1,14 +1,16 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.16)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.18)
 PROJECT(VirtualVehicle)
 
 SET(CMAKE_CXX_STANDARD 17)
 #------------gtest-------------------#
 
 ENABLE_TESTING()
+FIND_PACKAGE(GTest REQUIRED)
+INCLUDE_DIRECTORIES(${GTEST_INCLUDE_DIRS})
 FILE(GLOB_RECURSE source_test_files "${CMAKE_CURRENT_LIST_DIR}/src/*")
 ADD_EXECUTABLE(vvutests ${source_test_files} ${CMAKE_CURRENT_LIST_DIR}/mainTests.cpp)
 TARGET_INCLUDE_DIRECTORIES(vvutests PUBLIC "${CMAKE_CURRENT_LIST_DIR}/include/")
-TARGET_LINK_LIBRARIES(vvutests PUBLIC gmock gtest pthread gtest_main bringautolib)
+TARGET_LINK_LIBRARIES(vvutests PUBLIC ${GTEST_LIBRARIES} pthread bringautolib)
 INCLUDE(GoogleTest)
 GTEST_DISCOVER_TESTS(vvutests)
 
