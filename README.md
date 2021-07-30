@@ -1,18 +1,10 @@
 # Prerequisites #
 - [cxxopts](https://github.com/jarro2783/cxxopts)
 - [libosmium](https://github.com/osmcode/libosmium)
-- [spdlog](https://github.com/gabime/spdlog)
 ```
-  $ git clone https://github.com/gabime/spdlog.git
-  $ cd spdlog && mkdir build && cd build
-  $ cmake .. && make -j
-  $ sudo make install
+  $ sudo apt install libosmium2-dev
  ```
-- [protobufer](https://developers.google.com/protocol-buffers)
-```
-  apt install -y protobuf-compiler
-  protoc -I=. --cpp_out=. ./status.proto`
- ```
+-[cmlib](https://github.com/cmakelib/cmakelib), need to export CMLIB_DIR
 
 # Arguments
 - **-m | --map <file path>** full path to .osm file containing map
