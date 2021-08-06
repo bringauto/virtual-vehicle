@@ -3,36 +3,69 @@ import subprocess
 import time
 import signal
 import sys
-import os
+import argparse
+from os import path
 
-pathPrefix = "/home/nothrax/Documents/virtual-vehicle-utility/virtual_fleet/"
-daemonPath = pathPrefix + "daemon"
-vehiclePath = pathPrefix + "VirtualVehicle"
-jsonPath = pathPrefix + "virtual_fleet.json"
-mapPath = pathPrefix + "virtual_vehicle_map.osm"
 daemons = []
 vehicles = []
 
-def run_program():
-    # Opening JSON file
-    file = open(jsonPath)
-    tokens = json.load(file)['data']['CarQuery']['cars']['nodes']
-    file.close()
-    port = 60246
+class FileDoesntExistException(Exception):
+    def __init__(self, message) -> None:
+        super().__init__(message)
 
-    for token in tokens:
-        daemons.append(subprocess.Popen([daemonPath, '--vehicle-token=' + token['token'], '--port=' + str(port)]))
+class PortOutOfRangeException(Exception):
+    def __init__(self, message = "Ports out of range, it has to be: 1024 < my port < 65535") -> None:
+        super().__init__(message)
+
+def parse_arguments():
+    parser = argparse.ArgumentParser()
+    requiredNamed = parser.add_argument_group('required arguments')
+    requiredNamed.add_argument('--deamon_path',
+                        required=True,
+                        help='path to deamon')
+    requiredNamed.add_argument('--virtual_path',
+                        required=True,
+                        help='path to virtual vehicle')
+    requiredNamed.add_argument('--json_path',
+                        required=True,
+                        help='path to json file')
+    requiredNamed.add_argument('-mp', '--min_port', type=int,
+                        required=True,
+                        help='minimal port for first subprocess')
+
+    return parser.parse_args()
+
+def checkPaths(args):
+    if(path.exists(args.deamon_path) == False):
+        raise FileDoesntExistException("Deamon file " + args.deamon_path + " doesnt exist")
+    if(path.exists(args.virtual_path) == False):
+        raise FileDoesntExistException("Virtual Vehicle file " + args.virtual_path + " doesnt exist")
+    if(path.exists(args.json_path) == False):
+        raise FileDoesntExistException("Json file " + args.json_path + " doesnt exist")
+
+def run_program(args):
+    # Opening JSON file
+    file = open(args.json_path)
+    tokens = json.load(file)['virtualVehicles']
+    file.close()
+    daemonApp = args.deamon_path
+    vehicleApp = args.virtual_path
+    
+    for token in tokens :
+        if(args.min_port <= 1024) or (args.min_port > 65535):
+            raise PortOutOfRangeException()
+        daemons.append(subprocess.Popen([daemonApp, '--vehicle-name=' + token['name'], '--vehicle-token=' + token['token'], '--port=' + str(args.min_port)]))
         time.sleep(2)
         vehicles.append(subprocess.Popen(
-            [vehiclePath, '--map=' + mapPath, '--route=' + token['route'], '--ip=127.0.0.1', '--port=' + str(port)]))
-        port += 1
+            [vehicleApp, '--map=' + token['mapPath'], '--route=' + token['route'], '--ip=127.0.0.1', '--wait=' + str(token['stopWaitTime']), '--cruise' if token['cruise'] == 'TRUE' else '', '--port=' + str(args.min_port)]))
+        args.min_port += 1
     vehicles[1].wait()
 
 
 def exit_gracefully(signum, frame):
     # restore the original signal handler as otherwise evil things will happen
     # in raw_input when CTRL+C is pressed, and our signal handler is not re-entrant
-    signal.signal(signal.SIGINT, original_sigint)
+    signal.signal(signal.SIGINT, original_sigint)  
     print("Ok ok, quitting")
     try:
         for vehicle in vehicles:
@@ -46,14 +79,17 @@ def exit_gracefully(signum, frame):
         print("Ok ok, quitting")
         sys.exit(1)
 
-    # restore the exit gracefully handler here
-    signal.signal(signal.SIGINT, exit_gracefully)
-
 if __name__ == '__main__':
     # store the original SIGINT handler
     original_sigint = signal.getsignal(signal.SIGINT)
     signal.signal(signal.SIGINT, exit_gracefully)
-    run_program()
+    signal.signal(signal.SIGTERM, exit_gracefully)
 
-
-
+    args = parse_arguments()
+    try:
+        checkPaths(args)
+        run_program(args)
+    except Exception as e:
+        print(str(e))
+    finally:
+        exit_gracefully(None, None)

@@ -1,0 +1,15 @@
+[Unit]
+Description=Virtual Fleet.
+
+[Service]
+Type=simple
+ExecStart=python3 /home/ubuntu/apps/virtual-vehicle-utility/virtual_fleet/VirtualFleet.py --deamon_path /home/ubuntu/apps/bringauto-daemon/build/BringAutoDaemon --virtual_path /home/ubuntu/apps/virtual-vehicle-utility/build/VirtualVehicle --json_path /home/ubuntu/apps/virtual-vehicle-utility/virtual_fleet/virtual_fleet.json --min_port 61536
+Restart=always
+RestartSec=10
+
+[Unit]
+After=network-online.target
+Wants=network-online.target
+
+[Install]
+WantedBy=multi-user.target

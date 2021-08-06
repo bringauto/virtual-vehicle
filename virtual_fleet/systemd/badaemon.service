@@ -1,5 +1,5 @@
 [Unit]
-Description=Bringauro daemon.
+Description=Bringauto daemon.
 
 [Service]
 Type=simple
