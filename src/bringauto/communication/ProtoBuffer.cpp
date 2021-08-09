@@ -53,6 +53,7 @@ bringauto::communication::ProtoBuffer::~ProtoBuffer() {
 }
 
 const bringauto::communication::ProtoBuffer::Command &bringauto::communication::ProtoBuffer::getCommand() {
+    isNewCommand_ = false;
     return command_;
 }
 
@@ -106,4 +107,5 @@ void bringauto::communication::ProtoBuffer::processBufferData() {
         newCommand.stops.push_back(messageStop.to());
     }
     command_ = newCommand;
+    isNewCommand_ = true;
 }

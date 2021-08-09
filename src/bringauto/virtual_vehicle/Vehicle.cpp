@@ -44,11 +44,12 @@ double bringauto::virtual_vehicle::Vehicle::distanceToNextPosition() {
 }
 
 void bringauto::virtual_vehicle::Vehicle::waitIfStopOrIdle() {
-    switch(state_){
+    switch (state_) {
         case bringauto::communication::ICommunication::State::IN_STOP:
+            std::this_thread::sleep_for(std::chrono::duration<double>(globalContext_->stopWaitSeconds));
             setNextStop();
+            break;
         case bringauto::communication::ICommunication::State::IDLE:
-            //todo sleep until new command
             std::this_thread::sleep_for(std::chrono::duration<double>(globalContext_->stopWaitSeconds));
             break;
         default:
@@ -62,10 +63,12 @@ void bringauto::virtual_vehicle::Vehicle::sendVehicleStatus() {
 }
 
 void bringauto::virtual_vehicle::Vehicle::evaluateCommand() {
-    auto command = com_->getCommand();
-    updateVehicleStopsFromCommand(command.stops);
-    setVehicleActionFromCommand(command.action);
-    checkForStop();
+    if (com_->isNewCommand()) {
+        auto command = com_->getCommand();
+        updateVehicleStopsFromCommand(command.stops);
+        setVehicleActionFromCommand(command.action);
+        checkForStop();
+    }
 }
 
 bool bringauto::virtual_vehicle::Vehicle::isChangeInStops(const std::vector<std::string> &stopNames) {
@@ -73,27 +76,32 @@ bool bringauto::virtual_vehicle::Vehicle::isChangeInStops(const std::vector<std:
 }
 
 void bringauto::virtual_vehicle::Vehicle::setNextStop() {
-    if(stopNameList_.empty()){
+    if (stopNameList_.empty()) {
         return;
     }
 
     stopNameList_.erase(stopNameList_.begin());
 
-    if(stopNameList_.empty()){
+    if (stopNameList_.empty()) {
         nextStopName_.clear();
-        if(globalContext_->cruise){
-            logging::Logger::logInfo("Car have fulfilled all its orders, car will continue cruising until the end of universe...or this simulation");
-        }else{
+        if (globalContext_->cruise) {
+            logging::Logger::logInfo(
+                    "Car have fulfilled all its orders, car will continue cruising until the end of universe...or this simulation");
+        } else {
             logging::Logger::logInfo("Car have fulfilled all its orders, awaiting next command");
         }
-    }else{
+    } else {
+        if (nextStopName_ == stopNameList_.front()) { //fixing two same stops after each other
+            updateVehicleState(bringauto::communication::ICommunication::State::DRIVE);
+            sendVehicleStatus();
+        }
         nextStopName_ = stopNameList_.front();
         logging::Logger::logInfo("Driving to next stop: " + nextStopName_);
     }
 }
 
 void bringauto::virtual_vehicle::Vehicle::checkForStop() {
-    if(stopNameList_.empty()){
+    if (stopNameList_.empty()) {
         return;
     }
     if (actualPosition_->isStop() && actualPosition_->getName() == nextStopName_) {
@@ -113,10 +121,11 @@ void bringauto::virtual_vehicle::Vehicle::setVehicleActionFromCommand(
             logging::Logger::logInfo("Stop command received");
             break;
         case bringauto::communication::ICommunication::Command::Action::START:
-            if(stopNameList_.empty() && !globalContext_->cruise){
-                logging::Logger::logInfo("Order list is empty and cruise is turned off, ignoring START action, setting IDLE");
+            if (stopNameList_.empty() && !globalContext_->cruise) {
+                logging::Logger::logInfo(
+                        "Order list is empty and cruise is turned off, ignoring START action, setting IDLE");
                 updateVehicleState(bringauto::communication::ICommunication::State::IDLE);
-            }else{
+            } else {
                 updateVehicleState(bringauto::communication::ICommunication::State::DRIVE);
             }
             break;
@@ -126,16 +135,21 @@ void bringauto::virtual_vehicle::Vehicle::setVehicleActionFromCommand(
     }
 }
 
-void bringauto::virtual_vehicle::Vehicle::updateVehicleStopsFromCommand(const std::vector<std::string>& stopNames) {
+void bringauto::virtual_vehicle::Vehicle::updateVehicleStopsFromCommand(const std::vector<std::string> &stopNames) {
     if (isChangeInStops(stopNames)) {
         stopNameList_ = stopNames;
         nextStopName_.clear();
-        if(stopNameList_.empty()){
+        if (stopNameList_.empty()) {
             logging::Logger::logWarning("Received empty stop list");
             return;
         }
-        if(!route_->areStopsPresent(stopNameList_)){
-            logging::Logger::logWarning("Received stopNames are not on route, stopNames will be completely ignored");
+        if (!route_->areStopsPresent(stopNameList_)) {
+            std::string names{};
+            for (const auto &stopName: stopNameList_) {
+                names += stopName + " ";
+            }
+            logging::Logger::logWarning(
+                    "Received stopNames are not on route, stopNames will be completely ignored" + names);
             return;
         }
         nextStopName_ = stopNameList_.front();
@@ -147,9 +161,9 @@ void bringauto::virtual_vehicle::Vehicle::updateVehicleState(bringauto::communic
     using bringauto::communication::ICommunication;
     state_ = state;
 
-    if(state_ == ICommunication::State::IDLE || state_ == ICommunication::State::IN_STOP){
+    if (state_ == ICommunication::State::IDLE || state_ == ICommunication::State::IN_STOP) {
         actualSpeed_ = 0;
-    }else{
+    } else {
         actualSpeed_ = actualPosition_->getSpeedInMetersPerSecond();
     }
 }

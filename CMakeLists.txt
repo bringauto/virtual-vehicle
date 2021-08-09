@@ -64,7 +64,7 @@ TARGET_INCLUDE_DIRECTORIES(bringautolib PUBLIC "${PROTO_DIR}" "include/")
 TARGET_LINK_LIBRARIES(bringautolib PUBLIC spdlog::spdlog_header_only cxxopts::cxxopts protobuff_lib ${OSMIUM_XML_LIBRARIES})
 
 
-ADD_EXECUTABLE(VirtualVehicle main.cpp src/bringauto/osm/Point.cpp include/bringauto/osm/Point.hpp src/bringauto/osm/Route.cpp include/bringauto/osm/Route.hpp)
+ADD_EXECUTABLE(VirtualVehicle main.cpp)
 TARGET_INCLUDE_DIRECTORIES(VirtualVehicle PUBLIC "include/")
 TARGET_LINK_LIBRARIES(VirtualVehicle PUBLIC bringautolib)
 

@@ -11,7 +11,7 @@ void bringauto::logging::Logger::initLogger(const std::string &logPath, bool ver
         std::vector<spdlog::sink_ptr> sinks;
 
         //console sink and info file log
-        if (verbose) {
+        if (true) {
             sinks.push_back(std::make_shared<spdlog::sinks::stdout_sink_st>());
             sinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(logPath + logName + "_info_log.txt",
                                                                                    1024 * 1024 * 5, 1, false));
@@ -21,13 +21,13 @@ void bringauto::logging::Logger::initLogger(const std::string &logPath, bool ver
         //rotating file sink for error and warn logs
         auto console_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(logPath + logName + "_error_log.txt",
                                                                                    1024 * 1024 * 5, 1, false);
-        console_sink->set_level(spdlog::level::warn);
+        console_sink->set_level(spdlog::level::info);
         sinks.push_back(console_sink);
 
         //create synchronous  loggers
         auto readerLogger = std::make_shared<spdlog::logger>("logger", begin(sinks), end(sinks));
 
-        readerLogger->flush_on(spdlog::level::warn);
+        readerLogger->flush_on(spdlog::level::info);
 
         // globally register the loggers so they can be accessed using spdlog::get(logger_name)
         spdlog::register_logger(readerLogger);
