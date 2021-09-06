@@ -1,25 +1,29 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.18)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.20)
 PROJECT(VirtualVehicle)
 
 SET(CMAKE_CXX_STANDARD 17)
 
+INCLUDE(CheckPIESupported)
+CHECK_PIE_SUPPORTED()
+SET(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+OPTION(BRINGAUTO_TESTS "Disable tests" OFF)
 OPTION(BRINGAUTO_PACKAGE "Package creation" OFF)
 OPTION(BRINGAUTO_INSTALL "Disable install" OFF)
+OPTION(BRINGAUTO_SYSTEM_DEP "Enable system dependencies" OFF)
 
-#------------cmlib----------------#
-FIND_PACKAGE(CMLIB REQUIRED)
-INCLUDE(cmake/Dependencies.cmake)
+IF(NOT BRINGAUTO_SYSTEM_DEP)
+    FIND_PACKAGE(CMLIB REQUIRED)
+    INCLUDE(cmake/Dependencies.cmake)
+ENDIF()
 
-#------------cxxopts----------------#
 FIND_PACKAGE(cxxopts 2.2.0 REQUIRED)
 
-#------------spdlog----------------#
 IF (NOT TARGET spdlog)
     # Stand-alone build
     FIND_PACKAGE(spdlog 1.8.5 REQUIRED)
 ENDIF ()
 
-#------------osmium----------------#
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 FIND_PACKAGE(Osmium REQUIRED COMPONENTS XML)
 
@@ -47,16 +51,10 @@ ADD_LIBRARY(protobuff_lib STATIC "${PROTO_DIR}/BringAutoDaemon.pb.cc")
 TARGET_LINK_LIBRARIES(protobuff_lib PUBLIC protobuf::libprotobuf)
 TARGET_INCLUDE_DIRECTORIES(protobuff_lib PUBLIC "${PROTO_DIR}")
 
-#------------tests----------------------#
-
-OPTION(BRINGAUTO_TESTS "Disable tests" OFF)
-
 IF(BRINGAUTO_TESTS)
+    ENABLE_TESTING()
     INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/tests/CMakeLists.txt)
 ENDIF(BRINGAUTO_TESTS)
-
-
-#------------binaries-------------------#
 
 FILE(GLOB_RECURSE source_files "src/*")
 ADD_LIBRARY(bringautolib STATIC ${source_files})

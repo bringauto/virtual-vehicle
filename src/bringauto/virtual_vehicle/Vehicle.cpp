@@ -28,7 +28,7 @@ void bringauto::virtual_vehicle::Vehicle::driveToNextPosition() {
     double speedInMetersPerSecond = actualPosition_->getSpeedInMetersPerSecond();
     double secondsToWait = ((distance / speedInMetersPerSecond));
     bringauto::logging::Logger::logInfo(
-            "Distance: " + std::to_string(distance) + ", seconds to wait: " + std::to_string(secondsToWait));
+            "Distance to drive: " + std::to_string(distance) + "m, time to get there: " + std::to_string(secondsToWait)+"s");
 
     std::this_thread::sleep_for(std::chrono::duration<double>(secondsToWait));
 
@@ -143,17 +143,18 @@ void bringauto::virtual_vehicle::Vehicle::updateVehicleStopsFromCommand(const st
             logging::Logger::logWarning("Received empty stop list");
             return;
         }
+        std::string names{};
+        for (const auto &stopName: stopNameList_) {
+            names += stopName + " ";
+        }
         if (!route_->areStopsPresent(stopNameList_)) {
-            std::string names{};
-            for (const auto &stopName: stopNameList_) {
-                names += stopName + " ";
-            }
+
             logging::Logger::logWarning(
                     "Received stopNames are not on route, stopNames will be completely ignored" + names);
             return;
         }
         nextStopName_ = stopNameList_.front();
-        logging::Logger::logInfo("List of stops have been changed, next stop: " + nextStopName_);
+        logging::Logger::logInfo("List of stops have been changed, new mission: " + names);
     }
 }
 

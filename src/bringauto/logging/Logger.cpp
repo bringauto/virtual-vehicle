@@ -19,10 +19,10 @@ void bringauto::logging::Logger::initLogger(const std::string &logPath, bool ver
         }
 
         //rotating file sink for error and warn logs
-        auto console_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(logPath + logName + "_error_log.txt",
+        auto error_file = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(logPath + logName + "_error_log.txt",
                                                                                    1024 * 1024 * 5, 1, false);
-        console_sink->set_level(spdlog::level::info);
-        sinks.push_back(console_sink);
+        error_file->set_level(spdlog::level::warn);
+        sinks.push_back(error_file);
 
         //create synchronous  loggers
         auto readerLogger = std::make_shared<spdlog::logger>("logger", begin(sinks), end(sinks));

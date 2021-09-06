@@ -1,7 +1,7 @@
 # Prerequisites #
 
 - [cxxopts](https://github.com/jarro2783/cxxopts)
-- [libosmium](https://github.com/osmcode/libosmium)
+- [libosmium v2.15.4](https://github.com/osmcode/libosmium)
 
 ```
   $ sudo apt install libosmium2-dev
@@ -37,7 +37,7 @@ stop and if it is a stpo, it have to be named.
 ## Route creation
 
 - Choose draw nodes tool(left tool bar) and draw way (list of points connected by line) by adding points, press esc when
-  finnished, repeat until you have all ways you need (usually one is enough if you do not wnat to share ways in multiple
+  finished, repeat until you have all ways you need (usually one is enough if you do not what to share ways in multiple
   routes)
 - With select/move tool select all ways you want to include in route and in relation tab add relation with plus button
 - in pop-up add required tags - type=way and name=<route name> 
@@ -45,7 +45,7 @@ stop and if it is a stpo, it have to be named.
 - repeat if you want multiple routes, routes can share some parts with each other, that is way they consist of ways. If
   you do not intent to share parts of routes use one way per route
 
-  <img src="pic.png" alt="pop up image">
+  <img src="documentation/documentatiaon/pic.png" alt="pop up image">
 
 ## Stop addition
 
@@ -129,4 +129,18 @@ stop and if it is a stpo, it have to be named.
     <tag k='type' v='way' />
   </relation>
 </osm>
+```
+
+## Build and run docker image
+Build docker image using
+```
+docker build --tag virtual-vehicle-utility .
+```
+Run docker with paramerers
+```
+docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle -m <path to map file> -v -r <route name> -i <daemon ip> -p <daemon port> -w <time to wait in stop in sec> -c
+```
+Example:
+```
+docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/_build/VirtualVehicle -m /virtual-vehicle-utility/tests/maps/BorsodChem.osm -v -r borsodchem -i 127.0.0.1 -p 1536 -w 10 -c
 ```
