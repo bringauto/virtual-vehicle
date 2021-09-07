@@ -142,5 +142,5 @@ docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehi
 ```
 Example:
 ```
-docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/_build/VirtualVehicle -m /virtual-vehicle-utility/tests/maps/BorsodChem.osm -v -r borsodchem -i 127.0.0.1 -p 1536 -w 10 -c
+docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle -m /virtual-vehicle-utility/tests/maps/BorsodChem.osm -v -r borsodchem -i 127.0.0.1 -p 1536 -w 10 -c
 ```

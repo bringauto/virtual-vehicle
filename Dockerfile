@@ -1,6 +1,7 @@
 FROM debian:bullseye
 WORKDIR /virtual-vehicle-utility
-COPY . /virtual-vehicle-utility/
+RUN mkdir /virtual-vehicle-utility/tmp
+COPY . /virtual-vehicle-utility/tmp
 
 RUN apt update && \
     apt install -y \
@@ -36,14 +37,16 @@ RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 60 --slave /us
 
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.21.2/cmake-3.21.2-linux-x86_64.sh && \
     chmod u+x ./cmake-3.21.2-linux-x86_64.sh && \
-    ./cmake-3.21.2-linux-x86_64.sh --skip-license --prefix=/usr/local/
+    ./cmake-3.21.2-linux-x86_64.sh --skip-license --prefix=/usr/local/ && \
+    rm -r /virtual-vehicle-utility/cmake-3.21.2-linux-x86_64.sh
 
 RUN git clone https://github.com/google/googletest.git && \
     cd googletest && \
     mkdir build && cd build && \
     cmake .. -DINSTALL_GTEST=ON  && \
-    make -j8 && \
-    make install
+    make -j && \
+    make install && \
+    rm -r /virtual-vehicle-utility/googletest
 
 RUN git clone https://github.com/protocolbuffers/protobuf.git && \
     cd protobuf && \
@@ -51,15 +54,17 @@ RUN git clone https://github.com/protocolbuffers/protobuf.git && \
     git submodule update --init --recursive && \
     ./autogen.sh && \
     ./configure && \
-    make && \
+    make -j && \
     make install && \
-    ldconfig
+    ldconfig && \
+    rm -r /virtual-vehicle-utility/protobuf
 
 RUN git clone https://github.com/jarro2783/cxxopts.git && \
     cd cxxopts && \
     cmake . && \
-    make && \
-    make install
+    make -j && \
+    make install && \
+    rm -r /virtual-vehicle-utility/cxxopts
 
 RUN git clone https://github.com/cmakelib/cmakelib.git /cmakelib
 
@@ -69,12 +74,16 @@ RUN git clone https://github.com/gabime/spdlog.git && \
     cd build && \
     cmake .. && \
     make -j && \
-    make install
+    make install && \
+    rm -r /virtual-vehicle-utility/spdlog
 
-RUN mkdir /virtual-vehicle-utility/_build && \
-    cd /virtual-vehicle-utility/_build && \
+RUN mkdir /virtual-vehicle-utility/tmp/_build && \
+    cd /virtual-vehicle-utility/tmp/_build && \
     cmake .. -DCMLIB_DIR=/cmakelib -DCMAKE_BUILD_TYPE=Release -DBRINGAUTO_SYSTEM_DEP=OFF && \
-    make
+    make -j && \
+    mv /virtual-vehicle-utility/tmp/_build/VirtualVehicle /virtual-vehicle-utility/VirtualVehicle && \
+    mv /virtual-vehicle-utility/tmp/tests/maps /virtual-vehicle-utility/maps && \
+    rm -r /virtual-vehicle-utility/tmp
 
 EXPOSE 1536
-CMD ["/virtual-vehicle-utility/_build/VirtualVehicle"]
+CMD ["/virtual-vehicle-utility/VirtualVehicle"]
