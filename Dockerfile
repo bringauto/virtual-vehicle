@@ -86,4 +86,3 @@ RUN mkdir /virtual-vehicle-utility/tmp/_build && \
     rm -r /virtual-vehicle-utility/tmp
 
 EXPOSE 1536
-CMD ["/virtual-vehicle-utility/VirtualVehicle"]
