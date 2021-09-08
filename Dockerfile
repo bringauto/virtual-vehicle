@@ -44,7 +44,7 @@ RUN git clone https://github.com/google/googletest.git && \
     cd googletest && \
     mkdir build && cd build && \
     cmake .. -DINSTALL_GTEST=ON  && \
-    make -j && \
+    make -j 8 && \
     make install && \
     rm -r /virtual-vehicle-utility/googletest
 
@@ -54,7 +54,7 @@ RUN git clone https://github.com/protocolbuffers/protobuf.git && \
     git submodule update --init --recursive && \
     ./autogen.sh && \
     ./configure && \
-    make -j && \
+    make -j 8 && \
     make install && \
     ldconfig && \
     rm -r /virtual-vehicle-utility/protobuf
@@ -62,7 +62,7 @@ RUN git clone https://github.com/protocolbuffers/protobuf.git && \
 RUN git clone https://github.com/jarro2783/cxxopts.git && \
     cd cxxopts && \
     cmake . && \
-    make -j && \
+    make -j 8 && \
     make install && \
     rm -r /virtual-vehicle-utility/cxxopts
 
@@ -73,14 +73,14 @@ RUN git clone https://github.com/gabime/spdlog.git && \
     mkdir build && \
     cd build && \
     cmake .. && \
-    make -j && \
+    make -j 8 && \
     make install && \
     rm -r /virtual-vehicle-utility/spdlog
 
 RUN mkdir /virtual-vehicle-utility/tmp/_build && \
     cd /virtual-vehicle-utility/tmp/_build && \
     cmake .. -DCMLIB_DIR=/cmakelib -DCMAKE_BUILD_TYPE=Release -DBRINGAUTO_SYSTEM_DEP=OFF && \
-    make -j && \
+    make -j 8 && \
     mv /virtual-vehicle-utility/tmp/_build/VirtualVehicle /virtual-vehicle-utility/VirtualVehicle && \
     mv /virtual-vehicle-utility/tmp/tests/maps /virtual-vehicle-utility/maps && \
     rm -r /virtual-vehicle-utility/tmp
