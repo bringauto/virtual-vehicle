@@ -45,7 +45,7 @@ stop and if it is a stpo, it have to be named.
 - repeat if you want multiple routes, routes can share some parts with each other, that is way they consist of ways. If
   you do not intent to share parts of routes use one way per route
 
-  <img src="documentation/documentatiaon/pic.png" alt="pop up image">
+  <img src="documentation/pic.png" alt="pop up image">
 
 ## Stop addition
 
