@@ -53,35 +53,35 @@ int main(int argc, char **argv) {
     auto args = parseArgs(argc, argv);
     bringauto::logging::Logger::initLogger(args["log-path"].as<std::string>(), args.count("verbose"), "virtual_vehicle");
 
+    auto context = std::make_shared<bringauto::virtual_vehicle::GlobalContext>();
+    context->cruise = args.count("cruise") > 0;
+    context->stopWaitSeconds = args["wait"].as<double>();
+    boost::asio::signal_set signals{context->ioContext, SIGINT, SIGTERM};
+    signals.async_wait([context](auto, auto) { context->ioContext.stop(); });
+    std::thread thread([context]() { context->ioContext.run(); });
+
     try {
         bringauto::virtual_vehicle::Map map;
         map.loadMapFromFile(args["map"].as<std::string>());
         auto route = map.getRoute(args["route"].as<std::string>());
-
-        auto context = std::make_shared<bringauto::virtual_vehicle::GlobalContext>();
-        context->cruise = args.count("cruise") > 0;
-        context->stopWaitSeconds = args["wait"].as<double>();
-        boost::asio::signal_set signals{context->ioContext, SIGINT, SIGTERM};
-        signals.async_wait([context](auto, auto) { context->ioContext.stop(); });
-        std::thread thread([context]() { context->ioContext.run(); });
 
         auto com = std::make_shared<bringauto::communication::ProtoBuffer>(args["ip"].as<std::string>(), args["port"].as<int>(), context);
 
         //auto com = std::make_shared<bringauto::communication::TerminalOutput>();
         com->initializeConnection();
 
-
         bringauto::virtual_vehicle::Vehicle vehicle(route, com, context);
 
         vehicle.initialize();
         vehicle.drive();
-        thread.join();
 
     } catch (std::exception &e) {
         bringauto::logging::Logger::logError(e.what());
     } catch (...) {
         bringauto::logging::Logger::logError("error: unknown exceptions");
     }
+
+    thread.join();
 
     return 0;
 }

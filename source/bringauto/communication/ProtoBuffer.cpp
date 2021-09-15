@@ -6,7 +6,21 @@ void bringauto::communication::ProtoBuffer::initializeConnection() {
     if (socket_.is_open()) {
         socket_.close();
     }
-    socket_.connect(tcp::endpoint(boost::asio::ip::address::from_string(ipAddress_), port_));
+
+    boost::asio::io_service ios;
+    boost::asio::ip::tcp::resolver::query resolver_query(ipAddress_,
+                                                         std::to_string(port_),
+                                                         boost::asio::ip::tcp::resolver::query::numeric_service);
+    boost::asio::ip::tcp::resolver resolver(ios);
+    boost::system::error_code ec;
+    boost::asio::ip::tcp::resolver::iterator it =
+            resolver.resolve(resolver_query, ec);
+    if (ec.failed()) {
+        context_->ioContext.stop();
+        throw std::runtime_error("Failed to resolve a DNS name. Error code = "+ std::to_string(ec.value())+". Message = "+ ec.message());
+    }
+
+    socket_.connect(it->endpoint());
 
     addAsyncReceive();
 }
