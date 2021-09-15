@@ -28,7 +28,7 @@ cxxopts::ParseResult parseArgs(int argc, char *argv[]) { // NOLINT
     options.add_options()("m, map", "Path to .osm map file", cxxopts::value<std::string>());
     options.add_options()("r, route", "Name of route that will be used for vehicle", cxxopts::value<std::string>());
     options.add_options()("l, log-path", "Path to logs", cxxopts::value<std::string>()->default_value("./"));
-    options.add_options()("i, ip", "IPv4 address of server side application", cxxopts::value<std::string>());
+    options.add_options()("i, ip", "IPv4 address or hostname of server side application", cxxopts::value<std::string>());
     options.add_options()("p, port", "Port of server side application", cxxopts::value<int>());
     options.add_options()("c, cruise", "Turn on cruise mode, car will drive along route even without orders.");
     options.add_options()("w, wait", "Wait time in stops in seconds, default is 10s",

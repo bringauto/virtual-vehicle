@@ -15,7 +15,7 @@
 - **-r | --route <route name>** - name of route that will be used for car
 - **-v** logs will be printed to console
 - **-l | --log <path>** logs will be saved to provided path, default is .\/
-- **-i | --ip <IPv4>** IPv4 of ba daemon
+- **-i | --ip <IPv4 or hostname>** IPv4 or hostname of ba daemon
 - **-p | --port <port number>** ba daemon port
 - **-h | --help** print help
 - **-c | --cruise** vehicle will keep driving without any orders to fill
