@@ -52,6 +52,8 @@ void bringauto::virtual_vehicle::Vehicle::waitIfStopOrIdle() {
         case bringauto::communication::ICommunication::State::IDLE:
             std::this_thread::sleep_for(std::chrono::duration<double>(globalContext_->stopWaitSeconds));
             break;
+        case bringauto::communication::ICommunication::State::ERROR:
+            std::this_thread::sleep_for(std::chrono::duration<double>(globalContext_->stopWaitSeconds));
         default:
             break;
     }
@@ -65,24 +67,24 @@ void bringauto::virtual_vehicle::Vehicle::sendVehicleStatus() {
 void bringauto::virtual_vehicle::Vehicle::evaluateCommand() {
     if (com_->isNewCommand()) {
         auto command = com_->getCommand();
-        updateVehicleStopsFromCommand(command.stops);
+        updateMissionFromCommand(command.stops);
         setVehicleActionFromCommand(command.action);
         checkForStop();
     }
 }
 
-bool bringauto::virtual_vehicle::Vehicle::isChangeInStops(const std::vector<std::string> &stopNames) {
-    return stopNameList_ != stopNames;
+bool bringauto::virtual_vehicle::Vehicle::isChangeInMission(const std::vector<std::string> &mission) {
+    return mission_ != mission;
 }
 
 void bringauto::virtual_vehicle::Vehicle::setNextStop() {
-    if (stopNameList_.empty()) {
+    if (mission_.empty()) {
         return;
     }
 
-    stopNameList_.erase(stopNameList_.begin());
+    mission_.erase(mission_.begin());
 
-    if (stopNameList_.empty()) {
+    if (mission_.empty()) {
         nextStopName_.clear();
         if (globalContext_->cruise) {
             logging::Logger::logInfo(
@@ -91,17 +93,17 @@ void bringauto::virtual_vehicle::Vehicle::setNextStop() {
             logging::Logger::logInfo("Car have fulfilled all its orders, awaiting next command");
         }
     } else {
-        if (nextStopName_ == stopNameList_.front()) { //fixing two same stops after each other
+        if (nextStopName_ == mission_.front()) { //fixing two same stops after each other
             updateVehicleState(bringauto::communication::ICommunication::State::DRIVE);
             sendVehicleStatus();
         }
-        nextStopName_ = stopNameList_.front();
+        nextStopName_ = mission_.front();
         logging::Logger::logInfo("Driving to next stop: " + nextStopName_);
     }
 }
 
 void bringauto::virtual_vehicle::Vehicle::checkForStop() {
-    if (stopNameList_.empty()) {
+    if (mission_.empty()) {
         return;
     }
     if (actualPosition_->isStop() && actualPosition_->getName() == nextStopName_) {
@@ -112,6 +114,7 @@ void bringauto::virtual_vehicle::Vehicle::checkForStop() {
 
 void bringauto::virtual_vehicle::Vehicle::setVehicleActionFromCommand(
         bringauto::communication::ICommunication::Command::Action action) {
+
     switch (action) {
         case bringauto::communication::ICommunication::Command::Action::NO_ACTION:
             logging::Logger::logInfo("No action command received");
@@ -121,7 +124,7 @@ void bringauto::virtual_vehicle::Vehicle::setVehicleActionFromCommand(
             logging::Logger::logInfo("Stop command received");
             break;
         case bringauto::communication::ICommunication::Command::Action::START:
-            if (stopNameList_.empty() && !globalContext_->cruise) {
+            if (mission_.empty() && !globalContext_->cruise) {
                 logging::Logger::logInfo(
                         "Order list is empty and cruise is turned off, ignoring START action, setting IDLE");
                 updateVehicleState(bringauto::communication::ICommunication::State::IDLE);
@@ -135,31 +138,34 @@ void bringauto::virtual_vehicle::Vehicle::setVehicleActionFromCommand(
     }
 }
 
-void bringauto::virtual_vehicle::Vehicle::updateVehicleStopsFromCommand(const std::vector<std::string> &stopNames) {
-    if (isChangeInStops(stopNames)) {
-        stopNameList_ = stopNames;
+void bringauto::virtual_vehicle::Vehicle::updateMissionFromCommand(const std::vector<std::string> &mission) {
+    if (isChangeInMission(mission)) {
+        missionValidity_ = true;
+        mission_ = mission;
         nextStopName_.clear();
-        if (stopNameList_.empty()) {
-            logging::Logger::logWarning("Received empty stop list");
+        if (mission_.empty()) {
+            logging::Logger::logWarning("Received empty mission");
             return;
         }
-        std::string names{};
-        for (const auto &stopName: stopNameList_) {
-            names += stopName + " ";
-        }
-        if (!route_->areStopsPresent(stopNameList_)) {
-
+        std::string missionString = constructMissionString();
+        if (!route_->areStopsPresent(mission_)) {
             logging::Logger::logWarning(
-                    "Received stopNames are not on route, stopNames will be completely ignored" + names);
+                    "Received mission contain at least one invalid stop, mission will be completely ignored, setting error state! Mission: " + missionString);
+            missionValidity_ = false;
             return;
         }
-        nextStopName_ = stopNameList_.front();
-        logging::Logger::logInfo("List of stops have been changed, new mission: " + names);
+        nextStopName_ = mission_.front();
+        logging::Logger::logInfo("List of stops have been changed, new mission: " + missionString);
     }
 }
 
 void bringauto::virtual_vehicle::Vehicle::updateVehicleState(bringauto::communication::ICommunication::State state) {
     using bringauto::communication::ICommunication;
+    if(!missionValidity_){
+        state_= bringauto::communication::ICommunication::State::ERROR;
+        return;
+    }
+
     state_ = state;
 
     if (state_ == ICommunication::State::IDLE || state_ == ICommunication::State::IN_STOP) {
@@ -167,4 +173,13 @@ void bringauto::virtual_vehicle::Vehicle::updateVehicleState(bringauto::communic
     } else {
         actualSpeed_ = actualPosition_->getSpeedInMetersPerSecond();
     }
+}
+
+std::string bringauto::virtual_vehicle::Vehicle::constructMissionString() {
+    std::string mission{"["};
+    for (const auto &stopName: mission_) {
+        mission += "\""+ stopName + "\", ";
+    }
+    mission += "]";
+    return mission;
 }

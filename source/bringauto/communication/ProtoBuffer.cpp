@@ -85,7 +85,7 @@ void bringauto::communication::ProtoBuffer::asyncReceiveHandler(const boost::sys
     if (error) {
         logging::Logger::logWarning("Error occurred in proto command receive");
         if(!context_->ioContext.stopped()){
-            addAsyncReceive();
+            context_->ioContext.stop();
         }
         return;
     }

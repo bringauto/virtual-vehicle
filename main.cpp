@@ -80,7 +80,9 @@ int main(int argc, char **argv) {
     } catch (...) {
         bringauto::logging::Logger::logError("error: unknown exceptions");
     }
-
+    if(!context->ioContext.stopped()){
+        context->ioContext.stop();
+    }
     thread.join();
 
     return 0;

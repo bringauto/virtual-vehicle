@@ -63,7 +63,8 @@ bool bringauto::osm::Route::areStopsPresent(const std::vector<std::string>& stop
     for(const auto& stopName: stopNames){
         auto pointIt = std::find_if(stops_.begin(), stops_.end(), [&stopName](const auto &point) { return stopName == point->getName(); });
         if(pointIt == stops_.end()){
-            return false;;
+            logging::Logger::logError("Unknown stop: " + stopName);
+            return false;
         }
     }
     return true;

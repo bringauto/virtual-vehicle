@@ -15,7 +15,7 @@ namespace bringauto::communication {
          * States of car that are used in messages
          */
         enum State {
-            IDLE = 0, DRIVE = 1, IN_STOP = 2
+            IDLE = 0, DRIVE = 1, IN_STOP = 2, OBSTACLE = 3, ERROR = 4
         };
 
         /**

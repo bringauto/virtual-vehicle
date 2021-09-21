@@ -34,7 +34,8 @@ namespace bringauto::virtual_vehicle {
         std::shared_ptr<bringauto::osm::Point> actualPosition_;
         std::shared_ptr<bringauto::osm::Point> nextPosition_;
         double actualSpeed_{0}; //m/s
-        std::vector<std::string> stopNameList_;
+        std::vector<std::string> mission_;
+        bool missionValidity_{true};
         std::string nextStopName_;
 
         bringauto::communication::ICommunication::State state_{bringauto::communication::ICommunication::State::IDLE};
@@ -59,7 +60,7 @@ namespace bringauto::virtual_vehicle {
 
         void evaluateCommand();
 
-        bool isChangeInStops(const std::vector<std::string> &stopNames);
+        bool isChangeInMission(const std::vector<std::string> &stopNames);
 
         void setNextStop();
 
@@ -69,7 +70,9 @@ namespace bringauto::virtual_vehicle {
 
         void setVehicleActionFromCommand(bringauto::communication::ICommunication::Command::Action action);
 
-        void updateVehicleStopsFromCommand(const std::vector<std::string> &stopNames);
+        void updateMissionFromCommand(const std::vector<std::string> &mission);
+
+        std::string constructMissionString();
     };
 }
 
