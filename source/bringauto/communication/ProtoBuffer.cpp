@@ -50,7 +50,7 @@ void bringauto::communication::ProtoBuffer::sendStatus(double lat, double lon, d
     socket_.write_some(boost::asio::buffer(buffer, messageSize));
     if (error) {
         bringauto::logging::Logger::logError(
-                "Sending to " + ipAddress_ + ":" + std::to_string(port_) + " failed: " + error.message());
+                "Sending to {}:{} failed: {}", ipAddress_, port_, error.message());
         initializeConnection();
     }
 }
@@ -92,8 +92,8 @@ void bringauto::communication::ProtoBuffer::asyncReceiveHandler(const boost::sys
 
     if (bytesTransferred != headerSize_) {
         logging::Logger::logWarning(
-                "Received header size does not match, received: " + std::to_string(bytesTransferred) + ", should be: " +
-                std::to_string(headerSize_));
+                "Received header size does not match, received: {}, should be: {}",
+                bytesTransferred, headerSize_);
         addAsyncReceive();
         return;
     }

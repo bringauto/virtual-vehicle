@@ -2,7 +2,7 @@
 #include <bringauto/osm/Point.hpp>
 #include <bringauto/osm/Way.hpp>
 #include <bringauto/osm/Route.hpp>
-#include <bringauto/logging/Logger.hpp>
+#include <OsmiumTest.hpp>
 
 #include <gtest/gtest.h>
 #include <osmium/io/any_input.hpp>
@@ -10,14 +10,14 @@
 
 #include <filesystem>
 
-TEST(WrongFilePath, FileErrors) {
+TEST_F(OsmiumTest, WrongFilePath) {
     // Expect two strings not to be equal.
     auto objectTypes = osmium::osm_entity_bits::node | osmium::osm_entity_bits::way | osmium::osm_entity_bits::relation;
     std::string filePath = "maps/fake.osm";
     EXPECT_ANY_THROW(osmium::io::Reader reader(filePath, objectTypes));
 }
 
-TEST(EmptyFile, FileErrors) {
+TEST_F(OsmiumTest, EmptyFile) {
     std::string fileName = "maps/empty.osm";
     auto objectTypes = osmium::osm_entity_bits::node | osmium::osm_entity_bits::way | osmium::osm_entity_bits::relation;
     osmium::io::Reader reader{fileName, objectTypes};
@@ -27,8 +27,7 @@ TEST(EmptyFile, FileErrors) {
 }
 
 
-TEST(RouteParsing, OsmiumStructures) {
-    bringauto::logging::Logger::initLogger("./", false, "tests");
+TEST_F(OsmiumTest, RouteParsing) {
     auto objectTypes = osmium::osm_entity_bits::node | osmium::osm_entity_bits::way | osmium::osm_entity_bits::relation;
     std::string filePath = "maps/virtual_vehicle_map.osm";
 
@@ -43,8 +42,7 @@ TEST(RouteParsing, OsmiumStructures) {
     EXPECT_FALSE(points.empty());
 }
 
-TEST(RouteName, OsmiumStructures) {
-    bringauto::logging::Logger::initLogger("./", false, "tests");
+TEST_F(OsmiumTest, RouteName) {
     auto objectTypes = osmium::osm_entity_bits::node | osmium::osm_entity_bits::way | osmium::osm_entity_bits::relation;
     std::string filePath = "maps/virtual_vehicle_map.osm";
 
@@ -65,7 +63,7 @@ TEST(RouteName, OsmiumStructures) {
     EXPECT_TRUE(firstRoute->getRouteName() == routeName);
 }
 
-TEST(Points, OsmiumStructures) {
+TEST_F(OsmiumTest, Points) {
     double latitude1 = 10.0;
     double longitude1 = 10.0;
     double speed1 = 10.0;
@@ -85,8 +83,7 @@ TEST(Points, OsmiumStructures) {
     EXPECT_DOUBLE_EQ(point1->getSpeedInMetersPerSecond(), point2->getSpeedInMetersPerSecond());
 }
 
-TEST(RoutesOneWay, OsmiumStructures) {
-    bringauto::logging::Logger::initLogger("./", false, "tests");
+TEST_F(OsmiumTest, RoutesOneWay) {
     auto point1 = std::make_shared<bringauto::osm::Point>(
             bringauto::osm::Point(1, 10.0, 10.0, true, "", 10.0));
     auto point2 = std::make_shared<bringauto::osm::Point>(
@@ -129,8 +126,7 @@ TEST(RoutesOneWay, OsmiumStructures) {
     EXPECT_TRUE(route->getPosition() == point4);
 }
 
-TEST(RoutesCircular, OsmiumStructures) {
-    bringauto::logging::Logger::initLogger("./", false, "tests");
+TEST_F(OsmiumTest, RoutesCircular) {
     auto point1 = std::make_shared<bringauto::osm::Point>(
             bringauto::osm::Point(1, 10.0, 10.0, true, ""));
     auto point2 = std::make_shared<bringauto::osm::Point>(

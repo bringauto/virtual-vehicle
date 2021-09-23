@@ -1,7 +1,7 @@
 #include <bringauto/communication/TerminalOutput.hpp>
+
 #include <bringauto/logging/Logger.hpp>
 
-#include <iostream>
 #include <string>
 
 void bringauto::communication::TerminalOutput::initializeConnection() {
@@ -9,9 +9,7 @@ void bringauto::communication::TerminalOutput::initializeConnection() {
 }
 
 void bringauto::communication::TerminalOutput::sendStatus(double lat, double lon, double speed, State state, const std::string& nextStop) {
-    std::stringstream ss;
-    ss << "Moved to position lat: " << lat << " lon: " << lon << " speed: " << speed;
-    bringauto::logging::Logger::logInfo(ss.str());
+    bringauto::logging::Logger::logInfo("Moved to position lat: {} lon: {} speed: {}", lat, lon, speed);
 }
 
 bringauto::communication::TerminalOutput::~TerminalOutput() {

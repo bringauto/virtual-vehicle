@@ -20,13 +20,10 @@ ENDIF()
 
 FIND_PACKAGE(cxxopts 2.2.0 REQUIRED)
 
-IF (NOT TARGET spdlog)
-    # Stand-alone build
-    FIND_PACKAGE(spdlog 1.8.5 REQUIRED)
-ENDIF ()
-
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 FIND_PACKAGE(Osmium REQUIRED COMPONENTS XML)
+
+FIND_PACKAGE(libbringauto_logger)
 
 IF (NOT OSMIUM_FOUND)
     MESSAGE(WARNING "Libosmium not found!\n")
@@ -60,7 +57,7 @@ ENDIF(BRINGAUTO_TESTS)
 FILE(GLOB_RECURSE source_files "source/*")
 ADD_LIBRARY(bringautolib STATIC ${source_files})
 TARGET_INCLUDE_DIRECTORIES(bringautolib PUBLIC "${PROTO_DIR}" "include/")
-TARGET_LINK_LIBRARIES(bringautolib PUBLIC spdlog::spdlog_header_only cxxopts::cxxopts protobuff_lib ${OSMIUM_XML_LIBRARIES})
+TARGET_LINK_LIBRARIES(bringautolib PUBLIC cxxopts::cxxopts protobuff_lib ${OSMIUM_XML_LIBRARIES} bringauto_logger::bringauto_logger)
 
 
 ADD_EXECUTABLE(VirtualVehicle main.cpp)

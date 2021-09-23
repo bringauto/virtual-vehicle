@@ -1,6 +1,6 @@
 #include <bringauto/osm/OsmiumHandler.hpp>
-#include <bringauto/logging/Logger.hpp>
 
+#include <bringauto/logging/Logger.hpp>
 #include <osmium/geom/haversine.hpp>
 
 
@@ -91,9 +91,3 @@ bringauto::osm::OsmiumHandler::getPoints() const {
 bringauto::osm::OsmiumHandler::getRoutes() const {
     return routes_;
 }
-
-
-
-
-
-

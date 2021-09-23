@@ -1,5 +1,6 @@
-
 #include <bringauto/osm/Route.hpp>
+
+#include <bringauto/logging/Logger.hpp>
 
 std::string bringauto::osm::Route::getRouteName() {
     return routeName_.has_value() ? routeName_.value() : "";
@@ -12,7 +13,7 @@ void bringauto::osm::Route::propagateSpeed() {
     } else {
         speed = 5;
         bringauto::logging::Logger::logWarning(
-                "First point of route " + getRouteName() + " does not contain speed, defaulting to 5m/s");
+                "First point of route {} does not contain speed, defaulting to 5m/s", getRouteName());
     }
 
     for (const auto &point : points_) {
@@ -78,7 +79,7 @@ void bringauto::osm::Route::appendWay(const std::shared_ptr<Way>& way) {
                 osmium::geom::Coordinates{points_.back()->getLatitude(), points_.back()->getLongitude()},
                 osmium::geom::Coordinates{points.front()->getLatitude(), points.front()->getLongitude()});
         if(distanceBetweenRoutes > routesDistanceThresholdInMeters_){
-            bringauto::logging::Logger::logWarning("Distance between part of routes is higher than threshold " + std::to_string(roundRouteLimitInMeters));
+            bringauto::logging::Logger::logWarning("Distance between part of routes is higher than threshold {}", roundRouteLimitInMeters);
         }
     }
     points_.insert(points_.end(), points.begin(), points.end());

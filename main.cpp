@@ -3,10 +3,14 @@
 #include <bringauto/communication/TerminalOutput.hpp>
 #include <bringauto/virtual_vehicle/Vehicle.hpp>
 #include <bringauto/communication/ProtoBuffer.hpp>
-#include <bringauto/logging/Logger.hpp>
 #include <bringauto/virtual_vehicle/GlobalContext.hpp>
-#include <iostream>
+
+#include <libbringauto_logger/bringauto/logging/Logger.hpp>
+#include <libbringauto_logger/bringauto/logging/FileSink.hpp>
+#include <libbringauto_logger/bringauto/logging/ConsoleSink.hpp>
 #include <cxxopts.hpp>
+
+#include <iostream>
 #include <filesystem>
 
 void checkArgs(const cxxopts::ParseResult &args) {
@@ -47,11 +51,19 @@ cxxopts::ParseResult parseArgs(int argc, char *argv[]) { // NOLINT
     checkArgs(args);
     return args;
 }
+void initLogger(const std::string &logPath, bool verbose) {
+    if (verbose) {
+        bringauto::logging::Logger::addSink<bringauto::logging::ConsoleSink>();
+    }
+    bringauto::logging::Logger::addSink<bringauto::logging::FileSink>({logPath, "virtual-vehicle-utility.log"});
+    bringauto::logging::Logger::LoggerSettings params{"virtual-vehicle-utility", bringauto::logging::Logger::Verbosity::Info};
+    bringauto::logging::Logger::init(params);
+}
 
 int main(int argc, char **argv) {
 
     auto args = parseArgs(argc, argv);
-    bringauto::logging::Logger::initLogger(args["log-path"].as<std::string>(), args.count("verbose"), "virtual_vehicle");
+    initLogger(args["log-path"].as<std::string>(), args.count("verbose"));
 
     auto context = std::make_shared<bringauto::virtual_vehicle::GlobalContext>();
     context->cruise = args.count("cruise") > 0;

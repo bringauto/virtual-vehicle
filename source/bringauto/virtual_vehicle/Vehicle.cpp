@@ -1,6 +1,6 @@
 #include <bringauto/virtual_vehicle/Vehicle.hpp>
-#include <bringauto/logging/Logger.hpp>
 
+#include <bringauto/logging/Logger.hpp>
 #include <osmium/geom/haversine.hpp>
 
 void bringauto::virtual_vehicle::Vehicle::initialize() {
@@ -28,7 +28,7 @@ void bringauto::virtual_vehicle::Vehicle::driveToNextPosition() {
     double speedInMetersPerSecond = actualPosition_->getSpeedInMetersPerSecond();
     double secondsToWait = ((distance / speedInMetersPerSecond));
     bringauto::logging::Logger::logInfo(
-            "Distance to drive: " + std::to_string(distance) + "m, time to get there: " + std::to_string(secondsToWait)+"s");
+            "Distance to drive: {:.2f}m, time to get there: {:.2f}s", distance, secondsToWait);
 
     std::this_thread::sleep_for(std::chrono::duration<double>(secondsToWait));
 
@@ -98,7 +98,7 @@ void bringauto::virtual_vehicle::Vehicle::setNextStop() {
             sendVehicleStatus();
         }
         nextStopName_ = mission_.front();
-        logging::Logger::logInfo("Driving to next stop: " + nextStopName_);
+        logging::Logger::logInfo("Driving to next stop: {}", nextStopName_);
     }
 }
 
@@ -108,7 +108,7 @@ void bringauto::virtual_vehicle::Vehicle::checkForStop() {
     }
     if (actualPosition_->isStop() && actualPosition_->getName() == nextStopName_) {
         updateVehicleState(bringauto::communication::ICommunication::State::IN_STOP);
-        bringauto::logging::Logger::logInfo("Car have arrived at the stop " + nextStopName_);
+        bringauto::logging::Logger::logInfo("Car have arrived at the stop {}", nextStopName_);
     }
 }
 
@@ -133,7 +133,7 @@ void bringauto::virtual_vehicle::Vehicle::setVehicleActionFromCommand(
             }
             break;
         default:
-            logging::Logger::logWarning("Warning unknown command" + std::to_string(action));
+            logging::Logger::logWarning("Warning unknown command {}", action);
             break;
     }
 }
@@ -150,12 +150,12 @@ void bringauto::virtual_vehicle::Vehicle::updateMissionFromCommand(const std::ve
         std::string missionString = constructMissionString();
         if (!route_->areStopsPresent(mission_)) {
             logging::Logger::logWarning(
-                    "Received mission contain at least one invalid stop, mission will be completely ignored, setting error state! Mission: " + missionString);
+                            "Received stopNames are not on route, stopNames will be completely ignored {}", missionString);
             missionValidity_ = false;
             return;
         }
         nextStopName_ = mission_.front();
-        logging::Logger::logInfo("List of stops have been changed, new mission: " + missionString);
+        logging::Logger::logInfo("List of stops have been changed, new mission: {}", missionString);
     }
 }
 

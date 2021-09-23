@@ -2,7 +2,6 @@
 
 #include <bringauto/osm/Way.hpp>
 #include <bringauto/osm/Point.hpp>
-#include <bringauto/logging/Logger.hpp>
 
 #include <osmium/geom/haversine.hpp>
 

@@ -1,12 +1,15 @@
-#include <bringauto/logging/Logger.hpp>
 #include <bringauto/virtual_vehicle/Map.hpp>
 
 #include <osmium/visitor.hpp>
 #include <gtest/gtest.h>
+#include <bringauto/logging/Logger.hpp>
+#include <bringauto/logging/ConsoleSink.hpp>
 
 
 TEST(MapCreation, MapTest){
-    bringauto::logging::Logger::initLogger("./", false, "tests");
+    bringauto::logging::Logger::addSink<bringauto::logging::ConsoleSink>();
+    bringauto::logging::Logger::LoggerSettings params{"virtual-vehicle-mapTest", bringauto::logging::Logger::Verbosity::Info};
+    bringauto::logging::Logger::init(params);
     std::string mapPath = "maps/virtual_vehicle_map.osm";
     std::string emptyMapPath = "maps/empty.osm";
     std::string wrongPath = "maps/fake.osm";
