@@ -63,9 +63,3 @@ TARGET_LINK_LIBRARIES(bringautolib PUBLIC cxxopts::cxxopts protobuff_lib ${OSMIU
 ADD_EXECUTABLE(VirtualVehicle main.cpp)
 TARGET_INCLUDE_DIRECTORIES(VirtualVehicle PUBLIC "include/")
 TARGET_LINK_LIBRARIES(VirtualVehicle PUBLIC bringautolib)
-
-
-
-
-
-
