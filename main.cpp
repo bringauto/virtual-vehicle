@@ -61,18 +61,25 @@ void initLogger(const std::string &logPath, bool verbose) {
 }
 
 int main(int argc, char **argv) {
-
-    auto args = parseArgs(argc, argv);
-    initLogger(args["log-path"].as<std::string>(), args.count("verbose"));
-
+    int exitCode = EXIT_SUCCESS;
+    std::thread contextThread;
     auto context = std::make_shared<bringauto::virtual_vehicle::GlobalContext>();
-    context->cruise = args.count("cruise") > 0;
-    context->stopWaitSeconds = args["wait"].as<double>();
-    boost::asio::signal_set signals{context->ioContext, SIGINT, SIGTERM};
-    signals.async_wait([context](auto, auto) { context->ioContext.stop(); });
-    std::thread thread([context]() { context->ioContext.run(); });
+    auto args = parseArgs(argc, argv);
+
+    try{
+        initLogger(args["log-path"].as<std::string>(), args.count("verbose"));
+    }catch(std::exception &e){
+        std::cerr << "Unable to initialize logger: " << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
 
     try {
+        context->cruise = args.count("cruise") > 0;
+        context->stopWaitSeconds = args["wait"].as<double>();
+        boost::asio::signal_set signals{context->ioContext, SIGINT, SIGTERM};
+        signals.async_wait([context](auto, auto) { context->ioContext.stop(); });
+        contextThread = std::thread([context]() { context->ioContext.run(); });
+
         bringauto::virtual_vehicle::Map map;
         map.loadMapFromFile(args["map"].as<std::string>());
         auto route = map.getRoute(args["route"].as<std::string>());
@@ -88,14 +95,16 @@ int main(int argc, char **argv) {
         vehicle.drive();
 
     } catch (std::exception &e) {
+        exitCode = EXIT_FAILURE;
         bringauto::logging::Logger::logError(e.what());
     } catch (...) {
+        exitCode = EXIT_FAILURE;
         bringauto::logging::Logger::logError("error: unknown exceptions");
     }
     if(!context->ioContext.stopped()){
         context->ioContext.stop();
     }
-    thread.join();
+    contextThread.join();
 
-    return 0;
+    return exitCode;
 }
