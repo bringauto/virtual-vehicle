@@ -28,31 +28,10 @@ void bringauto::communication::ProtoBuffer::initializeConnection() {
 void bringauto::communication::ProtoBuffer::sendStatus(double lat, double lon, double speed, State state, const std::string& nextStop) {
     using boost::asio::ip::tcp;
 
-    BringAutoDaemon::CarStatus carStatus;
-    auto telemetry = new BringAutoDaemon::CarStatus_Telemetry;
-    auto position = new BringAutoDaemon::CarStatus_Position();
-    auto stop = new BringAutoDaemon::Stop();
-    telemetry->set_speed(speed);
-    position->set_longitude(lon);
-    position->set_latitude(lat);
-
-    stop->set_to(nextStop);
-
-    carStatus.set_allocated_telemetry(telemetry);
-    carStatus.set_state((BringAutoDaemon::CarStatus_State)state);
-    telemetry->set_allocated_position(position);
-    carStatus.set_allocated_stop(stop);
-
-    boost::system::error_code error;
-    std::string buffer = carStatus.SerializeAsString();
+    auto buffer = generateCarStatusString(lat,lon,speed,state, nextStop);
     uint32_t messageSize = buffer.size();
     socket_.write_some(boost::asio::buffer(&messageSize, sizeof(uint32_t)));
     socket_.write_some(boost::asio::buffer(buffer, messageSize));
-    if (error) {
-        bringauto::logging::Logger::logError(
-                "Sending to {}:{} failed: {}", ipAddress_, port_, error.message());
-        initializeConnection();
-    }
 }
 
 bringauto::communication::ProtoBuffer::~ProtoBuffer() {
@@ -122,4 +101,24 @@ void bringauto::communication::ProtoBuffer::processBufferData() {
     }
     command_ = newCommand;
     isNewCommand_ = true;
+}
+
+std::string bringauto::communication::ProtoBuffer::generateCarStatusString(double lat, double lon, double speed,
+                                                                           bringauto::communication::ICommunication::State state,
+                                                                           const std::string &nextStop) {
+    BringAutoDaemon::CarStatus carStatus;
+    auto telemetry = new BringAutoDaemon::CarStatus_Telemetry;
+    auto position = new BringAutoDaemon::CarStatus_Position();
+    auto stop = new BringAutoDaemon::Stop();
+    telemetry->set_speed(speed);
+    position->set_longitude(lon);
+    position->set_latitude(lat);
+
+    stop->set_to(nextStop);
+
+    carStatus.set_allocated_telemetry(telemetry);
+    carStatus.set_state((BringAutoDaemon::CarStatus_State)state);
+    telemetry->set_allocated_position(position);
+    carStatus.set_allocated_stop(stop);
+    return carStatus.SerializeAsString();
 }

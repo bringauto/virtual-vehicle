@@ -69,5 +69,7 @@ namespace bringauto::communication {
         void addAsyncReceive();
 
         void processBufferData();
+
+        std::string generateCarStatusString(double lat, double lon, double speed, State state, const std::string &nextStop);
     };
 }
