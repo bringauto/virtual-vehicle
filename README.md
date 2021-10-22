@@ -20,6 +20,7 @@
 - **-h | --help** print help
 - **-c | --cruise** vehicle will keep driving without any orders to fill
 - **-w | --wait <time in seconds>** how many seconds will car wait in stop, default is 10s
+- **--period=<time in ms>** maximum time period between two status messages send to daemon
 
 # Map creation
 
