@@ -120,6 +120,7 @@ std::string bringauto::communication::ProtoBuffer::generateCarStatusString(doubl
 	auto position = new BringAutoDaemon::CarStatus_Position();
 	auto stop = new BringAutoDaemon::Stop();
 	telemetry->set_speed(speed);
+	telemetry->set_fuel(78.69);
 	position->set_longitude(lon);
 	position->set_latitude(lat);
 
