@@ -21,6 +21,7 @@
 - **-c | --cruise** vehicle will keep driving without any orders to fill
 - **-w | --wait <time in seconds>** how many seconds will car wait in stop, default is 10s
 - **--period=<time in ms>** maximum time period between two status messages send to daemon
+- **--speed-override=<speed in m/s>** override map speed
 
 # Map creation
 

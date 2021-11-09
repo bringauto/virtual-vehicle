@@ -23,3 +23,9 @@ std::shared_ptr<bringauto::osm::Route> bringauto::virtual_vehicle::Map::getRoute
 	return *routeIt;
 }
 
+void bringauto::virtual_vehicle::Map::speedOverride(unsigned int speed) {
+	for(auto const& route: routes_){
+		route->speedOverride(speed);
+	}
+}
+

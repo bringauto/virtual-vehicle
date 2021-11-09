@@ -68,6 +68,8 @@ namespace bringauto::osm {
 		 */
 		void appendWay(const std::shared_ptr<Way> &way);
 
+		void speedOverride(unsigned int);
+
 	private:
 		std::vector<std::shared_ptr<Point>> points_{};
 		std::vector<std::shared_ptr<Point>> stops_{};

@@ -20,6 +20,8 @@ namespace bringauto::virtual_vehicle {
 		 */
 		std::shared_ptr<bringauto::osm::Route> getRoute(const std::string &routeName);
 
+		void speedOverride(unsigned int speed);
+
 	private:
 		std::vector<std::shared_ptr<bringauto::osm::Route>> routes_;
 		std::vector<std::shared_ptr<bringauto::osm::Point>> points_;

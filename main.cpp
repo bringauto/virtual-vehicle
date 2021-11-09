@@ -40,6 +40,9 @@ cxxopts::ParseResult parseArgs(int argc, char *argv[]) { // NOLINT
 						  cxxopts::value<double>()->default_value("10.0"));
 	options.add_options()("period", "Period in ms for sending status messages",
 						  cxxopts::value<uint32_t>()->default_value("100"));
+
+	options.add_options()("speed-override", "Override map speed on all points, in m/s",
+						  cxxopts::value<uint32_t>());
 	options.add_options()("h, help", "Print usage");
 	auto args = options.parse(argc, argv);
 
@@ -87,6 +90,10 @@ int main(int argc, char **argv) {
 
 		bringauto::virtual_vehicle::Map map;
 		map.loadMapFromFile(args["map"].as<std::string>());
+		if(args.count("speed-override")){
+			map.speedOverride(args["speed-override"].as<unsigned int>());
+		}
+
 		auto route = map.getRoute(args["route"].as<std::string>());
 
 		auto com = std::make_shared<bringauto::communication::ProtoBuffer>(context, args["period"].as<uint32_t>(),
@@ -94,7 +101,6 @@ int main(int argc, char **argv) {
 																		   args["port"].as<int>(), context);
 
 		//auto com = std::make_shared<bringauto::communication::TerminalOutput>();
-
 		bringauto::virtual_vehicle::Vehicle vehicle(route, com, context);
 
 		vehicle.initialize();

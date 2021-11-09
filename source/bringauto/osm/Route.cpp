@@ -87,3 +87,9 @@ void bringauto::osm::Route::appendWay(const std::shared_ptr<Way> &way) {
 	points_.insert(points_.end(), points.begin(), points.end());
 	stops_.insert(stops_.end(), stops.begin(), stops.end());
 }
+
+void bringauto::osm::Route::speedOverride(unsigned int speed) {
+	for(auto const& point: points_){
+		point->setSpeed(speed);
+	}
+}
