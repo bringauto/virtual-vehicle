@@ -4,11 +4,11 @@
 #include <bringauto/logging/ConsoleSink.hpp>
 #include <gtest/gtest.h>
 
-class OsmiumTest : public ::testing::Test {
+class MapTest : public ::testing::Test {
 protected:
 	void SetUp() override {
 		bringauto::logging::Logger::addSink<bringauto::logging::ConsoleSink>();
-		bringauto::logging::Logger::LoggerSettings params{"virtual-vehicle-osmiumTest",
+		bringauto::logging::Logger::LoggerSettings params{"virtual-vehicle-mapTest",
 														  bringauto::logging::Logger::Verbosity::Info};
 		bringauto::logging::Logger::init(params);
 	}
