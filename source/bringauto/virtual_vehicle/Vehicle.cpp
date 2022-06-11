@@ -1,187 +1,216 @@
 #include <bringauto/virtual_vehicle/Vehicle.hpp>
+#include <bringauto/common_utils/CommonUtils.hpp>
 
 #include <bringauto/logging/Logger.hpp>
-#include <osmium/geom/haversine.hpp>
 
-void bringauto::virtual_vehicle::Vehicle::initialize() {
+
+
+namespace bringauto::virtual_vehicle {
+void Vehicle::initialize() {
 	route_->prepareRoute();
-	actualPosition_ = route_->getPosition();
-	route_->setNextPosition();
-	nextPosition_ = route_->getPosition();
-	checkForStop();
-	updateVehicleStatus();
-	com_->startWorker();
+	updateVehicleState(communication::Status::IDLE);
+	com_->initializeConnection();
+	setNextPosition();
 }
 
-void bringauto::virtual_vehicle::Vehicle::drive() {
-	while (!globalContext_->ioContext.stopped()) {
-		evaluateCommand();
-		if (state_ == bringauto::communication::ICommunication::State::DRIVE) {
-			driveToNextPosition();
-			checkForStop();
-		}
-		updateVehicleStatus();
-		waitIfStopOrIdle();
+void Vehicle::drive() {
+	while(!globalContext_->ioContext.stopped()) {
+		nextEvent();
 	}
 }
 
-void bringauto::virtual_vehicle::Vehicle::driveToNextPosition() {
-	double distance = distanceToNextPosition();
-	double speedInMetersPerSecond = actualPosition_->getSpeedInMetersPerSecond();
-	double secondsToWait = ((distance / speedInMetersPerSecond));
-	bringauto::logging::Logger::logInfo(
-			"Distance to drive: {:.2f}m, time to get there: {:.2f}s", distance, secondsToWait);
-
-	std::this_thread::sleep_for(std::chrono::duration<double>(secondsToWait));
-
-	actualPosition_ = route_->getPosition();
-	route_->setNextPosition();
-	nextPosition_ = route_->getPosition();
-}
-
-double bringauto::virtual_vehicle::Vehicle::distanceToNextPosition() {
-	return osmium::geom::haversine::distance(
-			osmium::geom::Coordinates{actualPosition_->getLatitude(), actualPosition_->getLongitude()},
-			osmium::geom::Coordinates{nextPosition_->getLatitude(), nextPosition_->getLongitude()});
-}
-
-void bringauto::virtual_vehicle::Vehicle::waitIfStopOrIdle() {
-	switch (state_) {
-		case bringauto::communication::ICommunication::State::IN_STOP:
-			std::this_thread::sleep_for(std::chrono::duration<double>(globalContext_->stopWaitSeconds));
-			setNextStop();
+void Vehicle::nextEvent() {
+	switch(state_) {
+		case communication::Status::IDLE:
+			handleIdleEvent();
 			break;
-		case bringauto::communication::ICommunication::State::IDLE:
-			std::this_thread::sleep_for(std::chrono::duration<double>(globalContext_->stopWaitSeconds));
+		case communication::Status::DRIVE:
+			handleDriveEvent();
 			break;
-		case bringauto::communication::ICommunication::State::ERROR:
-			std::this_thread::sleep_for(std::chrono::duration<double>(globalContext_->stopWaitSeconds));
-		default:
+		case communication::Status::IN_STOP:
+			handleInStopEvent();
+			break;
+		case communication::Status::OBSTACLE:
+			handleObstacleEvent();
+		case communication::Status::ERROR:
+			handleErrorEvent();
 			break;
 	}
+	request();
 }
 
-void bringauto::virtual_vehicle::Vehicle::updateVehicleStatus() {
-	com_->updateStatus(actualPosition_->getLatitude(), actualPosition_->getLongitude(),
-					   actualSpeed_, state_, nextStopName_);
+void Vehicle::handleIdleEvent() {
+	std::this_thread::sleep_for(std::chrono::milliseconds(globalContext_->settings->messagePeriodMs));
 }
 
-void bringauto::virtual_vehicle::Vehicle::evaluateCommand() {
-	if (com_->isNewCommand()) {
-		auto command = com_->getCommand();
-		updateMissionFromCommand(command.stops);
-		setVehicleStateFromCommand(command.action);
-		checkForStop();
-	}
-}
+void Vehicle::handleDriveEvent() {
+	if(checkForStop()) { return; }
 
-bool bringauto::virtual_vehicle::Vehicle::isChangeInMission(const std::vector<std::string> &mission) {
-	return mission_ != mission;
-}
-
-void bringauto::virtual_vehicle::Vehicle::setNextStop() {
-	if (mission_.empty()) {
-		return;
-	}
-
-	mission_.erase(mission_.begin());
-
-	if (mission_.empty()) {
-		nextStopName_.clear();
-		if (globalContext_->cruise) {
-			logging::Logger::logInfo(
-					"Car have fulfilled all its orders, car will continue cruising until the end of universe...or this simulation");
-		} else {
-			logging::Logger::logInfo("Car have fulfilled all its orders, awaiting next command");
-		}
+	if(driveMillisecondLeft_ < globalContext_->settings->messagePeriodMs) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(driveMillisecondLeft_));
 	} else {
-		if (nextStopName_ == mission_.front()) { //fixing two same stops after each other
-			updateVehicleState(bringauto::communication::ICommunication::State::DRIVE);
-			updateVehicleStatus();
-		}
-		nextStopName_ = mission_.front();
-		logging::Logger::logInfo("Driving to next stop: {}", nextStopName_);
+		std::this_thread::sleep_for(std::chrono::milliseconds(globalContext_->settings->messagePeriodMs));
+	}
+	driveMillisecondLeft_ -= globalContext_->settings->messagePeriodMs;
+
+	if(driveMillisecondLeft_ <= 0) {
+		setNextPosition();
 	}
 }
 
-void bringauto::virtual_vehicle::Vehicle::checkForStop() {
-	if (mission_.empty()) {
+void Vehicle::handleInStopEvent() {
+	if(inStopMillisecondsLeft_ > globalContext_->settings->messagePeriodMs) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(globalContext_->settings->messagePeriodMs));
+	} else {
+		std::this_thread::sleep_for(std::chrono::milliseconds(inStopMillisecondsLeft_));
+	}
+	inStopMillisecondsLeft_ -= globalContext_->settings->messagePeriodMs;
+	if(inStopMillisecondsLeft_ < 0) {
+		inStopMillisecondsLeft_ = 0;
+	}
+}
+
+void Vehicle::handleObstacleEvent() {
+	std::this_thread::sleep_for(std::chrono::milliseconds(globalContext_->settings->messagePeriodMs));
+	logging::Logger::logWarning("Cars state is obstacle, this state is not supported.");
+}
+
+void Vehicle::handleErrorEvent() {
+	std::this_thread::sleep_for(std::chrono::milliseconds(globalContext_->settings->messagePeriodMs));
+	logging::Logger::logWarning("Car is in error state.");
+}
+
+void Vehicle::setNextPosition() {
+	actualPosition_ = route_->getPosition();
+	route_->setNextPosition();
+	nextPosition_ = route_->getPosition();
+
+	actualSpeed_ = state_ == communication::Status::DRIVE ? actualPosition_->getSpeedInMetersPerSecond() : 0;
+	driveMillisecondLeft_ = common_utils::CommonUtils::timeToDriveInMilliseconds(
+			common_utils::CommonUtils::calculateDistanceInMeters(actualPosition_, nextPosition_),
+			actualSpeed_);
+
+	if(state_ == communication::Status::DRIVE) {
+		bringauto::logging::Logger::logInfo(
+				"Distance to drive: {:.2f}m, time to get there: {:.2f}s",
+				common_utils::CommonUtils::calculateDistanceInMeters(actualPosition_, nextPosition_),
+				(double)driveMillisecondLeft_/1000);
+	}
+}
+
+void Vehicle::request() {
+	communication::Status status { actualPosition_->getLongitude(), actualPosition_->getLatitude(),
+								   actualSpeed_, state_, nextStopName_ };
+	std::stringstream is;
+	is << status;
+	logging::Logger::logInfo("Sending status {}", is.str());
+	com_->makeRequest(status);
+	evaluateCommand();
+}
+
+void Vehicle::evaluateCommand() {
+	auto command = com_->getCommand();
+#ifdef STATE_SMURF
+	settings::StateSmurfDefinition::changeToState(globalContext_->transitions, command.action);
+#endif
+
+	if(command.stops.empty()) {
+		updateVehicleState(communication::Status::IDLE);
 		return;
 	}
-	if (actualPosition_->isStop() && actualPosition_->getName() == nextStopName_) {
-		updateVehicleState(bringauto::communication::ICommunication::State::IN_STOP);
-		bringauto::logging::Logger::logInfo("Car have arrived at the stop {}", nextStopName_);
-	}
-}
 
-void bringauto::virtual_vehicle::Vehicle::setVehicleStateFromCommand(
-		bringauto::communication::ICommunication::Command::Action action) {
-
-	switch (action) {
-		case bringauto::communication::ICommunication::Command::Action::NO_ACTION:
-			logging::Logger::logInfo("No action command received");
-			break;
-		case bringauto::communication::ICommunication::Command::Action::STOP:
-			updateVehicleState(bringauto::communication::ICommunication::State::IDLE);
-			logging::Logger::logInfo("Stop command received");
-			break;
-		case bringauto::communication::ICommunication::Command::Action::START:
-			if (mission_.empty() && !globalContext_->cruise) {
-				logging::Logger::logInfo(
-						"Order list is empty and cruise is turned off, ignoring START action, setting IDLE");
-				updateVehicleState(bringauto::communication::ICommunication::State::IDLE);
-			} else {
-				updateVehicleState(bringauto::communication::ICommunication::State::DRIVE);
-			}
-			break;
-		default:
-			logging::Logger::logWarning("Warning unknown command {}", action);
-			break;
-	}
-}
-
-void bringauto::virtual_vehicle::Vehicle::updateMissionFromCommand(const std::vector<std::string> &mission) {
-	if (isChangeInMission(mission)) {
-		missionValidity_ = true;
-		mission_ = mission;
-		nextStopName_.clear();
-		if (mission_.empty()) {
-			logging::Logger::logWarning("Received empty mission");
-			return;
-		}
-		std::string missionString = constructMissionString();
-		if (!route_->areStopsPresent(mission_)) {
+	if(mission_ != command.stops) {
+		if(!route_->areStopsPresent(mission_)) {
 			logging::Logger::logWarning(
-					"Received stopNames are not on route, stopNames will be completely ignored {}", missionString);
+					"Received stopNames are not on route, stopNames will be completely ignored {}",
+					common_utils::CommonUtils::constructMissionString(mission_));
+			mission_.clear();
 			missionValidity_ = false;
 			return;
+		} else {
+			missionValidity_ = true;
 		}
+		mission_ = command.stops;
+	}
+
+	switch(state_) {
+		case communication::Status::IDLE:
+			if(command.action == communication::Command::START) {
+				updateVehicleState(communication::Status::DRIVE);
+			} else {
+				updateVehicleState(communication::Status::IDLE);
+			}
+			break;
+		case communication::Status::DRIVE:
+			if(command.action == communication::Command::STOP) {
+				updateVehicleState(communication::Status::IDLE);
+			} else {
+				updateVehicleState(communication::Status::DRIVE);
+			}
+			break;
+		case communication::Status::IN_STOP:
+			if(command.action == communication::Command::START) {
+				if(inStopMillisecondsLeft_ == 0) {
+					if(mission_.empty()) {
+						updateVehicleState(communication::Status::IDLE);
+					} else {
+						updateVehicleState(communication::Status::DRIVE);
+					}
+				} else {
+					updateVehicleState(communication::Status::IN_STOP);
+				}
+			} else {
+				updateVehicleState(communication::Status::IDLE);
+			}
+			break;
+		case communication::Status::OBSTACLE:
+		case communication::Status::ERROR:
+			break;
+	}
+
+	if(state_ != communication::Status::IN_STOP) {
 		nextStopName_ = mission_.front();
-		logging::Logger::logInfo("List of stops have been changed, new mission: {}", missionString);
 	}
 }
 
-void bringauto::virtual_vehicle::Vehicle::updateVehicleState(bringauto::communication::ICommunication::State state) {
-	using bringauto::communication::ICommunication;
-	if (!missionValidity_) {
-		state_ = bringauto::communication::ICommunication::State::ERROR;
+int Vehicle::checkForStop() {
+	if(actualPosition_->isStop() && actualPosition_->getName() == nextStopName_) {
+		updateVehicleState(communication::Status::State::IN_STOP);
+		bringauto::logging::Logger::logInfo("Car have arrived at the stop {}", nextStopName_);
+		return true;
+	}
+	return false;
+}
+
+void Vehicle::updateVehicleState(communication::Status::State state) {
+	if(!missionValidity_) {
+		state_ = bringauto::communication::Status::State::ERROR;
 		return;
 	}
-
+#ifdef STATE_SMURF
+	settings::StateSmurfDefinition::changeToState(globalContext_->transitions, state);
+#endif
+	if(state_ == state) {
+		return;
+	}
 	state_ = state;
-
-	if (state_ == ICommunication::State::IDLE || state_ == ICommunication::State::IN_STOP) {
-		actualSpeed_ = 0;
-	} else {
-		actualSpeed_ = actualPosition_->getSpeedInMetersPerSecond();
+	switch(state_) {
+		case communication::Status::IDLE:
+			nextStopName_.clear();
+			actualSpeed_ = 0;
+			break;
+		case communication::Status::DRIVE:
+			actualSpeed_ = actualPosition_->getSpeedInMetersPerSecond();
+			driveMillisecondLeft_ = common_utils::CommonUtils::timeToDriveInMilliseconds(
+					common_utils::CommonUtils::calculateDistanceInMeters(actualPosition_, nextPosition_), actualSpeed_);
+			break;
+		case communication::Status::IN_STOP:
+			actualSpeed_ = 0;
+			inStopMillisecondsLeft_ = globalContext_->settings->stopWaitTime*1000;
+			break;
+		case communication::Status::OBSTACLE:
+		case communication::Status::ERROR:
+			break;
 	}
 }
-
-std::string bringauto::virtual_vehicle::Vehicle::constructMissionString() {
-	std::string mission{"["};
-	for (const auto &stopName: mission_) {
-		mission += "\"" + stopName + "\", ";
-	}
-	mission += "]";
-	return mission;
 }

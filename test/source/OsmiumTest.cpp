@@ -10,6 +10,8 @@
 
 #include <filesystem>
 
+
+
 TEST_F(OsmiumTest, WrongFilePath) {
 	// Expect two strings not to be equal.
 	auto objectTypes = osmium::osm_entity_bits::node | osmium::osm_entity_bits::way | osmium::osm_entity_bits::relation;
@@ -20,7 +22,7 @@ TEST_F(OsmiumTest, WrongFilePath) {
 TEST_F(OsmiumTest, EmptyFile) {
 	std::string fileName = "maps/empty.osm";
 	auto objectTypes = osmium::osm_entity_bits::node | osmium::osm_entity_bits::way | osmium::osm_entity_bits::relation;
-	osmium::io::Reader reader{fileName, objectTypes};
+	osmium::io::Reader reader { fileName, objectTypes };
 	bringauto::osm::OsmiumHandler handler;
 	EXPECT_ANY_THROW(osmium::apply(reader, handler));
 	reader.close();
@@ -31,7 +33,7 @@ TEST_F(OsmiumTest, RouteParsing) {
 	auto objectTypes = osmium::osm_entity_bits::node | osmium::osm_entity_bits::way | osmium::osm_entity_bits::relation;
 	std::string filePath = "maps/virtual_vehicle_map.osm";
 
-	osmium::io::Reader reader{filePath, objectTypes};
+	osmium::io::Reader reader { filePath, objectTypes };
 	bringauto::osm::OsmiumHandler handler;
 	EXPECT_NO_THROW(osmium::apply(reader, handler));
 	reader.close();
@@ -46,14 +48,14 @@ TEST_F(OsmiumTest, RouteName) {
 	auto objectTypes = osmium::osm_entity_bits::node | osmium::osm_entity_bits::way | osmium::osm_entity_bits::relation;
 	std::string filePath = "maps/virtual_vehicle_map.osm";
 
-	osmium::io::Reader reader{filePath, objectTypes};
+	osmium::io::Reader reader { filePath, objectTypes };
 	bringauto::osm::OsmiumHandler handler;
 	osmium::apply(reader, handler);
 	reader.close();
 
 	auto routes = handler.getRoutes();
 
-	for (const auto &route: routes) {
+	for(const auto &route: routes) {
 		EXPECT_FALSE(route->getRouteName().empty());
 	}
 	std::string routeName = "Test name";

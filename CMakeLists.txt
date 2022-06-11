@@ -12,11 +12,13 @@ OPTION(BRINGAUTO_PACKAGE "Package creation" OFF)
 OPTION(BRINGAUTO_INSTALL "Disable install" OFF)
 OPTION(BRINGAUTO_SYSTEM_DEP "Enable system dependencies" OFF)
 OPTION(BRINGAUTO_SAMPLES "Enable build of sample app, not used in project" OFF)
+OPTION(STATE_SMURF "Enables state smurf" OFF)
 
-IF(NOT BRINGAUTO_SYSTEM_DEP)
+
+IF (NOT BRINGAUTO_SYSTEM_DEP)
     FIND_PACKAGE(CMLIB REQUIRED)
     INCLUDE(cmake/Dependencies.cmake)
-ENDIF()
+ENDIF ()
 
 FIND_PACKAGE(cxxopts 2.2.0 REQUIRED)
 
@@ -41,7 +43,7 @@ MESSAGE(STATUS "${Protobuf_PROTOC_EXECUTABLE}")
 FILE(MAKE_DIRECTORY "${PROTO_DIR}")
 EXECUTE_PROCESS(
         COMMAND "${Protobuf_PROTOC_EXECUTABLE}"
-        --cpp_out=${PROTO_DIR}  --proto_path=${ORIG_PROTO_DIR} ${CMAKE_CURRENT_LIST_DIR}/proto/BringAutoDaemon.proto
+        --cpp_out=${PROTO_DIR} --proto_path=${ORIG_PROTO_DIR} ${CMAKE_CURRENT_LIST_DIR}/proto/BringAutoDaemon.proto
         WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
 )
 
@@ -49,16 +51,23 @@ ADD_LIBRARY(protobuff_lib STATIC "${PROTO_DIR}/BringAutoDaemon.pb.cc")
 TARGET_LINK_LIBRARIES(protobuff_lib PUBLIC protobuf::libprotobuf)
 TARGET_INCLUDE_DIRECTORIES(protobuff_lib PUBLIC "${PROTO_DIR}")
 
-IF(BRINGAUTO_TESTS)
+IF (BRINGAUTO_TESTS)
     ENABLE_TESTING()
     INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/test/CMakeLists.txt)
-ENDIF(BRINGAUTO_TESTS)
+ENDIF (BRINGAUTO_TESTS)
 
 FILE(GLOB_RECURSE source_files "source/*")
 ADD_LIBRARY(bringautolib STATIC ${source_files})
 TARGET_INCLUDE_DIRECTORIES(bringautolib PUBLIC "${PROTO_DIR}" "include/")
 TARGET_LINK_LIBRARIES(bringautolib PUBLIC cxxopts::cxxopts protobuff_lib ${OSMIUM_XML_LIBRARIES} bringauto_logger::bringauto_logger)
 
+IF (STATE_SMURF)
+    ADD_SUBDIRECTORY(lib/StateSmurf/)
+    ADD_COMPILE_DEFINITIONS(STATE_SMURF)
+    TARGET_LINK_LIBRARIES(bringautolib PUBLIC
+            diagram_smurf_lib
+            transition_smurf_lib)
+ENDIF ()
 
 ADD_EXECUTABLE(VirtualVehicle main.cpp)
 TARGET_INCLUDE_DIRECTORIES(VirtualVehicle PUBLIC "include/")

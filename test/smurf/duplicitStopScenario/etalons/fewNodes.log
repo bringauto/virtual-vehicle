@@ -1,0 +1,371 @@
+[2022-04-24 13:26:05.137] [virtual-vehicle-utility] [debug] [DiagramSmurf] StartReceived :	Idle Drive InStop 
+[2022-04-24 13:26:05.137] [virtual-vehicle-utility] [debug] [DiagramSmurf] Idle :	Connected CarStatusSent 
+[2022-04-24 13:26:05.137] [virtual-vehicle-utility] [debug] [DiagramSmurf] Connected :	CarStatusSent 
+[2022-04-24 13:26:05.137] [virtual-vehicle-utility] [debug] [DiagramSmurf] Drive :	CarStatusSent InStop 
+[2022-04-24 13:26:05.137] [virtual-vehicle-utility] [debug] [DiagramSmurf] CarCommandReceived :	CarStatusSent StopReceived StartReceived 
+[2022-04-24 13:26:05.137] [virtual-vehicle-utility] [debug] [DiagramSmurf] InStop :	CarStatusSent 
+[2022-04-24 13:26:05.137] [virtual-vehicle-utility] [debug] [DiagramSmurf] CarStatusSent :	CarCommandReceived 
+[2022-04-24 13:26:05.137] [virtual-vehicle-utility] [debug] [DiagramSmurf] __START__ :	Idle 
+[2022-04-24 13:26:05.137] [virtual-vehicle-utility] [debug] [DiagramSmurf] StopReceived :	Idle 
+[2022-04-24 13:26:05.138] [virtual-vehicle-utility] [debug] [TransitionSmurf] Start of Run
+[2022-04-24 13:26:05.139] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:05.139] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Connected
+[2022-04-24 13:26:05.139] [virtual-vehicle-utility] [info] Distance to drive: 241.67m, time to get there: 0.00s
+[2022-04-24 13:26:06.139] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:06.140] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:06.140] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:06.140] [virtual-vehicle-utility] [info] Received new command: action: STOP stops:
+[2022-04-24 13:26:06.140] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StopReceived
+[2022-04-24 13:26:06.140] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:07.140] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:07.140] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:07.140] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:07.140] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StopReceived
+[2022-04-24 13:26:07.140] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:08.141] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:08.141] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:08.141] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:08.141] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StopReceived
+[2022-04-24 13:26:08.141] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:09.141] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:09.141] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:09.182] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:09.182] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StopReceived
+[2022-04-24 13:26:09.182] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:10.182] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:10.182] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:10.182] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:10.182] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StopReceived
+[2022-04-24 13:26:10.182] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:11.182] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:11.182] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:11.182] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:11.182] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StopReceived
+[2022-04-24 13:26:11.182] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:12.182] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:12.183] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:12.225] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:12.225] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StopReceived
+[2022-04-24 13:26:12.225] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:13.226] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:13.226] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:13.226] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:13.226] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StopReceived
+[2022-04-24 13:26:13.226] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:14.226] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:14.226] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:14.226] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:14.226] [virtual-vehicle-utility] [info] Received new command: action: START stops: first second
+[2022-04-24 13:26:14.226] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:14.226] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:14.226] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
+[2022-04-24 13:26:14.226] [virtual-vehicle-utility] [info] Car have arrived at the stop first
+[2022-04-24 13:26:14.226] [virtual-vehicle-utility] [info] Sending status state: IN_STOP longitude: 16.5944 latitude: 49.2286 next stop: first
+[2022-04-24 13:26:14.226] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:14.274] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:14.274] [virtual-vehicle-utility] [info] Received new command: action: START stops: second
+[2022-04-24 13:26:14.274] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:14.274] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
+[2022-04-24 13:26:15.274] [virtual-vehicle-utility] [info] Sending status state: IN_STOP longitude: 16.5944 latitude: 49.2286 next stop: first
+[2022-04-24 13:26:15.274] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:15.274] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:15.274] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:15.274] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
+[2022-04-24 13:26:16.274] [virtual-vehicle-utility] [info] Sending status state: IN_STOP longitude: 16.5944 latitude: 49.2286 next stop: first
+[2022-04-24 13:26:16.274] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:16.274] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:16.274] [virtual-vehicle-utility] [info] Received new command: action: START stops: fourth first
+[2022-04-24 13:26:16.274] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:16.274] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
+[2022-04-24 13:26:17.275] [virtual-vehicle-utility] [info] Sending status state: IN_STOP longitude: 16.5944 latitude: 49.2286 next stop: first
+[2022-04-24 13:26:17.275] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:17.318] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:17.318] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:17.318] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
+[2022-04-24 13:26:18.318] [virtual-vehicle-utility] [info] Sending status state: IN_STOP longitude: 16.5944 latitude: 49.2286 next stop: first
+[2022-04-24 13:26:18.318] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:18.318] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:18.318] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:18.318] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:19.318] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5944 latitude: 49.2286 next stop: fourth
+[2022-04-24 13:26:19.318] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:19.318] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:19.318] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:19.318] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:20.319] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5944 latitude: 49.2286 next stop: fourth
+[2022-04-24 13:26:20.319] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:20.362] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:20.362] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:20.362] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:21.362] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5944 latitude: 49.2286 next stop: fourth
+[2022-04-24 13:26:21.362] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:21.362] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:21.362] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:21.362] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:22.362] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5944 latitude: 49.2286 next stop: fourth
+[2022-04-24 13:26:22.362] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:22.363] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:22.363] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:22.363] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:23.196] [virtual-vehicle-utility] [info] Distance to drive: 217.69m, time to get there: 4.35s
+[2022-04-24 13:26:23.196] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5924 latitude: 49.2277 next stop: fourth
+[2022-04-24 13:26:23.196] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:23.238] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:23.238] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:23.238] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:24.238] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5924 latitude: 49.2277 next stop: fourth
+[2022-04-24 13:26:24.238] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:24.238] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:24.238] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:24.238] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:25.238] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5924 latitude: 49.2277 next stop: fourth
+[2022-04-24 13:26:25.238] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:25.238] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:25.238] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:25.238] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:26.239] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5924 latitude: 49.2277 next stop: fourth
+[2022-04-24 13:26:26.239] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:26.282] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:26.282] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:26.282] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:27.282] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5924 latitude: 49.2277 next stop: fourth
+[2022-04-24 13:26:27.282] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:27.282] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:27.282] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:27.282] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:27.635] [virtual-vehicle-utility] [info] Distance to drive: 204.79m, time to get there: 4.09s
+[2022-04-24 13:26:27.635] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5935 latitude: 49.226 next stop: fourth
+[2022-04-24 13:26:27.635] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:27.636] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:27.636] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:27.636] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:28.636] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5935 latitude: 49.226 next stop: fourth
+[2022-04-24 13:26:28.636] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:28.677] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:28.678] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:28.678] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:29.678] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5935 latitude: 49.226 next stop: fourth
+[2022-04-24 13:26:29.678] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:29.678] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:29.678] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:29.678] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:30.678] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5935 latitude: 49.226 next stop: fourth
+[2022-04-24 13:26:30.678] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:30.678] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:30.678] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:30.678] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:31.679] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5935 latitude: 49.226 next stop: fourth
+[2022-04-24 13:26:31.679] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:31.722] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:31.722] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:31.722] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:31.817] [virtual-vehicle-utility] [info] Distance to drive: 84.22m, time to get there: 1.68s
+[2022-04-24 13:26:31.817] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5953 latitude: 49.2259 next stop: fourth
+[2022-04-24 13:26:31.817] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:31.817] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:31.817] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:31.817] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:32.817] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5953 latitude: 49.2259 next stop: fourth
+[2022-04-24 13:26:32.817] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:32.817] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:32.817] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:32.817] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:33.502] [virtual-vehicle-utility] [info] Distance to drive: 41.28m, time to get there: 0.82s
+[2022-04-24 13:26:33.502] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5961 latitude: 49.2257 next stop: fourth
+[2022-04-24 13:26:33.502] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:33.546] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:33.546] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:33.546] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:34.371] [virtual-vehicle-utility] [info] Distance to drive: 10.51m, time to get there: 0.21s
+[2022-04-24 13:26:34.371] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5964 latitude: 49.2257 next stop: fourth
+[2022-04-24 13:26:34.371] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:34.371] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:34.371] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:34.371] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:34.371] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
+[2022-04-24 13:26:34.371] [virtual-vehicle-utility] [info] Car have arrived at the stop fourth
+[2022-04-24 13:26:34.371] [virtual-vehicle-utility] [info] Sending status state: IN_STOP longitude: 16.5964 latitude: 49.2257 next stop: fourth
+[2022-04-24 13:26:34.371] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:34.371] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:34.371] [virtual-vehicle-utility] [info] Received new command: action: START stops: first
+[2022-04-24 13:26:34.371] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:34.371] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
+[2022-04-24 13:26:35.371] [virtual-vehicle-utility] [info] Sending status state: IN_STOP longitude: 16.5964 latitude: 49.2257 next stop: fourth
+[2022-04-24 13:26:35.372] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:35.372] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:35.372] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:35.372] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
+[2022-04-24 13:26:36.372] [virtual-vehicle-utility] [info] Sending status state: IN_STOP longitude: 16.5964 latitude: 49.2257 next stop: fourth
+[2022-04-24 13:26:36.372] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:36.414] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:36.414] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:36.414] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
+[2022-04-24 13:26:37.414] [virtual-vehicle-utility] [info] Sending status state: IN_STOP longitude: 16.5964 latitude: 49.2257 next stop: fourth
+[2022-04-24 13:26:37.414] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:37.414] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:37.414] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:37.414] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
+[2022-04-24 13:26:38.414] [virtual-vehicle-utility] [info] Sending status state: IN_STOP longitude: 16.5964 latitude: 49.2257 next stop: fourth
+[2022-04-24 13:26:38.414] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:38.414] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:38.414] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:38.415] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:38.625] [virtual-vehicle-utility] [info] Distance to drive: 306.60m, time to get there: 6.13s
+[2022-04-24 13:26:38.625] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5965 latitude: 49.2257 next stop: first
+[2022-04-24 13:26:38.625] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:38.665] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:38.666] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:38.666] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:39.666] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5965 latitude: 49.2257 next stop: first
+[2022-04-24 13:26:39.666] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:39.666] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:39.666] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:39.666] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:40.666] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5965 latitude: 49.2257 next stop: first
+[2022-04-24 13:26:40.666] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:40.666] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:40.666] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:40.666] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:41.667] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5965 latitude: 49.2257 next stop: first
+[2022-04-24 13:26:41.667] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:41.709] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:41.710] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:41.710] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:42.710] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5965 latitude: 49.2257 next stop: first
+[2022-04-24 13:26:42.710] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:42.710] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:42.710] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:42.710] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:43.710] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5965 latitude: 49.2257 next stop: first
+[2022-04-24 13:26:43.710] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:43.710] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:43.710] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:43.710] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:44.710] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5965 latitude: 49.2257 next stop: first
+[2022-04-24 13:26:44.711] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:44.753] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:44.754] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:44.754] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:44.886] [virtual-vehicle-utility] [info] Distance to drive: 78.14m, time to get there: 1.56s
+[2022-04-24 13:26:44.886] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5951 latitude: 49.2282 next stop: first
+[2022-04-24 13:26:44.886] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:44.886] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:44.886] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:44.886] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:45.886] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5951 latitude: 49.2282 next stop: first
+[2022-04-24 13:26:45.886] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:45.886] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:45.886] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:45.886] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:46.448] [virtual-vehicle-utility] [info] Distance to drive: 39.32m, time to get there: 0.79s
+[2022-04-24 13:26:46.448] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5947 latitude: 49.2288 next stop: first
+[2022-04-24 13:26:46.449] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:46.493] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:46.494] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:46.494] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:47.280] [virtual-vehicle-utility] [info] End of route has been reached, continuing another lap
+[2022-04-24 13:26:47.280] [virtual-vehicle-utility] [info] Distance to drive: 0.00m, time to get there: 0.00s
+[2022-04-24 13:26:47.280] [virtual-vehicle-utility] [info] Sending status state: DRIVE longitude: 16.5944 latitude: 49.2286 next stop: first
+[2022-04-24 13:26:47.280] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:47.280] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:47.280] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:47.280] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2022-04-24 13:26:47.280] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
+[2022-04-24 13:26:47.280] [virtual-vehicle-utility] [info] Car have arrived at the stop first
+[2022-04-24 13:26:47.280] [virtual-vehicle-utility] [info] Sending status state: IN_STOP longitude: 16.5944 latitude: 49.2286 next stop: first
+[2022-04-24 13:26:47.280] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:47.280] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:47.280] [virtual-vehicle-utility] [info] Received new command: action: START stops:
+[2022-04-24 13:26:47.280] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:47.280] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:48.280] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:48.280] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:48.281] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:48.281] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:48.281] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:49.281] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:49.281] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:49.322] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:49.322] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:49.322] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:50.322] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:50.322] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:50.322] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:50.322] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:50.322] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:51.322] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:51.322] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:51.322] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:51.322] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:51.322] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:52.323] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:52.323] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:52.365] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:52.366] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:52.366] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:53.366] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:53.366] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:53.366] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:53.366] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:53.366] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:54.366] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:54.366] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:54.366] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:54.366] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:54.366] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:55.367] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:55.367] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:55.409] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:55.409] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:55.409] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:56.410] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:56.410] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:56.410] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:56.410] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:56.410] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:57.410] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:57.410] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:57.410] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:57.410] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:57.410] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:58.410] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:58.410] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:58.453] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:58.454] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:58.454] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:26:59.454] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:26:59.454] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:26:59.454] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:26:59.454] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:26:59.454] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:27:00.454] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:27:00.454] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:27:00.454] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:27:00.454] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:27:00.454] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:27:01.454] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:27:01.455] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:27:01.497] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:27:01.498] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:27:01.498] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:27:02.498] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:27:02.498] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:27:02.498] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:27:02.498] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:27:02.498] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:27:03.498] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:27:03.498] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:27:03.498] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:27:03.498] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:27:03.498] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:27:04.499] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:27:04.499] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:27:04.546] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:27:04.546] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:27:04.546] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:27:05.546] [virtual-vehicle-utility] [info] Sending status state: IDLE longitude: 16.5944 latitude: 49.2286 next stop: 
+[2022-04-24 13:27:05.546] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
+[2022-04-24 13:27:05.546] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
+[2022-04-24 13:27:05.546] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
+[2022-04-24 13:27:05.546] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2022-04-24 13:27:05.546] [virtual-vehicle-utility] [info] Closing proto buffer

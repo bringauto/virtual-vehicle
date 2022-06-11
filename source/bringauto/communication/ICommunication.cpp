@@ -1,13 +1,27 @@
 #include <bringauto/communication/ICommunication.hpp>
+#include <bringauto/common_utils/EnumUtils.hpp>
 
-void bringauto::communication::ICommunication::startWorker() {
-	initializeConnection();
-	workerThread_ = std::make_unique<std::thread>([this]() { periodicStatusSender(); });
+
+
+namespace bringauto::communication {
+Command bringauto::communication::ICommunication::getCommand() {
+	return command_;
 }
 
-void bringauto::communication::ICommunication::periodicStatusSender() {
-	while (!globalContext_->ioContext.stopped()) {
-		sendStatus();
-		std::this_thread::sleep_for(std::chrono::milliseconds(statusPeriodMs_));
+std::ostream &operator<<(std::ostream &stream, const Command &command) {
+	stream << "action: " << common_utils::EnumUtils::enumToString(command.action) << " stops:";
+	for(const auto &stop: command.stops) {
+		stream << " " << stop;
 	}
+	return stream;
 }
+
+std::ostream &operator<<(std::ostream &stream, const Status &status) {
+	stream << "state: " << common_utils::EnumUtils::enumToString(status.state) << " longitude: " << status.longitude
+		   << " latitude: "
+		   << status.latitude << " next stop: " << status.nextStop;
+	return stream;
+}
+}
+
+

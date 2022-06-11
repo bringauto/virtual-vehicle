@@ -6,106 +6,82 @@
 
 #include <utility>
 
+
+
 namespace bringauto::virtual_vehicle {
-	class Vehicle {
-	public:
-		Vehicle(std::shared_ptr<bringauto::osm::Route> route,
-				std::shared_ptr<bringauto::communication::ICommunication> com,
-				std::shared_ptr<bringauto::virtual_vehicle::GlobalContext> globalContext) : route_(std::move(route)),
-																							com_(std::move(com)),
-																							globalContext_(std::move(
-																									globalContext)) {};
+class Vehicle {
+public:
+	Vehicle(std::shared_ptr<osm::Route> route,
+			std::shared_ptr<communication::ICommunication> com,
+			std::shared_ptr<GlobalContext> globalContext): route_(std::move(route)),
+														   com_(std::move(com)),
+														   globalContext_(std::move(
+																   globalContext)) {};
 
-		/**
-		 * Prepare vehicle and route for drive simulation
-		 */
-		void initialize();
+	/**
+	 * Prepare vehicle and route for drive simulation
+	 */
+	void initialize();
 
-		/**
-		 * Simulate vehicle driving
-		 */
-		void drive();
+	/**
+	 * Simulate vehicle driving
+	 */
+	void drive();
 
-	private:
-		std::shared_ptr<bringauto::osm::Route> route_;
-		std::shared_ptr<bringauto::communication::ICommunication> com_;
-		std::shared_ptr<bringauto::virtual_vehicle::GlobalContext> globalContext_;
+private:
+	std::shared_ptr<osm::Route> route_;
+	std::shared_ptr<communication::ICommunication> com_;
+	std::shared_ptr<GlobalContext> globalContext_;
 
-		std::shared_ptr<bringauto::osm::Point> actualPosition_;
-		std::shared_ptr<bringauto::osm::Point> nextPosition_;
-		double actualSpeed_{0}; //m/s
-		std::vector<std::string> mission_;
-		bool missionValidity_{true};
-		std::string nextStopName_;
+	std::shared_ptr<osm::Point> actualPosition_;
+	std::shared_ptr<osm::Point> nextPosition_;
+	double actualSpeed_ { 0 }; //meters per second
+	std::vector<std::string> mission_;
+	bool missionValidity_ { true };
+	std::string nextStopName_;
 
-		bringauto::communication::ICommunication::State state_{bringauto::communication::ICommunication::State::IDLE};
+	long long int driveMillisecondLeft_ { 0 };
+	uint64_t inStopMillisecondsLeft_ { 0 };
 
-		/**
-		 * Vehicle will simulate driving from current point to next point
-		 */
-		void driveToNextPosition();
+	communication::Status::State state_ { communication::Status::State::IDLE };
 
-		/**
-		 * Method will calculate and return distance between actual point and next point
-		 * @return distance to next point on route in meters
-		 */
-		double distanceToNextPosition();
+	void nextEvent();
 
-		/**
-		 * Method will wait for stopTimeSec_ if actualPosition_ is a stop
-		 */
-		void waitIfStopOrIdle();
+	void handleIdleEvent();
 
-		/**
-		 * push updated status to com_
-		 */
-		void updateVehicleStatus();
+	void handleDriveEvent();
 
-		/**
-		 * decide what action will be happening after new command is received
-		 */
-		void evaluateCommand();
+	void handleInStopEvent();
 
-		/**
-		 * Check if actual stops are different from stops given by argument
-		 * @param stopNames top list for comparison
-		 * @return true if stops have been changed
-		 */
-		bool isChangeInMission(const std::vector<std::string> &stopNames);
+	void handleObstacleEvent();
 
-		/**
-		 * set next stop from stoplist
-		 */
-		void setNextStop();
+	void handleErrorEvent();
 
-		/**
-		 * Set vehicle state from argument, set 0 speed if state is in_stop
-		 * @param state state to be set
-		 */
-		void updateVehicleState(bringauto::communication::ICommunication::State state);
+	/**
+	 * Vehicle will simulate driving from current point to next point
+	 */
+	void setNextPosition();
 
-		/**
-		 * check if current position is in next stop
-		 */
-		void checkForStop();
+	/**
+	 * push updated status to com_
+	 */
+	void request();
 
-		/**
-		 * set vehicle state from received action
-		 * @param action
-		 */
-		void setVehicleStateFromCommand(bringauto::communication::ICommunication::Command::Action action);
+	/**
+	 * decide what action will be happening after new command is received
+	 */
+	void evaluateCommand();
 
-		/**
-		 * update list of stops if changed
-		 * @param mission
-		 */
-		void updateMissionFromCommand(const std::vector<std::string> &mission);
+	/**
+	 * Set vehicle state from argument, set 0 speed if state is in_stop
+	 * @param state state to be set
+	 */
+	void updateVehicleState(communication::Status::State state);
 
-		/**
-		 * return list of stops in mission as one string
-		 * @return formated list of stops in string
-		 */
-		std::string constructMissionString();
-	};
+	/**
+	 * check if current position is in next stop
+	 */
+	int checkForStop();
+};
 }
 

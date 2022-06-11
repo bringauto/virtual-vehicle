@@ -2,6 +2,7 @@
 #include <bringauto/osm/Point.hpp>
 
 
+
 double bringauto::osm::Point::getLongitude() const {
 	return longitude_;
 }

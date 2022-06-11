@@ -1,0 +1,6 @@
+[submodule "lib/StateSmurf"]
+	path = lib/StateSmurf
+	url = git@github.com:Melky-Phoe/StateSmurf.git
+[submodule "test/smurf/etna"]
+	path = test/smurf/etna
+	url = git@github.com:bringauto/etna.git

@@ -7,6 +7,7 @@
 #include <bringauto/logging/ConsoleSink.hpp>
 
 
+
 TEST_F(MapTest, MapCreation) {
 	std::string mapPath = "maps/virtual_vehicle_map.osm";
 	std::string emptyMapPath = "maps/empty.osm";

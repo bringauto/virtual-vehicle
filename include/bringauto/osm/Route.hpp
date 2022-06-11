@@ -7,81 +7,82 @@
 
 #include <vector>
 
+
+
 namespace bringauto::osm {
+/**
+ * Class for representing both osm Way and Relation
+ */
+class Route: public OsmObject {
+public:
+	explicit Route(osmiumObjectId nodeId, const std::string &routeName)
+			: OsmObject(nodeId), routeName_(routeName) {
+	}
+
+	explicit Route(osmiumObjectId nodeId)
+			: OsmObject(nodeId) {
+	}
+
 	/**
-	 * Class for representing both osm Way and Relation
+	 * Only some points have speed tag, this method will propagate speed into rest of points
 	 */
-	class Route : public OsmObject {
-	public:
-		explicit Route(osmiumObjectId nodeId, const std::string &routeName)
-				: OsmObject(nodeId), routeName_(routeName) {
-		}
+	void propagateSpeed();
 
-		explicit Route(osmiumObjectId nodeId)
-				: OsmObject(nodeId) {
-		}
+	/**
+	 * Function that will prepare route, it will set actual position to starting (first) point and determine if route is routeIsCircular_ or not
+	 */
+	void prepareRoute();
 
+	/**
+	 * Set route name
+	 * @param routeName name of route
+	 */
+	void setRouteName(const std::optional<std::string> &routeName);
 
-		/**
-		 * Only some points have speed tag, this method will propagate speed into rest of points
-		 */
-		void propagateSpeed();
+	/**
+	 * Get name of route
+	 * @return name of route
+	 */
+	std::string getRouteName();
 
-		/**
-		 * Function that will prepare route, it will set actual position to starting (first) point and determine if route is routeIsCircular_ or not
-		 */
-		void prepareRoute();
+	/**
+	 * Get actual position on route
+	 * @return point representing position
+	 */
+	std::shared_ptr<Point> getPosition();
 
-		/**
-		 * Set route name
-		 * @param routeName name of route
-		 */
-		void setRouteName(const std::optional<std::string> &routeName);
+	/**
+	 * Move on point vector, if end is reached route will be connected to start if circular or reversed
+	 */
+	void setNextPosition();
 
-		/**
-		 * Get name of route
-		 * @return name of route
-		 */
-		std::string getRouteName();
+	/**
+	 * Check if all stops are present on route
+	 * @param stopNames vector containing all of stop names that will be checked
+	 * @return true if all stops are on route
+	 */
+	bool areStopsPresent(const std::vector<std::string> &stopNames);
 
-		/**
-		 * Get actual position on route
-		 * @return point representing position
-		 */
-		std::shared_ptr<Point> getPosition();
+	/**
+	 * Append all points and stops from way into route
+	 * @param way way to be appended to route
+	 */
+	void appendWay(const std::shared_ptr<Way> &way);
 
-		/**
-		 * Move on point vector, if end is reached route will be connected to start if circular or reversed
-		 */
-		void setNextPosition();
+	void speedOverride(unsigned int);
 
-		/**
-		 * Check if all stops are present on route
-		 * @param stopNames vector containing all of stop names that will be checked
-		 * @return true if all stops are on route
-		 */
-		bool areStopsPresent(const std::vector<std::string> &stopNames);
+private:
+	std::vector<std::shared_ptr<Point>> points_ {};
+	std::vector<std::shared_ptr<Point>> stops_ {};
+	std::optional<std::string> routeName_;
+	std::vector<std::shared_ptr<Point>>::iterator positionIt;
+	const double routesDistanceThresholdInMeters_ { 50.0 };
+	bool routeIsCircular_ { false };
+	/**
+	 * Limit distance from stop and end point to determine if route is circular or not
+	 */
+	const double roundRouteLimitInMeters { 10.0 };
 
-		/**
-		 * Append all points and stops from way into route
-		 * @param way way to be appended to route
-		 */
-		void appendWay(const std::shared_ptr<Way> &way);
-
-		void speedOverride(unsigned int);
-
-	private:
-		std::vector<std::shared_ptr<Point>> points_{};
-		std::vector<std::shared_ptr<Point>> stops_{};
-		std::optional<std::string> routeName_;
-		std::vector<std::shared_ptr<Point>>::iterator positionIt;
-		const double routesDistanceThresholdInMeters_{50.0};
-		bool routeIsCircular_{false};
-		/**
-		 * Limit distance from stop and end point to determine if route is circular or not
-		 */
-		const double roundRouteLimitInMeters{10.0};
-
-	};
+};
 }
 

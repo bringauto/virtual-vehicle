@@ -1,27 +1,39 @@
 # Prerequisites #
 
-- [cxxopts](https://github.com/jarro2783/cxxopts)
-- [libosmium v2.15.4](https://github.com/osmcode/libosmium)
+* [cxxopts](https://github.com/jarro2783/cxxopts)
+* [libosmium v2.15.4](https://github.com/osmcode/libosmium)
 
 ```
   $ sudo apt install libosmium2-dev
- ```
+```
 
--[cmlib](https://github.com/cmakelib/cmakelib), need to export CMLIB_DIR
+* [cmlib](https://github.com/cmakelib/cmakelib), need to export CMLIB_DIR
 
 # Arguments
 
-- **-m | --map <file path>** full path to .osm file containing map
-- **-r | --route <route name>** - name of route that will be used for car
-- **-v** logs will be printed to console
-- **-l | --log <path>** logs will be saved to provided path, default is .\/
-- **-i | --ip <IPv4 or hostname>** IPv4 or hostname of ba daemon
-- **-p | --port <port number>** ba daemon port
-- **-h | --help** print help
-- **-c | --cruise** vehicle will keep driving without any orders to fill
-- **-w | --wait <time in seconds>** how many seconds will car wait in stop, default is 10s
-- **--period=<time in ms>** maximum time period between two status messages send to daemon
-- **--speed-override=<speed in m/s>** override map speed
+* `-m | --map <string>` full path to .osm file containing map
+* `-r | --route <string>` - name of route that will be used for car
+* `-v` logs will be printed to console
+* `-l | --log <path>` logs will be saved to provided path, default is .\/
+* `-i | --ip <string>` IPv4 or hostname of ba daemon
+* `-p | --port <int>` ba daemon port
+* `-h | --help` print help
+* `-w | --wait <int>` how many seconds will car wait in stop, default is 10s
+* `--period=<int>` maximum time period between two status messages send to daemon
+* `--speed-override=<int>` override map speed
+
+# Cmake parameters
+* BRINGAUTO_TESTS - if set to ON, tests will be also compiled, tests can be run with command ctest after successful build
+* BRINGAUTO_PACKAGE - if set to ON creates package of vvu
+* BRINGAUTO_INSTALL - if set to ON enables make install command
+* BRINGAUTO_SYSTEM_DEP - if set to ON cmake will use system dependencies instead of cmake
+* BRINGAUTO_SAMPLES - if set to ON sample app will be compiled
+* STATE_SMURF - enable state smurf compilation
+* CMAKELIB_DIR - specify path to cmake lib
+
+## Smurf state diagram
+
+<img src="documentation/vvu_state_graph.png" alt="state graph">
 
 # Map creation
 
@@ -32,32 +44,34 @@ stop and if it is a stpo, it have to be named.
 
 ## Start new map
 
-- Install java openstreet map editor (https://josm.openstreetmap.de/wiki/Cs:WikiStart)
-- Under Imagery choose map source to visualize map (b&w open street map recommended)
-- Under File create new layer, name it (right side of app), layer represents .osm file
+* Install java openstreet map editor (https://josm.openstreetmap.de/wiki/Cs:WikiStart)
+* Under Imagery choose map source to visualize map (b&w open street map recommended)
+* Under File create new layer, name it (right side of app), layer represents .osm file
 
 ## Route creation
 
-- Choose draw nodes tool(left tool bar) and draw way (list of points connected by line) by adding points, press esc when
+* Choose draw nodes tool(left tool bar) and draw way (list of points connected by line) by adding points, press esc when
   finished, repeat until you have all ways you need (usually one is enough if you do not what to share ways in multiple
   routes)
-- With select/move tool select all ways you want to include in route and in relation tab add relation with plus button
-- in pop-up add required tags - type=way and name=<route name> 
-- in same pop-up window add ways (selection tab) to route (members tab) and apply role "way"
-- repeat if you want multiple routes, routes can share some parts with each other, that is way they consist of ways. If
+* With select/move tool select all ways you want to include in route and in relation tab add relation with plus button
+* in pop-up add required tags - type=way and name=<route name>
+* in same pop-up window add ways (selection tab) to route (members tab) and apply role "way"
+* repeat if you want multiple routes, routes can share some parts with each other, that is way they consist of ways. If
   you do not intent to share parts of routes use one way per route
 
-  <img src="documentation/pic.png" alt="pop up image">
+  <img src="documentation/josm_selection.png" alt="pop up image">
 
 ## Stop addition
 
-- select point you want to make into stop (yellow dot and stop can be defined only on nodes, not on line between them)
-- in tags/membership tab click plus button with selected point and add tag stop=true and name=<stop name> (name has to be unique)
-- you can also add speed=<target speed in m/s> as tag to ANY point, it will set MAXIMUM speed on that point
+* select point you want to make into stop (yellow dot and stop can be defined only on nodes, not on line between them)
+* in tags/membership tab click plus button with selected point and add tag stop=true and name=<stop name> (name has to
+  be unique)
+* you can also add speed=<target speed in m/s> as tag to ANY point, it will set MAXIMUM speed on that point
 
 ## Export map
-- Under file save map as <map name>.osm file
-- .osm map example:
+
+* Under file save map as <map name>.osm file
+* .osm map example:
 
 ```
 <?xml version='1.0' encoding='UTF-8'?>
@@ -134,15 +148,21 @@ stop and if it is a stpo, it have to be named.
 ```
 
 ## Build and run docker image
+
 Build docker image using
+
 ```
 docker build --tag virtual-vehicle-utility .
 ```
-Run docker with paramerers
+
+Run docker with parameters
+
 ```
 docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle -m <path to map file> -v -r <route name> -i <daemon ip> -p <daemon port> -w <time to wait in stop in sec> -c
 ```
+
 Example:
+
 ```
 docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle -m /virtual-vehicle-utility/tests/maps/BorsodChem.osm -v -r borsodchem -i 127.0.0.1 -p 1536 -w 10 -c
 ```
