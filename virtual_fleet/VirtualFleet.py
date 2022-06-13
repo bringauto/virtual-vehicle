@@ -9,7 +9,6 @@ from os import path
 daemons = []
 vehicles = []
 
-
 class FileDoesntExistException(Exception):
     def __init__(self, message) -> None:
         super().__init__(message)
@@ -22,52 +21,56 @@ class PortOutOfRangeException(Exception):
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
-    requiredNamed = parser.add_argument_group('required arguments')
-    requiredNamed.add_argument('--deamon_path',
+    required_named = parser.add_argument_group('required arguments')
+    required_named.add_argument('--daemon_path',
                                required=True,
-                               help='path to deamon')
-    requiredNamed.add_argument('--virtual_path',
+                               help='path to daemon')
+    required_named.add_argument('--virtual_path',
                                required=True,
                                help='path to virtual vehicle')
-    requiredNamed.add_argument('--json_path',
+    required_named.add_argument('--json_path',
                                required=True,
                                help='path to json file')
-    requiredNamed.add_argument('-mp', '--min_port', type=int,
+    required_named.add_argument('-mp', '--min_port', type=int,
                                required=True,
                                help='minimal port for first subprocess')
+    required_named.add_argument('--mqtt_address',
+                               required=True,
+                               help='Ip address of mqtt')
 
     return parser.parse_args()
 
 
-def checkPaths(args):
-    if (path.exists(args.deamon_path) == False):
-        raise FileDoesntExistException("Deamon file " + args.deamon_path + " doesnt exist")
-    if (path.exists(args.virtual_path) == False):
-        raise FileDoesntExistException("Virtual Vehicle file " + args.virtual_path + " doesnt exist")
-    if (path.exists(args.json_path) == False):
-        raise FileDoesntExistException("Json file " + args.json_path + " doesnt exist")
+def check_paths(arguments):
+    if not path.exists(arguments.daemon_path):
+        raise FileDoesntExistException("Daemon file " + arguments.daemon_path + " doesnt exist")
+    if not path.exists(arguments.virtual_path):
+        raise FileDoesntExistException("Virtual Vehicle file " + arguments.virtual_path + " doesnt exist")
+    if not path.exists(arguments.json_path):
+        raise FileDoesntExistException("Json file " + arguments.json_path + " doesnt exist")
 
 
-def run_program(args):
+def run_program(arguments):
     # Opening JSON file
-    file = open(args.json_path)
+    file = open(arguments.json_path)
     tokens = json.load(file)['virtualVehicles']
     file.close()
-    daemonApp = args.deamon_path
-    vehicleApp = args.virtual_path
+    daemon_app = arguments.daemon_path
+    vehicle_app = arguments.virtual_path
 
     for token in tokens:
-        if (args.min_port <= 1024) or (args.min_port > 65535):
+        if (arguments.min_port <= 1024) or (arguments.min_port > 65535):
             raise PortOutOfRangeException()
         daemons.append(subprocess.Popen(
-            [daemonApp, '--vehicle-name=' + token['name'], '--vehicle-token=' + token['token'],
-             '--port=' + str(args.min_port)]))
+            [daemon_app, '--vehicle-name=' + token['name'], '--mode=mqtt', '--company=bringauto', '--place=default',
+             '--broker-port=' + str(arguments.min_port), '--broker-ip=' + arguments.mqtt_address,
+             '--port=' + str(arguments.min_port)]))
         time.sleep(2)
         vehicles.append(subprocess.Popen(
-            [vehicleApp, '--map=' + token['mapPath'], '--route=' + token['route'], '--ip=127.0.0.1',
-             '--wait=' + str(token['stopWaitTime']), '--cruise' if token['cruise'] == 'TRUE' else '',
-             '--port=' + str(args.min_port)]))
-        args.min_port += 1
+            [vehicle_app, '--map=' + token['mapPath'], '--route=' + token['route'], '--ip=127.0.0.1',
+             '--wait=' + str(token['stopWaitTime']), '--period=' + str(token['period']),
+             '--port=' + str(arguments.min_port)]))
+        arguments.min_port += 1
     vehicles[1].wait()
 
 
@@ -97,7 +100,7 @@ if __name__ == '__main__':
 
     args = parse_arguments()
     try:
-        checkPaths(args)
+        check_paths(args)
         run_program(args)
     except Exception as e:
         print(str(e))

@@ -1,0 +1,39 @@
+{
+  "daemon-docker-image": "europe-west1-docker.pkg.dev/bringauto-infrastructure/virtual-platform/bringauto-daemon",
+  "daemon-docker-tag": "1.1.5",
+  "vehicle-docker-image": "europe-west1-docker.pkg.dev/bringauto-infrastructure/virtual-platform/virtual-vehicle-utility",
+  "vehicle-docker-tag": "1.4.2",
+  "start-port": 42000,
+  "mqtt-address": "127.0.0.1",
+  "mqtt-port": 1883,
+  "vehicles": [
+    {
+      "name": "BringAuto Virtual1",
+      "docker-map-path": "/virtual-vehicle-utility/maps/London.osm",
+      "route": "London",
+      "stop-wait-seconds": 10,
+      "message-period-millisecond": 1000
+    },
+        {
+      "name": "BringAuto Virtual2",
+      "docker-map-path": "/virtual-vehicle-utility/maps/London.osm",
+      "route": "London",
+      "stop-wait-seconds": 10,
+      "message-period-millisecond": 1000
+    },
+        {
+      "name": "BringAuto Virtual3",
+      "docker-map-path": "/virtual-vehicle-utility/maps/London.osm",
+      "route": "London",
+      "stop-wait-seconds": 10,
+      "message-period-millisecond": 1000
+    },
+        {
+      "name": "BringAuto Virtual",
+      "docker-map-path": "/virtual-vehicle-utility/maps/London.osm",
+      "route": "London",
+      "stop-wait-seconds": 10,
+      "message-period-millisecond": 1000
+    }
+  ]
+}
