@@ -37,7 +37,6 @@ Script [VirtualFleet.py](VirtualFleet.py) starts binaries at given path. Example
     - name of vehicle - has to be unique and same correspond with vehicle in database in IP an token
     - token - unique token, it has to be same with server, is unique for each car
     - route - name of the route in the map file
-    - cruise - it defines, if car should ride around, when it has nothing to do
     - stopWaitTime - it defines, how many seconds should car stay on the stop
 
 Example of json file:
@@ -50,7 +49,6 @@ Example of json file:
       "mapPath": "/home/zak/Dokumenty/virtual-vehicle-utility/virtual_fleet/virtual_vehicle_map.osm",
       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDYXJJZCI6IjIiLCJDYXJOYW1lIjoiQnJpbmdBdXRvIiwiaXNzIjoiQnJpbmcuQXV0by5hcnRpbi5jeiIsImF1ZCI6IkJyaW5nLkF1dG8ifQ.6w11EkV3zKvG3Ly_CcF_SPsxSEbVEUOY9u0HvDw_Cr0",
       "route": "brno_luzanky",
-      "cruise": "TRUE",
       "stopWaitTime": 5
     }
   ]

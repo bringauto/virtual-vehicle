@@ -11,8 +11,8 @@ void ProtoBuffer::initializeConnection() {
 	}
 
 	boost::asio::io_service ios;
-	boost::asio::ip::tcp::resolver::query resolver_query(globalContext_->settings->ipAddress,
-														 std::to_string(globalContext_->settings->port),
+	boost::asio::ip::tcp::resolver::query resolver_query(globalContext_->settings->daemonIpAddress,
+														 std::to_string(globalContext_->settings->daemonPort),
 														 boost::asio::ip::tcp::resolver::query::numeric_service);
 	boost::asio::ip::tcp::resolver resolver(ios);
 	boost::system::error_code ec;

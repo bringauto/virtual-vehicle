@@ -34,7 +34,7 @@ public:
 	/**
 	 * @brief Template method for changing state in state graph
 	 * @tparam T enum type
-	 * @param smurf smurf containing graph
+	 * @param smurf TransitionSmurf containing graph
 	 * @param value value of enum
 	 */
 	template <typename T>

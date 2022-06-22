@@ -67,9 +67,9 @@ def run_program(arguments):
              '--port=' + str(arguments.min_port)]))
         time.sleep(2)
         vehicles.append(subprocess.Popen(
-            [vehicle_app, '--map=' + token['mapPath'], '--route=' + token['route'], '--ip=127.0.0.1',
+            [vehicle_app, '--map=' + token['mapPath'], '--route=' + token['route'], '--daemon-ip=127.0.0.1',
              '--wait=' + str(token['stopWaitTime']), '--period=' + str(token['period']),
-             '--port=' + str(arguments.min_port)]))
+             '--daemon-port=' + str(arguments.min_port)]))
         arguments.min_port += 1
     vehicles[1].wait()
 

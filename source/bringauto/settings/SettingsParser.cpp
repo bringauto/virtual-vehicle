@@ -27,33 +27,36 @@ bool SettingsParser::parseSettings(int argc, char **argv) {
 }
 
 void SettingsParser::parseCmdArguments(int argc, char **argv) {
-	cxxopts::Options options { "BringAuto virtual vehicle utility", "BringAuto virtual vehicle utility" };
-	options.add_options()
-				   ("v, " + verbose_, "Verbose into terminal and log info messages");
-	options.add_options()(osmMap_, "Path to .osm map file", cxxopts::value<std::string>());
-	options.add_options()(osmRoute_, "Name of route that will be used for vehicle", cxxopts::value<std::string>());
+	cxxopts::Options options { "VirtualVehicle", "BringAuto virtual vehicle utility" };
 	options.add_options()(logPath_, "Path to logs", cxxopts::value<std::string>()->default_value("./"));
-	options.add_options()(daemonIp_, "IPv4 address or hostname of server side application",
-						  cxxopts::value<std::string>()->default_value("127.0.0.1"));
-	options.add_options()(daemonPort_, "Port of server side application", cxxopts::value<int>()->default_value("1636"));
-	options.add_options()(osmStopWaitTime_, "Wait time in stops in seconds, default is 10s",
-						  cxxopts::value<uint32_t>()->default_value("10"));
+	options.add_options()("v, " + verbose_, "Print log messages into terminal");
 	options.add_options()(statusMessagePeriod_, "Period in ms for sending status messages",
 						  cxxopts::value<uint32_t>()->default_value("1000"));
-	options.add_options()(fleetProvider_, "Provider of communication with fleet.",
-						  cxxopts::value<std::string>()->default_value("protobuf"));
-	options.add_options()(osmSpeedOverride, "Override map speed on all points, in m/s",
-						  cxxopts::value<uint32_t>());
-	options.add_options()(vehicleProvider_, "Choose virtual vehicle provider, simulation or gps.",
-						  cxxopts::value<std::string>()->default_value("simulation"));
-	options.add_options()(gpsProvider_, "Choose gps provider, rutx09 or ublox.",
-						  cxxopts::value<std::string>()->default_value("rutx09"));
-	options.add_options()(rutxIp_, "Modbus server address for rutx09.",
-						  cxxopts::value<std::string>()->default_value("127.0.0.1"));
-	options.add_options()(rutxPort_, "Modbus server port for rutx09.",
-						  cxxopts::value<int>()->default_value("502"));
-	options.add_options()(rutxSlaveId_, "Modbus server slave id for rutx09.",
-						  cxxopts::value<int>()->default_value("1"));
+	options.add_options("osm")(osmMap_, "Path to .osm map file", cxxopts::value<std::string>());
+	options.add_options("osm")(osmRoute_, "Name of route that will be used for vehicle",
+										 cxxopts::value<std::string>());
+	options.add_options("fleet provider")(fleetProvider_,
+										  R"(Provider of communication with fleet, "protobuf" or "empty")",
+										  cxxopts::value<std::string>()->default_value("protobuf"));
+	options.add_options("protobuf")(daemonIp_, "IPv4 address or hostname of server side application",
+										  cxxopts::value<std::string>()->default_value("127.0.0.1"));
+	options.add_options("protobuf")(daemonPort_, "Port of server side application",
+										  cxxopts::value<int>()->default_value("1636"));
+	options.add_options()(vehicleProvider_,
+											R"(Choose virtual vehicle location provider, "simulation" or "gps".)",
+											cxxopts::value<std::string>()->default_value("simulation"));
+	options.add_options("simulation vehicle provider")(osmSpeedOverride_, "Override map speed on all points, in m/s",
+													   cxxopts::value<uint32_t>());
+	options.add_options("simulation vehicle provider")(osmStopWaitTime_, "Wait time in stops in seconds, default is 10s",
+													   cxxopts::value<uint32_t>()->default_value("10"));
+	options.add_options("gps vehicle provider")(gpsProvider_, R"(Choose gps provider, "rutx09" or "ublox".)",
+										cxxopts::value<std::string>()->default_value("rutx09"));
+	options.add_options("gps vehicle provider")(rutxIp_, "Modbus server address for rutx09.",
+										cxxopts::value<std::string>()->default_value("127.0.0.1"));
+	options.add_options("gps vehicle provider")(rutxPort_, "Modbus server port for rutx09.",
+										cxxopts::value<int>()->default_value("502"));
+	options.add_options("gps vehicle provider")(rutxSlaveId_, "Modbus server slave id for rutx09.",
+										cxxopts::value<int>()->default_value("1"));
 	options.add_options()("h, " + help_, "Print usage");
 
 	cmdArguments_ = options.parse(argc, argv);
@@ -77,7 +80,7 @@ bool SettingsParser::areCmdArgumentsCorrect() {
 											   daemonPort_,
 											   osmStopWaitTime_,
 											   statusMessagePeriod_,
-											   osmSpeedOverride,
+											   osmSpeedOverride_,
 											   vehicleProvider_,
 											   gpsProvider_,
 											   rutxIp_,
@@ -118,7 +121,7 @@ bool SettingsParser::areCmdArgumentsCorrect() {
 bool SettingsParser::areSettingsCorrect() {
 	bool isCorrect = true;
 
-	if(settings_->vehicleProvider == VehicleProvider::INVALID){
+	if(settings_->vehicleProvider == VehicleProvider::INVALID) {
 		std::cerr << "Invalid vehicle provider\n";
 		isCorrect = false;
 	}
@@ -128,19 +131,19 @@ bool SettingsParser::areSettingsCorrect() {
 		isCorrect = false;
 	}
 
-	if(settings_->vehicleProvider == VehicleProvider::SIMULATION){
+	if(settings_->vehicleProvider == VehicleProvider::SIMULATION) {
 		if(!std::filesystem::exists(settings_->mapFilePath)) {
 			std::cerr << "Given map path (" << settings_->mapFilePath << ") does not exist." << std::endl;
 			isCorrect = false;
 		}
 	}
-	if(settings_->vehicleProvider == VehicleProvider::GPS){
-		if(settings_->gpsProvider == GpsProvider::INVALID){
+	if(settings_->vehicleProvider == VehicleProvider::GPS) {
+		if(settings_->gpsProvider == GpsProvider::INVALID) {
 			std::cerr << "Invalid gps provider\n";
 			isCorrect = false;
 		}
 	}
-	if(settings_->fleetProvider == FleetProvider::INVALID){
+	if(settings_->fleetProvider == FleetProvider::INVALID) {
 		std::cerr << "Invalid fleet provider\n";
 		isCorrect = false;
 	}
@@ -158,15 +161,16 @@ void SettingsParser::fillSettings() {
 	settings_->verbose = cmdArguments_.count(verbose_) == 1;
 	settings_->mapFilePath = cmdArguments_[osmMap_].as<std::string>();
 	settings_->routeName = cmdArguments_[osmRoute_].as<std::string>();
-	settings_->ipAddress = cmdArguments_[daemonIp_].as<std::string>();
-	settings_->port = cmdArguments_[daemonPort_].as<int>();
+	settings_->daemonIpAddress = cmdArguments_[daemonIp_].as<std::string>();
+	settings_->daemonPort = cmdArguments_[daemonPort_].as<int>();
 	settings_->logPath = cmdArguments_[logPath_].as<std::string>();
 	settings_->stopWaitTime = cmdArguments_[osmStopWaitTime_].as<uint32_t>();
 	settings_->messagePeriodMs = cmdArguments_[statusMessagePeriod_].as<uint32_t>();
-	settings_->fleetProvider = common_utils::EnumUtils::stringToFleetProvider(cmdArguments_[fleetProvider_].as<std::string>());
-	if(cmdArguments_.count(osmSpeedOverride)) {
+	settings_->fleetProvider = common_utils::EnumUtils::stringToFleetProvider(
+			cmdArguments_[fleetProvider_].as<std::string>());
+	if(cmdArguments_.count(osmSpeedOverride_)) {
 		settings_->speedOverride = true;
-		settings_->speedOverrideMS = cmdArguments_[osmSpeedOverride].as<uint32_t>();
+		settings_->speedOverrideMS = cmdArguments_[osmSpeedOverride_].as<uint32_t>();
 	}
 	settings_->vehicleProvider = common_utils::EnumUtils::stringToVehicleProvider(
 			cmdArguments_[vehicleProvider_].as<std::string>());

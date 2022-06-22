@@ -11,11 +11,12 @@
         "--map" : "../maps/1.osm",
         "--route" : "lap",
         "--verbose" : "",
-        "--ip" : "127.0.0.1",
-        "--port" : 1636,
+        "--daemon-ip" : "127.0.0.1",
+        "--daemon-port" : 1636,
         "--wait" : 4,
         "--period" : 1000,
-        "--speed-override" : 55
+        "--speed-override" : 55,
+        "--vehicle-provider" : "simulation"
       }
     },
     {
@@ -25,25 +26,27 @@
         "--map" : "../maps/2.osm",
         "--route" : "many-nodes",
         "--verbose" : "",
-        "--ip" : "127.0.0.1",
-        "--port" : 1636,
+        "--daemon-ip" : "127.0.0.1",
+        "--daemon-port" : 1636,
         "--wait" : 4,
         "--period" : 1000,
-        "--speed-override" : 155
+        "--speed-override" : 155,
+        "--vehicle-provider" : "simulation"
       }
     },
     {
       "name" : "slowCar",
-      "timeout" : 150,
+      "timeout" : 120,
       "arguments" : {
         "--map" : "../maps/1.osm",
         "--route" : "lap",
         "--verbose" : "",
-        "--ip" : "127.0.0.1",
-        "--port" : 1636,
+        "--daemon-ip" : "127.0.0.1",
+        "--daemon-port" : 1636,
         "--wait" : 15,
         "--period" : 1000,
-        "--speed-override" : 35
+        "--speed-override" : 35,
+        "--vehicle-provider" : "simulation"
       }
     }
   ],

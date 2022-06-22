@@ -15,10 +15,10 @@
 * `--route <string>` - name of route that will be used for car
 * `-v | --verbose` logs will be printed to console
 * `--log-path <path>` logs will be saved to provided path, default is .\/
-* `--ip <string>` IPv4 or hostname of ba daemon
-* `--port <int>` ba daemon port
+* `--daemon-ip <string>` IPv4 or hostname of ba daemon
+* `--daemon-port <int>` ba daemon port
 * `-h | --help` print help
-* `--wait <int>` how many seconds will car wait in stop, default is 10s
+* `--wait=<int>` how many seconds will car wait in stop, default is 10s
 * `--period=<int>` maximum time period between two status messages send to daemon
 * `--speed-override=<int>` override map speed
 * `--fleet-provider=<string>` choose fleet provider, `protobuf` for use of protobuf protocol `empty` for use of dummy connection
@@ -186,5 +186,5 @@ docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehi
 Example:
 
 ```
-docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --map=/virtual-vehicle-utility/tests/maps/BorsodChem.osm -v --rout=borsodchem --ip=127.0.0.1 --port=1536 --wait=10 
+docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --map=/virtual-vehicle-utility/tests/maps/BorsodChem.osm -v --route=borsodchem --ip=127.0.0.1 --port=1536 --wait=10 
 ```

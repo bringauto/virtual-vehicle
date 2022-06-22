@@ -9,7 +9,7 @@
 
 namespace bringauto::virtual_vehicle::gps_provider {
 /**
- * @brief Class for working with RUTX09 gps tracker
+ * @brief Class for working with RUTX09 gps router from teltonika
  * This class communicates through modbus
  */
 class RUTX09: public IGpsProvider {
