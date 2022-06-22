@@ -69,7 +69,11 @@ public:
 	 */
 	void appendWay(const std::shared_ptr<Way> &way);
 
-	void speedOverride(unsigned int);
+	/**
+	 * @brief Overrides speed for each point of route to speed given by param
+	 * @param speed
+	 */
+	void speedOverride(unsigned int speed);
 
 private:
 	std::vector<std::shared_ptr<Point>> points_ {};

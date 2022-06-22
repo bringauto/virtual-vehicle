@@ -1,38 +1,25 @@
 #pragma once
 
-#include <bringauto/osm/OsmiumHandler.hpp>
-#include <bringauto/communication/ICommunication.hpp>
-#include <bringauto/virtual_vehicle/GlobalContext.hpp>
+#include "IVirtualVehicle.hpp"
 
 #include <utility>
 
 
 
-namespace bringauto::virtual_vehicle {
-class Vehicle {
+namespace bringauto::virtual_vehicle::vehicle_provider {
+/**
+ * @brief Class that provides vehicle location based on driving simulation on .osm map
+ */
+class SimVehicle: public IVirtualVehicle {
 public:
-	Vehicle(std::shared_ptr<osm::Route> route,
-			std::shared_ptr<communication::ICommunication> com,
-			std::shared_ptr<GlobalContext> globalContext): route_(std::move(route)),
-														   com_(std::move(com)),
-														   globalContext_(std::move(
-																   globalContext)) {};
-
+	SimVehicle(const std::shared_ptr<osm::Route>& route, const std::shared_ptr<communication::ICommunication>& com,
+			   const std::shared_ptr<GlobalContext>& globalContext): IVirtualVehicle(route, com, globalContext){};
 	/**
 	 * Prepare vehicle and route for drive simulation
 	 */
-	void initialize();
-
-	/**
-	 * Simulate vehicle driving
-	 */
-	void drive();
+	void initialize() override;
 
 private:
-	std::shared_ptr<osm::Route> route_;
-	std::shared_ptr<communication::ICommunication> com_;
-	std::shared_ptr<GlobalContext> globalContext_;
-
 	std::shared_ptr<osm::Point> actualPosition_;
 	std::shared_ptr<osm::Point> nextPosition_;
 	double actualSpeed_ { 0 }; //meters per second
@@ -45,7 +32,7 @@ private:
 
 	communication::Status::State state_ { communication::Status::State::IDLE };
 
-	void nextEvent();
+	void nextEvent() override;
 
 	void handleIdleEvent();
 

@@ -10,6 +10,7 @@
 
 
 namespace bringauto::settings {
+/// State names
 const std::string connectedState { "Connected" };
 const std::string statusSentState { "CarStatusSent" };
 const std::string commandReceivedState { "CarCommandReceived" };
@@ -19,6 +20,9 @@ const std::string idleState { "Idle" };
 const std::string driveState { "Drive" };
 const std::string inStopState { "InStop" };
 
+/**
+ * @brief Class working with StateSmurf testing framework. This class defines state graph and makes state transitions
+ */
 class StateSmurfDefinition {
 public:
 	/**

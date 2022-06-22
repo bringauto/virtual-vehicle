@@ -11,16 +11,38 @@
 
 # Arguments
 
-* `-m | --map <string>` full path to .osm file containing map
-* `-r | --route <string>` - name of route that will be used for car
-* `-v` logs will be printed to console
-* `-l | --log <path>` logs will be saved to provided path, default is .\/
-* `-i | --ip <string>` IPv4 or hostname of ba daemon
-* `-p | --port <int>` ba daemon port
+* `--map <string>` full path to .osm file containing map
+* `--route <string>` - name of route that will be used for car
+* `-v | --verbose` logs will be printed to console
+* `--log-path <path>` logs will be saved to provided path, default is .\/
+* `--ip <string>` IPv4 or hostname of ba daemon
+* `--port <int>` ba daemon port
 * `-h | --help` print help
-* `-w | --wait <int>` how many seconds will car wait in stop, default is 10s
+* `--wait <int>` how many seconds will car wait in stop, default is 10s
 * `--period=<int>` maximum time period between two status messages send to daemon
 * `--speed-override=<int>` override map speed
+* `--fleet-provider=<string>` choose fleet provider, `protobuf` for use of protobuf protocol `empty` for use of dummy connection
+* `--vehicle-provider=<string>` choose vehicle provider, `simulation` for use of osm map `gps` for use of gps provider
+* `--gps-provider=<string>` choose gps provider, `rutx09` or `ublox`
+* `--rux-ip=<int>` ip address to modbus server on rutx09
+* `--rux-port=<int>` port of modbus server on rutx09
+* `--rux-slave-id=<int>` slave id of modbus server on rutx09
+
+#Fleet provider
+Virtual vehicle provides ability to choose a fleet communication provider with `--fleet-provider=<string>` argument. The optins are:
+* `protobuf` - connection to daemon using protobuf will be established, requires `--ip=<string>` and `--port=<int>` arguments to specify daemon connection 
+* `empty` - no connection will be established, statuses will be discarded and default command will be returned, for testing purposes
+
+#Vehicle provider
+Virtual vehicle provides ability to choose a different simulation implementations with `--vehicle-provider=<string>` argument. The options are:
+* `simulation` - car movement will be simulated and position will be based of given map file (.osm format). Required parameters: `--map=<string>`, `--route=<string>`,
+  optional arguments: `--speed-override=<int>`, `--wait=<int>`
+* `gps` - virtual vehicle will report position based on external gps source, no mission logic is implemented. Required parameters: `--gps-provider=<string>`
+
+#Gps provider
+Provider used for gps based position reporting. The options are:
+* `rutx09` - position is obtained from RUTX09 router from Teltonika. Required parameters: `--rutx-ip=<string>`, `--rutx-port=<int>`, `rutx-slave-id=<int>`
+* `ublox` - position is obtained from ublox device, NOT IMPLEMENTED
 
 # Cmake parameters
 * BRINGAUTO_TESTS - if set to ON, tests will be also compiled, tests can be run with command ctest after successful build
@@ -158,11 +180,11 @@ docker build --tag virtual-vehicle-utility .
 Run docker with parameters
 
 ```
-docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle -m <path to map file> -v -r <route name> -i <daemon ip> -p <daemon port> -w <time to wait in stop in sec> -c
+docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --map=<path to map file> -v --route=<route name> --ip=<daemon ip> --port=<daemon port> --wait=<time to wait in stop in sec>
 ```
 
 Example:
 
 ```
-docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle -m /virtual-vehicle-utility/tests/maps/BorsodChem.osm -v -r borsodchem -i 127.0.0.1 -p 1536 -w 10 -c
+docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --map=/virtual-vehicle-utility/tests/maps/BorsodChem.osm -v --rout=borsodchem --ip=127.0.0.1 --port=1536 --wait=10 
 ```

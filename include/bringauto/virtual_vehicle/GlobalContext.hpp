@@ -17,6 +17,9 @@
 
 
 namespace bringauto::virtual_vehicle {
+/**
+ * @brief Class controlling global variables
+ */
 struct GlobalContext {
 #ifdef STATE_SMURF
 	std::shared_ptr<state_smurf::transition::StateTransition> transitions;

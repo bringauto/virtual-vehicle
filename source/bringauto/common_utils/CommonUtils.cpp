@@ -21,6 +21,13 @@ CommonUtils::calculateDistanceInMeters(const std::shared_ptr<osm::Point> &a, con
 			osmium::geom::Coordinates { b->getLatitude(), b->getLongitude() });
 }
 
+double
+CommonUtils::calculateDistanceInMeters(double aLatitude, double aLongitude, double bLatitude, double bLongitude) {
+	return osmium::geom::haversine::distance(
+			osmium::geom::Coordinates { aLatitude, aLongitude },
+			osmium::geom::Coordinates { bLatitude, bLongitude });
+}
+
 uint64_t CommonUtils::timeToDriveInMilliseconds(double distanceInMeters, double speedInMetersPerSecond) {
 	return uint64_t((distanceInMeters/speedInMetersPerSecond)*1000);
 }

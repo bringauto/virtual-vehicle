@@ -34,6 +34,10 @@ public:
 	 */
 	virtual void makeRequest(const Status &status) = 0;
 
+	/**
+	 * @brief Return most recent command received, command is updated after each call of @makeRequest().
+	 * @return Most recent command
+	 */
 	Command getCommand();
 
 protected:

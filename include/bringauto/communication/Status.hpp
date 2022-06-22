@@ -5,6 +5,9 @@
 
 
 namespace bringauto::communication {
+/**
+ * @brief Structure representing fleet protocol status
+ */
 struct Status {
 	enum State {
 		IDLE = 0, DRIVE = 1, IN_STOP = 2, OBSTACLE = 3, ERROR = 4

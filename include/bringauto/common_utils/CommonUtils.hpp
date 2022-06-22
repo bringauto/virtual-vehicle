@@ -28,6 +28,12 @@ public:
 	static double calculateDistanceInMeters(const std::shared_ptr<osm::Point> &a, const std::shared_ptr<osm::Point> &b);
 
 	/**
+	 * @brief Method will calculate and return distance between point a and point b
+	 * @return distance between points in meters
+	 */
+	static double calculateDistanceInMeters(double aLatitude, double aLongitude, double bLatitude, double bLongitude);
+
+	/**
 	 * @brief Calculates time in milliseconds that will take to drive given distance while moving at given speed
 	 * @param distanceInMeters distance that need to be traveled in meters
 	 * @param speedInMetersPerSecond speed in meters per second

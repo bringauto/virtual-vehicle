@@ -1,6 +1,8 @@
 #include <bringauto/virtual_vehicle/Map.hpp>
-#include <bringauto/virtual_vehicle/Vehicle.hpp>
+#include <bringauto/virtual_vehicle/vehicle_provider/SimVehicle.hpp>
+#include <bringauto/virtual_vehicle/vehicle_provider/GpsVehicle.hpp>
 #include <bringauto/communication/ProtoBuffer.hpp>
+#include <bringauto/communication/TerminalOutput.hpp>
 #include <bringauto/virtual_vehicle/GlobalContext.hpp>
 #include <bringauto/settings/SettingsParser.hpp>
 #include <bringauto/settings/StateSmurfDefinition.hpp>
@@ -31,6 +33,8 @@ void initLogger(const std::string &logPath, bool verbose) {
 int main(int argc, char **argv) {
 	int exitCode = EXIT_SUCCESS;
 	bringauto::settings::SettingsParser settingsParser;
+	std::unique_ptr<bringauto::virtual_vehicle::vehicle_provider::IVirtualVehicle> vehicle;
+	std::shared_ptr<bringauto::communication::ICommunication> fleet;
 
 	try {
 		if(!settingsParser.parseSettings(argc, argv)) {
@@ -64,14 +68,34 @@ int main(int argc, char **argv) {
 		if(settings->speedOverride) {
 			map.speedOverride(settings->speedOverrideMS);
 		}
-
 		auto route = map.getRoute(settings->routeName);
 
-		auto com = std::make_shared<bringauto::communication::ProtoBuffer>(context);
-		bringauto::virtual_vehicle::Vehicle vehicle(route, com, context);
+		switch(settings->fleetProvider) {
+			case bringauto::settings::FleetProvider::PROTOBUF:
+				fleet = std::make_shared<bringauto::communication::ProtoBuffer>(context);
+				break;
+			case bringauto::settings::FleetProvider::NO_CONNECTION:
+				fleet = std::make_shared<bringauto::communication::TerminalOutput>(context);
+				break;
+			case bringauto::settings::FleetProvider::INVALID:
+			default:
+				throw std::runtime_error("Unsupported fleet provider");
+		}
 
-		vehicle.initialize();
-		vehicle.drive();
+		switch(settings->vehicleProvider) {
+			case bringauto::settings::VehicleProvider::SIMULATION:
+				vehicle = std::make_unique<bringauto::virtual_vehicle::vehicle_provider::SimVehicle>(route, fleet, context);
+				break;
+			case bringauto::settings::VehicleProvider::GPS:
+				vehicle = std::make_unique<bringauto::virtual_vehicle::vehicle_provider::GpsVehicle>(route, fleet, context);
+				break;
+			case bringauto::settings::VehicleProvider::INVALID:
+			default:
+				throw std::runtime_error("Unsupported vehicle provider");
+		}
+
+		vehicle->initialize();
+		vehicle->drive();
 
 	} catch(std::exception &e) {
 		exitCode = EXIT_FAILURE;

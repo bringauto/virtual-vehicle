@@ -6,6 +6,9 @@
 
 
 namespace bringauto::virtual_vehicle {
+/**
+ * @brief Class for processing .osm map files, that are used for simulated driving
+ */
 class Map {
 public:
 	/**
@@ -22,6 +25,10 @@ public:
 	 */
 	std::shared_ptr<bringauto::osm::Route> getRoute(const std::string &routeName);
 
+	/**
+	 * @brief Overrides speed on all routes to speed given by param
+	 * @param speed
+	 */
 	void speedOverride(unsigned int speed);
 
 private:

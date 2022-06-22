@@ -17,9 +17,8 @@ std::ostream &operator<<(std::ostream &stream, const Command &command) {
 }
 
 std::ostream &operator<<(std::ostream &stream, const Status &status) {
-	stream << "state: " << common_utils::EnumUtils::enumToString(status.state) << " longitude: " << status.longitude
-		   << " latitude: "
-		   << status.latitude << " next stop: " << status.nextStop;
+	stream << "state: " << common_utils::EnumUtils::enumToString(status.state) << " latitude: "
+		   << status.latitude << " longitude: " << status.longitude << " next stop: " << status.nextStop;
 	return stream;
 }
 }

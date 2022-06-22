@@ -1,25 +1,19 @@
-#include <bringauto/virtual_vehicle/Vehicle.hpp>
+#include <bringauto/virtual_vehicle/vehicle_provider/SimVehicle.hpp>
 #include <bringauto/common_utils/CommonUtils.hpp>
 
 #include <bringauto/logging/Logger.hpp>
 
 
 
-namespace bringauto::virtual_vehicle {
-void Vehicle::initialize() {
+namespace bringauto::virtual_vehicle::vehicle_provider {
+void SimVehicle::initialize() {
 	route_->prepareRoute();
 	updateVehicleState(communication::Status::IDLE);
 	com_->initializeConnection();
 	setNextPosition();
 }
 
-void Vehicle::drive() {
-	while(!globalContext_->ioContext.stopped()) {
-		nextEvent();
-	}
-}
-
-void Vehicle::nextEvent() {
+void SimVehicle::nextEvent() {
 	switch(state_) {
 		case communication::Status::IDLE:
 			handleIdleEvent();
@@ -39,11 +33,11 @@ void Vehicle::nextEvent() {
 	request();
 }
 
-void Vehicle::handleIdleEvent() {
+void SimVehicle::handleIdleEvent() {
 	std::this_thread::sleep_for(std::chrono::milliseconds(globalContext_->settings->messagePeriodMs));
 }
 
-void Vehicle::handleDriveEvent() {
+void SimVehicle::handleDriveEvent() {
 	if(checkForStop()) { return; }
 
 	if(driveMillisecondLeft_ < globalContext_->settings->messagePeriodMs) {
@@ -58,7 +52,7 @@ void Vehicle::handleDriveEvent() {
 	}
 }
 
-void Vehicle::handleInStopEvent() {
+void SimVehicle::handleInStopEvent() {
 	if(inStopMillisecondsLeft_ > globalContext_->settings->messagePeriodMs) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(globalContext_->settings->messagePeriodMs));
 	} else {
@@ -70,17 +64,17 @@ void Vehicle::handleInStopEvent() {
 	}
 }
 
-void Vehicle::handleObstacleEvent() {
+void SimVehicle::handleObstacleEvent() {
 	std::this_thread::sleep_for(std::chrono::milliseconds(globalContext_->settings->messagePeriodMs));
 	logging::Logger::logWarning("Cars state is obstacle, this state is not supported.");
 }
 
-void Vehicle::handleErrorEvent() {
+void SimVehicle::handleErrorEvent() {
 	std::this_thread::sleep_for(std::chrono::milliseconds(globalContext_->settings->messagePeriodMs));
 	logging::Logger::logWarning("Car is in error state.");
 }
 
-void Vehicle::setNextPosition() {
+void SimVehicle::setNextPosition() {
 	actualPosition_ = route_->getPosition();
 	route_->setNextPosition();
 	nextPosition_ = route_->getPosition();
@@ -98,7 +92,7 @@ void Vehicle::setNextPosition() {
 	}
 }
 
-void Vehicle::request() {
+void SimVehicle::request() {
 	communication::Status status { actualPosition_->getLongitude(), actualPosition_->getLatitude(),
 								   actualSpeed_, state_, nextStopName_ };
 	std::stringstream is;
@@ -108,7 +102,7 @@ void Vehicle::request() {
 	evaluateCommand();
 }
 
-void Vehicle::evaluateCommand() {
+void SimVehicle::evaluateCommand() {
 	auto command = com_->getCommand();
 #ifdef STATE_SMURF
 	settings::StateSmurfDefinition::changeToState(globalContext_->transitions, command.action);
@@ -173,7 +167,7 @@ void Vehicle::evaluateCommand() {
 	}
 }
 
-int Vehicle::checkForStop() {
+int SimVehicle::checkForStop() {
 	if(actualPosition_->isStop() && actualPosition_->getName() == nextStopName_) {
 		updateVehicleState(communication::Status::State::IN_STOP);
 		bringauto::logging::Logger::logInfo("Car have arrived at the stop {}", nextStopName_);
@@ -182,7 +176,7 @@ int Vehicle::checkForStop() {
 	return false;
 }
 
-void Vehicle::updateVehicleState(communication::Status::State state) {
+void SimVehicle::updateVehicleState(communication::Status::State state) {
 	if(!missionValidity_) {
 		state_ = bringauto::communication::Status::State::ERROR;
 		return;

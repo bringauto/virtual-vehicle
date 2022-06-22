@@ -9,7 +9,12 @@
 
 
 namespace bringauto::settings {
+
+/**
+ * @brief Class implementing functions for command line arguments parsing using cxxopts
+ */
 class SettingsParser {
+
 public:
 	/**
 	 * @brief Method parses commandline arguments into Settings class

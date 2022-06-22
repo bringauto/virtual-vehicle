@@ -7,7 +7,7 @@
 
 
 void bringauto::communication::TerminalOutput::initializeConnection() {
-	bringauto::logging::Logger::logInfo("Dummy connection established");
+	bringauto::logging::Logger::logInfo("Empty connection established");
 #ifdef STATE_SMURF
 	globalContext_->transitions->goToState(bringauto::settings::connectedState);
 #endif
@@ -27,7 +27,6 @@ void bringauto::communication::TerminalOutput::makeRequest(const Status &status)
 }
 
 bringauto::communication::TerminalOutput::~TerminalOutput() {
-	bringauto::logging::Logger::logInfo("Overrided terminal destructor");
 }
 
 void bringauto::communication::TerminalOutput::sendStatus(const Status &status) {
