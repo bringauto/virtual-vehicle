@@ -6,6 +6,7 @@
 #include <osmium/geom/haversine.hpp>
 
 #include <vector>
+#include <optional>
 
 
 

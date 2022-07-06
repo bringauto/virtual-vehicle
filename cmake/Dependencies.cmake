@@ -1,7 +1,7 @@
 CMLIB_DEPENDENCY(
         URI "https://github.com/bringauto/cxxopts-package.git"
         URI_TYPE GIT
-        GIT_TAG v2.2.1
+        GIT_TAG v3.0.0
         TYPE MODULE
 )
 FIND_PACKAGE(cxxopts_package REQUIRED)

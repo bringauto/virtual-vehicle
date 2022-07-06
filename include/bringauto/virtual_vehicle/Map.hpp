@@ -23,7 +23,7 @@ public:
 	 *
 	 * @param routeName name of one of routes specified in .osm file
 	 */
-	std::shared_ptr<bringauto::osm::Route> getRoute(const std::string &routeName);
+	std::shared_ptr<osm::Route> getRoute(const std::string &routeName);
 
 	/**
 	 * @brief Overrides speed on all routes to speed given by param
@@ -32,7 +32,7 @@ public:
 	void speedOverride(unsigned int speed);
 
 private:
-	std::vector<std::shared_ptr<bringauto::osm::Route>> routes_;
-	std::vector<std::shared_ptr<bringauto::osm::Point>> points_;
+	std::vector<std::shared_ptr<osm::Route>> routes_;
+	std::vector<std::shared_ptr<osm::Point>> points_;
 };
 }

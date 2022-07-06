@@ -20,12 +20,12 @@ IF (NOT BRINGAUTO_SYSTEM_DEP)
     INCLUDE(cmake/Dependencies.cmake)
 ENDIF ()
 
-FIND_PACKAGE(cxxopts 2.2.0 REQUIRED)
+FIND_PACKAGE(cxxopts 3.0.0 REQUIRED)
 
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-FIND_PACKAGE(Osmium REQUIRED COMPONENTS XML)
+FIND_PACKAGE(Osmium 2.15.4 REQUIRED COMPONENTS XML)
 
-FIND_PACKAGE(libbringauto_logger)
+FIND_PACKAGE(libbringauto_logger 1.0.0 REQUIRED)
 
 IF (NOT OSMIUM_FOUND)
     MESSAGE(WARNING "Libosmium not found!\n")
@@ -36,21 +36,12 @@ INCLUDE_DIRECTORIES(${OSMIUM_INCLUDE_DIRS})
 #------------protobuf----------------#
 SET(Protobuf_USE_STATIC_LIBS ON)
 FIND_PACKAGE(Protobuf 3.17.3 REQUIRED)
-SET(PROTO_DIR "${CMAKE_CURRENT_BINARY_DIR}/proto_compiled/")
-SET(ORIG_PROTO_DIR "${CMAKE_CURRENT_LIST_DIR}/proto")
-
-MESSAGE(STATUS "${Protobuf_PROTOC_EXECUTABLE}")
-
-FILE(MAKE_DIRECTORY "${PROTO_DIR}")
-EXECUTE_PROCESS(
-        COMMAND "${Protobuf_PROTOC_EXECUTABLE}"
-        --cpp_out=${PROTO_DIR} --proto_path=${ORIG_PROTO_DIR} ${CMAKE_CURRENT_LIST_DIR}/proto/BringAutoDaemon.proto
-        WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
-)
-
-ADD_LIBRARY(protobuff_lib STATIC "${PROTO_DIR}/BringAutoDaemon.pb.cc")
+ADD_LIBRARY(protobuff_lib STATIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/proto/CarStateProtocol.pb.cc
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/proto/CarStateProtocol.pb.h)
 TARGET_LINK_LIBRARIES(protobuff_lib PUBLIC protobuf::libprotobuf)
-TARGET_INCLUDE_DIRECTORIES(protobuff_lib PUBLIC "${PROTO_DIR}")
+TARGET_INCLUDE_DIRECTORIES(protobuff_lib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/libs/proto/")
+
 
 IF (BRINGAUTO_TESTS)
     ENABLE_TESTING()
@@ -59,7 +50,7 @@ ENDIF (BRINGAUTO_TESTS)
 
 FILE(GLOB_RECURSE source_files "source/*")
 ADD_LIBRARY(bringautolib STATIC ${source_files})
-TARGET_INCLUDE_DIRECTORIES(bringautolib PUBLIC "${PROTO_DIR}" "include/")
+TARGET_INCLUDE_DIRECTORIES(bringautolib PUBLIC "lib/proto/" "include/")
 TARGET_LINK_LIBRARIES(bringautolib PUBLIC cxxopts::cxxopts protobuff_lib ${OSMIUM_XML_LIBRARIES} bringauto_logger::bringauto_logger)
 
 IF (STATE_SMURF)

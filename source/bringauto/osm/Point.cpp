@@ -2,27 +2,28 @@
 #include <bringauto/osm/Point.hpp>
 
 
-
-double bringauto::osm::Point::getLongitude() const {
+namespace bringauto::osm{
+double Point::getLongitude() const {
 	return longitude_;
 }
 
-double bringauto::osm::Point::getLatitude() const {
+double Point::getLatitude() const {
 	return latitude_;
 }
 
-const double &bringauto::osm::Point::getSpeedInMetersPerSecond() const {
+const double &Point::getSpeedInMetersPerSecond() const {
 	return speedInMetersPerSecond_;
 }
 
-bool bringauto::osm::Point::isStop() const {
+bool Point::isStop() const {
 	return stop_;
 }
 
-void bringauto::osm::Point::setSpeed(const double &speed) {
+void Point::setSpeed(const double &speed) {
 	speedInMetersPerSecond_ = speed;
 }
 
-const std::string &bringauto::osm::Point::getName() const {
+const std::string &Point::getName() const {
 	return name_;
+}
 }

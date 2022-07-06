@@ -1,7 +1,9 @@
 # Prerequisites #
 
-* [cxxopts](https://github.com/jarro2783/cxxopts)
-* [libosmium v2.15.4](https://github.com/osmcode/libosmium)
+* [cxxopts](https://github.com/jarro2783/cxxopts) >= 3.0.0
+* [libosmium](https://github.com/osmcode/libosmium) >= 2.15.4
+* [balogger](https://github.com/bringauto/ba-logger) >= 1.1.0
+* [protobuf](https://github.com/protocolbuffers/protobuf/tree/main/src) = 3.17.3
 
 ```
   $ sudo apt install libosmium2-dev

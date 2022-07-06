@@ -67,7 +67,7 @@ void ProtoBuffer::receiveCommand() {
 
 void ProtoBuffer::processBufferData() {
 	Command newCommand;
-	BringAutoDaemon::CarCommand protobuffCommandMessage {};
+	CarStateProtocol::CarCommand protobuffCommandMessage {};
 
 	if(!protobuffCommandMessage.ParseFromArray(receivedData_.buffer.data(),
 											   static_cast<int>(receivedData_.commandMessageSize))) {
@@ -91,21 +91,21 @@ void ProtoBuffer::processBufferData() {
 }
 
 std::string ProtoBuffer::generateCarStatusString(const Status &status) {
-	BringAutoDaemon::CarStatus carStatus;
+	CarStateProtocol::CarStatus carStatus;
 
-	auto position = new BringAutoDaemon::CarStatus_Position();
+	auto position = new CarStateProtocol::CarStatus_Position();
 	position->set_longitude(status.longitude);
 	position->set_latitude(status.latitude);
 
-	auto telemetry = new BringAutoDaemon::CarStatus_Telemetry;
+	auto telemetry = new CarStateProtocol::CarStatus_Telemetry;
 	telemetry->set_speed(status.speed);
 	telemetry->set_fuel(0.42);
 	telemetry->set_allocated_position(position);
 
-	auto stop = new BringAutoDaemon::Stop();
+	auto stop = new CarStateProtocol::Stop();
 	stop->set_to(status.nextStop);
 
-	carStatus.set_state((BringAutoDaemon::CarStatus_State)status.state);
+	carStatus.set_state((CarStateProtocol::CarStatus_State)status.state);
 	carStatus.set_allocated_telemetry(telemetry);
 	carStatus.set_allocated_stop(stop);
 	return carStatus.SerializeAsString();

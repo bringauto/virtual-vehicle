@@ -5,11 +5,9 @@
 
 
 
-void bringauto::osm::Route::setRouteName(const std::optional<std::string> &routeName) {
-	routeName_ = routeName;
-}
+namespace bringauto::osm {
 
-void bringauto::osm::OsmiumHandler::node(const osmium::Node &node) {
+void OsmiumHandler::node(const osmium::Node &node) {
 	std::shared_ptr<Point> point;
 	bool stop = false;
 	std::string stopName {};
@@ -20,7 +18,7 @@ void bringauto::osm::OsmiumHandler::node(const osmium::Node &node) {
 
 	if(stop) {
 		if(!node.tags().has_key("name")) {
-			bringauto::logging::Logger::logWarning("Warning! Found unnamed stop that will be ignored!");
+			logging::Logger::logWarning("Warning! Found unnamed stop that will be ignored!");
 			stop = false;
 		} else {
 			stopName = std::string { node.tags().get_value_by_key("name") };
@@ -38,7 +36,7 @@ void bringauto::osm::OsmiumHandler::node(const osmium::Node &node) {
 	points_.push_back(point);
 }
 
-void bringauto::osm::OsmiumHandler::relation(const osmium::Relation &relation) {
+void OsmiumHandler::relation(const osmium::Relation &relation) {
 	osmiumObjectId relationId = relation.id();
 	auto route = std::make_shared<Route>(Route { relation.id() });
 
@@ -64,7 +62,7 @@ void bringauto::osm::OsmiumHandler::relation(const osmium::Relation &relation) {
 	routes_.push_back(route);
 }
 
-void bringauto::osm::OsmiumHandler::way(const osmium::Way &way) {
+void OsmiumHandler::way(const osmium::Way &way) {
 	auto currentWay = std::make_shared<Way>(Way { way.id() });
 
 	for(const auto &node: way.nodes()) {
@@ -85,12 +83,11 @@ void bringauto::osm::OsmiumHandler::way(const osmium::Way &way) {
 	ways_.push_back(currentWay);
 }
 
-[[nodiscard]] const std::vector<std::shared_ptr<bringauto::osm::Point>> &
-bringauto::osm::OsmiumHandler::getPoints() const {
+[[nodiscard]] const std::vector<std::shared_ptr<Point>> &OsmiumHandler::getPoints() const {
 	return points_;
 }
 
-[[nodiscard]] const std::vector<std::shared_ptr<bringauto::osm::Route>> &
-bringauto::osm::OsmiumHandler::getRoutes() const {
+[[nodiscard]] const std::vector<std::shared_ptr<Route>> &OsmiumHandler::getRoutes() const {
 	return routes_;
+}
 }

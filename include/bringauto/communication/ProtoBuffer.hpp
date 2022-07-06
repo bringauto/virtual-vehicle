@@ -3,7 +3,7 @@
 #include <bringauto/communication/ICommunication.hpp>
 #include <bringauto/virtual_vehicle/GlobalContext.hpp>
 
-#include "BringAutoDaemon.pb.h"
+#include <CarStateProtocol.pb.h>
 
 #include <boost/asio.hpp>
 
@@ -17,13 +17,13 @@ class ProtoBuffer final: public ICommunication {
 	/**
 	 * Checking if proto buffer protocol and ICommunication protocol are the same
 	 */
-	static_assert(static_cast<int>(Status::State::IDLE) == static_cast<int>(BringAutoDaemon::CarStatus::IDLE));
-	static_assert(static_cast<int>(Status::State::DRIVE) == static_cast<int>(BringAutoDaemon::CarStatus::DRIVE));
-	static_assert(static_cast<int>(Status::State::IN_STOP) == static_cast<int>(BringAutoDaemon::CarStatus::IN_STOP));
-	static_assert(static_cast<int>(Command::Action::START) == static_cast<int>(BringAutoDaemon::CarCommand::START));
-	static_assert(static_cast<int>(Command::Action::STOP) == static_cast<int>(BringAutoDaemon::CarCommand::STOP));
+	static_assert(static_cast<int>(Status::State::IDLE) == static_cast<int>(CarStateProtocol::CarStatus::IDLE));
+	static_assert(static_cast<int>(Status::State::DRIVE) == static_cast<int>(CarStateProtocol::CarStatus::DRIVE));
+	static_assert(static_cast<int>(Status::State::IN_STOP) == static_cast<int>(CarStateProtocol::CarStatus::IN_STOP));
+	static_assert(static_cast<int>(Command::Action::START) == static_cast<int>(CarStateProtocol::CarCommand::START));
+	static_assert(static_cast<int>(Command::Action::STOP) == static_cast<int>(CarStateProtocol::CarCommand::STOP));
 	static_assert(static_cast<int>(Command::Action::NO_ACTION) ==
-				  static_cast<int>(BringAutoDaemon::CarCommand::NO_ACTION));
+				  static_cast<int>(CarStateProtocol::CarCommand::NO_ACTION));
 
 public:
 	ProtoBuffer(const std::shared_ptr<bringauto::virtual_vehicle::GlobalContext> &globalContext): ICommunication(

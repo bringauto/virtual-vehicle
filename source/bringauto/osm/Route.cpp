@@ -4,17 +4,22 @@
 
 
 
-std::string bringauto::osm::Route::getRouteName() {
+namespace bringauto::osm {
+void Route::setRouteName(const std::optional<std::string> &routeName) {
+	routeName_ = routeName;
+}
+
+std::string Route::getRouteName() {
 	return routeName_.has_value() ? routeName_.value() : "";
 }
 
-void bringauto::osm::Route::propagateSpeed() {
+void Route::propagateSpeed() {
 	double speed;
 	if(points_.front()->getSpeedInMetersPerSecond() > 0) {
 		speed = points_.front()->getSpeedInMetersPerSecond();
 	} else {
 		speed = 5;
-		bringauto::logging::Logger::logWarning(
+		logging::Logger::logWarning(
 				"First point of route {} does not contain speed, defaulting to 5m/s", getRouteName());
 	}
 
@@ -27,14 +32,14 @@ void bringauto::osm::Route::propagateSpeed() {
 	}
 }
 
-void bringauto::osm::Route::setNextPosition() {
+void Route::setNextPosition() {
 	positionIt++;
 	if(positionIt != points_.end()) {
 		return;
 	}
-	bringauto::logging::Logger::logInfo("End of route has been reached, continuing another lap");
+	logging::Logger::logInfo("End of route has been reached, continuing another lap");
 	if(!routeIsCircular_) {
-		bringauto::logging::Logger::logInfo("Route is not circular, reversing.");
+		logging::Logger::logInfo("Route is not circular, reversing.");
 		std::reverse(points_.begin(), points_.end());
 		positionIt = points_.begin();
 		positionIt++;
@@ -44,7 +49,7 @@ void bringauto::osm::Route::setNextPosition() {
 
 }
 
-void bringauto::osm::Route::prepareRoute() {
+void Route::prepareRoute() {
 	if(points_.empty()) {
 		throw std::runtime_error("Route " + getRouteName() + " has no points.");
 	}
@@ -58,11 +63,11 @@ void bringauto::osm::Route::prepareRoute() {
 	propagateSpeed();
 }
 
-std::shared_ptr<bringauto::osm::Point> bringauto::osm::Route::getPosition() {
+std::shared_ptr<Point> Route::getPosition() {
 	return *positionIt;
 }
 
-bool bringauto::osm::Route::areStopsPresent(const std::vector<std::string> &stopNames) {
+bool Route::areStopsPresent(const std::vector<std::string> &stopNames) {
 	for(const auto &stopName: stopNames) {
 		auto pointIt = std::find_if(stops_.begin(), stops_.end(),
 									[&stopName](const auto &point) { return stopName == point->getName(); });
@@ -74,7 +79,7 @@ bool bringauto::osm::Route::areStopsPresent(const std::vector<std::string> &stop
 	return true;
 }
 
-void bringauto::osm::Route::appendWay(const std::shared_ptr<Way> &way) {
+void Route::appendWay(const std::shared_ptr<Way> &way) {
 	auto points = way->getPoints();
 	auto stops = way->getStops();
 	if(!points_.empty()) {
@@ -82,16 +87,17 @@ void bringauto::osm::Route::appendWay(const std::shared_ptr<Way> &way) {
 				osmium::geom::Coordinates { points_.back()->getLatitude(), points_.back()->getLongitude() },
 				osmium::geom::Coordinates { points.front()->getLatitude(), points.front()->getLongitude() });
 		if(distanceBetweenRoutes > routesDistanceThresholdInMeters_) {
-			bringauto::logging::Logger::logWarning("Distance between part of routes is higher than threshold {}",
-												   roundRouteLimitInMeters);
+			logging::Logger::logWarning("Distance between part of routes is higher than threshold {}",
+										roundRouteLimitInMeters);
 		}
 	}
 	points_.insert(points_.end(), points.begin(), points.end());
 	stops_.insert(stops_.end(), stops.begin(), stops.end());
 }
 
-void bringauto::osm::Route::speedOverride(unsigned int speed) {
+void Route::speedOverride(unsigned int speed) {
 	for(auto const &point: points_) {
 		point->setSpeed(speed);
 	}
+}
 }
