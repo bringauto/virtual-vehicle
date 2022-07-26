@@ -53,7 +53,7 @@ Provider used for gps based position reporting. The options are:
 * BRINGAUTO_SYSTEM_DEP - if set to ON cmake will use system dependencies instead of cmake
 * BRINGAUTO_SAMPLES - if set to ON sample app will be compiled
 * STATE_SMURF - enable state smurf compilation
-* CMAKELIB_DIR - specify path to cmake lib
+* CMLIB_DIR - specify path to cmake lib
 
 ## Smurf state diagram
 

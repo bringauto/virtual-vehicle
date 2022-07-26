@@ -6,6 +6,8 @@
 
 #include <bringauto/logging/Logger.hpp>
 
+#include <thread>
+
 
 
 namespace bringauto::virtual_vehicle::vehicle_provider {

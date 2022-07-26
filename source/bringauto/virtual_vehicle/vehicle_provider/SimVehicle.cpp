@@ -2,8 +2,7 @@
 #include <bringauto/common_utils/CommonUtils.hpp>
 
 #include <bringauto/logging/Logger.hpp>
-
-
+#include <thread>
 
 namespace bringauto::virtual_vehicle::vehicle_provider {
 void SimVehicle::initialize() {
