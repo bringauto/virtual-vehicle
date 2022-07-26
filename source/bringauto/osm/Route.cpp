@@ -41,11 +41,8 @@ void Route::setNextPosition() {
 	if(!routeIsCircular_) {
 		logging::Logger::logInfo("Route is not circular, reversing.");
 		std::reverse(points_.begin(), points_.end());
-		positionIt = points_.begin();
-		positionIt++;
-	} else {
-		positionIt = points_.begin();
 	}
+	positionIt = points_.begin();
 
 }
 
