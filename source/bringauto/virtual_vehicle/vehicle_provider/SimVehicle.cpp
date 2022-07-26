@@ -4,9 +4,14 @@
 #include <bringauto/logging/Logger.hpp>
 #include <thread>
 
+
+
 namespace bringauto::virtual_vehicle::vehicle_provider {
 void SimVehicle::initialize() {
-	route_->prepareRoute();
+	shortRoute_->prepareRoute();
+	longRoute_->prepareRoute();
+
+	actualRoute_ = longRoute_;
 	updateVehicleState(communication::Status::IDLE);
 	com_->initializeConnection();
 	setNextPosition();
@@ -47,6 +52,9 @@ void SimVehicle::handleDriveEvent() {
 	driveMillisecondLeft_ -= globalContext_->settings->messagePeriodMs;
 
 	if(driveMillisecondLeft_ <= 0) {
+		if(changeRoute_){
+			changeRoute();
+		}
 		setNextPosition();
 	}
 }
@@ -74,9 +82,9 @@ void SimVehicle::handleErrorEvent() {
 }
 
 void SimVehicle::setNextPosition() {
-	actualPosition_ = route_->getPosition();
-	route_->setNextPosition();
-	nextPosition_ = route_->getPosition();
+	actualPosition_ = actualRoute_->getPosition();
+	actualRoute_->setNextPosition();
+	nextPosition_ = actualRoute_->getPosition();
 
 	actualSpeed_ = state_ == communication::Status::DRIVE ? actualPosition_->getSpeedInMetersPerSecond() : 0;
 	driveMillisecondLeft_ = common_utils::CommonUtils::timeToDriveInMilliseconds(
@@ -84,8 +92,8 @@ void SimVehicle::setNextPosition() {
 			actualSpeed_);
 
 	if(state_ == communication::Status::DRIVE) {
-		bringauto::logging::Logger::logInfo(
-				"Distance to drive: {:.2f}m, time to get there: {:.2f}s",
+		std::string routeType = (actualRoute_ == shortRoute_)? "Short": "Long";
+		logging::Logger::logInfo("{} route, distance to drive: {:.2f}m, time to get there: {:.2f}s",routeType,
 				common_utils::CommonUtils::calculateDistanceInMeters(actualPosition_, nextPosition_),
 				(double)driveMillisecondLeft_/1000);
 	}
@@ -113,16 +121,37 @@ void SimVehicle::evaluateCommand() {
 	}
 
 	if(mission_ != command.stops) {
-		if(!route_->areStopsPresent(mission_)) {
-			logging::Logger::logWarning(
-					"Received stopNames are not on route, stopNames will be completely ignored {}",
-					common_utils::CommonUtils::constructMissionString(mission_));
-			mission_.clear();
-			missionValidity_ = false;
-			return;
-		} else {
-			missionValidity_ = true;
+		if(!changeRoute_) {
+			if(actualRoute_ == longRoute_) {
+				changeRoute_ = true;
+				for(const auto &stop: command.stops) {
+					if(stop != "Vodík" && stop != "Plnička" && stop != "Lab A-blok") {
+						changeRoute_ = false;
+					}
+				}
+			} else {
+				for(const auto &stop: command.stops) {
+					if(stop != "Vodík" && stop != "Plnička" && stop != "Lab A-blok") {
+						changeRoute_ = true;
+					}
+				}
+			}
+			if(changeRoute_) {
+				logging::Logger::logInfo("Route marked to be changed!");
+			}
 		}
+
+		if(!changeRoute_) {
+			if(!actualRoute_->areStopsPresent(mission_)) {
+				logging::Logger::logWarning(
+						"Received stopNames are not on route, stopNames will be completely ignored {}",
+						common_utils::CommonUtils::constructMissionString(mission_));
+				mission_.clear();
+				missionValidity_ = false;
+				return;
+			}
+		}
+		missionValidity_ = true;
 		mission_ = command.stops;
 	}
 
@@ -205,5 +234,19 @@ void SimVehicle::updateVehicleState(communication::Status::State state) {
 		case communication::Status::ERROR:
 			break;
 	}
+}
+
+void SimVehicle::changeRoute() {
+	actualRoute_;
+
+	if(actualRoute_ == shortRoute_) {
+		actualRoute_ = longRoute_;
+		logging::Logger::logInfo("Route changed to long version.");
+	} else {
+		actualRoute_ = shortRoute_;
+		logging::Logger::logInfo("Route changed to short version.");
+	}
+	changeRoute_ = false;
+	//todo implement smooth transition
 }
 }

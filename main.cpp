@@ -68,7 +68,8 @@ int main(int argc, char **argv) {
 		if(settings->speedOverride) {
 			map.speedOverride(settings->speedOverrideMS);
 		}
-		auto route = map.getRoute(settings->routeName);
+		auto shortRoute = map.getRoute("short");
+		auto longRoute = map.getRoute("long");
 
 		switch(settings->fleetProvider) {
 			case bringauto::settings::FleetProvider::PROTOBUF:
@@ -84,10 +85,10 @@ int main(int argc, char **argv) {
 
 		switch(settings->vehicleProvider) {
 			case bringauto::settings::VehicleProvider::SIMULATION:
-				vehicle = std::make_unique<bringauto::virtual_vehicle::vehicle_provider::SimVehicle>(route, fleet, context);
+				vehicle = std::make_unique<bringauto::virtual_vehicle::vehicle_provider::SimVehicle>(shortRoute, longRoute, fleet, context);
 				break;
 			case bringauto::settings::VehicleProvider::GPS:
-				vehicle = std::make_unique<bringauto::virtual_vehicle::vehicle_provider::GpsVehicle>(route, fleet, context);
+				vehicle = std::make_unique<bringauto::virtual_vehicle::vehicle_provider::GpsVehicle>(shortRoute, longRoute, fleet, context);
 				break;
 			case bringauto::settings::VehicleProvider::INVALID:
 			default:

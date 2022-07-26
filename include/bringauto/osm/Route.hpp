@@ -64,6 +64,10 @@ public:
 	 */
 	bool areStopsPresent(const std::vector<std::string> &stopNames);
 
+	bool isPointPresent(const Point& point);
+
+
+
 	/**
 	 * Append all points and stops from way into route
 	 * @param way way to be appended to route

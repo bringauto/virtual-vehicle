@@ -13,8 +13,8 @@ namespace bringauto::virtual_vehicle::vehicle_provider {
  */
 class IVirtualVehicle {
 public:
-	IVirtualVehicle(const std::shared_ptr<osm::Route>& route, const std::shared_ptr<communication::ICommunication>& com,
-					const std::shared_ptr<GlobalContext>& globalContext): route_(route), com_(com),
+	IVirtualVehicle(const std::shared_ptr<osm::Route>& shortRoute, const std::shared_ptr<osm::Route>& longRoute, const std::shared_ptr<communication::ICommunication>& com,
+					const std::shared_ptr<GlobalContext>& globalContext): shortRoute_(shortRoute), longRoute_(longRoute), com_(com),
 																   globalContext_(globalContext) {};
 
 	/**
@@ -28,7 +28,10 @@ public:
 	void drive();
 
 protected:
-	std::shared_ptr<osm::Route> route_;
+	std::shared_ptr<osm::Route> shortRoute_;
+	std::shared_ptr<osm::Route> longRoute_;
+
+	std::shared_ptr<osm::Route> actualRoute_;
 	std::shared_ptr<communication::ICommunication> com_;
 	std::shared_ptr<GlobalContext> globalContext_;
 

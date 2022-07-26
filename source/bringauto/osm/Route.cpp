@@ -97,4 +97,11 @@ void Route::speedOverride(unsigned int speed) {
 		point->setSpeed(speed);
 	}
 }
+
+bool Route::isPointPresent(const Point &point) {
+	for(const auto& point: points_){
+		//todo
+	}
+	return false;
+}
 }
