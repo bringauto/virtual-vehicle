@@ -108,14 +108,32 @@ bool Route::isPointPresent(const Point &pointToFind) {
 
 void Route::setPositionAndDirection(const Point &actualPosition, const Point &nextPosition) {
 	positionIt = points_.begin();
-	for(auto it = points_.begin(); it != points_.end(); it++){
+	for(auto it = points_.begin(); it != points_.end(); it++){ //todo refactor
 		auto distance = osmium::geom::haversine::distance(
 				osmium::geom::Coordinates { it->get()->getLatitude(), it->get()->getLongitude() },
 				osmium::geom::Coordinates { actualPosition.getLatitude(), actualPosition.getLongitude() });
-		if(distance < 0.05){
+		if(distance < 0.001){
+			if(it != points_.begin()){
+				it--;
+				auto previousDistance = osmium::geom::haversine::distance(
+						osmium::geom::Coordinates { it->get()->getLatitude(), it->get()->getLongitude() },
+						osmium::geom::Coordinates { nextPosition.getLatitude(), nextPosition.getLongitude() });
+				//todo
+				if(previousDistance < 0.001){ //todo const
+					std::reverse(points_.begin(), points_.end());
+					for(it = points_.begin(); it != points_.end(); it++){
+						auto newDistance = osmium::geom::haversine::distance(
+								osmium::geom::Coordinates { it->get()->getLatitude(), it->get()->getLongitude() },
+								osmium::geom::Coordinates { actualPosition.getLatitude(), actualPosition.getLongitude() });
+						if(newDistance < 0.001){
+							break;
+						}
+					}
+				}
+			}
 			positionIt = it;
+			return;
 		}
-		//todo need to check if I should switch order
 	}
 }
 }
