@@ -52,7 +52,7 @@ void SimVehicle::handleDriveEvent() {
 	driveMillisecondLeft_ -= globalContext_->settings->messagePeriodMs;
 
 	if(driveMillisecondLeft_ <= 0) {
-		if(changeRoute_){
+		if(changeRoute_) {
 			changeRoute();
 		}
 		setNextPosition();
@@ -92,10 +92,10 @@ void SimVehicle::setNextPosition() {
 			actualSpeed_);
 
 	if(state_ == communication::Status::DRIVE) {
-		std::string routeType = (actualRoute_ == shortRoute_)? "Short": "Long";
-		logging::Logger::logInfo("{} route, distance to drive: {:.2f}m, time to get there: {:.2f}s",routeType,
-				common_utils::CommonUtils::calculateDistanceInMeters(actualPosition_, nextPosition_),
-				(double)driveMillisecondLeft_/1000);
+		std::string routeType = (actualRoute_ == shortRoute_) ? "Short" : "Long";
+		logging::Logger::logInfo("{} route, distance to drive: {:.2f}m, time to get there: {:.2f}s", routeType,
+								 common_utils::CommonUtils::calculateDistanceInMeters(actualPosition_, nextPosition_),
+								 (double)driveMillisecondLeft_/1000);
 	}
 }
 
@@ -237,7 +237,10 @@ void SimVehicle::updateVehicleState(communication::Status::State state) {
 }
 
 void SimVehicle::changeRoute() {
-	if(actualRoute_->isPointPresent(*actualPosition_)){
+	if(actualRoute_->isPointPresent(*actualPosition_)) {
+		actualRoute_->setNextPosition();
+		auto nextPosition = actualRoute_->getPosition();
+
 		if(actualRoute_ == shortRoute_) {
 			actualRoute_ = longRoute_;
 			logging::Logger::logInfo("Route changed to long version.");
@@ -246,7 +249,8 @@ void SimVehicle::changeRoute() {
 			logging::Logger::logInfo("Route changed to short version.");
 		}
 		changeRoute_ = false;
-	}else{
+		actualRoute_->setPositionAndDirection(*actualPosition_, *nextPosition);
+	} else {
 		logging::Logger::logInfo("Vehicle is not on a second route and cannot switch routes yet");
 	}
 
