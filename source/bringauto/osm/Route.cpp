@@ -107,6 +107,15 @@ bool Route::isPointPresent(const Point &pointToFind) {
 }
 
 void Route::setPositionAndDirection(const Point &actualPosition, const Point &nextPosition) {
-
+	positionIt = points_.begin();
+	for(auto it = points_.begin(); it != points_.end(); it++){
+		auto distance = osmium::geom::haversine::distance(
+				osmium::geom::Coordinates { it->get()->getLatitude(), it->get()->getLongitude() },
+				osmium::geom::Coordinates { actualPosition.getLatitude(), actualPosition.getLongitude() });
+		if(distance < 0.05){
+			positionIt = it;
+		}
+		//todo need to check if I should switch order
+	}
 }
 }

@@ -237,7 +237,8 @@ void SimVehicle::updateVehicleState(communication::Status::State state) {
 }
 
 void SimVehicle::changeRoute() {
-	if(actualRoute_->isPointPresent(*actualPosition_)) {
+	auto nextRoute = (actualRoute_ == shortRoute_) ? longRoute_ : shortRoute_;
+	if(nextRoute->isPointPresent(*actualPosition_)) {
 		actualRoute_->setNextPosition();
 		auto nextPosition = actualRoute_->getPosition();
 
