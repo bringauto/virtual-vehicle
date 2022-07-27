@@ -237,16 +237,20 @@ void SimVehicle::updateVehicleState(communication::Status::State state) {
 }
 
 void SimVehicle::changeRoute() {
-	actualRoute_;
-
-	if(actualRoute_ == shortRoute_) {
-		actualRoute_ = longRoute_;
-		logging::Logger::logInfo("Route changed to long version.");
-	} else {
-		actualRoute_ = shortRoute_;
-		logging::Logger::logInfo("Route changed to short version.");
+	if(actualRoute_->isPointPresent(*actualPosition_)){
+		if(actualRoute_ == shortRoute_) {
+			actualRoute_ = longRoute_;
+			logging::Logger::logInfo("Route changed to long version.");
+		} else {
+			actualRoute_ = shortRoute_;
+			logging::Logger::logInfo("Route changed to short version.");
+		}
+		changeRoute_ = false;
+	}else{
+		logging::Logger::logInfo("Vehicle is not on a second route and cannot switch routes yet");
 	}
-	changeRoute_ = false;
+
+
 	//todo implement smooth transition
 }
 }

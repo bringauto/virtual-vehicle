@@ -98,10 +98,11 @@ void Route::speedOverride(unsigned int speed) {
 	}
 }
 
-bool Route::isPointPresent(const Point &point) {
-	for(const auto& point: points_){
-		//todo
-	}
-	return false;
+bool Route::isPointPresent(const Point &pointToFind) {
+	return std::any_of(points_.begin(), points_.end(), [pointToFind](const std::shared_ptr<Point>& point){
+		return osmium::geom::haversine::distance(
+				osmium::geom::Coordinates { point->getLatitude(), point->getLongitude() },
+				osmium::geom::Coordinates { pointToFind.getLatitude(), pointToFind.getLongitude() }) < 0.5;
+	});
 }
 }
