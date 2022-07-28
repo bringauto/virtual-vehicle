@@ -106,26 +106,29 @@ bool Route::isPointPresent(const Point &pointToFind) {
 	});
 }
 
-void Route::setPositionAndDirection(const Point &actualPosition, const Point &nextPosition) {
+void Route::setPositionAndDirection(const Point &actualPosition, const std::string &nextStopName) {
 	positionIt = points_.begin();
 	for(auto it = points_.begin(); it != points_.end(); it++){ //todo refactor
 		auto distance = osmium::geom::haversine::distance(
 				osmium::geom::Coordinates { it->get()->getLatitude(), it->get()->getLongitude() },
 				osmium::geom::Coordinates { actualPosition.getLatitude(), actualPosition.getLongitude() });
 		if(distance < 0.001){
-			if(it != points_.begin()){
-				it--;
-				auto previousDistance = osmium::geom::haversine::distance(
-						osmium::geom::Coordinates { it->get()->getLatitude(), it->get()->getLongitude() },
-						osmium::geom::Coordinates { nextPosition.getLatitude(), nextPosition.getLongitude() });
-				//todo
-				if(previousDistance < 0.001){ //todo const
+			if(!routeIsCircular_) { // Circular routes must not be reversed
+				bool reverse = true;
+				for(auto it2 = it; it2 != points_.end(); it2++) {
+					if(nextStopName == it2->get()->getName()) { // next stop is found in current direction
+						reverse = false;
+						break;
+					}
+				}
+				if(reverse) {
 					std::reverse(points_.begin(), points_.end());
-					for(it = points_.begin(); it != points_.end(); it++){
+					for(it = points_.begin(); it != points_.end(); it++) {
 						auto newDistance = osmium::geom::haversine::distance(
 								osmium::geom::Coordinates { it->get()->getLatitude(), it->get()->getLongitude() },
-								osmium::geom::Coordinates { actualPosition.getLatitude(), actualPosition.getLongitude() });
-						if(newDistance < 0.001){
+								osmium::geom::Coordinates { actualPosition.getLatitude(),
+															actualPosition.getLongitude() });
+						if(newDistance < 0.001) {
 							break;
 						}
 					}

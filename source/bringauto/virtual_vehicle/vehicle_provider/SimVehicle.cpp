@@ -250,7 +250,7 @@ void SimVehicle::changeRoute() {
 			logging::Logger::logInfo("Route changed to short version.");
 		}
 		changeRoute_ = false;
-		actualRoute_->setPositionAndDirection(*actualPosition_, *nextPosition);
+		actualRoute_->setPositionAndDirection(*actualPosition_, nextStopName_);
 	} else {
 		logging::Logger::logInfo("Vehicle is not on a second route and cannot switch routes yet");
 	}

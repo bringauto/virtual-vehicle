@@ -65,7 +65,7 @@ public:
 	bool areStopsPresent(const std::vector<std::string> &stopNames);
 
 	bool isPointPresent(const Point& point);
-	void setPositionAndDirection(const Point& actualPosition, const Point& nextPosition);
+	void setPositionAndDirection(const Point& actualPosition, const std::string &nextStopName);
 
 
 
