@@ -1,7 +1,7 @@
 #pragma once
 
 #include <bringauto/virtual_vehicle/gps_provider/IGpsProvider.hpp>
-#include <bringauto/communication/Modbus.hpp>
+#include <modbus.h>
 
 #include <string>
 #include <memory>
