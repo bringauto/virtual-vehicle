@@ -13,52 +13,54 @@
 
 
 void initLogger(const std::string &logPath, bool verbose) {
+	using namespace bringauto::logging;
 #ifdef STATE_SMURF
 	verbose = true;
 #endif
 	if(verbose) {
-		bringauto::logging::Logger::addSink<bringauto::logging::ConsoleSink>();
+		Logger::addSink<bringauto::logging::ConsoleSink>();
 	}
-	bringauto::logging::FileSink::Params paramFileSink{logPath, "vvu"};
+	FileSink::Params paramFileSink{logPath, "vvu"};
 	paramFileSink.maxFileSize = 1024 * 1024 * 50; //50MB
 	paramFileSink.numberOfRotatedFiles = 5;
-	paramFileSink.verbosity = bringauto::logging::Logger::Verbosity::Debug;
+	paramFileSink.verbosity = Logger::Verbosity::Debug;
 
-	bringauto::logging::Logger::addSink<bringauto::logging::FileSink>({ logPath, "virtual-vehicle-utility.log" });
-	bringauto::logging::Logger::LoggerSettings params { "virtual-vehicle-utility",
-														bringauto::logging::Logger::Verbosity::Debug };
-	bringauto::logging::Logger::init(params);
+	Logger::addSink<bringauto::logging::FileSink>({ logPath, "virtual-vehicle-utility.log" });
+	Logger::LoggerSettings params { "virtual-vehicle-utility",
+														Logger::Verbosity::Debug };
+	Logger::init(params);
 }
 
 int main(int argc, char **argv) {
+	using namespace bringauto;
 	int exitCode = EXIT_SUCCESS;
-	bringauto::settings::SettingsParser settingsParser;
-	std::unique_ptr<bringauto::virtual_vehicle::vehicle_provider::IVirtualVehicle> vehicle;
-	std::shared_ptr<bringauto::communication::ICommunication> fleet;
+	std::unique_ptr<virtual_vehicle::vehicle_provider::IVirtualVehicle> vehicle;
+	std::shared_ptr<communication::ICommunication> fleet;
+	std::shared_ptr<virtual_vehicle::GlobalContext> context;
+	std::shared_ptr<settings::Settings> settings;
+	std::thread contextThread;
 
 	try {
+		settings::SettingsParser settingsParser;
 		if(!settingsParser.parseSettings(argc, argv)) {
 			return exitCode;
 		}
-	} catch(std::exception &e) {
-		std::cerr << "[ERROR] Unable to parse cmd arguments: " << e.what() << std::endl;
-		return EXIT_FAILURE;
-	}
-
-	std::thread contextThread;
-	auto context = std::make_shared<bringauto::virtual_vehicle::GlobalContext>();
-
-	try {
-		auto settings = settingsParser.getSettings();
+		context = std::make_shared<virtual_vehicle::GlobalContext>();
+		settings = settingsParser.getSettings();
 		context->settings = settings;
 		initLogger(settings->logPath, settings->verbose);
+
+	} catch(std::exception &e) {
+		std::cerr << "[ERROR] Error occurred during initialization: " << e.what() << std::endl;
+		return EXIT_FAILURE;
+	}
 
 #ifdef STATE_SMURF
 		auto stateDiagram = bringauto::settings::StateSmurfDefinition::createStateDiagram();
 		auto transitions = std::make_shared<state_smurf::transition::StateTransition>(stateDiagram);
 		context->transitions = transitions;
 #endif
-
+	try{
 		boost::asio::signal_set signals { context->ioContext, SIGINT, SIGTERM };
 		signals.async_wait([context](auto, auto) { context->ioContext.stop(); });
 		contextThread = std::thread([context]() { context->ioContext.run(); });

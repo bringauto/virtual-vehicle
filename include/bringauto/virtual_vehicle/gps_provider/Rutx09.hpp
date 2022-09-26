@@ -1,7 +1,7 @@
 #pragma once
 
 #include <bringauto/virtual_vehicle/gps_provider/IGpsProvider.hpp>
-#include <bringauto/communication/Modbus.hpp>
+#include <modbus.h>
 
 #include <string>
 #include <memory>
@@ -27,11 +27,10 @@ private:
 		uint32_t length;
 		ValueType valueType;
 	};
-	///RUTX09 register information https://wiki.teltonika-networks.com/view/Monitoring_via_Modbus
+	///RUTX09 register information https://wiki.teltonika-networks.com/view/RUTX09_Modbus
 	const static int maxRegisterSize_{16};
 	const RutxValue latitudeRegister_{143,2, ValueType::FLOAT};
 	const RutxValue longitudeRegister_{145,2, ValueType::FLOAT};
-	// Documentation is bad, in documentation is speed INT but FLOAT seems to be more accurate, needs testing
 	const RutxValue speedRegister_{179,2, ValueType::FLOAT};
 
 public:

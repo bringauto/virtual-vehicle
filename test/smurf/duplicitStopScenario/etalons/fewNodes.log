@@ -84,7 +84,6 @@
 [2022-06-21 13:35:06.157] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
 [2022-06-21 13:35:06.158] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
 [2022-06-21 13:35:06.158] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2022-06-21 13:35:06.158] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
 [2022-06-21 13:35:06.158] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
 [2022-06-21 13:35:06.158] [virtual-vehicle-utility] [info] Car have arrived at the stop first
 [2022-06-21 13:35:06.158] [virtual-vehicle-utility] [info] Sending status state: IN_STOP latitude: 49.2286 longitude: 16.5944 next stop: first
@@ -174,7 +173,6 @@
 [2022-06-21 13:35:35.486] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
 [2022-06-21 13:35:35.487] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
 [2022-06-21 13:35:35.487] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2022-06-21 13:35:35.487] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
 [2022-06-21 13:35:35.487] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
 [2022-06-21 13:35:35.487] [virtual-vehicle-utility] [info] Car have arrived at the stop second
 [2022-06-21 13:35:35.488] [virtual-vehicle-utility] [info] Sending status state: IN_STOP latitude: 49.2277 longitude: 16.5924 next stop: second

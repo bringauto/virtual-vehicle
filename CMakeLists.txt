@@ -1,7 +1,9 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.20)
-PROJECT(VirtualVehicle)
+PROJECT(virtual-vehicle-utility)
 
 SET(CMAKE_CXX_STANDARD 17)
+
+SET(VIRTUAL_VEHICLE_UTILITY_VERSION 2.1.0)
 
 # for linking .so after make install (actually ba_logger):
 SET(CMAKE_SKIP_BUILD_RPATH FALSE)
@@ -21,22 +23,33 @@ OPTION(BRINGAUTO_SYSTEM_DEP "Enable system dependencies" OFF)
 OPTION(BRINGAUTO_SAMPLES "Enable build of sample app, not used in project" OFF)
 OPTION(STATE_SMURF "Enables state smurf" OFF)
 
+IF (BRINGAUTO_PACKAGE)
+    IF (NOT BRINGAUTO_INSTALL)
+        SET(BRINGAUTO_INSTALL ON CACHE BOOL "Forced install due to BRINGAUTO_PACKAGE=ON" FORCE)
+        MESSAGE(WARNING "BRINGAUTO_INSTALL is switched to on because of BRINGAUTO_PACKAGE=ON")
+    ENDIF ()
+ENDIF ()
+
+FIND_PACKAGE(CMLIB
+        COMPONENTS CMDEF CMUTIL STORAGE
+        REQUIRED
+        )
 
 IF (NOT BRINGAUTO_SYSTEM_DEP)
-    FIND_PACKAGE(CMLIB REQUIRED)
     INCLUDE(cmake/Dependencies.cmake)
 ENDIF ()
 
-FIND_PACKAGE(cxxopts 3.0.0 REQUIRED)
 
 LIST(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 FIND_PACKAGE(Osmium 2.15.4 REQUIRED COMPONENTS XML)
 
-FIND_PACKAGE(libbringauto_logger 1.0.0 REQUIRED)
-
 IF (NOT OSMIUM_FOUND)
     MESSAGE(WARNING "Libosmium not found!\n")
 ENDIF ()
+
+FIND_PACKAGE(cxxopts 3.0.0 REQUIRED)
+FIND_PACKAGE(libbringauto_logger 1.0.0 REQUIRED)
+FIND_PACKAGE(modbuspp 1.0.0 REQUIRED)
 
 INCLUDE_DIRECTORIES(${OSMIUM_INCLUDE_DIRS})
 
@@ -58,10 +71,10 @@ ENDIF (BRINGAUTO_TESTS)
 FILE(GLOB_RECURSE source_files "source/*")
 ADD_LIBRARY(bringautolib STATIC ${source_files})
 TARGET_INCLUDE_DIRECTORIES(bringautolib PUBLIC "lib/proto/" "include/")
-TARGET_LINK_LIBRARIES(bringautolib PUBLIC cxxopts::cxxopts protobuff_lib ${OSMIUM_XML_LIBRARIES} bringauto_logger::bringauto_logger)
+TARGET_LINK_LIBRARIES(bringautolib PUBLIC cxxopts::cxxopts protobuff_lib ${OSMIUM_XML_LIBRARIES} bringauto_logger::bringauto_logger modbuspp_lib)
 
 IF (STATE_SMURF)
-    ADD_SUBDIRECTORY(lib/StateSmurf/)
+    FIND_PACKAGE(state_smurf 2.0.0 REQUIRED)
     ADD_COMPILE_DEFINITIONS(STATE_SMURF)
     TARGET_LINK_LIBRARIES(bringautolib PUBLIC
             diagram_smurf_lib
@@ -69,11 +82,27 @@ IF (STATE_SMURF)
 ENDIF ()
 
 
-ADD_EXECUTABLE(VirtualVehicle main.cpp)
-TARGET_INCLUDE_DIRECTORIES(VirtualVehicle PUBLIC "include/")
-TARGET_LINK_LIBRARIES(VirtualVehicle PUBLIC bringautolib)
+CMDEF_ADD_EXECUTABLE(
+        TARGET virtual-vehicle-utility
+        SOURCES main.cpp
+        VERSION ${VIRTUAL_VEHICLE_UTILITY_VERSION}
+)
+TARGET_LINK_LIBRARIES(virtual-vehicle-utility PUBLIC bringautolib)
 
 IF (BRINGAUTO_INSTALL)
-	INSTALL(TARGETS VirtualVehicle DESTINATION bin)
-        INSTALL(IMPORTED_RUNTIME_ARTIFACTS bringauto_logger::bringauto_logger_spdlog DESTINATION ${CMAKE_INSTALL_LIBDIR})
+    BA_PACKAGE_DEPS_IMPORTED(virtual-vehicle-utility)
+    CMDEF_INSTALL(TARGET virtual-vehicle-utility)
+ENDIF ()
+
+IF (BRINGAUTO_PACKAGE)
+    CMDEF_PACKAGE(
+            MAIN_TARGET virtual-vehicle-utility
+            VERSION ${VIRTUAL_VEHICLE_UTILITY_VERSION}
+    )
+    SET(CPACK_GENERATOR ZIP)
+    SET(CPACK_PACKAGE_CONTACT "Bring Auto s.r.o. <maintainers@bringauto.com>")
+    SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Bring Auto s.r.o <maintainers@bringauto.com>")
+    SET(CPACK_DEBIAN_PACKAGE_GENERATE_SHLIBS ON)
+    SET(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+    INCLUDE(CPack)
 ENDIF ()

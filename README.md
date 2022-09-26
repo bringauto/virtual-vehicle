@@ -55,9 +55,35 @@ Provider used for gps based position reporting. The options are:
 * STATE_SMURF - enable state smurf compilation
 * CMLIB_DIR - specify path to cmake lib
 
-## Smurf state diagram
+# Build
+```
+mkdir _build && cd _build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make -j 8
+```
+# Tests
+Tests are configured by CMake parameter `-DBRINGAUTO_TESTS=ON`
+start unit tests:
+```asm
+cd _build
+ctest
+```
+## Smurf integration tests
+### Smurf state diagram
 
 <img src="documentation/vvu_state_graph.png" alt="state graph">
+
+### Start tests
+There are three scenarios for VVU StateSmurf integration tests using [Etna](https://github.com/bringauto/etna).
+
+Template run command from project root directory `python3 <smurf_compare_scenarios.py path> --evaluator <smurf_evaluator path> --executable _build/VirtualVehicle --scenario <scenarios.json path`
+
+If StateSmurf is installed on host pc, use following commands:
+```
+python3 /usr/local/bin/smurf_compare_scenarios.py --scenario test/smurf/circularRouteScenario/scenarios.json --executable _build/VirtualVehicle --evaluator /usr/local/bin/smurf_evaluator
+python3 /usr/local/bin/smurf_compare_scenarios.py --scenario test/smurf/linearRouteScenario/scenarios.json --executable _build/VirtualVehicle --evaluator /usr/local/bin/smurf_evaluator
+python3 /usr/local/bin/smurf_compare_scenarios.py --scenario test/smurf/duplicitStopScenario/scenarios.json --executable _build/VirtualVehicle --evaluator /usr/local/bin/smurf_evaluator
+```
 
 # Map creation
 
