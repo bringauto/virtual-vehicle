@@ -18,72 +18,73 @@
 PROTOBUF_PRAGMA_INIT_SEG
 namespace CarStateProtocol {
 constexpr CarStatus_Telemetry::CarStatus_Telemetry(
-		::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-		: position_(nullptr)
-		, speed_(0)
-		, fuel_(0){}
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : position_(nullptr)
+  , speed_(0)
+  , fuel_(0){}
 struct CarStatus_TelemetryDefaultTypeInternal {
-	constexpr CarStatus_TelemetryDefaultTypeInternal()
-			: _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-	~CarStatus_TelemetryDefaultTypeInternal() {}
-	union {
-		CarStatus_Telemetry _instance;
-	};
+  constexpr CarStatus_TelemetryDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~CarStatus_TelemetryDefaultTypeInternal() {}
+  union {
+    CarStatus_Telemetry _instance;
+  };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CarStatus_TelemetryDefaultTypeInternal _CarStatus_Telemetry_default_instance_;
 constexpr CarStatus_Position::CarStatus_Position(
-		::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-		: latitude_(0)
-		, longitude_(0)
-		, altitude_(0){}
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : latitude_(0)
+  , longitude_(0)
+  , altitude_(0){}
 struct CarStatus_PositionDefaultTypeInternal {
-	constexpr CarStatus_PositionDefaultTypeInternal()
-			: _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-	~CarStatus_PositionDefaultTypeInternal() {}
-	union {
-		CarStatus_Position _instance;
-	};
+  constexpr CarStatus_PositionDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~CarStatus_PositionDefaultTypeInternal() {}
+  union {
+    CarStatus_Position _instance;
+  };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CarStatus_PositionDefaultTypeInternal _CarStatus_Position_default_instance_;
 constexpr CarStatus::CarStatus(
-		::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-		: telemetry_(nullptr)
-		, stop_(nullptr)
-		, state_(0)
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : telemetry_(nullptr)
+  , stop_(nullptr)
+  , state_(0)
 {}
 struct CarStatusDefaultTypeInternal {
-	constexpr CarStatusDefaultTypeInternal()
-			: _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-	~CarStatusDefaultTypeInternal() {}
-	union {
-		CarStatus _instance;
-	};
+  constexpr CarStatusDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~CarStatusDefaultTypeInternal() {}
+  union {
+    CarStatus _instance;
+  };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CarStatusDefaultTypeInternal _CarStatus_default_instance_;
 constexpr CarCommand::CarCommand(
-		::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-		: stops_()
-		, action_(0)
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : stops_()
+  , route_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , action_(0)
 {}
 struct CarCommandDefaultTypeInternal {
-	constexpr CarCommandDefaultTypeInternal()
-			: _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-	~CarCommandDefaultTypeInternal() {}
-	union {
-		CarCommand _instance;
-	};
+  constexpr CarCommandDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~CarCommandDefaultTypeInternal() {}
+  union {
+    CarCommand _instance;
+  };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CarCommandDefaultTypeInternal _CarCommand_default_instance_;
 constexpr Stop::Stop(
-		::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-		: to_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : to_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct StopDefaultTypeInternal {
-	constexpr StopDefaultTypeInternal()
-			: _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-	~StopDefaultTypeInternal() {}
-	union {
-		Stop _instance;
-	};
+  constexpr StopDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~StopDefaultTypeInternal() {}
+  union {
+    Stop _instance;
+  };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StopDefaultTypeInternal _Stop_default_instance_;
 }  // namespace CarStateProtocol
@@ -92,108 +93,110 @@ static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptor
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_CarStateProtocol_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_CarStateProtocol_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-		~0u,  // no _has_bits_
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Telemetry, _internal_metadata_),
-		~0u,  // no _extensions_
-		~0u,  // no _oneof_case_
-		~0u,  // no _weak_field_map_
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Telemetry, speed_),
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Telemetry, fuel_),
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Telemetry, position_),
-		~0u,  // no _has_bits_
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Position, _internal_metadata_),
-		~0u,  // no _extensions_
-		~0u,  // no _oneof_case_
-		~0u,  // no _weak_field_map_
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Position, latitude_),
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Position, longitude_),
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Position, altitude_),
-		~0u,  // no _has_bits_
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus, _internal_metadata_),
-		~0u,  // no _extensions_
-		~0u,  // no _oneof_case_
-		~0u,  // no _weak_field_map_
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus, telemetry_),
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus, state_),
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus, stop_),
-		~0u,  // no _has_bits_
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarCommand, _internal_metadata_),
-		~0u,  // no _extensions_
-		~0u,  // no _oneof_case_
-		~0u,  // no _weak_field_map_
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarCommand, stops_),
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarCommand, action_),
-		~0u,  // no _has_bits_
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::Stop, _internal_metadata_),
-		~0u,  // no _extensions_
-		~0u,  // no _oneof_case_
-		~0u,  // no _weak_field_map_
-		PROTOBUF_FIELD_OFFSET(::CarStateProtocol::Stop, to_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Telemetry, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Telemetry, speed_),
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Telemetry, fuel_),
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Telemetry, position_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Position, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Position, latitude_),
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Position, longitude_),
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus_Position, altitude_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus, telemetry_),
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus, state_),
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarStatus, stop_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarCommand, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarCommand, stops_),
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarCommand, action_),
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::CarCommand, route_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::Stop, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::CarStateProtocol::Stop, to_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-		{ 0, -1, sizeof(::CarStateProtocol::CarStatus_Telemetry)},
-		{ 8, -1, sizeof(::CarStateProtocol::CarStatus_Position)},
-		{ 16, -1, sizeof(::CarStateProtocol::CarStatus)},
-		{ 24, -1, sizeof(::CarStateProtocol::CarCommand)},
-		{ 31, -1, sizeof(::CarStateProtocol::Stop)},
+  { 0, -1, sizeof(::CarStateProtocol::CarStatus_Telemetry)},
+  { 8, -1, sizeof(::CarStateProtocol::CarStatus_Position)},
+  { 16, -1, sizeof(::CarStateProtocol::CarStatus)},
+  { 24, -1, sizeof(::CarStateProtocol::CarCommand)},
+  { 32, -1, sizeof(::CarStateProtocol::Stop)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-		reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CarStateProtocol::_CarStatus_Telemetry_default_instance_),
-		reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CarStateProtocol::_CarStatus_Position_default_instance_),
-		reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CarStateProtocol::_CarStatus_default_instance_),
-		reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CarStateProtocol::_CarCommand_default_instance_),
-		reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CarStateProtocol::_Stop_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CarStateProtocol::_CarStatus_Telemetry_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CarStateProtocol::_CarStatus_Position_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CarStateProtocol::_CarStatus_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CarStateProtocol::_CarCommand_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::CarStateProtocol::_Stop_default_instance_),
 };
 
 const char descriptor_table_protodef_CarStateProtocol_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-		"\n\026CarStateProtocol.proto\022\020CarStateProtoc"
-		"ol\"\206\003\n\tCarStatus\0228\n\ttelemetry\030\001 \001(\0132%.Ca"
-		"rStateProtocol.CarStatus.Telemetry\0220\n\005st"
-		"ate\030\002 \001(\0162!.CarStateProtocol.CarStatus.S"
-		"tate\022$\n\004stop\030\003 \001(\0132\026.CarStateProtocol.St"
-		"op\032`\n\tTelemetry\022\r\n\005speed\030\001 \001(\001\022\014\n\004fuel\030\002"
-		" \001(\001\0226\n\010position\030\003 \001(\0132$.CarStateProtoco"
-		"l.CarStatus.Position\032A\n\010Position\022\020\n\010lati"
-		"tude\030\001 \001(\001\022\021\n\tlongitude\030\002 \001(\001\022\020\n\010altitud"
-		"e\030\003 \001(\001\"B\n\005State\022\010\n\004IDLE\020\000\022\t\n\005DRIVE\020\001\022\013\n"
-		"\007IN_STOP\020\002\022\014\n\010OBSTACLE\020\003\022\t\n\005ERROR\020\004\"\226\001\n\n"
-		"CarCommand\022%\n\005stops\030\001 \003(\0132\026.CarStateProt"
-		"ocol.Stop\0223\n\006action\030\002 \001(\0162#.CarStateProt"
-		"ocol.CarCommand.Action\",\n\006Action\022\r\n\tNO_A"
-		"CTION\020\000\022\010\n\004STOP\020\001\022\t\n\005START\020\002\"\022\n\004Stop\022\n\n\002"
-		"to\030\001 \001(\tB>Z!../internal/pkg/ba_proto;ba_"
-		"proto\252\002\030Google.Protobuf.ba_protob\006proto3"
-;
+  "\n\026CarStateProtocol.proto\022\020CarStateProtoc"
+  "ol\"\206\003\n\tCarStatus\0228\n\ttelemetry\030\001 \001(\0132%.Ca"
+  "rStateProtocol.CarStatus.Telemetry\0220\n\005st"
+  "ate\030\002 \001(\0162!.CarStateProtocol.CarStatus.S"
+  "tate\022$\n\004stop\030\003 \001(\0132\026.CarStateProtocol.St"
+  "op\032`\n\tTelemetry\022\r\n\005speed\030\001 \001(\001\022\014\n\004fuel\030\002"
+  " \001(\001\0226\n\010position\030\003 \001(\0132$.CarStateProtoco"
+  "l.CarStatus.Position\032A\n\010Position\022\020\n\010lati"
+  "tude\030\001 \001(\001\022\021\n\tlongitude\030\002 \001(\001\022\020\n\010altitud"
+  "e\030\003 \001(\001\"B\n\005State\022\010\n\004IDLE\020\000\022\t\n\005DRIVE\020\001\022\013\n"
+  "\007IN_STOP\020\002\022\014\n\010OBSTACLE\020\003\022\t\n\005ERROR\020\004\"\245\001\n\n"
+  "CarCommand\022%\n\005stops\030\001 \003(\0132\026.CarStateProt"
+  "ocol.Stop\0223\n\006action\030\002 \001(\0162#.CarStateProt"
+  "ocol.CarCommand.Action\022\r\n\005route\030\003 \001(\t\",\n"
+  "\006Action\022\r\n\tNO_ACTION\020\000\022\010\n\004STOP\020\001\022\t\n\005STAR"
+  "T\020\002\"\022\n\004Stop\022\n\n\002to\030\001 \001(\tB>Z!../internal/p"
+  "kg/ba_proto;ba_proto\252\002\030Google.Protobuf.b"
+  "a_protob\006proto3"
+  ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_CarStateProtocol_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_CarStateProtocol_2eproto = {
-		false, false, 680, descriptor_table_protodef_CarStateProtocol_2eproto, "CarStateProtocol.proto",
-		&descriptor_table_CarStateProtocol_2eproto_once, nullptr, 0, 5,
-		schemas, file_default_instances, TableStruct_CarStateProtocol_2eproto::offsets,
-		file_level_metadata_CarStateProtocol_2eproto, file_level_enum_descriptors_CarStateProtocol_2eproto, file_level_service_descriptors_CarStateProtocol_2eproto,
+  false, false, 695, descriptor_table_protodef_CarStateProtocol_2eproto, "CarStateProtocol.proto", 
+  &descriptor_table_CarStateProtocol_2eproto_once, nullptr, 0, 5,
+  schemas, file_default_instances, TableStruct_CarStateProtocol_2eproto::offsets,
+  file_level_metadata_CarStateProtocol_2eproto, file_level_enum_descriptors_CarStateProtocol_2eproto, file_level_service_descriptors_CarStateProtocol_2eproto,
 };
 PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_CarStateProtocol_2eproto_getter() {
-	return &descriptor_table_CarStateProtocol_2eproto;
+  return &descriptor_table_CarStateProtocol_2eproto;
 }
 
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_CarStateProtocol_2eproto(&descriptor_table_CarStateProtocol_2eproto);
 namespace CarStateProtocol {
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CarStatus_State_descriptor() {
-	::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_CarStateProtocol_2eproto);
-	return file_level_enum_descriptors_CarStateProtocol_2eproto[0];
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_CarStateProtocol_2eproto);
+  return file_level_enum_descriptors_CarStateProtocol_2eproto[0];
 }
 bool CarStatus_State_IsValid(int value) {
-	switch (value) {
-		case 0:
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-			return true;
-		default:
-			return false;
-	}
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+      return true;
+    default:
+      return false;
+  }
 }
 
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
@@ -207,18 +210,18 @@ constexpr CarStatus_State CarStatus::State_MAX;
 constexpr int CarStatus::State_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CarCommand_Action_descriptor() {
-	::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_CarStateProtocol_2eproto);
-	return file_level_enum_descriptors_CarStateProtocol_2eproto[1];
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_CarStateProtocol_2eproto);
+  return file_level_enum_descriptors_CarStateProtocol_2eproto[1];
 }
 bool CarCommand_Action_IsValid(int value) {
-	switch (value) {
-		case 0:
-		case 1:
-		case 2:
-			return true;
-		default:
-			return false;
-	}
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
 }
 
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
@@ -233,1205 +236,1247 @@ constexpr int CarCommand::Action_ARRAYSIZE;
 // ===================================================================
 
 class CarStatus_Telemetry::_Internal {
-public:
-	static const ::CarStateProtocol::CarStatus_Position& position(const CarStatus_Telemetry* msg);
+ public:
+  static const ::CarStateProtocol::CarStatus_Position& position(const CarStatus_Telemetry* msg);
 };
 
 const ::CarStateProtocol::CarStatus_Position&
 CarStatus_Telemetry::_Internal::position(const CarStatus_Telemetry* msg) {
-	return *msg->position_;
+  return *msg->position_;
 }
 CarStatus_Telemetry::CarStatus_Telemetry(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-										 bool is_message_owned)
-		: ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-	SharedCtor();
-	if (!is_message_owned) {
-		RegisterArenaDtor(arena);
-	}
-	// @@protoc_insertion_point(arena_constructor:CarStateProtocol.CarStatus.Telemetry)
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:CarStateProtocol.CarStatus.Telemetry)
 }
 CarStatus_Telemetry::CarStatus_Telemetry(const CarStatus_Telemetry& from)
-		: ::PROTOBUF_NAMESPACE_ID::Message() {
-	_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-	if (from._internal_has_position()) {
-		position_ = new ::CarStateProtocol::CarStatus_Position(*from.position_);
-	} else {
-		position_ = nullptr;
-	}
-	::memcpy(&speed_, &from.speed_,
-			 static_cast<size_t>(reinterpret_cast<char*>(&fuel_) -
-								 reinterpret_cast<char*>(&speed_)) + sizeof(fuel_));
-	// @@protoc_insertion_point(copy_constructor:CarStateProtocol.CarStatus.Telemetry)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_position()) {
+    position_ = new ::CarStateProtocol::CarStatus_Position(*from.position_);
+  } else {
+    position_ = nullptr;
+  }
+  ::memcpy(&speed_, &from.speed_,
+    static_cast<size_t>(reinterpret_cast<char*>(&fuel_) -
+    reinterpret_cast<char*>(&speed_)) + sizeof(fuel_));
+  // @@protoc_insertion_point(copy_constructor:CarStateProtocol.CarStatus.Telemetry)
 }
 
 inline void CarStatus_Telemetry::SharedCtor() {
-	::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-					 reinterpret_cast<char*>(&position_) - reinterpret_cast<char*>(this)),
-			 0, static_cast<size_t>(reinterpret_cast<char*>(&fuel_) -
-									reinterpret_cast<char*>(&position_)) + sizeof(fuel_));
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&position_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&fuel_) -
+    reinterpret_cast<char*>(&position_)) + sizeof(fuel_));
 }
 
 CarStatus_Telemetry::~CarStatus_Telemetry() {
-	// @@protoc_insertion_point(destructor:CarStateProtocol.CarStatus.Telemetry)
-	if (GetArenaForAllocation() != nullptr) return;
-	SharedDtor();
-	_internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  // @@protoc_insertion_point(destructor:CarStateProtocol.CarStatus.Telemetry)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void CarStatus_Telemetry::SharedDtor() {
-			GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-	if (this != internal_default_instance()) delete position_;
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete position_;
 }
 
 void CarStatus_Telemetry::ArenaDtor(void* object) {
-	CarStatus_Telemetry* _this = reinterpret_cast< CarStatus_Telemetry* >(object);
-	(void)_this;
+  CarStatus_Telemetry* _this = reinterpret_cast< CarStatus_Telemetry* >(object);
+  (void)_this;
 }
 void CarStatus_Telemetry::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
 void CarStatus_Telemetry::SetCachedSize(int size) const {
-	_cached_size_.Set(size);
+  _cached_size_.Set(size);
 }
 
 void CarStatus_Telemetry::Clear() {
 // @@protoc_insertion_point(message_clear_start:CarStateProtocol.CarStatus.Telemetry)
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	// Prevent compiler warnings about cached_has_bits being unused
-	(void) cached_has_bits;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-	if (GetArenaForAllocation() == nullptr && position_ != nullptr) {
-		delete position_;
-	}
-	position_ = nullptr;
-	::memset(&speed_, 0, static_cast<size_t>(
-								 reinterpret_cast<char*>(&fuel_) -
-								 reinterpret_cast<char*>(&speed_)) + sizeof(fuel_));
-	_internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  if (GetArenaForAllocation() == nullptr && position_ != nullptr) {
+    delete position_;
+  }
+  position_ = nullptr;
+  ::memset(&speed_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&fuel_) -
+      reinterpret_cast<char*>(&speed_)) + sizeof(fuel_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* CarStatus_Telemetry::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-	while (!ctx->Done(&ptr)) {
-		::PROTOBUF_NAMESPACE_ID::uint32 tag;
-		ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-		switch (tag >> 3) {
-			// double speed = 1;
-			case 1:
-				if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 9)) {
-					speed_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
-					ptr += sizeof(double);
-				} else goto handle_unusual;
-				continue;
-				// double fuel = 2;
-			case 2:
-				if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 17)) {
-					fuel_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
-					ptr += sizeof(double);
-				} else goto handle_unusual;
-				continue;
-				// .CarStateProtocol.CarStatus.Position position = 3;
-			case 3:
-				if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-					ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
-					CHK_(ptr);
-				} else goto handle_unusual;
-				continue;
-			default: {
-				handle_unusual:
-				if ((tag == 0) || ((tag & 7) == 4)) {
-					CHK_(ptr);
-					ctx->SetLastTag(tag);
-					goto success;
-				}
-				ptr = UnknownFieldParse(tag,
-										_internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-										ptr, ctx);
-				CHK_(ptr != nullptr);
-				continue;
-			}
-		}  // switch
-	}  // while
-	success:
-	return ptr;
-	failure:
-	ptr = nullptr;
-	goto success;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // double speed = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 9)) {
+          speed_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else goto handle_unusual;
+        continue;
+      // double fuel = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 17)) {
+          fuel_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else goto handle_unusual;
+        continue;
+      // .CarStateProtocol.CarStatus.Position position = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_position(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag == 0) || ((tag & 7) == 4)) {
+          CHK_(ptr);
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
 #undef CHK_
 }
 
 ::PROTOBUF_NAMESPACE_ID::uint8* CarStatus_Telemetry::_InternalSerialize(
-		::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-	// @@protoc_insertion_point(serialize_to_array_start:CarStateProtocol.CarStatus.Telemetry)
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	(void) cached_has_bits;
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:CarStateProtocol.CarStatus.Telemetry)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-	// double speed = 1;
-	if (!(this->_internal_speed() <= 0 && this->_internal_speed() >= 0)) {
-		target = stream->EnsureSpace(target);
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_speed(), target);
-	}
+  // double speed = 1;
+  if (!(this->_internal_speed() <= 0 && this->_internal_speed() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_speed(), target);
+  }
 
-	// double fuel = 2;
-	if (!(this->_internal_fuel() <= 0 && this->_internal_fuel() >= 0)) {
-		target = stream->EnsureSpace(target);
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_fuel(), target);
-	}
+  // double fuel = 2;
+  if (!(this->_internal_fuel() <= 0 && this->_internal_fuel() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_fuel(), target);
+  }
 
-	// .CarStateProtocol.CarStatus.Position position = 3;
-	if (this->_internal_has_position()) {
-		target = stream->EnsureSpace(target);
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-		InternalWriteMessage(
-				3, _Internal::position(this), target, stream);
-	}
+  // .CarStateProtocol.CarStatus.Position position = 3;
+  if (this->_internal_has_position()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        3, _Internal::position(this), target, stream);
+  }
 
-	if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-				_internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-	}
-	// @@protoc_insertion_point(serialize_to_array_end:CarStateProtocol.CarStatus.Telemetry)
-	return target;
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:CarStateProtocol.CarStatus.Telemetry)
+  return target;
 }
 
 size_t CarStatus_Telemetry::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:CarStateProtocol.CarStatus.Telemetry)
-	size_t total_size = 0;
+  size_t total_size = 0;
 
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	// Prevent compiler warnings about cached_has_bits being unused
-	(void) cached_has_bits;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-	// .CarStateProtocol.CarStatus.Position position = 3;
-	if (this->_internal_has_position()) {
-		total_size += 1 +
-					  ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-							  *position_);
-	}
+  // .CarStateProtocol.CarStatus.Position position = 3;
+  if (this->_internal_has_position()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *position_);
+  }
 
-	// double speed = 1;
-	if (!(this->_internal_speed() <= 0 && this->_internal_speed() >= 0)) {
-		total_size += 1 + 8;
-	}
+  // double speed = 1;
+  if (!(this->_internal_speed() <= 0 && this->_internal_speed() >= 0)) {
+    total_size += 1 + 8;
+  }
 
-	// double fuel = 2;
-	if (!(this->_internal_fuel() <= 0 && this->_internal_fuel() >= 0)) {
-		total_size += 1 + 8;
-	}
+  // double fuel = 2;
+  if (!(this->_internal_fuel() <= 0 && this->_internal_fuel() >= 0)) {
+    total_size += 1 + 8;
+  }
 
-	if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-		return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-				_internal_metadata_, total_size, &_cached_size_);
-	}
-	int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-	SetCachedSize(cached_size);
-	return total_size;
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CarStatus_Telemetry::_class_data_ = {
-		::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-		CarStatus_Telemetry::MergeImpl
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    CarStatus_Telemetry::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CarStatus_Telemetry::GetClassData() const { return &_class_data_; }
 
 void CarStatus_Telemetry::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-									const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-	static_cast<CarStatus_Telemetry *>(to)->MergeFrom(
-			static_cast<const CarStatus_Telemetry &>(from));
+                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
+  static_cast<CarStatus_Telemetry *>(to)->MergeFrom(
+      static_cast<const CarStatus_Telemetry &>(from));
 }
 
 
 void CarStatus_Telemetry::MergeFrom(const CarStatus_Telemetry& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:CarStateProtocol.CarStatus.Telemetry)
-			GOOGLE_DCHECK_NE(&from, this);
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	(void) cached_has_bits;
+  GOOGLE_DCHECK_NE(&from, this);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-	if (from._internal_has_position()) {
-		_internal_mutable_position()->::CarStateProtocol::CarStatus_Position::MergeFrom(from._internal_position());
-	}
-	if (!(from._internal_speed() <= 0 && from._internal_speed() >= 0)) {
-		_internal_set_speed(from._internal_speed());
-	}
-	if (!(from._internal_fuel() <= 0 && from._internal_fuel() >= 0)) {
-		_internal_set_fuel(from._internal_fuel());
-	}
-	_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_position()) {
+    _internal_mutable_position()->::CarStateProtocol::CarStatus_Position::MergeFrom(from._internal_position());
+  }
+  if (!(from._internal_speed() <= 0 && from._internal_speed() >= 0)) {
+    _internal_set_speed(from._internal_speed());
+  }
+  if (!(from._internal_fuel() <= 0 && from._internal_fuel() >= 0)) {
+    _internal_set_fuel(from._internal_fuel());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void CarStatus_Telemetry::CopyFrom(const CarStatus_Telemetry& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:CarStateProtocol.CarStatus.Telemetry)
-	if (&from == this) return;
-	Clear();
-	MergeFrom(from);
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 bool CarStatus_Telemetry::IsInitialized() const {
-	return true;
+  return true;
 }
 
 void CarStatus_Telemetry::InternalSwap(CarStatus_Telemetry* other) {
-	using std::swap;
-	_internal_metadata_.InternalSwap(&other->_internal_metadata_);
-	::PROTOBUF_NAMESPACE_ID::internal::memswap<
-			PROTOBUF_FIELD_OFFSET(CarStatus_Telemetry, fuel_)
-			+ sizeof(CarStatus_Telemetry::fuel_)
-			- PROTOBUF_FIELD_OFFSET(CarStatus_Telemetry, position_)>(
-			reinterpret_cast<char*>(&position_),
-			reinterpret_cast<char*>(&other->position_));
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CarStatus_Telemetry, fuel_)
+      + sizeof(CarStatus_Telemetry::fuel_)
+      - PROTOBUF_FIELD_OFFSET(CarStatus_Telemetry, position_)>(
+          reinterpret_cast<char*>(&position_),
+          reinterpret_cast<char*>(&other->position_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CarStatus_Telemetry::GetMetadata() const {
-	return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-			&descriptor_table_CarStateProtocol_2eproto_getter, &descriptor_table_CarStateProtocol_2eproto_once,
-			file_level_metadata_CarStateProtocol_2eproto[0]);
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_CarStateProtocol_2eproto_getter, &descriptor_table_CarStateProtocol_2eproto_once,
+      file_level_metadata_CarStateProtocol_2eproto[0]);
 }
 
 // ===================================================================
 
 class CarStatus_Position::_Internal {
-public:
+ public:
 };
 
 CarStatus_Position::CarStatus_Position(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-									   bool is_message_owned)
-		: ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-	SharedCtor();
-	if (!is_message_owned) {
-		RegisterArenaDtor(arena);
-	}
-	// @@protoc_insertion_point(arena_constructor:CarStateProtocol.CarStatus.Position)
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:CarStateProtocol.CarStatus.Position)
 }
 CarStatus_Position::CarStatus_Position(const CarStatus_Position& from)
-		: ::PROTOBUF_NAMESPACE_ID::Message() {
-	_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-	::memcpy(&latitude_, &from.latitude_,
-			 static_cast<size_t>(reinterpret_cast<char*>(&altitude_) -
-								 reinterpret_cast<char*>(&latitude_)) + sizeof(altitude_));
-	// @@protoc_insertion_point(copy_constructor:CarStateProtocol.CarStatus.Position)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&latitude_, &from.latitude_,
+    static_cast<size_t>(reinterpret_cast<char*>(&altitude_) -
+    reinterpret_cast<char*>(&latitude_)) + sizeof(altitude_));
+  // @@protoc_insertion_point(copy_constructor:CarStateProtocol.CarStatus.Position)
 }
 
 inline void CarStatus_Position::SharedCtor() {
-	::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-					 reinterpret_cast<char*>(&latitude_) - reinterpret_cast<char*>(this)),
-			 0, static_cast<size_t>(reinterpret_cast<char*>(&altitude_) -
-									reinterpret_cast<char*>(&latitude_)) + sizeof(altitude_));
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&latitude_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&altitude_) -
+    reinterpret_cast<char*>(&latitude_)) + sizeof(altitude_));
 }
 
 CarStatus_Position::~CarStatus_Position() {
-	// @@protoc_insertion_point(destructor:CarStateProtocol.CarStatus.Position)
-	if (GetArenaForAllocation() != nullptr) return;
-	SharedDtor();
-	_internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  // @@protoc_insertion_point(destructor:CarStateProtocol.CarStatus.Position)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void CarStatus_Position::SharedDtor() {
-			GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
 void CarStatus_Position::ArenaDtor(void* object) {
-	CarStatus_Position* _this = reinterpret_cast< CarStatus_Position* >(object);
-	(void)_this;
+  CarStatus_Position* _this = reinterpret_cast< CarStatus_Position* >(object);
+  (void)_this;
 }
 void CarStatus_Position::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
 void CarStatus_Position::SetCachedSize(int size) const {
-	_cached_size_.Set(size);
+  _cached_size_.Set(size);
 }
 
 void CarStatus_Position::Clear() {
 // @@protoc_insertion_point(message_clear_start:CarStateProtocol.CarStatus.Position)
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	// Prevent compiler warnings about cached_has_bits being unused
-	(void) cached_has_bits;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-	::memset(&latitude_, 0, static_cast<size_t>(
-									reinterpret_cast<char*>(&altitude_) -
-									reinterpret_cast<char*>(&latitude_)) + sizeof(altitude_));
-	_internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  ::memset(&latitude_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&altitude_) -
+      reinterpret_cast<char*>(&latitude_)) + sizeof(altitude_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* CarStatus_Position::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-	while (!ctx->Done(&ptr)) {
-		::PROTOBUF_NAMESPACE_ID::uint32 tag;
-		ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-		switch (tag >> 3) {
-			// double latitude = 1;
-			case 1:
-				if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 9)) {
-					latitude_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
-					ptr += sizeof(double);
-				} else goto handle_unusual;
-				continue;
-				// double longitude = 2;
-			case 2:
-				if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 17)) {
-					longitude_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
-					ptr += sizeof(double);
-				} else goto handle_unusual;
-				continue;
-				// double altitude = 3;
-			case 3:
-				if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 25)) {
-					altitude_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
-					ptr += sizeof(double);
-				} else goto handle_unusual;
-				continue;
-			default: {
-				handle_unusual:
-				if ((tag == 0) || ((tag & 7) == 4)) {
-					CHK_(ptr);
-					ctx->SetLastTag(tag);
-					goto success;
-				}
-				ptr = UnknownFieldParse(tag,
-										_internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-										ptr, ctx);
-				CHK_(ptr != nullptr);
-				continue;
-			}
-		}  // switch
-	}  // while
-	success:
-	return ptr;
-	failure:
-	ptr = nullptr;
-	goto success;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // double latitude = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 9)) {
+          latitude_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else goto handle_unusual;
+        continue;
+      // double longitude = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 17)) {
+          longitude_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else goto handle_unusual;
+        continue;
+      // double altitude = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 25)) {
+          altitude_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag == 0) || ((tag & 7) == 4)) {
+          CHK_(ptr);
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
 #undef CHK_
 }
 
 ::PROTOBUF_NAMESPACE_ID::uint8* CarStatus_Position::_InternalSerialize(
-		::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-	// @@protoc_insertion_point(serialize_to_array_start:CarStateProtocol.CarStatus.Position)
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	(void) cached_has_bits;
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:CarStateProtocol.CarStatus.Position)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-	// double latitude = 1;
-	if (!(this->_internal_latitude() <= 0 && this->_internal_latitude() >= 0)) {
-		target = stream->EnsureSpace(target);
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_latitude(), target);
-	}
+  // double latitude = 1;
+  if (!(this->_internal_latitude() <= 0 && this->_internal_latitude() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_latitude(), target);
+  }
 
-	// double longitude = 2;
-	if (!(this->_internal_longitude() <= 0 && this->_internal_longitude() >= 0)) {
-		target = stream->EnsureSpace(target);
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_longitude(), target);
-	}
+  // double longitude = 2;
+  if (!(this->_internal_longitude() <= 0 && this->_internal_longitude() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_longitude(), target);
+  }
 
-	// double altitude = 3;
-	if (!(this->_internal_altitude() <= 0 && this->_internal_altitude() >= 0)) {
-		target = stream->EnsureSpace(target);
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_altitude(), target);
-	}
+  // double altitude = 3;
+  if (!(this->_internal_altitude() <= 0 && this->_internal_altitude() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_altitude(), target);
+  }
 
-	if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-				_internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-	}
-	// @@protoc_insertion_point(serialize_to_array_end:CarStateProtocol.CarStatus.Position)
-	return target;
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:CarStateProtocol.CarStatus.Position)
+  return target;
 }
 
 size_t CarStatus_Position::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:CarStateProtocol.CarStatus.Position)
-	size_t total_size = 0;
+  size_t total_size = 0;
 
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	// Prevent compiler warnings about cached_has_bits being unused
-	(void) cached_has_bits;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-	// double latitude = 1;
-	if (!(this->_internal_latitude() <= 0 && this->_internal_latitude() >= 0)) {
-		total_size += 1 + 8;
-	}
+  // double latitude = 1;
+  if (!(this->_internal_latitude() <= 0 && this->_internal_latitude() >= 0)) {
+    total_size += 1 + 8;
+  }
 
-	// double longitude = 2;
-	if (!(this->_internal_longitude() <= 0 && this->_internal_longitude() >= 0)) {
-		total_size += 1 + 8;
-	}
+  // double longitude = 2;
+  if (!(this->_internal_longitude() <= 0 && this->_internal_longitude() >= 0)) {
+    total_size += 1 + 8;
+  }
 
-	// double altitude = 3;
-	if (!(this->_internal_altitude() <= 0 && this->_internal_altitude() >= 0)) {
-		total_size += 1 + 8;
-	}
+  // double altitude = 3;
+  if (!(this->_internal_altitude() <= 0 && this->_internal_altitude() >= 0)) {
+    total_size += 1 + 8;
+  }
 
-	if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-		return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-				_internal_metadata_, total_size, &_cached_size_);
-	}
-	int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-	SetCachedSize(cached_size);
-	return total_size;
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CarStatus_Position::_class_data_ = {
-		::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-		CarStatus_Position::MergeImpl
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    CarStatus_Position::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CarStatus_Position::GetClassData() const { return &_class_data_; }
 
 void CarStatus_Position::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-								   const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-	static_cast<CarStatus_Position *>(to)->MergeFrom(
-			static_cast<const CarStatus_Position &>(from));
+                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
+  static_cast<CarStatus_Position *>(to)->MergeFrom(
+      static_cast<const CarStatus_Position &>(from));
 }
 
 
 void CarStatus_Position::MergeFrom(const CarStatus_Position& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:CarStateProtocol.CarStatus.Position)
-			GOOGLE_DCHECK_NE(&from, this);
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	(void) cached_has_bits;
+  GOOGLE_DCHECK_NE(&from, this);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-	if (!(from._internal_latitude() <= 0 && from._internal_latitude() >= 0)) {
-		_internal_set_latitude(from._internal_latitude());
-	}
-	if (!(from._internal_longitude() <= 0 && from._internal_longitude() >= 0)) {
-		_internal_set_longitude(from._internal_longitude());
-	}
-	if (!(from._internal_altitude() <= 0 && from._internal_altitude() >= 0)) {
-		_internal_set_altitude(from._internal_altitude());
-	}
-	_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (!(from._internal_latitude() <= 0 && from._internal_latitude() >= 0)) {
+    _internal_set_latitude(from._internal_latitude());
+  }
+  if (!(from._internal_longitude() <= 0 && from._internal_longitude() >= 0)) {
+    _internal_set_longitude(from._internal_longitude());
+  }
+  if (!(from._internal_altitude() <= 0 && from._internal_altitude() >= 0)) {
+    _internal_set_altitude(from._internal_altitude());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void CarStatus_Position::CopyFrom(const CarStatus_Position& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:CarStateProtocol.CarStatus.Position)
-	if (&from == this) return;
-	Clear();
-	MergeFrom(from);
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 bool CarStatus_Position::IsInitialized() const {
-	return true;
+  return true;
 }
 
 void CarStatus_Position::InternalSwap(CarStatus_Position* other) {
-	using std::swap;
-	_internal_metadata_.InternalSwap(&other->_internal_metadata_);
-	::PROTOBUF_NAMESPACE_ID::internal::memswap<
-			PROTOBUF_FIELD_OFFSET(CarStatus_Position, altitude_)
-			+ sizeof(CarStatus_Position::altitude_)
-			- PROTOBUF_FIELD_OFFSET(CarStatus_Position, latitude_)>(
-			reinterpret_cast<char*>(&latitude_),
-			reinterpret_cast<char*>(&other->latitude_));
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CarStatus_Position, altitude_)
+      + sizeof(CarStatus_Position::altitude_)
+      - PROTOBUF_FIELD_OFFSET(CarStatus_Position, latitude_)>(
+          reinterpret_cast<char*>(&latitude_),
+          reinterpret_cast<char*>(&other->latitude_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CarStatus_Position::GetMetadata() const {
-	return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-			&descriptor_table_CarStateProtocol_2eproto_getter, &descriptor_table_CarStateProtocol_2eproto_once,
-			file_level_metadata_CarStateProtocol_2eproto[1]);
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_CarStateProtocol_2eproto_getter, &descriptor_table_CarStateProtocol_2eproto_once,
+      file_level_metadata_CarStateProtocol_2eproto[1]);
 }
 
 // ===================================================================
 
 class CarStatus::_Internal {
-public:
-	static const ::CarStateProtocol::CarStatus_Telemetry& telemetry(const CarStatus* msg);
-	static const ::CarStateProtocol::Stop& stop(const CarStatus* msg);
+ public:
+  static const ::CarStateProtocol::CarStatus_Telemetry& telemetry(const CarStatus* msg);
+  static const ::CarStateProtocol::Stop& stop(const CarStatus* msg);
 };
 
 const ::CarStateProtocol::CarStatus_Telemetry&
 CarStatus::_Internal::telemetry(const CarStatus* msg) {
-	return *msg->telemetry_;
+  return *msg->telemetry_;
 }
 const ::CarStateProtocol::Stop&
 CarStatus::_Internal::stop(const CarStatus* msg) {
-	return *msg->stop_;
+  return *msg->stop_;
 }
 CarStatus::CarStatus(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-					 bool is_message_owned)
-		: ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-	SharedCtor();
-	if (!is_message_owned) {
-		RegisterArenaDtor(arena);
-	}
-	// @@protoc_insertion_point(arena_constructor:CarStateProtocol.CarStatus)
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:CarStateProtocol.CarStatus)
 }
 CarStatus::CarStatus(const CarStatus& from)
-		: ::PROTOBUF_NAMESPACE_ID::Message() {
-	_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-	if (from._internal_has_telemetry()) {
-		telemetry_ = new ::CarStateProtocol::CarStatus_Telemetry(*from.telemetry_);
-	} else {
-		telemetry_ = nullptr;
-	}
-	if (from._internal_has_stop()) {
-		stop_ = new ::CarStateProtocol::Stop(*from.stop_);
-	} else {
-		stop_ = nullptr;
-	}
-	state_ = from.state_;
-	// @@protoc_insertion_point(copy_constructor:CarStateProtocol.CarStatus)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_telemetry()) {
+    telemetry_ = new ::CarStateProtocol::CarStatus_Telemetry(*from.telemetry_);
+  } else {
+    telemetry_ = nullptr;
+  }
+  if (from._internal_has_stop()) {
+    stop_ = new ::CarStateProtocol::Stop(*from.stop_);
+  } else {
+    stop_ = nullptr;
+  }
+  state_ = from.state_;
+  // @@protoc_insertion_point(copy_constructor:CarStateProtocol.CarStatus)
 }
 
 inline void CarStatus::SharedCtor() {
-	::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-					 reinterpret_cast<char*>(&telemetry_) - reinterpret_cast<char*>(this)),
-			 0, static_cast<size_t>(reinterpret_cast<char*>(&state_) -
-									reinterpret_cast<char*>(&telemetry_)) + sizeof(state_));
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&telemetry_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&state_) -
+    reinterpret_cast<char*>(&telemetry_)) + sizeof(state_));
 }
 
 CarStatus::~CarStatus() {
-	// @@protoc_insertion_point(destructor:CarStateProtocol.CarStatus)
-	if (GetArenaForAllocation() != nullptr) return;
-	SharedDtor();
-	_internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  // @@protoc_insertion_point(destructor:CarStateProtocol.CarStatus)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void CarStatus::SharedDtor() {
-			GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-	if (this != internal_default_instance()) delete telemetry_;
-	if (this != internal_default_instance()) delete stop_;
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete telemetry_;
+  if (this != internal_default_instance()) delete stop_;
 }
 
 void CarStatus::ArenaDtor(void* object) {
-	CarStatus* _this = reinterpret_cast< CarStatus* >(object);
-	(void)_this;
+  CarStatus* _this = reinterpret_cast< CarStatus* >(object);
+  (void)_this;
 }
 void CarStatus::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
 void CarStatus::SetCachedSize(int size) const {
-	_cached_size_.Set(size);
+  _cached_size_.Set(size);
 }
 
 void CarStatus::Clear() {
 // @@protoc_insertion_point(message_clear_start:CarStateProtocol.CarStatus)
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	// Prevent compiler warnings about cached_has_bits being unused
-	(void) cached_has_bits;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-	if (GetArenaForAllocation() == nullptr && telemetry_ != nullptr) {
-		delete telemetry_;
-	}
-	telemetry_ = nullptr;
-	if (GetArenaForAllocation() == nullptr && stop_ != nullptr) {
-		delete stop_;
-	}
-	stop_ = nullptr;
-	state_ = 0;
-	_internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  if (GetArenaForAllocation() == nullptr && telemetry_ != nullptr) {
+    delete telemetry_;
+  }
+  telemetry_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && stop_ != nullptr) {
+    delete stop_;
+  }
+  stop_ = nullptr;
+  state_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* CarStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-	while (!ctx->Done(&ptr)) {
-		::PROTOBUF_NAMESPACE_ID::uint32 tag;
-		ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-		switch (tag >> 3) {
-			// .CarStateProtocol.CarStatus.Telemetry telemetry = 1;
-			case 1:
-				if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-					ptr = ctx->ParseMessage(_internal_mutable_telemetry(), ptr);
-					CHK_(ptr);
-				} else goto handle_unusual;
-				continue;
-				// .CarStateProtocol.CarStatus.State state = 2;
-			case 2:
-				if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-					::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-					CHK_(ptr);
-					_internal_set_state(static_cast<::CarStateProtocol::CarStatus_State>(val));
-				} else goto handle_unusual;
-				continue;
-				// .CarStateProtocol.Stop stop = 3;
-			case 3:
-				if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-					ptr = ctx->ParseMessage(_internal_mutable_stop(), ptr);
-					CHK_(ptr);
-				} else goto handle_unusual;
-				continue;
-			default: {
-				handle_unusual:
-				if ((tag == 0) || ((tag & 7) == 4)) {
-					CHK_(ptr);
-					ctx->SetLastTag(tag);
-					goto success;
-				}
-				ptr = UnknownFieldParse(tag,
-										_internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-										ptr, ctx);
-				CHK_(ptr != nullptr);
-				continue;
-			}
-		}  // switch
-	}  // while
-	success:
-	return ptr;
-	failure:
-	ptr = nullptr;
-	goto success;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .CarStateProtocol.CarStatus.Telemetry telemetry = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_telemetry(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .CarStateProtocol.CarStatus.State state = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_state(static_cast<::CarStateProtocol::CarStatus_State>(val));
+        } else goto handle_unusual;
+        continue;
+      // .CarStateProtocol.Stop stop = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_stop(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag == 0) || ((tag & 7) == 4)) {
+          CHK_(ptr);
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
 #undef CHK_
 }
 
 ::PROTOBUF_NAMESPACE_ID::uint8* CarStatus::_InternalSerialize(
-		::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-	// @@protoc_insertion_point(serialize_to_array_start:CarStateProtocol.CarStatus)
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	(void) cached_has_bits;
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:CarStateProtocol.CarStatus)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-	// .CarStateProtocol.CarStatus.Telemetry telemetry = 1;
-	if (this->_internal_has_telemetry()) {
-		target = stream->EnsureSpace(target);
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-		InternalWriteMessage(
-				1, _Internal::telemetry(this), target, stream);
-	}
+  // .CarStateProtocol.CarStatus.Telemetry telemetry = 1;
+  if (this->_internal_has_telemetry()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        1, _Internal::telemetry(this), target, stream);
+  }
 
-	// .CarStateProtocol.CarStatus.State state = 2;
-	if (this->_internal_state() != 0) {
-		target = stream->EnsureSpace(target);
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-				2, this->_internal_state(), target);
-	}
+  // .CarStateProtocol.CarStatus.State state = 2;
+  if (this->_internal_state() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_state(), target);
+  }
 
-	// .CarStateProtocol.Stop stop = 3;
-	if (this->_internal_has_stop()) {
-		target = stream->EnsureSpace(target);
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-		InternalWriteMessage(
-				3, _Internal::stop(this), target, stream);
-	}
+  // .CarStateProtocol.Stop stop = 3;
+  if (this->_internal_has_stop()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        3, _Internal::stop(this), target, stream);
+  }
 
-	if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-				_internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-	}
-	// @@protoc_insertion_point(serialize_to_array_end:CarStateProtocol.CarStatus)
-	return target;
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:CarStateProtocol.CarStatus)
+  return target;
 }
 
 size_t CarStatus::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:CarStateProtocol.CarStatus)
-	size_t total_size = 0;
+  size_t total_size = 0;
 
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	// Prevent compiler warnings about cached_has_bits being unused
-	(void) cached_has_bits;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-	// .CarStateProtocol.CarStatus.Telemetry telemetry = 1;
-	if (this->_internal_has_telemetry()) {
-		total_size += 1 +
-					  ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-							  *telemetry_);
-	}
+  // .CarStateProtocol.CarStatus.Telemetry telemetry = 1;
+  if (this->_internal_has_telemetry()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *telemetry_);
+  }
 
-	// .CarStateProtocol.Stop stop = 3;
-	if (this->_internal_has_stop()) {
-		total_size += 1 +
-					  ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-							  *stop_);
-	}
+  // .CarStateProtocol.Stop stop = 3;
+  if (this->_internal_has_stop()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *stop_);
+  }
 
-	// .CarStateProtocol.CarStatus.State state = 2;
-	if (this->_internal_state() != 0) {
-		total_size += 1 +
-					  ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_state());
-	}
+  // .CarStateProtocol.CarStatus.State state = 2;
+  if (this->_internal_state() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_state());
+  }
 
-	if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-		return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-				_internal_metadata_, total_size, &_cached_size_);
-	}
-	int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-	SetCachedSize(cached_size);
-	return total_size;
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CarStatus::_class_data_ = {
-		::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-		CarStatus::MergeImpl
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    CarStatus::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CarStatus::GetClassData() const { return &_class_data_; }
 
 void CarStatus::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-						  const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-	static_cast<CarStatus *>(to)->MergeFrom(
-			static_cast<const CarStatus &>(from));
+                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
+  static_cast<CarStatus *>(to)->MergeFrom(
+      static_cast<const CarStatus &>(from));
 }
 
 
 void CarStatus::MergeFrom(const CarStatus& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:CarStateProtocol.CarStatus)
-			GOOGLE_DCHECK_NE(&from, this);
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	(void) cached_has_bits;
+  GOOGLE_DCHECK_NE(&from, this);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-	if (from._internal_has_telemetry()) {
-		_internal_mutable_telemetry()->::CarStateProtocol::CarStatus_Telemetry::MergeFrom(from._internal_telemetry());
-	}
-	if (from._internal_has_stop()) {
-		_internal_mutable_stop()->::CarStateProtocol::Stop::MergeFrom(from._internal_stop());
-	}
-	if (from._internal_state() != 0) {
-		_internal_set_state(from._internal_state());
-	}
-	_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (from._internal_has_telemetry()) {
+    _internal_mutable_telemetry()->::CarStateProtocol::CarStatus_Telemetry::MergeFrom(from._internal_telemetry());
+  }
+  if (from._internal_has_stop()) {
+    _internal_mutable_stop()->::CarStateProtocol::Stop::MergeFrom(from._internal_stop());
+  }
+  if (from._internal_state() != 0) {
+    _internal_set_state(from._internal_state());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void CarStatus::CopyFrom(const CarStatus& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:CarStateProtocol.CarStatus)
-	if (&from == this) return;
-	Clear();
-	MergeFrom(from);
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 bool CarStatus::IsInitialized() const {
-	return true;
+  return true;
 }
 
 void CarStatus::InternalSwap(CarStatus* other) {
-	using std::swap;
-	_internal_metadata_.InternalSwap(&other->_internal_metadata_);
-	::PROTOBUF_NAMESPACE_ID::internal::memswap<
-			PROTOBUF_FIELD_OFFSET(CarStatus, state_)
-			+ sizeof(CarStatus::state_)
-			- PROTOBUF_FIELD_OFFSET(CarStatus, telemetry_)>(
-			reinterpret_cast<char*>(&telemetry_),
-			reinterpret_cast<char*>(&other->telemetry_));
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CarStatus, state_)
+      + sizeof(CarStatus::state_)
+      - PROTOBUF_FIELD_OFFSET(CarStatus, telemetry_)>(
+          reinterpret_cast<char*>(&telemetry_),
+          reinterpret_cast<char*>(&other->telemetry_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CarStatus::GetMetadata() const {
-	return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-			&descriptor_table_CarStateProtocol_2eproto_getter, &descriptor_table_CarStateProtocol_2eproto_once,
-			file_level_metadata_CarStateProtocol_2eproto[2]);
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_CarStateProtocol_2eproto_getter, &descriptor_table_CarStateProtocol_2eproto_once,
+      file_level_metadata_CarStateProtocol_2eproto[2]);
 }
 
 // ===================================================================
 
 class CarCommand::_Internal {
-public:
+ public:
 };
 
 CarCommand::CarCommand(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-					   bool is_message_owned)
-		: ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-		  stops_(arena) {
-	SharedCtor();
-	if (!is_message_owned) {
-		RegisterArenaDtor(arena);
-	}
-	// @@protoc_insertion_point(arena_constructor:CarStateProtocol.CarCommand)
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+  stops_(arena) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:CarStateProtocol.CarCommand)
 }
 CarCommand::CarCommand(const CarCommand& from)
-		: ::PROTOBUF_NAMESPACE_ID::Message(),
-		  stops_(from.stops_) {
-	_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-	action_ = from.action_;
-	// @@protoc_insertion_point(copy_constructor:CarStateProtocol.CarCommand)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      stops_(from.stops_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  route_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_route().empty()) {
+    route_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_route(), 
+      GetArenaForAllocation());
+  }
+  action_ = from.action_;
+  // @@protoc_insertion_point(copy_constructor:CarStateProtocol.CarCommand)
 }
 
 inline void CarCommand::SharedCtor() {
-	action_ = 0;
+route_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+action_ = 0;
 }
 
 CarCommand::~CarCommand() {
-	// @@protoc_insertion_point(destructor:CarStateProtocol.CarCommand)
-	if (GetArenaForAllocation() != nullptr) return;
-	SharedDtor();
-	_internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  // @@protoc_insertion_point(destructor:CarStateProtocol.CarCommand)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void CarCommand::SharedDtor() {
-			GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  route_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void CarCommand::ArenaDtor(void* object) {
-	CarCommand* _this = reinterpret_cast< CarCommand* >(object);
-	(void)_this;
+  CarCommand* _this = reinterpret_cast< CarCommand* >(object);
+  (void)_this;
 }
 void CarCommand::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
 void CarCommand::SetCachedSize(int size) const {
-	_cached_size_.Set(size);
+  _cached_size_.Set(size);
 }
 
 void CarCommand::Clear() {
 // @@protoc_insertion_point(message_clear_start:CarStateProtocol.CarCommand)
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	// Prevent compiler warnings about cached_has_bits being unused
-	(void) cached_has_bits;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-	stops_.Clear();
-	action_ = 0;
-	_internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  stops_.Clear();
+  route_.ClearToEmpty();
+  action_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* CarCommand::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-	while (!ctx->Done(&ptr)) {
-		::PROTOBUF_NAMESPACE_ID::uint32 tag;
-		ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-		switch (tag >> 3) {
-			// repeated .CarStateProtocol.Stop stops = 1;
-			case 1:
-				if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-					ptr -= 1;
-					do {
-						ptr += 1;
-						ptr = ctx->ParseMessage(_internal_add_stops(), ptr);
-						CHK_(ptr);
-						if (!ctx->DataAvailable(ptr)) break;
-					} while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
-				} else goto handle_unusual;
-				continue;
-				// .CarStateProtocol.CarCommand.Action action = 2;
-			case 2:
-				if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-					::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-					CHK_(ptr);
-					_internal_set_action(static_cast<::CarStateProtocol::CarCommand_Action>(val));
-				} else goto handle_unusual;
-				continue;
-			default: {
-				handle_unusual:
-				if ((tag == 0) || ((tag & 7) == 4)) {
-					CHK_(ptr);
-					ctx->SetLastTag(tag);
-					goto success;
-				}
-				ptr = UnknownFieldParse(tag,
-										_internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-										ptr, ctx);
-				CHK_(ptr != nullptr);
-				continue;
-			}
-		}  // switch
-	}  // while
-	success:
-	return ptr;
-	failure:
-	ptr = nullptr;
-	goto success;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated .CarStateProtocol.Stop stops = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_stops(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // .CarStateProtocol.CarCommand.Action action = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_action(static_cast<::CarStateProtocol::CarCommand_Action>(val));
+        } else goto handle_unusual;
+        continue;
+      // string route = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          auto str = _internal_mutable_route();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "CarStateProtocol.CarCommand.route"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag == 0) || ((tag & 7) == 4)) {
+          CHK_(ptr);
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
 #undef CHK_
 }
 
 ::PROTOBUF_NAMESPACE_ID::uint8* CarCommand::_InternalSerialize(
-		::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-	// @@protoc_insertion_point(serialize_to_array_start:CarStateProtocol.CarCommand)
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	(void) cached_has_bits;
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:CarStateProtocol.CarCommand)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-	// repeated .CarStateProtocol.Stop stops = 1;
-	for (unsigned int i = 0,
-				 n = static_cast<unsigned int>(this->_internal_stops_size()); i < n; i++) {
-		target = stream->EnsureSpace(target);
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-		InternalWriteMessage(1, this->_internal_stops(i), target, stream);
-	}
+  // repeated .CarStateProtocol.Stop stops = 1;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_stops_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, this->_internal_stops(i), target, stream);
+  }
 
-	// .CarStateProtocol.CarCommand.Action action = 2;
-	if (this->_internal_action() != 0) {
-		target = stream->EnsureSpace(target);
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-				2, this->_internal_action(), target);
-	}
+  // .CarStateProtocol.CarCommand.Action action = 2;
+  if (this->_internal_action() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_action(), target);
+  }
 
-	if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-				_internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-	}
-	// @@protoc_insertion_point(serialize_to_array_end:CarStateProtocol.CarCommand)
-	return target;
+  // string route = 3;
+  if (!this->_internal_route().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_route().data(), static_cast<int>(this->_internal_route().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "CarStateProtocol.CarCommand.route");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_route(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:CarStateProtocol.CarCommand)
+  return target;
 }
 
 size_t CarCommand::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:CarStateProtocol.CarCommand)
-	size_t total_size = 0;
+  size_t total_size = 0;
 
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	// Prevent compiler warnings about cached_has_bits being unused
-	(void) cached_has_bits;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-	// repeated .CarStateProtocol.Stop stops = 1;
-	total_size += 1UL * this->_internal_stops_size();
-	for (const auto& msg : this->stops_) {
-		total_size +=
-				::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-	}
+  // repeated .CarStateProtocol.Stop stops = 1;
+  total_size += 1UL * this->_internal_stops_size();
+  for (const auto& msg : this->stops_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
 
-	// .CarStateProtocol.CarCommand.Action action = 2;
-	if (this->_internal_action() != 0) {
-		total_size += 1 +
-					  ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_action());
-	}
+  // string route = 3;
+  if (!this->_internal_route().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_route());
+  }
 
-	if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-		return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-				_internal_metadata_, total_size, &_cached_size_);
-	}
-	int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-	SetCachedSize(cached_size);
-	return total_size;
+  // .CarStateProtocol.CarCommand.Action action = 2;
+  if (this->_internal_action() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_action());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CarCommand::_class_data_ = {
-		::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-		CarCommand::MergeImpl
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    CarCommand::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CarCommand::GetClassData() const { return &_class_data_; }
 
 void CarCommand::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-						   const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-	static_cast<CarCommand *>(to)->MergeFrom(
-			static_cast<const CarCommand &>(from));
+                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
+  static_cast<CarCommand *>(to)->MergeFrom(
+      static_cast<const CarCommand &>(from));
 }
 
 
 void CarCommand::MergeFrom(const CarCommand& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:CarStateProtocol.CarCommand)
-			GOOGLE_DCHECK_NE(&from, this);
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	(void) cached_has_bits;
+  GOOGLE_DCHECK_NE(&from, this);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-	stops_.MergeFrom(from.stops_);
-	if (from._internal_action() != 0) {
-		_internal_set_action(from._internal_action());
-	}
-	_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  stops_.MergeFrom(from.stops_);
+  if (!from._internal_route().empty()) {
+    _internal_set_route(from._internal_route());
+  }
+  if (from._internal_action() != 0) {
+    _internal_set_action(from._internal_action());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void CarCommand::CopyFrom(const CarCommand& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:CarStateProtocol.CarCommand)
-	if (&from == this) return;
-	Clear();
-	MergeFrom(from);
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 bool CarCommand::IsInitialized() const {
-	return true;
+  return true;
 }
 
 void CarCommand::InternalSwap(CarCommand* other) {
-	using std::swap;
-	_internal_metadata_.InternalSwap(&other->_internal_metadata_);
-	stops_.InternalSwap(&other->stops_);
-	swap(action_, other->action_);
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  stops_.InternalSwap(&other->stops_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &route_, GetArenaForAllocation(),
+      &other->route_, other->GetArenaForAllocation()
+  );
+  swap(action_, other->action_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CarCommand::GetMetadata() const {
-	return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-			&descriptor_table_CarStateProtocol_2eproto_getter, &descriptor_table_CarStateProtocol_2eproto_once,
-			file_level_metadata_CarStateProtocol_2eproto[3]);
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_CarStateProtocol_2eproto_getter, &descriptor_table_CarStateProtocol_2eproto_once,
+      file_level_metadata_CarStateProtocol_2eproto[3]);
 }
 
 // ===================================================================
 
 class Stop::_Internal {
-public:
+ public:
 };
 
 Stop::Stop(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-		   bool is_message_owned)
-		: ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-	SharedCtor();
-	if (!is_message_owned) {
-		RegisterArenaDtor(arena);
-	}
-	// @@protoc_insertion_point(arena_constructor:CarStateProtocol.Stop)
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:CarStateProtocol.Stop)
 }
 Stop::Stop(const Stop& from)
-		: ::PROTOBUF_NAMESPACE_ID::Message() {
-	_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-	to_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-	if (!from._internal_to().empty()) {
-		to_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_to(),
-				GetArenaForAllocation());
-	}
-	// @@protoc_insertion_point(copy_constructor:CarStateProtocol.Stop)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  to_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_to().empty()) {
+    to_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_to(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:CarStateProtocol.Stop)
 }
 
 inline void Stop::SharedCtor() {
-	to_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+to_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 Stop::~Stop() {
-	// @@protoc_insertion_point(destructor:CarStateProtocol.Stop)
-	if (GetArenaForAllocation() != nullptr) return;
-	SharedDtor();
-	_internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  // @@protoc_insertion_point(destructor:CarStateProtocol.Stop)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void Stop::SharedDtor() {
-			GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-	to_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  to_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void Stop::ArenaDtor(void* object) {
-	Stop* _this = reinterpret_cast< Stop* >(object);
-	(void)_this;
+  Stop* _this = reinterpret_cast< Stop* >(object);
+  (void)_this;
 }
 void Stop::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
 void Stop::SetCachedSize(int size) const {
-	_cached_size_.Set(size);
+  _cached_size_.Set(size);
 }
 
 void Stop::Clear() {
 // @@protoc_insertion_point(message_clear_start:CarStateProtocol.Stop)
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	// Prevent compiler warnings about cached_has_bits being unused
-	(void) cached_has_bits;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-	to_.ClearToEmpty();
-	_internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+  to_.ClearToEmpty();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 const char* Stop::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-	while (!ctx->Done(&ptr)) {
-		::PROTOBUF_NAMESPACE_ID::uint32 tag;
-		ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-		switch (tag >> 3) {
-			// string to = 1;
-			case 1:
-				if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-					auto str = _internal_mutable_to();
-					ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-					CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "CarStateProtocol.Stop.to"));
-					CHK_(ptr);
-				} else goto handle_unusual;
-				continue;
-			default: {
-				handle_unusual:
-				if ((tag == 0) || ((tag & 7) == 4)) {
-					CHK_(ptr);
-					ctx->SetLastTag(tag);
-					goto success;
-				}
-				ptr = UnknownFieldParse(tag,
-										_internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-										ptr, ctx);
-				CHK_(ptr != nullptr);
-				continue;
-			}
-		}  // switch
-	}  // while
-	success:
-	return ptr;
-	failure:
-	ptr = nullptr;
-	goto success;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string to = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_to();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "CarStateProtocol.Stop.to"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag == 0) || ((tag & 7) == 4)) {
+          CHK_(ptr);
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
 #undef CHK_
 }
 
 ::PROTOBUF_NAMESPACE_ID::uint8* Stop::_InternalSerialize(
-		::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-	// @@protoc_insertion_point(serialize_to_array_start:CarStateProtocol.Stop)
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	(void) cached_has_bits;
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:CarStateProtocol.Stop)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-	// string to = 1;
-	if (!this->_internal_to().empty()) {
-		::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-				this->_internal_to().data(), static_cast<int>(this->_internal_to().length()),
-				::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-				"CarStateProtocol.Stop.to");
-		target = stream->WriteStringMaybeAliased(
-				1, this->_internal_to(), target);
-	}
+  // string to = 1;
+  if (!this->_internal_to().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_to().data(), static_cast<int>(this->_internal_to().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "CarStateProtocol.Stop.to");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_to(), target);
+  }
 
-	if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-		target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-				_internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-	}
-	// @@protoc_insertion_point(serialize_to_array_end:CarStateProtocol.Stop)
-	return target;
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:CarStateProtocol.Stop)
+  return target;
 }
 
 size_t Stop::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:CarStateProtocol.Stop)
-	size_t total_size = 0;
+  size_t total_size = 0;
 
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	// Prevent compiler warnings about cached_has_bits being unused
-	(void) cached_has_bits;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
 
-	// string to = 1;
-	if (!this->_internal_to().empty()) {
-		total_size += 1 +
-					  ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-							  this->_internal_to());
-	}
+  // string to = 1;
+  if (!this->_internal_to().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_to());
+  }
 
-	if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-		return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-				_internal_metadata_, total_size, &_cached_size_);
-	}
-	int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-	SetCachedSize(cached_size);
-	return total_size;
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Stop::_class_data_ = {
-		::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-		Stop::MergeImpl
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Stop::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Stop::GetClassData() const { return &_class_data_; }
 
 void Stop::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-					 const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-	static_cast<Stop *>(to)->MergeFrom(
-			static_cast<const Stop &>(from));
+                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
+  static_cast<Stop *>(to)->MergeFrom(
+      static_cast<const Stop &>(from));
 }
 
 
 void Stop::MergeFrom(const Stop& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:CarStateProtocol.Stop)
-			GOOGLE_DCHECK_NE(&from, this);
-	::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-	(void) cached_has_bits;
+  GOOGLE_DCHECK_NE(&from, this);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
 
-	if (!from._internal_to().empty()) {
-		_internal_set_to(from._internal_to());
-	}
-	_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  if (!from._internal_to().empty()) {
+    _internal_set_to(from._internal_to());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Stop::CopyFrom(const Stop& from) {
 // @@protoc_insertion_point(class_specific_copy_from_start:CarStateProtocol.Stop)
-	if (&from == this) return;
-	Clear();
-	MergeFrom(from);
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
 }
 
 bool Stop::IsInitialized() const {
-	return true;
+  return true;
 }
 
 void Stop::InternalSwap(Stop* other) {
-	using std::swap;
-	_internal_metadata_.InternalSwap(&other->_internal_metadata_);
-	::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-			&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-			&to_, GetArenaForAllocation(),
-			&other->to_, other->GetArenaForAllocation()
-	);
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &to_, GetArenaForAllocation(),
+      &other->to_, other->GetArenaForAllocation()
+  );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Stop::GetMetadata() const {
-	return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-			&descriptor_table_CarStateProtocol_2eproto_getter, &descriptor_table_CarStateProtocol_2eproto_once,
-			file_level_metadata_CarStateProtocol_2eproto[4]);
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_CarStateProtocol_2eproto_getter, &descriptor_table_CarStateProtocol_2eproto_once,
+      file_level_metadata_CarStateProtocol_2eproto[4]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace CarStateProtocol
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::CarStateProtocol::CarStatus_Telemetry* Arena::CreateMaybeMessage< ::CarStateProtocol::CarStatus_Telemetry >(Arena* arena) {
-	return Arena::CreateMessageInternal< ::CarStateProtocol::CarStatus_Telemetry >(arena);
+  return Arena::CreateMessageInternal< ::CarStateProtocol::CarStatus_Telemetry >(arena);
 }
 template<> PROTOBUF_NOINLINE ::CarStateProtocol::CarStatus_Position* Arena::CreateMaybeMessage< ::CarStateProtocol::CarStatus_Position >(Arena* arena) {
-	return Arena::CreateMessageInternal< ::CarStateProtocol::CarStatus_Position >(arena);
+  return Arena::CreateMessageInternal< ::CarStateProtocol::CarStatus_Position >(arena);
 }
 template<> PROTOBUF_NOINLINE ::CarStateProtocol::CarStatus* Arena::CreateMaybeMessage< ::CarStateProtocol::CarStatus >(Arena* arena) {
-	return Arena::CreateMessageInternal< ::CarStateProtocol::CarStatus >(arena);
+  return Arena::CreateMessageInternal< ::CarStateProtocol::CarStatus >(arena);
 }
 template<> PROTOBUF_NOINLINE ::CarStateProtocol::CarCommand* Arena::CreateMaybeMessage< ::CarStateProtocol::CarCommand >(Arena* arena) {
-	return Arena::CreateMessageInternal< ::CarStateProtocol::CarCommand >(arena);
+  return Arena::CreateMessageInternal< ::CarStateProtocol::CarCommand >(arena);
 }
 template<> PROTOBUF_NOINLINE ::CarStateProtocol::Stop* Arena::CreateMaybeMessage< ::CarStateProtocol::Stop >(Arena* arena) {
-	return Arena::CreateMessageInternal< ::CarStateProtocol::Stop >(arena);
+  return Arena::CreateMessageInternal< ::CarStateProtocol::Stop >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 
