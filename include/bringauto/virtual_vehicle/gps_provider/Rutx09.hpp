@@ -7,6 +7,7 @@
 #include <memory>
 
 
+
 namespace bringauto::virtual_vehicle::gps_provider {
 /**
  * @brief Class for working with RUTX09 gps router from teltonika
@@ -14,7 +15,7 @@ namespace bringauto::virtual_vehicle::gps_provider {
  */
 class RUTX09: public IGpsProvider {
 private:
-	enum class ValueType{
+	enum class ValueType {
 		UINT16_T,
 		UINT32_T,
 		INT,
@@ -22,7 +23,7 @@ private:
 		TEXT,
 	};
 
-	struct RutxValue{
+	struct RutxValue {
 		uint32_t address;
 		uint32_t length;
 		ValueType valueType;
@@ -36,24 +37,28 @@ private:
 public:
 	RUTX09(const std::string &ipAddress, uint16_t port, int slaveId);
 
-	float getLatitude() override;
-
-	float getLongitude() override;
-
-	float getAltitude() override;
-
-	// Documentation is bad, in documentation is speed INT but FLOAT seems to be more accurate, needs testing
+	GpsPosition getPosition() override;
+	// Documentation is wrong, in documentation is speed INT but FLOAT seems to be more accurate, needs testing
 	float getSpeed() override;
 
 private:
 	modbus modbusConnection_; ///modbus lib https://github.com/fz-lyu/modbuspp
 	uint16_t buffer_[maxRegisterSize_];
 
-	void readValue(const RutxValue& rutxValue);
+	void readValue(const RutxValue &rutxValue);
+
 	void reconnectModbus();
 
 	uint32_t unpackUnsignedInt();
+
 	float unpackFloat();
+
 	int unpackInt();
+
+	float getLatitude();
+
+	float getLongitude();
+
+	float getAltitude();
 };
 }

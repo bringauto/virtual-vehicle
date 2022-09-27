@@ -2,11 +2,11 @@
 
 * [cxxopts](https://github.com/jarro2783/cxxopts) >= 3.0.0
 * [protobuf](https://github.com/protocolbuffers/protobuf/tree/main/src) = 3.17.3
-* [balogger](https://github.com/bringauto/ba-logger) >= 1.1.1
-* [statesmurf](https://github.com/Melky-Phoe/StateSmurf) >= 2.0.0
+* [balogger](https://github.com/bringauto/ba-logger) >= 1.2.0
+* [statesmurf](https://github.com/Melky-Phoe/StateSmurf) >= 2.0.1
 * [modbuspp](https://github.com/bringauto/modbuspp) >= 0.3.1
 
-* [libosmium](https://github.com/osmcode/libosmium) >= 2.18.40
+* [libosmium](https://github.com/osmcode/libosmium) >= 2.17.3
 
 ```
   $ sudo apt install libosmium2-dev
@@ -29,9 +29,10 @@
 * `--fleet-provider=<string>` choose fleet provider, `protobuf` for use of protobuf protocol `empty` for use of dummy connection
 * `--vehicle-provider=<string>` choose vehicle provider, `simulation` for use of osm map `gps` for use of gps provider
 * `--gps-provider=<string>` choose gps provider, `rutx09` or `ublox`
-* `--rux-ip=<int>` ip address to modbus server on rutx09
-* `--rux-port=<int>` port of modbus server on rutx09
-* `--rux-slave-id=<int>` slave id of modbus server on rutx09
+* `--rutx-ip=<int>` ip address to modbus server on rutx09
+* `--rutx-port=<int>` port of modbus server on rutx09
+* `--rutx-slave-id=<int>` slave id of modbus server on rutx09
+* `--stop-radius=<int>` distance from stop that will be determined as arrival at stop
 
 #Fleet provider
 Virtual vehicle provides ability to choose a fleet communication provider with `--fleet-provider=<string>` argument. The optins are:

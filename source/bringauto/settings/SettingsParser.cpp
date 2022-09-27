@@ -57,6 +57,8 @@ void SettingsParser::parseCmdArguments(int argc, char **argv) {
 										cxxopts::value<int>()->default_value("502"));
 	options.add_options("gps vehicle provider")(rutxSlaveId_, "Modbus server slave id for rutx09.",
 										cxxopts::value<int>()->default_value("1"));
+	options.add_options("gps vehicle provider")(stopRadius_, "Radius from stop for marking it done.",
+												cxxopts::value<int>()->default_value("5"));
 	options.add_options()("h, " + help_, "Print usage");
 
 	cmdArguments_ = options.parse(argc, argv);
@@ -86,7 +88,8 @@ bool SettingsParser::areCmdArgumentsCorrect() {
 											   rutxIp_,
 											   rutxPort_,
 											   rutxSlaveId_,
-											   fleetProvider_
+											   fleetProvider_,
+											   stopRadius_
 	};
 	allParameters.insert(allParameters.end(), requiredParams.begin(), requiredParams.end());
 
@@ -179,6 +182,7 @@ void SettingsParser::fillSettings() {
 	settings_->rutxIp = cmdArguments_[rutxIp_].as<std::string>();
 	settings_->rutxPort = cmdArguments_[rutxPort_].as<int>();
 	settings_->rutxSlaveId = cmdArguments_[rutxSlaveId_].as<int>();
+	settings_->stopRadius = cmdArguments_[stopRadius_].as<int>();
 }
 }
 

@@ -41,8 +41,11 @@ void Route::setNextPosition() {
 	if(!routeIsCircular_) {
 		logging::Logger::logInfo("Route is not circular, reversing.");
 		std::reverse(points_.begin(), points_.end());
+		positionIt = points_.begin();
+		positionIt++;
+	} else {
+		positionIt = points_.begin();
 	}
-	positionIt = points_.begin();
 
 }
 
@@ -138,5 +141,15 @@ void Route::setPositionAndDirection(const Point &actualPosition, const std::stri
 			return;
 		}
 	}
+}
+
+std::vector<std::shared_ptr<Point>> Route::getStops() {
+	std::vector<std::shared_ptr<Point>> stops;
+	for(const auto& point: points_){
+		if(point->isStop()){
+			stops.push_back(point);
+		}
+	}
+	return stops;
 }
 }

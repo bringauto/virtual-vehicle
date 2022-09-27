@@ -1,9 +1,10 @@
 #include <bringauto/virtual_vehicle/gps_provider/Rutx09.hpp>
 
 #include <stdexcept>
-//enable modbus, allow remote access, allow persistent connection
-//enable gps
-//router subnet HAVE to be different from wan subnet!!!
+#include <byteswap.h>
+///enable modbus, allow remote access, allow persistent connection
+///enable gps
+///router subnet HAVE to be different from wan subnet!!!
 
 namespace bringauto::virtual_vehicle::gps_provider {
 RUTX09::RUTX09(const std::string &ipAddress, uint16_t port, int slaveId): modbusConnection_(ipAddress, port) {
@@ -44,7 +45,8 @@ void RUTX09::reconnectModbus() {
 
 float RUTX09::unpackFloat() {
 	uint32_t temp = unpackUnsignedInt();
-	return static_cast<float>(temp);
+	temp = bswap_32(temp);
+	return *((float*)&temp);
 }
 
 int RUTX09::unpackInt() {
@@ -57,6 +59,13 @@ uint32_t RUTX09::unpackUnsignedInt() {
 	return temp;
 }
 
+GpsPosition RUTX09::getPosition() {
+	GpsPosition position{};
+	position.longitude = getLongitude();
+	position.latitude = getLatitude();
+	position.altitude = getAltitude();
+	return position;
+}
 
 
 }

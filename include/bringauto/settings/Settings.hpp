@@ -29,7 +29,8 @@ enum class VehicleProvider {
 enum class GpsProvider {
 	INVALID = -1,
 	RUTX09,
-	UBLOX
+	UBLOX,
+	MAP
 
 };
 
@@ -48,12 +49,13 @@ struct Settings {
 	bool speedOverride { false };       /// if true, speed will be override in map
 	uint32_t speedOverrideMS;           /// new speed for map
 
-	FleetProvider fleetProvider;		/// fleet communication
-	VehicleProvider vehicleProvider;	/// gps location source
+	FleetProvider fleetProvider;        /// fleet communication
+	VehicleProvider vehicleProvider;    /// gps location source
 
-	GpsProvider gpsProvider;			/// gps tracker device
-	std::string rutxIp;					/// ip address of RUTX gps router
-	int rutxPort;						/// port of modbus service
-	int rutxSlaveId;					/// modbus service slave ID
+	GpsProvider gpsProvider;            /// gps tracker device
+	std::string rutxIp;                 /// ip address of RUTX gps router
+	int rutxPort;                       /// port of modbus service
+	int rutxSlaveId;                    /// modbus service slave ID
+	int stopRadius;                     /// distance from the stop enough to be marked as in stop
 };
 }

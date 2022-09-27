@@ -24,6 +24,8 @@ private:
 	std::unique_ptr<gps_provider::IGpsProvider> gpsProvider_;
 	communication::Status status_;
 	double eventDelayInSec_;
+	std::vector<std::shared_ptr<osm::Point>> stops_;
+	std::shared_ptr<osm::Point> currentStop_;
 
 	void nextEvent() override;
 
