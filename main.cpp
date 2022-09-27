@@ -65,14 +65,6 @@ int main(int argc, char **argv) {
 		signals.async_wait([context](auto, auto) { context->ioContext.stop(); });
 		contextThread = std::thread([context]() { context->ioContext.run(); });
 
-		bringauto::virtual_vehicle::Map map;
-		map.loadMapFromFile(settings->mapFilePath);
-		if(settings->speedOverride) {
-			map.speedOverride(settings->speedOverrideMS);
-		}
-		auto shortRoute = map.getRoute("short");
-		auto longRoute = map.getRoute("long");
-
 		switch(settings->fleetProvider) {
 			case bringauto::settings::FleetProvider::PROTOBUF:
 				fleet = std::make_shared<bringauto::communication::ProtoBuffer>(context);
@@ -87,10 +79,10 @@ int main(int argc, char **argv) {
 
 		switch(settings->vehicleProvider) {
 			case bringauto::settings::VehicleProvider::SIMULATION:
-				vehicle = std::make_unique<bringauto::virtual_vehicle::vehicle_provider::SimVehicle>(shortRoute, longRoute, fleet, context);
+				vehicle = std::make_unique<bringauto::virtual_vehicle::vehicle_provider::SimVehicle>(fleet, context);
 				break;
 			case bringauto::settings::VehicleProvider::GPS:
-				vehicle = std::make_unique<bringauto::virtual_vehicle::vehicle_provider::GpsVehicle>(shortRoute, longRoute, fleet, context);
+				vehicle = std::make_unique<bringauto::virtual_vehicle::vehicle_provider::GpsVehicle>(fleet, context);
 				break;
 			case bringauto::settings::VehicleProvider::INVALID:
 			default:

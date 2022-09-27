@@ -12,8 +12,8 @@ namespace bringauto::virtual_vehicle::vehicle_provider {
  */
 class SimVehicle: public IVirtualVehicle {
 public:
-	SimVehicle(const std::shared_ptr<osm::Route>& shortRoute,const std::shared_ptr<osm::Route>& longRoute, const std::shared_ptr<communication::ICommunication>& com,
-			   const std::shared_ptr<GlobalContext>& globalContext): IVirtualVehicle(shortRoute, longRoute, com, globalContext){};
+	SimVehicle(const std::shared_ptr<communication::ICommunication>& com,
+			   const std::shared_ptr<GlobalContext>& globalContext): IVirtualVehicle(com, globalContext){};
 	/**
 	 * Prepare vehicle and route for drive simulation
 	 */
@@ -26,7 +26,9 @@ private:
 	std::vector<std::string> mission_;
 	bool missionValidity_ { true };
 	std::string nextStopName_;
-	bool changeRoute_{false};
+	bool changeRoute_{ false };
+    std::string actualRouteName_{ "Default" };
+    std::string nextRouteName_{};
 
 	long long int driveMillisecondLeft_ { 0 };
 	uint64_t inStopMillisecondsLeft_ { 0 };

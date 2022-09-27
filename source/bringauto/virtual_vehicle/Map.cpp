@@ -30,3 +30,9 @@ void bringauto::virtual_vehicle::Map::speedOverride(unsigned int speed) {
 	}
 }
 
+void bringauto::virtual_vehicle::Map::prepareRoutes() {
+    for (const auto& route : routes_) {
+        route->prepareRoute();
+    }
+}
+

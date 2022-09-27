@@ -8,10 +8,14 @@
 
 namespace bringauto::virtual_vehicle::vehicle_provider {
 void SimVehicle::initialize() {
-	shortRoute_->prepareRoute();
-	longRoute_->prepareRoute();
+    map_.loadMapFromFile(globalContext_->settings->mapFilePath);
+    if(globalContext_->settings->speedOverride) {
+        map_.speedOverride(globalContext_->settings->speedOverrideMS);
+    }
+    map_.prepareRoutes();
 
-	actualRoute_ = longRoute_;
+    actualRoute_ = map_.getAllRoutes()[0]; /// Make actualRoute_ the first in the vector for initialization reason
+
 	updateVehicleState(communication::Status::IDLE);
 	com_->initializeConnection();
 	setNextPosition();
@@ -92,8 +96,7 @@ void SimVehicle::setNextPosition() {
 			actualSpeed_);
 
 	if(state_ == communication::Status::DRIVE) {
-		std::string routeType = (actualRoute_ == shortRoute_) ? "Short" : "Long";
-		logging::Logger::logInfo("{} route, distance to drive: {:.2f}m, time to get there: {:.2f}s", routeType,
+		logging::Logger::logInfo("{} route, distance to drive: {:.2f}m, time to get there: {:.2f}s", actualRouteName_,
 								 common_utils::CommonUtils::calculateDistanceInMeters(actualPosition_, nextPosition_),
 								 (double)driveMillisecondLeft_/1000);
 	}
@@ -120,28 +123,11 @@ void SimVehicle::evaluateCommand() {
 		return;
 	}
 
+    if (command.route != actualRouteName_ && !command.route.empty()) {
+        changeRoute_ = true;
+        nextRouteName_ = command.route;
+    }
 	if(mission_ != command.stops) {
-		if(!changeRoute_) {
-            command.route; // TODO
-			if(actualRoute_ == longRoute_) {
-				changeRoute_ = true;
-				for(const auto &stop: command.stops) {
-					if(stop != "Vodík" && stop != "Plnička" && stop != "Lab A-blok") {
-						changeRoute_ = false;
-					}
-				}
-			} else {
-				for(const auto &stop: command.stops) {
-					if(stop != "Vodík" && stop != "Plnička" && stop != "Lab A-blok") {
-						changeRoute_ = true;
-					}
-				}
-			}
-			if(changeRoute_) {
-				logging::Logger::logInfo("Route marked to be changed!");
-			}
-		}
-
 		if(!changeRoute_) {
 			if(!actualRoute_->areStopsPresent(mission_)) {
 				logging::Logger::logWarning(
@@ -238,18 +224,14 @@ void SimVehicle::updateVehicleState(communication::Status::State state) {
 }
 
 void SimVehicle::changeRoute() {
-	auto nextRoute = (actualRoute_ == shortRoute_) ? longRoute_ : shortRoute_;
+	auto nextRoute = map_.getRoute(nextRouteName_);
 	if(nextRoute->isPointPresent(*actualPosition_)) {
 		actualRoute_->setNextPosition();
 		auto nextPosition = actualRoute_->getPosition();
 
-		if(actualRoute_ == shortRoute_) {
-			actualRoute_ = longRoute_;
-			logging::Logger::logInfo("Route changed to long version.");
-		} else {
-			actualRoute_ = shortRoute_;
-			logging::Logger::logInfo("Route changed to short version.");
-		}
+        actualRoute_ = nextRoute;
+        logging::Logger::logInfo("Route changed to: {}.", nextRouteName_);
+
 		changeRoute_ = false;
 		actualRoute_->setPositionAndDirection(*actualPosition_, nextStopName_);
 	} else {
