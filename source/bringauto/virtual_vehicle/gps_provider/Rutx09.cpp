@@ -1,7 +1,6 @@
 #include <bringauto/virtual_vehicle/gps_provider/Rutx09.hpp>
 
 #include <stdexcept>
-#include <byteswap.h>
 ///enable modbus, allow remote access, allow persistent connection
 ///enable gps
 ///router subnet HAVE to be different from wan subnet!!!
@@ -45,8 +44,9 @@ void RUTX09::reconnectModbus() {
 
 float RUTX09::unpackFloat() {
 	uint32_t temp = unpackUnsignedInt();
-	temp = bswap_32(temp);
-	return *((float*)&temp);
+	float value;
+	std::memcpy(&value, &temp, sizeof(value));
+	return value;
 }
 
 int RUTX09::unpackInt() {
@@ -66,6 +66,5 @@ GpsPosition RUTX09::getPosition() {
 	position.altitude = getAltitude();
 	return position;
 }
-
 
 }
