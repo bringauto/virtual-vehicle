@@ -122,6 +122,7 @@ void SimVehicle::evaluateCommand() {
 
 	if(mission_ != command.stops) {
 		if(!changeRoute_) {
+            command.route; // TODO
 			if(actualRoute_ == longRoute_) {
 				changeRoute_ = true;
 				for(const auto &stop: command.stops) {
