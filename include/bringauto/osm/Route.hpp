@@ -52,6 +52,13 @@ public:
 	 */
 	std::shared_ptr<Point> getPosition();
 
+
+	/**
+	 * @brief Get vector of all stops present on the route
+	 * @return vector of stops
+	 */
+	std::vector<std::shared_ptr<Point>> getStops();
+
 	/**
 	 * Move on point vector, if end is reached route will be connected to start if circular or reversed
 	 */

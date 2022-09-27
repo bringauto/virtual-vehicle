@@ -29,9 +29,10 @@
 * `--fleet-provider=<string>` choose fleet provider, `protobuf` for use of protobuf protocol `empty` for use of dummy connection
 * `--vehicle-provider=<string>` choose vehicle provider, `simulation` for use of osm map `gps` for use of gps provider
 * `--gps-provider=<string>` choose gps provider, `rutx09` or `ublox`
-* `--rux-ip=<int>` ip address to modbus server on rutx09
-* `--rux-port=<int>` port of modbus server on rutx09
-* `--rux-slave-id=<int>` slave id of modbus server on rutx09
+* `--rutx-ip=<int>` ip address to modbus server on rutx09
+* `--rutx-port=<int>` port of modbus server on rutx09
+* `--rutx-slave-id=<int>` slave id of modbus server on rutx09
+* `--stop-radius=<int>` distance from stop that will be determined as arrival at stop
 
 #Fleet provider
 Virtual vehicle provides ability to choose a fleet communication provider with `--fleet-provider=<string>` argument. The optins are:

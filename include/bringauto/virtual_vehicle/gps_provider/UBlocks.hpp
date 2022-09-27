@@ -9,11 +9,7 @@ namespace bringauto::virtual_vehicle::gps_provider {
  */
 class UBlocks: public IGpsProvider {
 public:
-	float getLatitude() override;
-
-	float getLongitude() override;
-
-	float getAltitude() override;
+	GpsPosition getPosition() override;
 
 	float getSpeed() override;
 };

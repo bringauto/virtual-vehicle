@@ -21,6 +21,8 @@ settings::GpsProvider EnumUtils::stringToGpsProvider(std::string toEnum) {
 		return settings::GpsProvider::RUTX09;
 	}else if(toEnum == "UBLOX"){
 		return settings::GpsProvider::UBLOX;
+	}else if(toEnum == "MAP"){
+		return settings::GpsProvider::MAP;
 	}
 	return settings::GpsProvider::INVALID;
 }

@@ -21,4 +21,5 @@ const std::string gpsProvider_ { "gps-provider" };
 const std::string rutxIp_ { "rutx-ip" };
 const std::string rutxPort_ { "rutx-port" };
 const std::string rutxSlaveId_ { "rutx-slave-id" };
+const std::string stopRadius_ { "stop-radius" };
 }

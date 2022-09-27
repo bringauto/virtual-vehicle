@@ -100,4 +100,14 @@ void Route::speedOverride(unsigned int speed) {
 		point->setSpeed(speed);
 	}
 }
+
+std::vector<std::shared_ptr<Point>> Route::getStops() {
+	std::vector<std::shared_ptr<Point>> stops;
+	for(const auto& point: points_){
+		if(point->isStop()){
+			stops.push_back(point);
+		}
+	}
+	return stops;
+}
 }
