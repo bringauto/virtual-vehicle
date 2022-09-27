@@ -2,11 +2,11 @@
 
 * [cxxopts](https://github.com/jarro2783/cxxopts) >= 3.0.0
 * [protobuf](https://github.com/protocolbuffers/protobuf/tree/main/src) = 3.17.3
-* [balogger](https://github.com/bringauto/ba-logger) >= 1.1.1
-* [statesmurf](https://github.com/Melky-Phoe/StateSmurf) >= 2.0.0
+* [balogger](https://github.com/bringauto/ba-logger) >= 1.2.0
+* [statesmurf](https://github.com/Melky-Phoe/StateSmurf) >= 2.0.1
 * [modbuspp](https://github.com/bringauto/modbuspp) >= 0.3.1
 
-* [libosmium](https://github.com/osmcode/libosmium) >= 2.18.40
+* [libosmium](https://github.com/osmcode/libosmium) >= 2.17.3
 
 ```
   $ sudo apt install libosmium2-dev
