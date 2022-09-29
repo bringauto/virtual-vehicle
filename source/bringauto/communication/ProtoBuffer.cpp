@@ -80,7 +80,7 @@ void ProtoBuffer::processBufferData() {
 	for(const auto &messageStop: protobuffCommandMessage.stops()) {
 		newCommand.stops.push_back(messageStop.to());
 	}
-
+    newCommand.route = protobuffCommandMessage.route();
 
 	if(command_ != newCommand) {
 		command_ = newCommand;

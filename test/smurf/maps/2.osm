@@ -229,7 +229,7 @@
   </way>
   <relation id='-99752' action='modify'>
     <member type='way' ref='-101782' role='' />
-    <tag k='name' v='many-nodes' />
+    <tag k='name' v='default' />
     <tag k='type' v='way' />
   </relation>
 </osm>

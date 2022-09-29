@@ -14,6 +14,14 @@
 namespace bringauto::virtual_vehicle::vehicle_provider {
 
 void GpsVehicle::initialize() {
+    map_.loadMapFromFile(globalContext_->settings->mapFilePath);
+    if(globalContext_->settings->speedOverride) {
+        map_.speedOverride(globalContext_->settings->speedOverrideMS);
+    }
+    map_.prepareRoutes();
+
+    actualRoute_ = map_.getAllRoutes()[0]; /// Make actualRoute_ the first in the vector for initialization reason
+
 	switch(globalContext_->settings->gpsProvider) {
 		case settings::GpsProvider::INVALID:
 			throw std::runtime_error("Unknown gps provider!");
@@ -26,12 +34,12 @@ void GpsVehicle::initialize() {
 			gpsProvider_ = std::make_unique<gps_provider::UBlocks>();
 			break;
 		case settings::GpsProvider::MAP:
-			gpsProvider_ = std::make_unique<gps_provider::MapGps>(route_);
+			gpsProvider_ = std::make_unique<gps_provider::MapGps>(actualRoute_); //TODO nevim co to bere
 	}
 	status_.state = communication::Status::IDLE;
 	com_->initializeConnection();
 	eventDelayInSec_ = ((double)globalContext_->settings->messagePeriodMs)/1000;
-	stops_ = route_->getStops();
+	stops_ = actualRoute_->getStops();
 }
 
 void GpsVehicle::nextEvent() {

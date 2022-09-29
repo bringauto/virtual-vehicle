@@ -484,12 +484,12 @@
     <member type='way' ref='-101966' role='' />
     <member type='way' ref='-101994' role='' />
     <member type='way' ref='-102046' role='' />
-    <tag k='name' v='long' />
+    <tag k='name' v='Dlouhá' />
     <tag k='type' v='way' />
   </relation>
   <relation id='-99795' action='modify' visible='true'>
     <member type='way' ref='-101784' role='' />
-    <tag k='name' v='short' />
+    <tag k='name' v='Krátká' />
     <tag k='type' v='way' />
   </relation>
 </osm>

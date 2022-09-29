@@ -18,6 +18,7 @@ void SimVehicle::initialize() {
 
 	updateVehicleState(communication::Status::IDLE);
 	com_->initializeConnection();
+
 	setNextPosition();
 }
 
@@ -124,6 +125,7 @@ void SimVehicle::evaluateCommand() {
 	}
 
     if (command.route != actualRouteName_ && !command.route.empty()) {
+        logging::Logger::logInfo("New route received.");
         changeRoute_ = true;
         nextRouteName_ = command.route;
     }
@@ -227,10 +229,20 @@ void SimVehicle::changeRoute() {
 	auto nextRoute = map_.getRoute(nextRouteName_);
 	if(nextRoute->isPointPresent(*actualPosition_)) {
 		actualRoute_->setNextPosition();
-		auto nextPosition = actualRoute_->getPosition();
+		// auto nextPosition = actualRoute_->getPosition();
 
         actualRoute_ = nextRoute;
+        actualRouteName_ = nextRouteName_;
         logging::Logger::logInfo("Route changed to: {}.", nextRouteName_);
+
+        if(!actualRoute_->areStopsPresent(mission_)) {  // Check if all stops are present on the new route
+            logging::Logger::logWarning(
+                    "Received stopNames are not on route, stopNames will be completely ignored {}",
+                    common_utils::CommonUtils::constructMissionString(mission_));
+            mission_.clear();
+            missionValidity_ = false;
+            return;
+        }
 
 		changeRoute_ = false;
 		actualRoute_->setPositionAndDirection(*actualPosition_, nextStopName_);
