@@ -70,7 +70,7 @@ std::shared_ptr<Point> Route::getPosition() {
 bool Route::areStopsPresent(const std::vector<std::string> &stopNames) {
 	for(const auto &stopName: stopNames) {
 		auto pointIt = std::find_if(stops_.begin(), stops_.end(),
-									[&stopName](const auto &point) { return stopName == point->getName(); });
+									[stopName](const auto &point) { return stopName == point->getName(); });
 		if(pointIt == stops_.end()) {
 			logging::Logger::logError("Unknown stop: " + stopName);
 			return false;

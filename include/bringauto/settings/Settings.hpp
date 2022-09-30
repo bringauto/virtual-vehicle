@@ -40,7 +40,7 @@ enum class GpsProvider {
 struct Settings {
 	bool verbose;                       /// verbose switch, if true, logs will be also printed to console
 	std::filesystem::path mapFilePath;  /// path to map file in .osm format
-	std::string routeName;              /// name of route that will be used, route have to be present in map file
+	std::string routeName;              /// name of route that will be set on initialization, route have to be present in map file
 	std::filesystem::path logPath;      /// path to folder, where logs will be generated
 	std::string daemonIpAddress;        /// ip address of module server
 	int daemonPort;                     /// port of module server

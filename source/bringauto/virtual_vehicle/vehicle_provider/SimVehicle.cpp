@@ -14,8 +14,13 @@ void SimVehicle::initialize() {
     }
     map_.prepareRoutes();
 
-    actualRoute_ = map_.getAllRoutes()[0]; /// Make actualRoute_ the first in the vector for initialization reason
-
+    if (!globalContext_->settings->routeName.empty()) {
+        actualRouteName_ = globalContext_->settings->routeName;
+        actualRoute_ = map_.getRoute(actualRouteName_);
+    } else { /// Make actualRoute_ the first in the vector for initialization reason
+        actualRoute_ = map_.getAllRoutes()[0];
+        actualRouteName_ = actualRoute_->getRouteName();
+    }
 	updateVehicleState(communication::Status::IDLE);
 	com_->initializeConnection();
 
@@ -125,17 +130,19 @@ void SimVehicle::evaluateCommand() {
 	}
 
     if (command.route != actualRouteName_ && !command.route.empty()) {
-        logging::Logger::logInfo("New route received.");
+        if (!changeRoute_) {
+            logging::Logger::logInfo("New route received.");
+        }
         changeRoute_ = true;
         nextRouteName_ = command.route;
     }
 	if(mission_ != command.stops) {
 		if(!changeRoute_) {
-			if(!actualRoute_->areStopsPresent(mission_)) {
+			if(!actualRoute_->areStopsPresent(command.stops)) {
 				logging::Logger::logWarning(
 						"Received stopNames are not on route, stopNames will be completely ignored {}",
 						common_utils::CommonUtils::constructMissionString(mission_));
-				mission_.clear();
+				mission_.clear(); // TODO do we want to clear mission when new command is invalid???
 				missionValidity_ = false;
 				return;
 			}
@@ -247,7 +254,7 @@ void SimVehicle::changeRoute() {
 		changeRoute_ = false;
 		actualRoute_->setPositionAndDirection(*actualPosition_, nextStopName_);
 	} else {
-		logging::Logger::logInfo("Vehicle is not on a second route and cannot switch routes yet");
+		logging::Logger::logInfo("Vehicle is not on a the new route and cannot switch routes yet");
 	}
 
 

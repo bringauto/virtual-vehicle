@@ -27,7 +27,7 @@ private:
 	bool missionValidity_ { true };
 	std::string nextStopName_;
 	bool changeRoute_{ false };
-    std::string actualRouteName_{ "Default" };
+    std::string actualRouteName_{};
     std::string nextRouteName_{};
 
 	long long int driveMillisecondLeft_ { 0 };
