@@ -14,7 +14,7 @@ void SimVehicle::initialize() {
     }
     map_.prepareRoutes();
 
-    if (!globalContext_->settings->routeName.empty()) {
+    if (!globalContext_->settings->routeName.empty()) { /// Override default route by argument
         actualRouteName_ = globalContext_->settings->routeName;
         actualRoute_ = map_.getRoute(actualRouteName_);
     } else { /// Make actualRoute_ the first in the vector for initialization reason

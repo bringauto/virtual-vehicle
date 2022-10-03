@@ -17,7 +17,7 @@
 # Arguments
 
 * `--map <string>` full path to .osm file containing map
-* `--route <string>` - name of route that will be used for car
+* `--route <string>` - name of route that will be set as default
 * `-v | --verbose` logs will be printed to console
 * `--log-path <path>` logs will be saved to provided path, default is .\/
 * `--daemon-ip <string>` IPv4 or hostname of ba daemon
@@ -84,9 +84,9 @@ Template run command from project root directory `python3 <smurf_compare_scenari
 
 If StateSmurf is installed on host pc, use following commands:
 ```
-python3 /usr/local/bin/smurf_compare_scenarios.py --scenario test/smurf/circularRouteScenario/scenarios.json --executable _build/VirtualVehicle --evaluator /usr/local/bin/smurf_evaluator
-python3 /usr/local/bin/smurf_compare_scenarios.py --scenario test/smurf/linearRouteScenario/scenarios.json --executable _build/VirtualVehicle --evaluator /usr/local/bin/smurf_evaluator
-python3 /usr/local/bin/smurf_compare_scenarios.py --scenario test/smurf/duplicitStopScenario/scenarios.json --executable _build/VirtualVehicle --evaluator /usr/local/bin/smurf_evaluator
+python3 /usr/local/bin/smurf_compare_scenarios.py --scenario test/smurf/circularRouteScenario/scenarios.json --executable _build/virtual-vehicle-utility --evaluator /usr/local/bin/smurf_evaluator
+python3 /usr/local/bin/smurf_compare_scenarios.py --scenario test/smurf/linearRouteScenario/scenarios.json --executable _build/virtual-vehicle-utility --evaluator /usr/local/bin/smurf_evaluator
+python3 /usr/local/bin/smurf_compare_scenarios.py --scenario test/smurf/duplicitStopScenario/scenarios.json --executable _build/virtual-vehicle-utility --evaluator /usr/local/bin/smurf_evaluator
 ```
 
 # Map creation

@@ -20,7 +20,12 @@ void GpsVehicle::initialize() {
     }
     map_.prepareRoutes();
 
-    actualRoute_ = map_.getAllRoutes()[0]; /// Make actualRoute_ the first in the vector for initialization reason
+    if (!globalContext_->settings->routeName.empty()) { /// Override default route by argument
+        actualRoute_ = map_.getRoute(globalContext_->settings->routeName);
+    } else { /// Make actualRoute_ the first in the vector for initialization reason
+        actualRoute_ = map_.getAllRoutes()[0];
+    }
+    stops_ = actualRoute_->getStops();
 
 	switch(globalContext_->settings->gpsProvider) {
 		case settings::GpsProvider::INVALID:
@@ -34,12 +39,11 @@ void GpsVehicle::initialize() {
 			gpsProvider_ = std::make_unique<gps_provider::UBlocks>();
 			break;
 		case settings::GpsProvider::MAP:
-			gpsProvider_ = std::make_unique<gps_provider::MapGps>(actualRoute_); //TODO nevim co to bere
+			gpsProvider_ = std::make_unique<gps_provider::MapGps>(actualRoute_);
 	}
 	status_.state = communication::Status::IDLE;
 	com_->initializeConnection();
 	eventDelayInSec_ = ((double)globalContext_->settings->messagePeriodMs)/1000;
-	stops_ = actualRoute_->getStops();
 }
 
 void GpsVehicle::nextEvent() {
@@ -56,7 +60,7 @@ void GpsVehicle::updatePosition() {
 	status_.latitude = position.latitude;
 	status_.longitude = position.longitude;
 	auto speed = gpsProvider_->getSpeed();
-	if(currentStop_){
+	if(currentStop_ != nullptr){
 		auto distanceToStop = common_utils::CommonUtils::calculateDistanceInMeters(currentStop_->getLatitude(), currentStop_->getLongitude(), status_.latitude, status_.longitude);
 		if(distanceToStop < globalContext_->settings->stopRadius){
 			status_.state = communication::Status::IN_STOP;
@@ -76,6 +80,10 @@ void GpsVehicle::makeRequest() {
 
 void GpsVehicle::evaluateCommand() {
 	auto command = com_->getCommand();
+
+    actualRoute_ = map_.getRoute(command.route); /// Change of route, need to update available stops on it
+    stops_ = actualRoute_->getStops();
+
 	if(command.stops.empty()) {
 		status_.state = communication::Status::IDLE;
 		status_.nextStop = "";
@@ -83,10 +91,10 @@ void GpsVehicle::evaluateCommand() {
 	} else {
 		status_.state = communication::Status::DRIVE;
 		status_.nextStop = command.stops.front();
-		currentStop_ = nullptr;
 		for(const auto& stop: stops_){
 			if(stop->getName() == status_.nextStop){
 				currentStop_ = stop;
+                break;
 			}
 		}
 		if(!currentStop_){
