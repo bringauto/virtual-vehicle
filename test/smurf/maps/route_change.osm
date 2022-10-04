@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' generator='JOSM'>
+  <node id='-137709' action='modify' visible='true' lat='49.22824453831' lon='16.5951007551'>
+    <tag k='speed' v='50' />
+  </node>
+  <node id='-137711' action='modify' visible='true' lat='49.22880505017' lon='16.59468769491' />
+  <node id='-137712' action='modify' visible='true' lat='49.22808689321' lon='16.5932875818'>
+    <tag k='name' v='first' />
+    <tag k='stop' v='true' />
+  </node>
+  <node id='-137713' action='modify' visible='true' lat='49.22769803312' lon='16.59250437677' />
+  <node id='-137714' action='modify' visible='true' lat='49.22668207793' lon='16.59309982717' />
+  <node id='-137715' action='modify' visible='true' lat='49.22717954825' lon='16.59571229875' />
+  <node id='-137716' action='modify' visible='true' lat='49.22859135578' lon='16.59190356195'>
+    <tag k='name' v='second' />
+    <tag k='stop' v='true' />
+  </node>
+  <way id='-103224' action='modify' visible='true'>
+    <nd ref='-137709' />
+    <nd ref='-137711' />
+    <nd ref='-137712' />
+    <nd ref='-137713' />
+    <nd ref='-137714' />
+    <nd ref='-137715' />
+    <nd ref='-137709' />
+  </way>
+  <way id='-103231' action='modify' visible='true'>
+    <nd ref='-137713' />
+    <nd ref='-137716' />
+  </way>
+  <relation id='-99778' action='modify' visible='true'>
+    <member type='way' ref='-103224' role='way' />
+    <tag k='name' v='First' />
+    <tag k='type' v='way' />
+  </relation>
+  <relation id='-99804' action='modify' visible='true'>
+    <member type='way' ref='-103231' role='' />
+    <tag k='name' v='Second' />
+    <tag k='type' v='way' />
+  </relation>
+</osm>
