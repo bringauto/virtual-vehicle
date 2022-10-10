@@ -4,11 +4,26 @@
 #include <bringauto/logging/Logger.hpp>
 #include <thread>
 
+
+
 namespace bringauto::virtual_vehicle::vehicle_provider {
 void SimVehicle::initialize() {
-	route_->prepareRoute();
+	map_.loadMapFromFile(globalContext_->settings->mapFilePath);
+	if(globalContext_->settings->speedOverride) {
+		map_.speedOverride(globalContext_->settings->speedOverrideMS);
+	}
+	map_.prepareRoutes();
+
+	if(!globalContext_->settings->routeName.empty()) { /// Override default route by argument
+		actualRouteName_ = globalContext_->settings->routeName;
+		actualRoute_ = map_.getRoute(actualRouteName_);
+	} else { /// Make actualRoute_ the first in the vector for initialization reason
+		actualRoute_ = map_.getAllRoutes()[0];
+		actualRouteName_ = actualRoute_->getRouteName();
+	}
 	updateVehicleState(communication::Status::IDLE);
 	com_->initializeConnection();
+
 	setNextPosition();
 }
 
@@ -47,6 +62,9 @@ void SimVehicle::handleDriveEvent() {
 	driveMillisecondLeft_ -= globalContext_->settings->messagePeriodMs;
 
 	if(driveMillisecondLeft_ <= 0) {
+		if(changeRoute_) {
+			changeRoute();
+		}
 		setNextPosition();
 	}
 }
@@ -74,9 +92,9 @@ void SimVehicle::handleErrorEvent() {
 }
 
 void SimVehicle::setNextPosition() {
-	actualPosition_ = route_->getPosition();
-	route_->setNextPosition();
-	nextPosition_ = route_->getPosition();
+	actualPosition_ = actualRoute_->getPosition();
+	actualRoute_->setNextPosition();
+	nextPosition_ = actualRoute_->getPosition();
 
 	actualSpeed_ = state_ == communication::Status::DRIVE ? actualPosition_->getSpeedInMetersPerSecond() : 0;
 	driveMillisecondLeft_ = common_utils::CommonUtils::timeToDriveInMilliseconds(
@@ -84,10 +102,9 @@ void SimVehicle::setNextPosition() {
 			actualSpeed_);
 
 	if(state_ == communication::Status::DRIVE) {
-		bringauto::logging::Logger::logInfo(
-				"Distance to drive: {:.2f}m, time to get there: {:.2f}s",
-				common_utils::CommonUtils::calculateDistanceInMeters(actualPosition_, nextPosition_),
-				(double)driveMillisecondLeft_/1000);
+		logging::Logger::logInfo("{} route, distance to drive: {:.2f}m, time to get there: {:.2f}s", actualRouteName_,
+								 common_utils::CommonUtils::calculateDistanceInMeters(actualPosition_, nextPosition_),
+								 (double)driveMillisecondLeft_/1000);
 	}
 }
 
@@ -112,17 +129,25 @@ void SimVehicle::evaluateCommand() {
 		return;
 	}
 
-	if(mission_ != command.stops) {
-		if(!route_->areStopsPresent(mission_)) {
-			logging::Logger::logWarning(
-					"Received stopNames are not on route, stopNames will be completely ignored {}",
-					common_utils::CommonUtils::constructMissionString(mission_));
-			mission_.clear();
-			missionValidity_ = false;
-			return;
-		} else {
-			missionValidity_ = true;
+	if(command.route != actualRouteName_ && !command.route.empty()) {
+		if(!changeRoute_) {
+			logging::Logger::logInfo("New route received.");
 		}
+		changeRoute_ = true;
+		nextRouteName_ = command.route;
+	}
+	if(mission_ != command.stops) {
+		if(!changeRoute_) {
+			if(!actualRoute_->areStopsPresent(command.stops)) {
+				logging::Logger::logWarning(
+						"Received stopNames are not on route, stopNames will be completely ignored {}",
+						common_utils::CommonUtils::constructMissionString(mission_));
+				mission_.clear(); // TODO do we want to clear mission when new command is invalid???
+				missionValidity_ = false;
+				return;
+			}
+		}
+		missionValidity_ = true;
 		mission_ = command.stops;
 	}
 
@@ -204,6 +229,30 @@ void SimVehicle::updateVehicleState(communication::Status::State state) {
 		case communication::Status::OBSTACLE:
 		case communication::Status::ERROR:
 			break;
+	}
+}
+
+void SimVehicle::changeRoute() {
+	auto nextRoute = map_.getRoute(nextRouteName_);
+	if(nextRoute->isPointPresent(*actualPosition_)) {
+		actualRoute_->setNextPosition();
+		actualRoute_ = nextRoute;
+		actualRouteName_ = nextRouteName_;
+		logging::Logger::logInfo("Route changed to: {}.", nextRouteName_);
+
+		if(!actualRoute_->areStopsPresent(mission_)) {  // Check if all stops are present on the new route
+			logging::Logger::logWarning(
+					"Received stopNames are not on route, stopNames will be completely ignored {}",
+					common_utils::CommonUtils::constructMissionString(mission_));
+			mission_.clear();
+			missionValidity_ = false;
+			return;
+		}
+
+		changeRoute_ = false;
+		actualRoute_->setPositionAndDirection(*actualPosition_, nextStopName_);
+	} else {
+		logging::Logger::logInfo("Vehicle is not on a the new route and cannot switch routes yet");
 	}
 }
 }

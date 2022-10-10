@@ -52,7 +52,6 @@ public:
 	 */
 	std::shared_ptr<Point> getPosition();
 
-
 	/**
 	 * @brief Get vector of all stops present on the route
 	 * @return vector of stops
@@ -70,6 +69,10 @@ public:
 	 * @return true if all stops are on route
 	 */
 	bool areStopsPresent(const std::vector<std::string> &stopNames);
+
+	bool isPointPresent(const Point &point);
+
+	void setPositionAndDirection(const Point &actualPosition, const std::string &nextStopName);
 
 	/**
 	 * Append all points and stops from way into route
@@ -94,6 +97,9 @@ private:
 	 * Limit distance from stop and end point to determine if route is circular or not
 	 */
 	const double roundRouteLimitInMeters { 10.0 };
+
+	static constexpr float pointTolerance_ { 0.5 };
+	static constexpr float distanceTolerance_ { 0.001 };
 
 };
 }

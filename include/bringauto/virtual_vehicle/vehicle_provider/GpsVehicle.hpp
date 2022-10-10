@@ -11,8 +11,8 @@ namespace bringauto::virtual_vehicle::vehicle_provider {
  */
 class GpsVehicle final: public IVirtualVehicle {
 public:
-	GpsVehicle(const std::shared_ptr<osm::Route>& route, const std::shared_ptr<communication::ICommunication>& com,
-			   const std::shared_ptr<GlobalContext>& globalContext): IVirtualVehicle(route, com, globalContext){};
+	GpsVehicle(const std::shared_ptr<communication::ICommunication> &com,
+			   const std::shared_ptr<GlobalContext> &globalContext): IVirtualVehicle(com, globalContext) {};
 
 	/**
 	 * @brief Initialize connection to GPS tracker selected by cmd argument
@@ -30,7 +30,9 @@ private:
 	void nextEvent() override;
 
 	void updatePosition();
+
 	void makeRequest();
+
 	void evaluateCommand();
 
 };

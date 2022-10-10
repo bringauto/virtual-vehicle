@@ -25,7 +25,7 @@
       "timeout" : 100,
       "arguments" : {
         "--map" : "../maps/2.osm",
-        "--route" : "many-nodes",
+        "--route" : "lap",
         "--verbose" : "",
         "--daemon-ip" : "172.17.0.1",
         "--daemon-port" : 1636,

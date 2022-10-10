@@ -9,7 +9,8 @@ Command bringauto::communication::ICommunication::getCommand() {
 }
 
 std::ostream &operator<<(std::ostream &stream, const Command &command) {
-	stream << "action: " << common_utils::EnumUtils::enumToString(command.action) << " stops:";
+	stream << "action: " << common_utils::EnumUtils::enumToString(command.action) << ", route: " << command.route
+		   << ", stops:";
 	for(const auto &stop: command.stops) {
 		stream << " " << stop;
 	}

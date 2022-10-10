@@ -1,3 +1,4 @@
 [submodule "test/smurf/etna"]
 	path = test/smurf/etna
 	url = git@github.com:bringauto/etna.git
+    branch = main

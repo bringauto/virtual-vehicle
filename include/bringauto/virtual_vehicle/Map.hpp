@@ -26,10 +26,20 @@ public:
 	std::shared_ptr<osm::Route> getRoute(const std::string &routeName);
 
 	/**
+	 * calls prepareRoute() on all routes in vector routes_
+	 */
+	void prepareRoutes();
+
+	/**
 	 * @brief Overrides speed on all routes to speed given by param
 	 * @param speed
 	 */
 	void speedOverride(unsigned int speed);
+
+	/**
+	 * @return private vector routes_
+	 */
+	std::vector<std::shared_ptr<osm::Route>> getAllRoutes() { return routes_; };
 
 private:
 	std::vector<std::shared_ptr<osm::Route>> routes_;

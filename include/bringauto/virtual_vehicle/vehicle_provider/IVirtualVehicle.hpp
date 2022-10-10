@@ -3,8 +3,11 @@
 #include <bringauto/osm/OsmiumHandler.hpp>
 #include <bringauto/communication/ICommunication.hpp>
 #include <bringauto/virtual_vehicle/GlobalContext.hpp>
+#include <bringauto/virtual_vehicle/Map.hpp>
 
 #include <memory>
+#include <utility>
+
 
 
 namespace bringauto::virtual_vehicle::vehicle_provider {
@@ -13,9 +16,8 @@ namespace bringauto::virtual_vehicle::vehicle_provider {
  */
 class IVirtualVehicle {
 public:
-	IVirtualVehicle(const std::shared_ptr<osm::Route>& route, const std::shared_ptr<communication::ICommunication>& com,
-					const std::shared_ptr<GlobalContext>& globalContext): route_(route), com_(com),
-																   globalContext_(globalContext) {};
+	IVirtualVehicle(std::shared_ptr<communication::ICommunication> com, std::shared_ptr<GlobalContext> globalContext):
+			com_(std::move(com)), globalContext_(std::move(globalContext)) {};
 
 	/**
 	 * Prepare vehicle and route for drive simulation
@@ -28,7 +30,9 @@ public:
 	void drive();
 
 protected:
-	std::shared_ptr<osm::Route> route_;
+	bringauto::virtual_vehicle::Map map_;
+	std::shared_ptr<osm::Route> actualRoute_;
+
 	std::shared_ptr<communication::ICommunication> com_;
 	std::shared_ptr<GlobalContext> globalContext_;
 

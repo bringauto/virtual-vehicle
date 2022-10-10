@@ -63,7 +63,7 @@
   </relation>
   <relation id='-99761' action='modify'>
     <member type='way' ref='-102019' role='' />
-    <tag k='name' v='one-way' />
+    <tag k='name' v='default' />
     <tag k='type' v='way' />
   </relation>
 </osm>

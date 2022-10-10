@@ -16,14 +16,18 @@ struct Command {
 		START = 2
 	};
 
-	std::vector<std::string> stops; ///mission, vector contains list of stops that car should go to
-	Action action { NO_ACTION };    ///car action
+	std::vector<std::string> stops; /// mission, vector contains list of stops that car should go to
+	Action action { NO_ACTION };    /// car action
+	std::string route {};          /// car route
 
 	inline bool operator==(const Command &toCompare) const {
 		if(action != toCompare.action) {
 			return false;
 		}
 		if(stops != toCompare.stops) {
+			return false;
+		}
+		if(route != toCompare.route) {
 			return false;
 		}
 		return true;

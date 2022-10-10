@@ -75,13 +75,10 @@
   <node id='-101849' action='modify' visible='true' lat='49.84004444617' lon='18.22691916883' />
   <node id='-101850' action='modify' visible='true' lat='49.84000379538' lon='18.22697281301' />
   <node id='-101851' action='modify' visible='true' lat='49.83985762523' lon='18.22716056764' />
-  <node id='-101926' action='modify' visible='true' lat='49.84008369041' lon='18.2271308691' />
-  <node id='-101927' action='modify' visible='true' lat='49.84020605367' lon='18.22736257239'>
+  <node id='-101927' action='modify' visible='true' lat='49.83999812724' lon='18.22698043014'>
     <tag k='name' v='Spec. aminy 2' />
     <tag k='stop' v='true' />
   </node>
-  <node id='-101939' action='modify' visible='true' lat='49.84011363633' lon='18.22720751032' />
-  <node id='-101947' action='modify' visible='true' lat='49.84007125578' lon='18.22712972626' />
   <node id='-101963' action='modify' visible='true' lat='49.83999168403' lon='18.22698756918' />
   <node id='-101964' action='modify' visible='true' lat='49.83971923629' lon='18.22732955083' />
   <node id='-101965' action='modify' visible='true' lat='49.8395756609' lon='18.22752266854' />
@@ -256,10 +253,7 @@
     <nd ref='-101848' />
     <nd ref='-101849' />
     <nd ref='-101850' />
-    <nd ref='-101926' />
     <nd ref='-101927' />
-    <nd ref='-101939' />
-    <nd ref='-101947' />
     <nd ref='-101963' />
     <nd ref='-101851' />
     <nd ref='-101964' />
@@ -394,8 +388,6 @@
     <nd ref='-101964' />
     <nd ref='-101851' />
     <nd ref='-101963' />
-    <nd ref='-101947' />
-    <nd ref='-101939' />
     <nd ref='-101927' />
     <nd ref='-102036' />
     <nd ref='-102037' />
@@ -492,7 +484,12 @@
     <member type='way' ref='-101966' role='' />
     <member type='way' ref='-101994' role='' />
     <member type='way' ref='-102046' role='' />
-    <tag k='name' v='borsodchem' />
+    <tag k='name' v='Dlouhá' />
+    <tag k='type' v='way' />
+  </relation>
+  <relation id='-99795' action='modify' visible='true'>
+    <member type='way' ref='-101784' role='' />
+    <tag k='name' v='Krátká' />
     <tag k='type' v='way' />
   </relation>
 </osm>

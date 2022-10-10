@@ -33,8 +33,8 @@ void SettingsParser::parseCmdArguments(int argc, char **argv) {
 	options.add_options()(statusMessagePeriod_, "Period in ms for sending status messages",
 						  cxxopts::value<uint32_t>()->default_value("1000"));
 	options.add_options("osm")(osmMap_, "Path to .osm map file", cxxopts::value<std::string>());
-	options.add_options("osm")(osmRoute_, "Name of route that will be used for vehicle",
-										 cxxopts::value<std::string>());
+	options.add_options("osm")(osmRoute_, "Name of route that will be set on initialization",
+										 cxxopts::value<std::string>()->default_value(""));
 	options.add_options("fleet provider")(fleetProvider_,
 										  R"(Provider of communication with fleet, "protobuf" or "empty")",
 										  cxxopts::value<std::string>()->default_value("protobuf"));
@@ -72,7 +72,6 @@ bool SettingsParser::areCmdArgumentsCorrect() {
 	bool isCorrect = true;
 	std::vector<std::string> requiredParams {
 			osmMap_,
-			osmRoute_,
 	};
 	std::vector<std::string> allParameters = { verbose_,
 											   osmMap_,
