@@ -20,12 +20,12 @@ void initLogger(const std::string &logPath, bool verbose) {
 	if(verbose) {
 		Logger::addSink<bringauto::logging::ConsoleSink>();
 	}
-	FileSink::Params paramFileSink{logPath, "vvu"};
-	paramFileSink.maxFileSize = 1024 * 1024 * 50; //50MB
+	FileSink::Params paramFileSink{logPath, "virtual-vehicle-utility.log"};
+	paramFileSink.maxFileSize = 50_MiB;
 	paramFileSink.numberOfRotatedFiles = 5;
 	paramFileSink.verbosity = Logger::Verbosity::Debug;
 
-	Logger::addSink<bringauto::logging::FileSink>({ logPath, "virtual-vehicle-utility.log" });
+	Logger::addSink<bringauto::logging::FileSink>(paramFileSink);
 	Logger::LoggerSettings params { "virtual-vehicle-utility",
 														Logger::Verbosity::Debug };
 	Logger::init(params);
