@@ -70,7 +70,7 @@ def start_containers(docker_client, settings, vehicle, port):
         settings["daemon-docker-image"] + ":" + settings["daemon-docker-tag"],
         detach=True, network="host", auto_remove=True, entrypoint=[
             "/bringauto-daemon/_build/components/industrial_portal/industrial_portal",
-            '--vehicle-name=' + vehicle['name'], '--mode=mqtt', '--company=bringauto', '--place=default',
+            '--vehicle-name=' + vehicle['name'], '--mode=mqtt', '--company=' + vehicle['company'], '--place=default',
             '--broker-port=' + str(settings["mqtt-port"]), '--broker-ip=' + settings["mqtt-address"],
             '--port=' + str(port)])
     logging.info("Started a daemon docker container with id " + daemon_container.short_id)
@@ -81,12 +81,11 @@ def start_containers(docker_client, settings, vehicle, port):
     vehicle_container = docker_client.containers.run(
         settings["vehicle-docker-image"] + ":" + settings["vehicle-docker-tag"],
         detach=True, network="host", auto_remove=True, entrypoint=[
-            "/virtual-vehicle-utility/VirtualVehicle", '--map=' + vehicle['docker-map-path'],
-                                                       '--route=' + vehicle['route'],
-                                                       '--ip=' + "127.0.0.1",
+            "/virtual-vehicle-utility/virtual-vehicle-utility", '--map=' + vehicle['docker-map-path'],
+                                                       '--daemon-ip=' + "127.0.0.1",
                                                        '--wait=' + str(vehicle['stop-wait-seconds']),
                                                        '--period=' + str(vehicle['message-period-millisecond']),
-                                                       '--port=' + str(port)])
+                                                       '--daemon-port=' + str(port)])
     logging.info("Started a vehicle docker container with id " + vehicle_container.short_id)
     runningContainers.append(vehicle_container)
 

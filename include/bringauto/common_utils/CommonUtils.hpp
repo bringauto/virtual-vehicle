@@ -40,5 +40,14 @@ public:
 	 * @return number of milliseconds that will take to travel the distance at the speed
 	 */
 	static uint64_t timeToDriveInMilliseconds(double distanceInMeters, double speedInMetersPerSecond);
+
+	/**
+	 * @brief Create a string with all points in given route in fleet-init utility format
+	 * @param route route to be printed
+	 */
+	static std::string exportRouteToFleetInitFormat(const std::shared_ptr<osm::Route>& route);
+
+private:
+	static std::string exportPosition(const std::shared_ptr<osm::Point>& position);
 };
 }

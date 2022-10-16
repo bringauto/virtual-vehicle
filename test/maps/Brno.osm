@@ -1,6 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <osm version='0.6' generator='JOSM'>
   <node id='-137709' action='modify' visible='true' lat='49.20500309523' lon='16.61337934367'>
+    <tag k='name' v='Drobného' />
     <tag k='speed' v='15' />
     <tag k='stop' v='true' />
   </node>
@@ -23,6 +24,7 @@
   <node id='-137729' action='modify' visible='true' lat='49.20515730956' lon='16.60578265652' />
   <node id='-137730' action='modify' visible='true' lat='49.20406553495' lon='16.60644516215' />
   <node id='-137731' action='modify' visible='true' lat='49.20411899128' lon='16.6067254436'>
+    <tag k='name' v='Lidická' />
     <tag k='stop' v='true' />
   </node>
   <node id='-137732' action='modify' visible='true' lat='49.20430124727' lon='16.60770176768' />
@@ -158,7 +160,7 @@
   </way>
   <relation id='-99751' action='modify' visible='true'>
     <member type='way' ref='-103224' role='way' />
-    <tag k='name' v='luzanky' />
+    <tag k='name' v='Lužánky' />
     <tag k='type' v='way' />
   </relation>
 </osm>

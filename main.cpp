@@ -92,7 +92,7 @@ int main(int argc, char **argv) {
 		vehicle->initialize();
 		vehicle->drive();
 
-	} catch(std::exception &e) {
+	} catch(const std::exception &e) {
 		exitCode = EXIT_FAILURE;
 		bringauto::logging::Logger::logError(e.what());
 	} catch(...) {
