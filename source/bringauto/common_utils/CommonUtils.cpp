@@ -1,5 +1,9 @@
 #include <bringauto/common_utils/CommonUtils.hpp>
+
 #include <osmium/geom/haversine.hpp>
+
+#include <sstream>
+#include <iomanip>
 
 
 
@@ -31,5 +35,28 @@ CommonUtils::calculateDistanceInMeters(double aLatitude, double aLongitude, doub
 uint64_t CommonUtils::timeToDriveInMilliseconds(double distanceInMeters, double speedInMetersPerSecond) {
 	return uint64_t((distanceInMeters/speedInMetersPerSecond)*1000);
 }
+
+std::string CommonUtils::exportRouteToFleetInitFormat(const std::shared_ptr<osm::Route> &route) {
+	std::string exportedRoute;
+	route->prepareRoute();
+	auto startPoint = route->getPosition();
+	route->setNextPosition();
+	while(route->getPosition() != startPoint) {
+		exportedRoute += exportJsonPosition(route->getPosition());
+		route->setNextPosition();
+	}
+	return exportedRoute;
+}
+
+std::string CommonUtils::exportJsonPosition(const std::shared_ptr<osm::Point> &position) {
+	std::stringstream ss;
+	ss << "{ \"latitude\":";
+	ss << std::fixed << std::setprecision(7) << position->getLatitude();
+	ss << ", \"longitude\":";
+	ss << std::fixed << std::setprecision(7) << position->getLongitude();
+	ss << ", \"stationName\": "<< (position->getName().empty()? "null": ("\"" + position->getName() + "\"")) << "},";
+	return ss.str();
+}
+
 
 }

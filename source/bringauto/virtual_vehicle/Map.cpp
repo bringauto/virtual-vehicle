@@ -1,8 +1,10 @@
 #include <bringauto/virtual_vehicle/Map.hpp>
+#include <bringauto/common_utils/CommonUtils.hpp>
 
 #include <osmium/io/any_input.hpp>
 #include <osmium/visitor.hpp>
 
+#include <iostream>
 
 
 void bringauto::virtual_vehicle::Map::loadMapFromFile(const std::string &filePath) {
@@ -13,6 +15,14 @@ void bringauto::virtual_vehicle::Map::loadMapFromFile(const std::string &filePat
 	reader.close();
 	routes_ = handler.getRoutes();
 	points_ = handler.getPoints();
+
+	bool exportRoutes = false;
+	if(exportRoutes){
+		for(const auto& route: routes_){
+			auto routeString = common_utils::CommonUtils::exportRouteToFleetInitFormat(route);
+			std::cout << route->getRouteName() << ":\n" << routeString << std::endl;
+		}
+	}
 }
 
 std::shared_ptr<bringauto::osm::Route> bringauto::virtual_vehicle::Map::getRoute(const std::string &routeName) {

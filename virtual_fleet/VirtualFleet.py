@@ -62,12 +62,12 @@ def run_program(arguments):
         if (arguments.min_port <= 1024) or (arguments.min_port > 65535):
             raise PortOutOfRangeException()
         daemons.append(subprocess.Popen(
-            [daemon_app, '--vehicle-name=' + token['name'], '--mode=mqtt', '--company=bringauto', '--place=default',
+            [daemon_app, '--vehicle-name=' + token['name'], '--mode=mqtt', '--company=' + token['company'], '--place=default',
              '--broker-port=' + str(arguments.min_port), '--broker-ip=' + arguments.mqtt_address,
              '--port=' + str(arguments.min_port)]))
         time.sleep(2)
         vehicles.append(subprocess.Popen(
-            [vehicle_app, '--map=' + token['mapPath'], '--route=' + token['route'], '--daemon-ip=127.0.0.1',
+            [vehicle_app, '--map=' + token['mapPath'], '--daemon-ip=127.0.0.1',
              '--wait=' + str(token['stopWaitTime']), '--period=' + str(token['period']),
              '--daemon-port=' + str(arguments.min_port)]))
         arguments.min_port += 1
