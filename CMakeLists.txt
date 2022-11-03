@@ -90,8 +90,8 @@ CMDEF_ADD_EXECUTABLE(
 TARGET_LINK_LIBRARIES(virtual-vehicle-utility PUBLIC bringautolib)
 
 IF (BRINGAUTO_INSTALL)
-    BA_PACKAGE_DEPS_IMPORTED(virtual-vehicle-utility)
-    CMDEF_INSTALL(TARGET virtual-vehicle-utility)
+	CMDEF_INSTALL(TARGET virtual-vehicle-utility)
+	BA_PACKAGE_DEPS_IMPORTED(virtual-vehicle-utility)
 ENDIF ()
 
 IF (BRINGAUTO_PACKAGE)
