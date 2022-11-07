@@ -1,4 +1,5 @@
 #pragma once
+#include <bringauto/osm/Route.hpp>
 
 #include <vector>
 #include <string>
@@ -18,7 +19,8 @@ struct Command {
 
 	std::vector<std::string> stops; /// mission, vector contains list of stops that car should go to
 	Action action { NO_ACTION };    /// car action
-	std::string route {};          /// car route
+	std::string route {};           /// car route
+	std::vector<osm::Route::Station> routeStations;	/// Station names and positions on the route.
 
 	inline bool operator==(const Command &toCompare) const {
 		if(action != toCompare.action) {

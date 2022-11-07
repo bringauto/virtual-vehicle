@@ -82,6 +82,14 @@ void ProtoBuffer::processBufferData() {
 	}
 	newCommand.route = protobuffCommandMessage.route();
 
+	for(const auto &routeStation: protobuffCommandMessage.routestations()) {
+		osm::Route::Station tmpStation;
+		tmpStation.name = routeStation.name();
+		tmpStation.latitude = routeStation.position().latitude();
+		tmpStation.longitude = routeStation.position().longitude();
+		newCommand.routeStations.push_back(tmpStation);
+	}
+
 	if(command_ != newCommand) {
 		command_ = newCommand;
 		std::stringstream is;

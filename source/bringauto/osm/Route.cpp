@@ -105,7 +105,7 @@ bool Route::isPointPresent(const Point &pointToFind) {
 	return std::any_of(points_.begin(), points_.end(), [pointToFind](const std::shared_ptr<Point> &point) {
 		return osmium::geom::haversine::distance(
 				osmium::geom::Coordinates { point->getLatitude(), point->getLongitude() },
-				osmium::geom::Coordinates { pointToFind.getLatitude(), pointToFind.getLongitude() }) < pointTolerance_;
+				osmium::geom::Coordinates { pointToFind.getLatitude(), pointToFind.getLongitude() }) < pointToleranceInMeters_;
 	});
 }
 
@@ -115,7 +115,7 @@ void Route::setPositionAndDirection(const Point &actualPosition, const std::stri
 		auto distance = osmium::geom::haversine::distance(
 				osmium::geom::Coordinates { it->get()->getLatitude(), it->get()->getLongitude() },
 				osmium::geom::Coordinates { actualPosition.getLatitude(), actualPosition.getLongitude() });
-		if(distance < distanceTolerance_) {
+		if(distance < distanceToleranceInMeters_) {
 			if(!routeIsCircular_) { // Circular routes must not be reversed
 				bool reverse = true;
 				for(auto it2 = it; it2 != points_.end(); it2++) {
@@ -131,7 +131,7 @@ void Route::setPositionAndDirection(const Point &actualPosition, const std::stri
 								osmium::geom::Coordinates { it->get()->getLatitude(), it->get()->getLongitude() },
 								osmium::geom::Coordinates { actualPosition.getLatitude(),
 															actualPosition.getLongitude() });
-						if(newDistance < distanceTolerance_) {
+						if(newDistance < distanceToleranceInMeters_) {
 							break;
 						}
 					}
@@ -151,5 +151,32 @@ std::vector<std::shared_ptr<Point>> Route::getStops() {
 		}
 	}
 	return stops;
+}
+
+void Route::compareStations(std::vector<Station> commandStations) {
+	if(commandStations.size() != stops_.size()) {
+		logging::Logger::logError("There isn't the same number of stops in the command ({}) as on the route ({})", commandStations.size(), stops_.size());
+		return;
+	}
+	for(auto commandStation : commandStations) {
+		bool stationFound = false;
+		for(const auto &stop: stops_) {
+			if(stop->getName() == commandStation.name) {
+				stationFound = true;
+				auto stopDistance = osmium::geom::haversine::distance(
+						osmium::geom::Coordinates { stop->getLatitude(), stop->getLongitude() },
+						osmium::geom::Coordinates { commandStation.latitude, commandStation.longitude });
+				if(stopDistance > pointToleranceInMeters_) {
+					logging::Logger::logWarning(
+							"Station {} is on different location. Station position in command: lat = {}, long = {}, position on route: lat = {}, long = {}",
+							commandStation.name, commandStation.latitude, commandStation.longitude, stop->getLatitude(),
+							stop->getLongitude());
+				}
+			}
+		}
+		if(!stationFound) {
+			logging::Logger::logError("Station {} sent in command is not on the route", commandStation.name);
+		}
+	}
 }
 }

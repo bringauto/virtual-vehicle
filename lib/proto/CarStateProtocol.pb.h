@@ -47,7 +47,7 @@ struct TableStruct_CarStateProtocol_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[5]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -67,6 +67,12 @@ extern CarStatus_PositionDefaultTypeInternal _CarStatus_Position_default_instanc
 class CarStatus_Telemetry;
 struct CarStatus_TelemetryDefaultTypeInternal;
 extern CarStatus_TelemetryDefaultTypeInternal _CarStatus_Telemetry_default_instance_;
+class Station;
+struct StationDefaultTypeInternal;
+extern StationDefaultTypeInternal _Station_default_instance_;
+class Station_Position;
+struct Station_PositionDefaultTypeInternal;
+extern Station_PositionDefaultTypeInternal _Station_Position_default_instance_;
 class Stop;
 struct StopDefaultTypeInternal;
 extern StopDefaultTypeInternal _Stop_default_instance_;
@@ -76,6 +82,8 @@ template<> ::CarStateProtocol::CarCommand* Arena::CreateMaybeMessage<::CarStateP
 template<> ::CarStateProtocol::CarStatus* Arena::CreateMaybeMessage<::CarStateProtocol::CarStatus>(Arena*);
 template<> ::CarStateProtocol::CarStatus_Position* Arena::CreateMaybeMessage<::CarStateProtocol::CarStatus_Position>(Arena*);
 template<> ::CarStateProtocol::CarStatus_Telemetry* Arena::CreateMaybeMessage<::CarStateProtocol::CarStatus_Telemetry>(Arena*);
+template<> ::CarStateProtocol::Station* Arena::CreateMaybeMessage<::CarStateProtocol::Station>(Arena*);
+template<> ::CarStateProtocol::Station_Position* Arena::CreateMaybeMessage<::CarStateProtocol::Station_Position>(Arena*);
 template<> ::CarStateProtocol::Stop* Arena::CreateMaybeMessage<::CarStateProtocol::Stop>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace CarStateProtocol {
@@ -833,6 +841,7 @@ class CarCommand final :
 
   enum : int {
     kStopsFieldNumber = 1,
+    kRouteStationsFieldNumber = 4,
     kRouteFieldNumber = 3,
     kActionFieldNumber = 2,
   };
@@ -853,6 +862,24 @@ class CarCommand final :
   ::CarStateProtocol::Stop* add_stops();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CarStateProtocol::Stop >&
       stops() const;
+
+  // repeated .CarStateProtocol.Station routeStations = 4;
+  int routestations_size() const;
+  private:
+  int _internal_routestations_size() const;
+  public:
+  void clear_routestations();
+  ::CarStateProtocol::Station* mutable_routestations(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CarStateProtocol::Station >*
+      mutable_routestations();
+  private:
+  const ::CarStateProtocol::Station& _internal_routestations(int index) const;
+  ::CarStateProtocol::Station* _internal_add_routestations();
+  public:
+  const ::CarStateProtocol::Station& routestations(int index) const;
+  ::CarStateProtocol::Station* add_routestations();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CarStateProtocol::Station >&
+      routestations() const;
 
   // string route = 3;
   void clear_route();
@@ -885,6 +912,7 @@ class CarCommand final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CarStateProtocol::Stop > stops_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CarStateProtocol::Station > routestations_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr route_;
   int action_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -1031,6 +1059,333 @@ class Stop final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr to_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_CarStateProtocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Station_Position final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CarStateProtocol.Station.Position) */ {
+ public:
+  inline Station_Position() : Station_Position(nullptr) {}
+  ~Station_Position() override;
+  explicit constexpr Station_Position(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Station_Position(const Station_Position& from);
+  Station_Position(Station_Position&& from) noexcept
+    : Station_Position() {
+    *this = ::std::move(from);
+  }
+
+  inline Station_Position& operator=(const Station_Position& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Station_Position& operator=(Station_Position&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Station_Position& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Station_Position* internal_default_instance() {
+    return reinterpret_cast<const Station_Position*>(
+               &_Station_Position_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(Station_Position& a, Station_Position& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Station_Position* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Station_Position* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Station_Position* New() const final {
+    return new Station_Position();
+  }
+
+  Station_Position* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Station_Position>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Station_Position& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const Station_Position& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Station_Position* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "CarStateProtocol.Station.Position";
+  }
+  protected:
+  explicit Station_Position(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLatitudeFieldNumber = 1,
+    kLongitudeFieldNumber = 2,
+    kAltitudeFieldNumber = 3,
+  };
+  // double latitude = 1;
+  void clear_latitude();
+  double latitude() const;
+  void set_latitude(double value);
+  private:
+  double _internal_latitude() const;
+  void _internal_set_latitude(double value);
+  public:
+
+  // double longitude = 2;
+  void clear_longitude();
+  double longitude() const;
+  void set_longitude(double value);
+  private:
+  double _internal_longitude() const;
+  void _internal_set_longitude(double value);
+  public:
+
+  // double altitude = 3;
+  void clear_altitude();
+  double altitude() const;
+  void set_altitude(double value);
+  private:
+  double _internal_altitude() const;
+  void _internal_set_altitude(double value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:CarStateProtocol.Station.Position)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  double latitude_;
+  double longitude_;
+  double altitude_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_CarStateProtocol_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Station final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CarStateProtocol.Station) */ {
+ public:
+  inline Station() : Station(nullptr) {}
+  ~Station() override;
+  explicit constexpr Station(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Station(const Station& from);
+  Station(Station&& from) noexcept
+    : Station() {
+    *this = ::std::move(from);
+  }
+
+  inline Station& operator=(const Station& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Station& operator=(Station&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Station& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Station* internal_default_instance() {
+    return reinterpret_cast<const Station*>(
+               &_Station_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(Station& a, Station& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Station* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Station* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Station* New() const final {
+    return new Station();
+  }
+
+  Station* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Station>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Station& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const Station& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Station* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "CarStateProtocol.Station";
+  }
+  protected:
+  explicit Station(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef Station_Position Position;
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kPositionFieldNumber = 2,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_MUST_USE_RESULT std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // .CarStateProtocol.Station.Position position = 2;
+  bool has_position() const;
+  private:
+  bool _internal_has_position() const;
+  public:
+  void clear_position();
+  const ::CarStateProtocol::Station_Position& position() const;
+  PROTOBUF_MUST_USE_RESULT ::CarStateProtocol::Station_Position* release_position();
+  ::CarStateProtocol::Station_Position* mutable_position();
+  void set_allocated_position(::CarStateProtocol::Station_Position* position);
+  private:
+  const ::CarStateProtocol::Station_Position& _internal_position() const;
+  ::CarStateProtocol::Station_Position* _internal_mutable_position();
+  public:
+  void unsafe_arena_set_allocated_position(
+      ::CarStateProtocol::Station_Position* position);
+  ::CarStateProtocol::Station_Position* unsafe_arena_release_position();
+
+  // @@protoc_insertion_point(class_scope:CarStateProtocol.Station)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::CarStateProtocol::Station_Position* position_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_CarStateProtocol_2eproto;
 };
@@ -1553,6 +1908,46 @@ inline void CarCommand::set_allocated_route(std::string* route) {
   // @@protoc_insertion_point(field_set_allocated:CarStateProtocol.CarCommand.route)
 }
 
+// repeated .CarStateProtocol.Station routeStations = 4;
+inline int CarCommand::_internal_routestations_size() const {
+  return routestations_.size();
+}
+inline int CarCommand::routestations_size() const {
+  return _internal_routestations_size();
+}
+inline void CarCommand::clear_routestations() {
+  routestations_.Clear();
+}
+inline ::CarStateProtocol::Station* CarCommand::mutable_routestations(int index) {
+  // @@protoc_insertion_point(field_mutable:CarStateProtocol.CarCommand.routeStations)
+  return routestations_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CarStateProtocol::Station >*
+CarCommand::mutable_routestations() {
+  // @@protoc_insertion_point(field_mutable_list:CarStateProtocol.CarCommand.routeStations)
+  return &routestations_;
+}
+inline const ::CarStateProtocol::Station& CarCommand::_internal_routestations(int index) const {
+  return routestations_.Get(index);
+}
+inline const ::CarStateProtocol::Station& CarCommand::routestations(int index) const {
+  // @@protoc_insertion_point(field_get:CarStateProtocol.CarCommand.routeStations)
+  return _internal_routestations(index);
+}
+inline ::CarStateProtocol::Station* CarCommand::_internal_add_routestations() {
+  return routestations_.Add();
+}
+inline ::CarStateProtocol::Station* CarCommand::add_routestations() {
+  ::CarStateProtocol::Station* _add = _internal_add_routestations();
+  // @@protoc_insertion_point(field_add:CarStateProtocol.CarCommand.routeStations)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::CarStateProtocol::Station >&
+CarCommand::routestations() const {
+  // @@protoc_insertion_point(field_list:CarStateProtocol.CarCommand.routeStations)
+  return routestations_;
+}
+
 // -------------------------------------------------------------------
 
 // Stop
@@ -1603,9 +1998,217 @@ inline void Stop::set_allocated_to(std::string* to) {
   // @@protoc_insertion_point(field_set_allocated:CarStateProtocol.Stop.to)
 }
 
+// -------------------------------------------------------------------
+
+// Station_Position
+
+// double latitude = 1;
+inline void Station_Position::clear_latitude() {
+  latitude_ = 0;
+}
+inline double Station_Position::_internal_latitude() const {
+  return latitude_;
+}
+inline double Station_Position::latitude() const {
+  // @@protoc_insertion_point(field_get:CarStateProtocol.Station.Position.latitude)
+  return _internal_latitude();
+}
+inline void Station_Position::_internal_set_latitude(double value) {
+  
+  latitude_ = value;
+}
+inline void Station_Position::set_latitude(double value) {
+  _internal_set_latitude(value);
+  // @@protoc_insertion_point(field_set:CarStateProtocol.Station.Position.latitude)
+}
+
+// double longitude = 2;
+inline void Station_Position::clear_longitude() {
+  longitude_ = 0;
+}
+inline double Station_Position::_internal_longitude() const {
+  return longitude_;
+}
+inline double Station_Position::longitude() const {
+  // @@protoc_insertion_point(field_get:CarStateProtocol.Station.Position.longitude)
+  return _internal_longitude();
+}
+inline void Station_Position::_internal_set_longitude(double value) {
+  
+  longitude_ = value;
+}
+inline void Station_Position::set_longitude(double value) {
+  _internal_set_longitude(value);
+  // @@protoc_insertion_point(field_set:CarStateProtocol.Station.Position.longitude)
+}
+
+// double altitude = 3;
+inline void Station_Position::clear_altitude() {
+  altitude_ = 0;
+}
+inline double Station_Position::_internal_altitude() const {
+  return altitude_;
+}
+inline double Station_Position::altitude() const {
+  // @@protoc_insertion_point(field_get:CarStateProtocol.Station.Position.altitude)
+  return _internal_altitude();
+}
+inline void Station_Position::_internal_set_altitude(double value) {
+  
+  altitude_ = value;
+}
+inline void Station_Position::set_altitude(double value) {
+  _internal_set_altitude(value);
+  // @@protoc_insertion_point(field_set:CarStateProtocol.Station.Position.altitude)
+}
+
+// -------------------------------------------------------------------
+
+// Station
+
+// string name = 1;
+inline void Station::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& Station::name() const {
+  // @@protoc_insertion_point(field_get:CarStateProtocol.Station.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Station::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:CarStateProtocol.Station.name)
+}
+inline std::string* Station::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:CarStateProtocol.Station.name)
+  return _s;
+}
+inline const std::string& Station::_internal_name() const {
+  return name_.Get();
+}
+inline void Station::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Station::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Station::release_name() {
+  // @@protoc_insertion_point(field_release:CarStateProtocol.Station.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Station::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:CarStateProtocol.Station.name)
+}
+
+// .CarStateProtocol.Station.Position position = 2;
+inline bool Station::_internal_has_position() const {
+  return this != internal_default_instance() && position_ != nullptr;
+}
+inline bool Station::has_position() const {
+  return _internal_has_position();
+}
+inline void Station::clear_position() {
+  if (GetArenaForAllocation() == nullptr && position_ != nullptr) {
+    delete position_;
+  }
+  position_ = nullptr;
+}
+inline const ::CarStateProtocol::Station_Position& Station::_internal_position() const {
+  const ::CarStateProtocol::Station_Position* p = position_;
+  return p != nullptr ? *p : reinterpret_cast<const ::CarStateProtocol::Station_Position&>(
+      ::CarStateProtocol::_Station_Position_default_instance_);
+}
+inline const ::CarStateProtocol::Station_Position& Station::position() const {
+  // @@protoc_insertion_point(field_get:CarStateProtocol.Station.position)
+  return _internal_position();
+}
+inline void Station::unsafe_arena_set_allocated_position(
+    ::CarStateProtocol::Station_Position* position) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(position_);
+  }
+  position_ = position;
+  if (position) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:CarStateProtocol.Station.position)
+}
+inline ::CarStateProtocol::Station_Position* Station::release_position() {
+  
+  ::CarStateProtocol::Station_Position* temp = position_;
+  position_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::CarStateProtocol::Station_Position* Station::unsafe_arena_release_position() {
+  // @@protoc_insertion_point(field_release:CarStateProtocol.Station.position)
+  
+  ::CarStateProtocol::Station_Position* temp = position_;
+  position_ = nullptr;
+  return temp;
+}
+inline ::CarStateProtocol::Station_Position* Station::_internal_mutable_position() {
+  
+  if (position_ == nullptr) {
+    auto* p = CreateMaybeMessage<::CarStateProtocol::Station_Position>(GetArenaForAllocation());
+    position_ = p;
+  }
+  return position_;
+}
+inline ::CarStateProtocol::Station_Position* Station::mutable_position() {
+  ::CarStateProtocol::Station_Position* _msg = _internal_mutable_position();
+  // @@protoc_insertion_point(field_mutable:CarStateProtocol.Station.position)
+  return _msg;
+}
+inline void Station::set_allocated_position(::CarStateProtocol::Station_Position* position) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete position_;
+  }
+  if (position) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::CarStateProtocol::Station_Position>::GetOwningArena(position);
+    if (message_arena != submessage_arena) {
+      position = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, position, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  position_ = position;
+  // @@protoc_insertion_point(field_set_allocated:CarStateProtocol.Station.position)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

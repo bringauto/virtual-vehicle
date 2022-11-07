@@ -28,6 +28,7 @@ private:
 	bool missionValidity_ { true };
 	std::string nextStopName_;
 	bool changeRoute_ { false };
+	bool checkStations_ { false };
 	std::string actualRouteName_ {};
 	std::string nextRouteName_ {};
 

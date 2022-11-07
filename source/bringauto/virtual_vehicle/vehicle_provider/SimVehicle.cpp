@@ -128,6 +128,11 @@ void SimVehicle::evaluateCommand() {
 		updateVehicleState(communication::Status::IDLE);
 		return;
 	}
+	//TODO novy if pro kontrolu routy, mozna jen prepinac
+	if(checkStations_) {
+		actualRoute_->compareStations(command.routeStations);
+		checkStations_ = false;
+	}
 
 	if(command.route != actualRouteName_ && !command.route.empty()) {
 		if(!changeRoute_) {
@@ -138,6 +143,7 @@ void SimVehicle::evaluateCommand() {
 	}
 	if(mission_ != command.stops) {
 		if(!changeRoute_) {
+
 			if(!actualRoute_->areStopsPresent(command.stops)) {
 				logging::Logger::logWarning(
 						"Received stopNames are not on route, stopNames will be completely ignored {}",
@@ -250,6 +256,7 @@ void SimVehicle::changeRoute() {
 		}
 
 		changeRoute_ = false;
+		checkStations_ = true;
 		actualRoute_->setPositionAndDirection(*actualPosition_, nextStopName_);
 	} else {
 		logging::Logger::logInfo("Vehicle is not on a the new route and cannot switch routes yet");

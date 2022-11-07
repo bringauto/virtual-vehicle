@@ -24,6 +24,12 @@ public:
 			: OsmObject(nodeId) {
 	}
 
+	struct Station {
+		std::string name;
+		double latitude;
+		double longitude;
+	};
+
 	/**
 	 * Only some points have speed tag, this method will propagate speed into rest of points
 	 */
@@ -86,6 +92,8 @@ public:
 	 */
 	void speedOverride(unsigned int speed);
 
+	void compareStations(std::vector<Station> commandStations);
+
 private:
 	std::vector<std::shared_ptr<Point>> points_ {};
 	std::vector<std::shared_ptr<Point>> stops_ {};
@@ -98,8 +106,8 @@ private:
 	 */
 	const double roundRouteLimitInMeters { 10.0 };
 
-	static constexpr float pointTolerance_ { 0.5 };
-	static constexpr float distanceTolerance_ { 0.001 };
+	static constexpr float pointToleranceInMeters_ { 0.5 };
+	static constexpr float distanceToleranceInMeters_ { 0.001 };
 
 };
 }
