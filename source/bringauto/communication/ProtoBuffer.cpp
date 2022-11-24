@@ -71,7 +71,7 @@ void ProtoBuffer::processBufferData() {
 
 	if(!protobuffCommandMessage.ParseFromArray(receivedData_.buffer.data(),
 											   static_cast<int>(receivedData_.commandMessageSize))) {
-		logging::Logger::logWarning("Cannot parse car status!");
+		logging::Logger::logWarning("Cannot parse car command!");
 		return;
 	}
 
