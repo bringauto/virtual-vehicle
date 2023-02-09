@@ -1,11 +1,12 @@
 {
   "daemon-docker-image": "europe-west1-docker.pkg.dev/bringauto-infrastructure/virtual-platform/bringauto-daemon",
-  "daemon-docker-tag": "1.4.0",
+  "daemon-docker-tag": "1.5.0",
   "vehicle-docker-image": "europe-west1-docker.pkg.dev/bringauto-infrastructure/virtual-platform/virtual-vehicle-utility",
-  "vehicle-docker-tag": "2.3.1-pre",
+  "vehicle-docker-tag": "2.4.0",
   "start-port": 42000,
-  "mqtt-address": "127.0.0.1",
+  "mqtt-address": "172.17.0.1",
   "mqtt-port": 1883,
+  "daemon-ip": "172.17.0.1",
   "vehicles": [
     {
       "name": "BringAuto Virtual",
