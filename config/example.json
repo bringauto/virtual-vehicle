@@ -1,0 +1,36 @@
+{
+	"general-settings": {
+		"log-path": "../../log/",
+		"verbose": false,
+		"period": 1000
+	},
+	"vehicle-settings": {
+		"vehicle-provider": "simulation",
+		"gps-settings": {
+			"gps-provider": "rutx09",
+			"rutx09-settings" : {
+				"rutx-ip": "127.0.0.2",
+				"rutx-port": 502,
+				"rutx-slave-id": 1
+			},
+			"stop-radius": 8
+		},
+		"simulation-settings": {
+			"speed-override": 5,
+			"wait": 30
+		}
+	},
+	"fleet-settings": {
+		"fleet-provider": "protobuf",
+		"protobuf-settings": {
+			"daemon-ip":"172.17.0.1",
+			"daemon-port": 1636
+		},
+		"empty":{
+		}
+	},
+	"map-settings": {
+		"map": "../test/maps/Brno.osm",
+		"default-route": ""
+	}
+}

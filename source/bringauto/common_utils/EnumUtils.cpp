@@ -88,6 +88,8 @@ std::string EnumUtils::enumToString(settings::GpsProvider value) {
 			return "RUTX09";
 		case settings::GpsProvider::UBLOX:
 			return "UBLOX";
+		case settings::GpsProvider::MAP:
+			return "MAP";
 		case settings::GpsProvider::INVALID:
 		default:
 			return "INVALID";

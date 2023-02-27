@@ -38,6 +38,9 @@ enum class GpsProvider {
  * @brief Struct to store settings from cmd arguments
  */
 struct Settings {
+
+	std::filesystem::path config;  /// path to configuration file
+
 	bool verbose;                       /// verbose switch, if true, logs will be also printed to console
 	std::filesystem::path mapFilePath;  /// path to map file in .osm format
 	std::string routeName;              /// name of route that will be set on initialization, route have to be present in map file

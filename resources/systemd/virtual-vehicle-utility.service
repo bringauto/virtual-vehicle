@@ -1,0 +1,13 @@
+[Unit]
+Description=Virtual vehicle service
+After=network.target
+
+[Service]
+User=root
+Type=simple
+WorkingDirectory=/root/virtual-vehicle-utility/
+ExecStart=/root/virtual-vehicle-utility/bin/virtual-vehicle-utility --config=/root/virtual-vehicle-utility/config/example.json
+Restart=on-failure # or always, on-abort, etc
+
+[Install]
+WantedBy=multi-user.target

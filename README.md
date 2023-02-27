@@ -15,9 +15,9 @@
 * [cmlib](https://github.com/cmakelib/cmakelib), need to export CMLIB_DIR
 
 # Arguments
-
+* `--config-path <string>` path to json configuration file
 * `--map <string>` full path to .osm file containing map
-* `--route <string>` - name of route that will be set as default
+* `--default-route <string>` - name of route that will be set as default
 * `-v | --verbose` logs will be printed to console
 * `--log-path <path>` logs will be saved to provided path, default is .\/
 * `--daemon-ip <string>` IPv4 or hostname of ba daemon
@@ -33,6 +33,11 @@
 * `--rutx-port=<int>` port of modbus server on rutx09
 * `--rutx-slave-id=<int>` slave id of modbus server on rutx09
 * `--stop-radius=<int>` distance from stop that will be determined as arrival at stop
+
+## Settings
+
+Json file is used for setting for all parameters of program. Those settings can be overwritten by commandline arguments.
+examples in ./config/*.json
 
 #Fleet provider
 Virtual vehicle provides ability to choose a fleet communication provider with `--fleet-provider=<string>` argument. The optins are:
@@ -212,11 +217,14 @@ docker build --tag virtual-vehicle-utility .
 Run docker with parameters
 
 ```
-docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --map=<path to map file> -v --route=<route name> --ip=<daemon ip> --port=<daemon port> --wait=<time to wait in stop in sec>
+docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config-path=<path to json file> --map=<path to map file> -v --route=<route name> --ip=<daemon ip> --port=<daemon port> --wait=<time to wait in stop in sec>
 ```
 
-Example:
+Examples:
+```
+docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config-path=/virtual-vehicle-utility/config/example.json
+```
 
 ```
-docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --map=/virtual-vehicle-utility/tests/maps/BorsodChem.osm -v --route=borsodchem --ip=127.0.0.1 --port=1536 --wait=10 
+docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config-path=/virtual-vehicle-utility/config/example.json --map=/virtual-vehicle-utility/tests/maps/BorsodChem.osm -v --route=borsodchem --ip=127.0.0.1 --port=1536 --wait=10 
 ```

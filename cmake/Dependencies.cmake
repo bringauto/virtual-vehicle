@@ -6,7 +6,7 @@ BA_PACKAGE_LIBRARY(protobuf      v3.17.3)
 BA_PACKAGE_LIBRARY(ba-logger     v1.2.0)
 BA_PACKAGE_LIBRARY(statesmurf    v2.0.1)
 BA_PACKAGE_LIBRARY(modbuspp      v0.3.1  PLATFORM_STRING_MODE any_machine NO_DEBUG ON)
-
+BA_PACKAGE_LIBRARY(nlohmann-json v3.10.5 PLATFORM_STRING_MODE any_machine NO_DEBUG ON)
 # All packages needed by libosmium for xml parsing
 BA_PACKAGE_LIBRARY(zlib         v1.2.11)
 BA_PACKAGE_LIBRARY(bzip2        v1.0.8)

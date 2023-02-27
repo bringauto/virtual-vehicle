@@ -48,6 +48,7 @@ IF (NOT OSMIUM_FOUND)
 ENDIF ()
 
 FIND_PACKAGE(cxxopts 3.0.0 REQUIRED)
+FIND_PACKAGE(nlohmann_json 3.2.0 REQUIRED)
 FIND_PACKAGE(libbringauto_logger 1.2.0 REQUIRED)
 FIND_PACKAGE(modbuspp 0.3.1 REQUIRED)
 
@@ -68,10 +69,12 @@ IF (BRINGAUTO_TESTS)
     INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/test/CMakeLists.txt)
 ENDIF (BRINGAUTO_TESTS)
 
+
 FILE(GLOB_RECURSE source_files "source/*")
 ADD_LIBRARY(bringautolib STATIC ${source_files})
 TARGET_INCLUDE_DIRECTORIES(bringautolib PUBLIC "lib/proto/" "include/")
-TARGET_LINK_LIBRARIES(bringautolib PUBLIC cxxopts::cxxopts protobuff_lib ${OSMIUM_XML_LIBRARIES} bringauto_logger::bringauto_logger modbuspp_lib)
+TARGET_LINK_LIBRARIES(bringautolib PUBLIC nlohmann_json::nlohmann_json protobuff_lib cxxopts::cxxopts protobuff_lib ${OSMIUM_XML_LIBRARIES} bringauto_logger::bringauto_logger modbuspp_lib)
+
 
 IF (STATE_SMURF)
     FIND_PACKAGE(state_smurf 2.0.0 REQUIRED)

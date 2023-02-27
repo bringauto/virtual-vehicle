@@ -3,7 +3,7 @@
 #include <bringauto/settings/Settings.hpp>
 
 #include <cxxopts.hpp>
-
+#include <nlohmann/json.hpp>
 #include <memory>
 
 
@@ -39,5 +39,21 @@ private:
 	bool areSettingsCorrect();
 
 	void fillSettings();
+
+	void fillGeneralSettings(const nlohmann::json &file);
+
+	void fillVehicleSettings(const nlohmann::json &file);
+
+	void fillFleetSettings(const nlohmann::json &file);
+
+	void fillMapSettings(const nlohmann::json &file);
+
+	void fillGpsSettings(const nlohmann::json &file);
+
+	void fillRutx09Settings(const nlohmann::json &file);
+
+	void fillSimulationSettings(const nlohmann::json &file);
+
+	void fillProtobufSettings(const nlohmann::json &file);
 };
 }
