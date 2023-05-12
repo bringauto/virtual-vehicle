@@ -49,6 +49,7 @@ int main(int argc, char **argv) {
 		settings = settingsParser.getSettings();
 		context->settings = settings;
 		initLogger(settings->logPath, settings->verbose);
+		logging::Logger::logInfo("Version: {} Settings:\n{}",VIRTUAL_VEHICLE_UTILITY_VERSION, settingsParser.getFormattedSettings());
 
 	} catch(std::exception &e) {
 		std::cerr << "[ERROR] Error occurred during initialization: " << e.what() << std::endl;

@@ -123,6 +123,18 @@ void SimVehicle::evaluateCommand() {
 #ifdef STATE_SMURF
 	settings::StateSmurfDefinition::changeToState(globalContext_->transitions, command.action);
 #endif
+	if(command.route != actualRouteName_ && !command.route.empty()) {
+		auto nextRoute = map_.getRoute(nextRouteName_);
+		if(!nextRoute){
+			logging::Logger::logWarning("Route {} was not found. Command will be ignored", command.route);
+			return;
+		}
+		if(!changeRoute_) {
+			logging::Logger::logInfo("New route received.");
+		}
+		changeRoute_ = true;
+		nextRouteName_ = command.route;
+	}
 
 	if(command.stops.empty()) {
 		updateVehicleState(communication::Status::IDLE);
@@ -134,16 +146,9 @@ void SimVehicle::evaluateCommand() {
 		checkStations_ = false;
 	}
 
-	if(command.route != actualRouteName_ && !command.route.empty()) {
-		if(!changeRoute_) {
-			logging::Logger::logInfo("New route received.");
-		}
-		changeRoute_ = true;
-		nextRouteName_ = command.route;
-	}
+
 	if(mission_ != command.stops) {
 		if(!changeRoute_) {
-
 			if(!actualRoute_->areStopsPresent(command.stops)) {
 				logging::Logger::logWarning(
 						"Received stopNames are not on route, stopNames will be completely ignored {}",
@@ -240,26 +245,31 @@ void SimVehicle::updateVehicleState(communication::Status::State state) {
 
 void SimVehicle::changeRoute() {
 	auto nextRoute = map_.getRoute(nextRouteName_);
-	if(nextRoute->isPointPresent(*actualPosition_)) {
-		actualRoute_->setNextPosition();
-		actualRoute_ = nextRoute;
-		actualRouteName_ = nextRouteName_;
-		logging::Logger::logInfo("Route changed to: {}.", nextRouteName_);
+	if(nextRoute){
+		if(nextRoute->isPointPresent(*actualPosition_)) {
+			actualRoute_->setNextPosition();
+			actualRoute_ = nextRoute;
+			actualRouteName_ = nextRouteName_;
+			logging::Logger::logInfo("Route changed to: {}.", nextRouteName_);
 
-		if(!actualRoute_->areStopsPresent(mission_)) {  // Check if all stops are present on the new route
-			logging::Logger::logWarning(
-					"Received stopNames are not on route, stopNames will be completely ignored {}",
-					common_utils::CommonUtils::constructMissionString(mission_));
-			mission_.clear();
-			missionValidity_ = false;
-			return;
+			if(!actualRoute_->areStopsPresent(mission_)) {  // Check if all stops are present on the new route
+				logging::Logger::logWarning(
+						"Received stopNames are not on route, stopNames will be completely ignored {}",
+						common_utils::CommonUtils::constructMissionString(mission_));
+				mission_.clear();
+				missionValidity_ = false;
+				return;
+			}
+
+			changeRoute_ = false;
+			checkStations_ = true;
+			actualRoute_->setPositionAndDirection(*actualPosition_, nextStopName_);
+		} else {
+			logging::Logger::logInfo("Vehicle is not on a the new route and cannot switch routes yet");
 		}
-
-		changeRoute_ = false;
-		checkStations_ = true;
-		actualRoute_->setPositionAndDirection(*actualPosition_, nextStopName_);
-	} else {
-		logging::Logger::logInfo("Vehicle is not on a the new route and cannot switch routes yet");
+	}else{
+		logging::Logger::logWarning("Route {} was not found.", nextRouteName_);
 	}
+
 }
 }

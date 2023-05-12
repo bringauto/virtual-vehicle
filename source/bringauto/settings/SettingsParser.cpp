@@ -257,8 +257,8 @@ void SettingsParser::fillSimulationSettings(const nlohmann::json &file) {
 		settings_->speedOverride = true;
 		settings_->speedOverrideMS = cmdArguments_[osmSpeedOverride_].as<uint32_t>();
 	} else {
-		settings_->speedOverride = true;
-		settings_->speedOverrideMS = file[vehicleSettings_][simulationSettings_][osmSpeedOverride_];
+		settings_->speedOverride = file[vehicleSettings_][simulationSettings_][osmSpeedOverride_];
+		settings_->speedOverrideMS = file[vehicleSettings_][simulationSettings_][osmSpeedOverrideMs_];
 	}
 }
 
@@ -298,6 +298,66 @@ void SettingsParser::fillMapSettings(const nlohmann::json &file) {
 	} else {
 		settings_->routeName = file[mapSettings_][osmRoute_];
 	}
+}
+
+std::string SettingsParser::getFormattedSettings() {
+	std::stringstream formattedSettings;
+	formattedSettings << "config-file: " << settings_->config << "\n";
+	formattedSettings << "verbose: " << (settings_->verbose? "TRUE": "FALSE") << "\n";
+	formattedSettings << "log-path: " << settings_->logPath << "\n";
+	formattedSettings << "period-ms: " << settings_->messagePeriodMs << "\n";
+	switch(settings_->fleetProvider) {
+		case FleetProvider::INVALID:
+			formattedSettings << "fleet-provider: INVALID\n";
+			break;
+		case FleetProvider::PROTOBUF:
+			formattedSettings << "fleet-providerr: PROTOBUF\n";
+			formattedSettings << "\tdaemon-ip: " << settings_->daemonIpAddress << "\n";
+			formattedSettings << "\tdaemon-port: " << settings_->daemonPort << "\n";
+			break;
+		case FleetProvider::NO_CONNECTION:
+			formattedSettings << "Fleet provider: EMPTY\n";
+			break;
+	}
+	switch(settings_->vehicleProvider){
+		case VehicleProvider::INVALID:
+			formattedSettings << "vehicle-provider: INVALID\n";
+			break;
+		case VehicleProvider::SIMULATION:
+			formattedSettings << "vehicle-provider: SIMULATION\n";
+			if(settings_->speedOverride){
+				formattedSettings << "\tspeed-override: TRUE\n";
+				formattedSettings << "\tspeed-override-mps: " << settings_->speedOverrideMS << "\n";
+			}else{
+				formattedSettings << "\tspeed-override: FALSE\n";
+			}
+			formattedSettings << "\twait-at-stop-s: " << settings_->stopWaitTime << "\n";
+			break;
+		case VehicleProvider::GPS:
+			formattedSettings << "vehicle-provider: GPS\n";
+			switch(settings_->gpsProvider) {
+				case GpsProvider::INVALID:
+					formattedSettings << "\tgps-provider: INVALID\n";
+					break;
+				case GpsProvider::RUTX09:
+					formattedSettings << "\tgps-provider: RUTX09\n";
+					formattedSettings << "\trutx-ip: " << settings_->rutxIp << "\n";
+					formattedSettings << "\trutx-port: " << settings_->rutxPort << "\n";
+					formattedSettings << "\trutx-slave-id: " << settings_->rutxSlaveId << "\n";
+					break;
+				case GpsProvider::UBLOX:
+					formattedSettings << "\tgps-provider: UBLOX\n";
+					break;
+				case GpsProvider::MAP:
+					formattedSettings << "\tgps-provider: MAP\n";
+					break;
+			}
+			break;
+	}
+	formattedSettings << "map: " << settings_->mapFilePath << "\n";
+	formattedSettings << "default-route: " << (settings_->routeName.empty()? "\"\"": settings_->routeName);
+
+	return formattedSettings.str();
 }
 
 }

@@ -84,7 +84,13 @@ void GpsVehicle::makeRequest() {
 void GpsVehicle::evaluateCommand() {
 	auto command = com_->getCommand();
 
-	actualRoute_ = map_.getRoute(command.route); /// Change of route, need to update available stops on it
+	auto route= map_.getRoute(command.route); /// Change of route, need to update available stops on it
+	if(!route){
+		logging::Logger::logWarning("Route {} was not found. Command will be ignored", command.route);
+		return;
+	}
+
+	actualRoute_ = route;
 	stops_ = actualRoute_->getStops();
 
 	if(command.stops.empty()) {

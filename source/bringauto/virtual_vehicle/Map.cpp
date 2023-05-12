@@ -15,23 +15,12 @@ void bringauto::virtual_vehicle::Map::loadMapFromFile(const std::string &filePat
 	reader.close();
 	routes_ = handler.getRoutes();
 	points_ = handler.getPoints();
-
-	bool exportRoutes = false;
-	if(exportRoutes){
-		for(const auto& route: routes_){
-			auto routeString = common_utils::CommonUtils::exportRouteToFleetInitFormat(route);
-			std::cout << route->getRouteName() << ":\n" << routeString << std::endl;
-		}
-	}
 }
 
 std::shared_ptr<bringauto::osm::Route> bringauto::virtual_vehicle::Map::getRoute(const std::string &routeName) {
 	auto routeIt = std::find_if(routes_.begin(), routes_.end(),
 								[&routeName](const auto &route) { return route->getRouteName() == routeName; });
-	if(routeIt == routes_.end()) {
-		throw std::runtime_error("Route " + routeName + " was not found");
-	}
-	return *routeIt;
+	return routeIt != routes_.end() ? *routeIt: nullptr;
 }
 
 void bringauto::virtual_vehicle::Map::speedOverride(unsigned int speed) {

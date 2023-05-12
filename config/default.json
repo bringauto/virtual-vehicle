@@ -2,7 +2,7 @@
 	"general-settings": {
 		"log-path": "",
 		"verbose": false,
-		"period": 1000
+		"period-ms": 1000
 	},
 	"vehicle-settings": {
 		"vehicle-provider": "",
@@ -13,11 +13,12 @@
 				"rutx-port": 502,
 				"rutx-slave-id": 1
 			},
-			"stop-radius": 5
+			"stop-radius-m": 5
 		},
 		"simulation-settings": {
-			"speed-override": 1,
-			"wait": 10
+			"speed-override": false,
+			"speed-override-mps": 1,
+			"wait-at-stop-s": 10
 		}
 	},
 	"fleet-settings": {

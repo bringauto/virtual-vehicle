@@ -28,6 +28,8 @@ public:
 
 	std::shared_ptr<Settings> getSettings();
 
+	std::string getFormattedSettings();
+
 private:
 	cxxopts::ParseResult cmdArguments_;
 	std::shared_ptr<Settings> settings_;

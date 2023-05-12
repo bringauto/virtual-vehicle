@@ -14,7 +14,6 @@ namespace bringauto::common_utils {
 class CommonUtils {
 public:
 	CommonUtils() = delete;
-
 	/**
 	 * @brief Return list of stops in mission as one string in format [stop1, stop2 ...]
 	 * @return formatted list of stops in string

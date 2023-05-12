@@ -7,7 +7,8 @@ User=root
 Type=simple
 WorkingDirectory=/root/virtual-vehicle-utility/
 ExecStart=/root/virtual-vehicle-utility/bin/virtual-vehicle-utility --config=/root/virtual-vehicle-utility/config/example.json
-Restart=on-failure # or always, on-abort, etc
+Restart=always
+RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
