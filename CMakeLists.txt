@@ -94,8 +94,19 @@ CMDEF_ADD_EXECUTABLE(
 TARGET_LINK_LIBRARIES(virtual-vehicle-utility PUBLIC bringautolib)
 
 IF (BRINGAUTO_INSTALL)
+    INCLUDE(GNUInstallDirs)
 	CMDEF_INSTALL(TARGET virtual-vehicle-utility)
 	BA_PACKAGE_DEPS_IMPORTED(virtual-vehicle-utility)
+    INSTALL(DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/resources/config/"
+            DESTINATION
+            "${CMAKE_INSTALL_SYSCONFDIR}/bringauto/virtual-vehicle-utility/config/")
+    INSTALL(DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/resources/maps/"
+            DESTINATION
+            "${CMAKE_INSTALL_SYSCONFDIR}/bringauto/virtual-vehicle-utility/maps/")
+    INSTALL(FILES "${CMAKE_CURRENT_LIST_DIR}/resources/systemd/virtual-vehicle-utility.service"
+            DESTINATION
+            "${CMAKE_INSTALL_SYSCONFDIR}/systemd/system/"
+            )
 ENDIF ()
 
 IF (BRINGAUTO_PACKAGE)
