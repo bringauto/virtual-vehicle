@@ -1,4 +1,5 @@
 FROM eu.gcr.io/bringauto-infrastructure/teamcity-build-images/debian11:latest
+USER root
 WORKDIR /virtual-vehicle-utility
 RUN mkdir /virtual-vehicle-utility/tmp
 COPY . /virtual-vehicle-utility/tmp
