@@ -1,8 +1,8 @@
 FROM eu.gcr.io/bringauto-infrastructure/teamcity-build-images/debian11:latest
 WORKDIR /virtual-vehicle-utility
 
-RUN chown -R bringauto:bringauto /virtual-vehicle-utility
-RUN chmod -R 777 /virtual-vehicle-utility
+RUN sudo chown -R bringauto:bringauto /virtual-vehicle-utility
+RUN sudo chmod -R 777 /virtual-vehicle-utility
 
 RUN mkdir /virtual-vehicle-utility/tmp
 COPY . /virtual-vehicle-utility/tmp
