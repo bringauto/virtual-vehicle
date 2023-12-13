@@ -24,9 +24,9 @@ private:
 	std::shared_ptr<osm::Point> actualPosition_;
 	std::shared_ptr<osm::Point> nextPosition_;
 	double actualSpeed_ { 0 }; //meters per second
-	std::vector<std::string> mission_;
+	std::vector<osm::Route::Station> mission_;
 	bool missionValidity_ { true };
-	std::string nextStopName_;
+	osm::Route::Station nextStop_;
 	bool changeRoute_ { false };
 	bool checkStations_ { false };
 	std::string actualRouteName_ {};
@@ -35,7 +35,7 @@ private:
 	long long int driveMillisecondLeft_ { 0 };
 	uint64_t inStopMillisecondsLeft_ { 0 };
 
-	communication::Status::State state_ { communication::Status::State::IDLE };
+	communication::EAutonomyState state_ { communication::EAutonomyState::E_IDLE };
 
 	void changeRoute();
 
@@ -70,12 +70,15 @@ private:
 	 * Set vehicle state from argument, set 0 speed if state is in_stop
 	 * @param state state to be set
 	 */
-	void updateVehicleState(communication::Status::State state);
+	void updateVehicleState(communication::EAutonomyState state);
 
 	/**
 	 * check if current position is in next stop
+	 * @return true if vehicle is in stop
 	 */
-	int checkForStop();
+	bool checkForStop();
+
+
 };
 }
 

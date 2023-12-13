@@ -22,10 +22,14 @@
 		}
 	},
 	"fleet-settings": {
-		"fleet-provider": "protobuf",
-		"protobuf-settings": {
-			"daemon-ip":"172.17.0.1",
-			"daemon-port": 1636
+		"fleet-provider": "internal-protocol",
+		"internal-protocol-settings": {
+			"module-gateway-ip":"127.0.0.1",
+			"module-gateway-port": 1636,
+			"device-role": "autonomy",
+			"device-priority": 1,
+			"reconnect-period-s": 20,
+			"device-name": "virtual-vehicle"
 		},
 		"empty":{
 		}

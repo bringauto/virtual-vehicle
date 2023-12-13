@@ -1,15 +1,21 @@
 #include <bringauto/virtual_vehicle/Map.hpp>
 #include <bringauto/virtual_vehicle/vehicle_provider/SimVehicle.hpp>
 #include <bringauto/virtual_vehicle/vehicle_provider/GpsVehicle.hpp>
-#include <bringauto/communication/ProtoBuffer.hpp>
-#include <bringauto/communication/TerminalOutput.hpp>
+#include <bringauto/communication/fleet_protocol/FleetProtocol.hpp>
+#include <bringauto/communication/terminal/TerminalOutput.hpp>
 #include <bringauto/virtual_vehicle/GlobalContext.hpp>
 #include <bringauto/settings/SettingsParser.hpp>
+
+
+
+#ifdef STATE_SMURF
 #include <bringauto/settings/StateSmurfDefinition.hpp>
+#endif
 
 #include <libbringauto_logger/bringauto/logging/Logger.hpp>
 #include <libbringauto_logger/bringauto/logging/FileSink.hpp>
 #include <libbringauto_logger/bringauto/logging/ConsoleSink.hpp>
+
 
 
 void initLogger(const std::string &logPath, bool verbose) {
@@ -20,14 +26,14 @@ void initLogger(const std::string &logPath, bool verbose) {
 	if(verbose) {
 		Logger::addSink<bringauto::logging::ConsoleSink>();
 	}
-	FileSink::Params paramFileSink{logPath, "virtual-vehicle-utility.log"};
+	FileSink::Params paramFileSink { logPath, "virtual-vehicle-utility.log" };
 	paramFileSink.maxFileSize = 50_MiB;
 	paramFileSink.numberOfRotatedFiles = 5;
 	paramFileSink.verbosity = Logger::Verbosity::Debug;
 
 	Logger::addSink<bringauto::logging::FileSink>(paramFileSink);
 	Logger::LoggerSettings params { "virtual-vehicle-utility",
-														Logger::Verbosity::Debug };
+									Logger::Verbosity::Debug };
 	Logger::init(params);
 }
 
@@ -49,7 +55,8 @@ int main(int argc, char **argv) {
 		settings = settingsParser.getSettings();
 		context->settings = settings;
 		initLogger(settings->logPath, settings->verbose);
-		logging::Logger::logInfo("Version: {} Settings:\n{}",VIRTUAL_VEHICLE_UTILITY_VERSION, settingsParser.getFormattedSettings());
+		logging::Logger::logInfo("Version: {} Settings:\n{}", VIRTUAL_VEHICLE_UTILITY_VERSION,
+								 settingsParser.getFormattedSettings());
 
 	} catch(std::exception &e) {
 		std::cerr << "[ERROR] Error occurred during initialization: " << e.what() << std::endl;
@@ -57,35 +64,35 @@ int main(int argc, char **argv) {
 	}
 
 #ifdef STATE_SMURF
-		auto stateDiagram = bringauto::settings::StateSmurfDefinition::createStateDiagram();
-		auto transitions = std::make_shared<state_smurf::transition::StateTransition>(stateDiagram);
-		context->transitions = transitions;
+	auto stateDiagram = bringauto::settings::StateSmurfDefinition::createStateDiagram();
+	auto transitions = std::make_shared<state_smurf::transition::StateTransition>(stateDiagram);
+	context->transitions = transitions;
 #endif
-	try{
+	try {
 		boost::asio::signal_set signals { context->ioContext, SIGINT, SIGTERM };
 		signals.async_wait([context](auto, auto) { context->ioContext.stop(); });
 		contextThread = std::thread([context]() { context->ioContext.run(); });
 
 		switch(settings->fleetProvider) {
-			case bringauto::settings::FleetProvider::PROTOBUF:
-				fleet = std::make_shared<bringauto::communication::ProtoBuffer>(context);
+			case bringauto::settings::FleetProvider::E_INTERNAL_PROTOCOL:
+				fleet = std::make_shared<bringauto::communication::fleet_protocol::FleetProtocol>(context);
 				break;
-			case bringauto::settings::FleetProvider::NO_CONNECTION:
-				fleet = std::make_shared<bringauto::communication::TerminalOutput>(context);
+			case bringauto::settings::FleetProvider::E_NO_CONNECTION:
+				fleet = std::make_shared<bringauto::communication::terminal::TerminalOutput>(context);
 				break;
-			case bringauto::settings::FleetProvider::INVALID:
+			case bringauto::settings::FleetProvider::E_INVALID:
 			default:
 				throw std::runtime_error("Unsupported fleet provider");
 		}
 
 		switch(settings->vehicleProvider) {
-			case bringauto::settings::VehicleProvider::SIMULATION:
+			case bringauto::settings::VehicleProvider::E_SIMULATION:
 				vehicle = std::make_unique<bringauto::virtual_vehicle::vehicle_provider::SimVehicle>(fleet, context);
 				break;
-			case bringauto::settings::VehicleProvider::GPS:
+			case bringauto::settings::VehicleProvider::E_GPS:
 				vehicle = std::make_unique<bringauto::virtual_vehicle::vehicle_provider::GpsVehicle>(fleet, context);
 				break;
-			case bringauto::settings::VehicleProvider::INVALID:
+			case bringauto::settings::VehicleProvider::E_INVALID:
 			default:
 				throw std::runtime_error("Unsupported vehicle provider");
 		}

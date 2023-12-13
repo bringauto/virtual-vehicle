@@ -20,13 +20,13 @@
 * `--default-route <string>` - name of route that will be set as default
 * `-v | --verbose` logs will be printed to console
 * `--log-path <path>` logs will be saved to provided path, default is .\/
-* `--daemon-ip <string>` IPv4 or hostname of ba daemon
-* `--daemon-port <int>` ba daemon port
+* `--module-gateway-ip <string>` IPv4 or hostname of ba daemon
+* `--module-gateway-port <int>` ba daemon port
 * `-h | --help` print help
 * `--wait=<int>` how many seconds will car wait in stop, default is 10s
 * `--period=<int>` maximum time period between two status messages send to daemon
 * `--speed-override=<int>` override map speed
-* `--fleet-provider=<string>` choose fleet provider, `protobuf` for use of protobuf protocol `empty` for use of dummy connection
+* `--fleet-provider=<string>` choose fleet provider, `internal-protocol` for use of internal protocol `empty` for use of dummy connection
 * `--vehicle-provider=<string>` choose vehicle provider, `simulation` for use of osm map `gps` for use of gps provider
 * `--gps-provider=<string>` choose gps provider, `rutx09` or `ublox`
 * `--rutx-ip=<int>` ip address to modbus server on rutx09
@@ -39,18 +39,54 @@
 Json file is used for setting for all parameters of program. Those settings can be overwritten by commandline arguments.
 examples in ./config/*.json
 
-#Fleet provider
-Virtual vehicle provides ability to choose a fleet communication provider with `--fleet-provider=<string>` argument. The optins are:
-* `protobuf` - connection to daemon using protobuf will be established, requires `--ip=<string>` and `--port=<int>` arguments to specify daemon connection 
+## general settings
+* `log-path` - path to log file, string
+* `verbose` - if true, logs will be printed to console, bool
+* `period` - time period between two status messages send to daemon, int
+
+## vehicle settings
+* `vehicle-provider` - vehicle provider, `simulation` for use of osm map `gps` for use of gps provider, string
+* `gps-settings` - gps settings object
+### gps settings
+* `gps-provider` - gps provider, `rutx09` or `ublox`, string
+* `stop-radius` - distance from stop that will be determined as arrival at stop, int
+* `rutx09-settings` - rutx09 settings object
+#### rutx09 settings
+* `rutx-ip` - ip address to modbus server on rutx09, string
+* `rutx-port` - port of modbus server on rutx09, int
+* `rutx-slave-id` - slave id of modbus server on rutx09, int
+### simulation settings
+* `speed-override` - override map speed enable, bool
+* `map-override-mps` - override map speed, int
+* `wait-at-stop` - how many seconds will car wait in stop, int
+
+## Fleet settings
+* `fleet-provider` - fleet provider, `internal-protocol` for use of internal protocol `empty` for use of dummy connection, string
+* `internal-protocol-settings` - internal protocol settings object - module 1, device type 1 is hardcoded
+### internal protocol settings
+* `module-gateway-ip` - IPv4 or hostname of module gateway, string
+* `module-gateway-port` - ba module gateway port, int
+* `device-role` - device role, string - part of device identification
+* `device-name` - device name, string - part of device identification
+* `device-priority` - device priority, int - part of device identification
+* `reconnect-period-s` - period of reconnection to module gateway, int
+
+## map settings
+* `map` - full path to .osm file containing map, string
+* `default-route` - name of route that will be set as default, string
+
+# Fleet provider
+Virtual vehicle provides ability to choose a fleet communication provider with `--fleet-provider=<string>` argument. The options are:
+* `internal-protocol` - connection to daemon using protobuf will be established, requires `--ip=<string>` and `--port=<int>` arguments to specify module gateway connection 
 * `empty` - no connection will be established, statuses will be discarded and default command will be returned, for testing purposes
 
-#Vehicle provider
+# Vehicle provider
 Virtual vehicle provides ability to choose a different simulation implementations with `--vehicle-provider=<string>` argument. The options are:
 * `simulation` - car movement will be simulated and position will be based of given map file (.osm format). Required parameters: `--map=<string>`, `--route=<string>`,
   optional arguments: `--speed-override=<int>`, `--wait=<int>`
 * `gps` - virtual vehicle will report position based on external gps source, no mission logic is implemented. Required parameters: `--gps-provider=<string>`
 
-#Gps provider
+# Gps provider
 Provider used for gps based position reporting. The options are:
 * `rutx09` - position is obtained from RUTX09 router from Teltonika. Required parameters: `--rutx-ip=<string>`, `--rutx-port=<int>`, `rutx-slave-id=<int>`
 * `ublox` - position is obtained from ublox device, NOT IMPLEMENTED

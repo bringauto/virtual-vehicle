@@ -1,10 +1,10 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.20)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.23)
 PROJECT(virtual-vehicle-utility)
 
 SET(CMAKE_CXX_STANDARD 17)
 
-SET(VIRTUAL_VEHICLE_UTILITY_VERSION 2.6.0)
-ADD_DEFINITIONS( -DVIRTUAL_VEHICLE_UTILITY_VERSION="${VIRTUAL_VEHICLE_UTILITY_VERSION}" )
+SET(VIRTUAL_VEHICLE_UTILITY_VERSION 3.0.0)
+ADD_DEFINITIONS(-DVIRTUAL_VEHICLE_UTILITY_VERSION="${VIRTUAL_VEHICLE_UTILITY_VERSION}")
 
 # for linking .so after make install (actually ba_logger):
 SET(CMAKE_SKIP_BUILD_RPATH FALSE)
@@ -34,7 +34,7 @@ ENDIF ()
 FIND_PACKAGE(CMLIB
         COMPONENTS CMDEF CMUTIL STORAGE
         REQUIRED
-        )
+)
 
 IF (NOT BRINGAUTO_SYSTEM_DEP)
     INCLUDE(cmake/Dependencies.cmake)
@@ -52,15 +52,15 @@ FIND_PACKAGE(cxxopts 3.0.0 REQUIRED)
 FIND_PACKAGE(nlohmann_json 3.2.0 REQUIRED)
 FIND_PACKAGE(libbringauto_logger 1.2.0 REQUIRED)
 FIND_PACKAGE(modbuspp 0.3.1 REQUIRED)
+FIND_PACKAGE(internal_client REQUIRED)
+FIND_PACKAGE(Protobuf 3.21.12 REQUIRED)
 
 INCLUDE_DIRECTORIES(${OSMIUM_INCLUDE_DIRS})
-
 #------------protobuf----------------#
 SET(Protobuf_USE_STATIC_LIBS ON)
-FIND_PACKAGE(Protobuf 3.17.3 REQUIRED)
 ADD_LIBRARY(protobuff_lib STATIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/proto/CarStateProtocol.pb.cc
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/proto/CarStateProtocol.pb.h)
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/proto/MissionModule.pb.cc
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/proto/MissionModule.pb.h)
 TARGET_LINK_LIBRARIES(protobuff_lib PUBLIC protobuf::libprotobuf)
 TARGET_INCLUDE_DIRECTORIES(protobuff_lib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/libs/proto/")
 
@@ -74,7 +74,13 @@ ENDIF (BRINGAUTO_TESTS)
 FILE(GLOB_RECURSE source_files "source/*")
 ADD_LIBRARY(bringautolib STATIC ${source_files})
 TARGET_INCLUDE_DIRECTORIES(bringautolib PUBLIC "lib/proto/" "include/")
-TARGET_LINK_LIBRARIES(bringautolib PUBLIC nlohmann_json::nlohmann_json protobuff_lib cxxopts::cxxopts protobuff_lib ${OSMIUM_XML_LIBRARIES} bringauto_logger::bringauto_logger modbuspp_lib)
+TARGET_LINK_LIBRARIES(bringautolib PUBLIC
+        nlohmann_json::nlohmann_json
+        cxxopts::cxxopts
+        protobuff_lib ${OSMIUM_XML_LIBRARIES}
+        bringauto_logger::bringauto_logger
+        modbuspp_lib
+        internal_client)
 
 
 IF (STATE_SMURF)
@@ -95,8 +101,8 @@ TARGET_LINK_LIBRARIES(virtual-vehicle-utility PUBLIC bringautolib)
 
 IF (BRINGAUTO_INSTALL)
     INCLUDE(GNUInstallDirs)
-	CMDEF_INSTALL(TARGET virtual-vehicle-utility)
-	BA_PACKAGE_DEPS_IMPORTED(virtual-vehicle-utility)
+    CMDEF_INSTALL(TARGET virtual-vehicle-utility)
+    BA_PACKAGE_DEPS_IMPORTED(virtual-vehicle-utility)
     INSTALL(DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/resources/config/"
             DESTINATION
             "${CMAKE_INSTALL_SYSCONFDIR}/bringauto/virtual-vehicle-utility/config/")
@@ -106,7 +112,7 @@ IF (BRINGAUTO_INSTALL)
     INSTALL(FILES "${CMAKE_CURRENT_LIST_DIR}/resources/systemd/virtual-vehicle-utility.service"
             DESTINATION
             "${CMAKE_INSTALL_SYSCONFDIR}/systemd/system/"
-            )
+    )
 ENDIF ()
 
 IF (BRINGAUTO_PACKAGE)

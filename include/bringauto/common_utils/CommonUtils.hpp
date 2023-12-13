@@ -14,17 +14,18 @@ namespace bringauto::common_utils {
 class CommonUtils {
 public:
 	CommonUtils() = delete;
+
 	/**
 	 * @brief Return list of stops in mission as one string in format [stop1, stop2 ...]
 	 * @return formatted list of stops in string
 	 */
-	static std::string constructMissionString(const std::vector<std::string> &mission);
+	static std::string constructMissionString(const std::vector<osm::Route::Station> &mission);
 
 	/**
 	 * @brief Method will calculate and return distance between point a and point b
 	 * @return distance between points in meters
 	 */
-	static double calculateDistanceInMeters(const std::shared_ptr<osm::Point> &a, const std::shared_ptr<osm::Point> &b);
+	static double calculateDistanceInMeters(const osm::Point &a, const osm::Point &b);
 
 	/**
 	 * @brief Method will calculate and return distance between point a and point b
@@ -46,9 +47,21 @@ public:
 	 *
 	 * @return string containing list of points in json format that can be used in fleet init config
 	 */
-	static std::string exportRouteToFleetInitFormat(const std::shared_ptr<osm::Route>& route);
+	static std::string exportRouteToFleetInitFormat(const std::shared_ptr<osm::Route> &route);
+
+	/**
+	 * check if given missions are the same
+	 * @param mission1 first mission
+	 * @param mission2 second mission
+	 * @return true if missions are the same
+	 */
+	static bool
+	compareMissions(const std::vector<osm::Route::Station> &mission1, const std::vector<osm::Route::Station> &mission2);
 
 private:
-	static std::string exportJsonPosition(const std::shared_ptr<osm::Point>& position);
+	/// Adjustable precision level. This value may need to be adjusted to fit your needs
+	static constexpr double PRECISION_ { 1e-6 };
+
+	static std::string exportJsonPosition(const osm::Point &position);
 };
 }

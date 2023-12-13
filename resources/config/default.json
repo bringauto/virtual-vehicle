@@ -23,9 +23,13 @@
 	},
 	"fleet-settings": {
 		"fleet-provider": "",
-		"protobuf-settings": {
-			"daemon-ip":"",
-			"daemon-port": 1636
+		"internal-protocol-settings": {
+			"module-gateway-ip":"",
+			"module-gateway-port": 0,
+			"device-role": "",
+			"device-priority": 0,
+			"reconnect-period-s": 30,
+			"device-name": ""
 		},
 		"empty":{
 		}

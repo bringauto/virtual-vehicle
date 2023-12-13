@@ -74,8 +74,13 @@ public:
 	 * @param stopNames vector containing all of stop names that will be checked
 	 * @return true if all stops are on route
 	 */
-	bool areStopsPresent(const std::vector<std::string> &stopNames);
+	bool areStopsPresent(const std::vector<osm::Route::Station> &stops);
 
+	/**
+	 * @brief Check if point is present on route
+	 * @param point point to be checked
+	 * @return true if point is present on route
+	 */
 	bool isPointPresent(const Point &point);
 
 	void setPositionAndDirection(const Point &actualPosition, const std::string &nextStopName);
@@ -92,22 +97,31 @@ public:
 	 */
 	void speedOverride(unsigned int speed);
 
+	/**
+	 * @brief Compare route with given command stations
+	 * @param commandStations stations to compare
+	 */
 	void compareStations(std::vector<Station> commandStations);
 
 private:
-	std::vector<std::shared_ptr<Point>> points_ {};
-	std::vector<std::shared_ptr<Point>> stops_ {};
-	std::optional<std::string> routeName_;
-	std::vector<std::shared_ptr<Point>>::iterator positionIt;
-	const double routesDistanceThresholdInMeters_ { 50.0 };
-	bool routeIsCircular_ { false };
-	/**
-	 * Limit distance from stop and end point to determine if route is circular or not
-	 */
-	const double roundRouteLimitInMeters { 10.0 };
+	/// Threshold for distance between routes
+	const double ROUTES_DISTANCE_THRESHOLD_M { 50.0 };
+	/// Limit distance from stop and end point to determine if route is circular or not
+	const double CIRCULAR_ROUTE_THRESHOLD_M { 10.0 };
+	/// Tolerance for comparing points
+	static constexpr float POINT_TOLERANCE_M { 0.5 };
+	static constexpr float DISTANCE_TOLERANCE_M { 0.001 };
 
-	static constexpr float pointToleranceInMeters_ { 0.5 };
-	static constexpr float distanceToleranceInMeters_ { 0.001 };
+	/// All points in route
+	std::vector<std::shared_ptr<Point>> points_ {};
+	/// All stops in route
+	std::vector<std::shared_ptr<Point>> stops_ {};
+	/// Name of route
+	std::optional<std::string> routeName_;
+	/// Iterator pointing to actual position on route
+	std::vector<std::shared_ptr<Point>>::iterator positionIt;
+	/// Flag indicating if route is circular or not
+	bool routeIsCircular_ { false };
 
 };
 }

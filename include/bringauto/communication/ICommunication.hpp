@@ -14,25 +14,26 @@ namespace bringauto::communication {
  */
 class ICommunication {
 public:
-	ICommunication(const std::shared_ptr<bringauto::virtual_vehicle::GlobalContext> &globalContext): globalContext_(
+	explicit ICommunication(const std::shared_ptr<bringauto::virtual_vehicle::GlobalContext> &globalContext)
+			: globalContext_(
 			globalContext) {};
-
-	virtual ~ICommunication() = default;
 
 	/**
 	 * @brief connection initialization
 	 * Method for initializing connection that is used, this method have to be called before
 	 * making request. After calling this method, class is connected to server
+	 * @return true if connection was successful, false otherwise
 	 */
-	virtual void initializeConnection() = 0;
+	virtual bool initializeConnection() = 0;
 
 	/**
 	 * @brief request to server
 	 * Method sends status and receives command, can be called only after a successful initializeConnection() call
 	 * if successful, command can be obtained by getCommand method
 	 * @param status status to send
+	 * @return true if request was successful, false otherwise
 	 */
-	virtual void makeRequest(const Status &status) = 0;
+	virtual bool makeRequest(const Status &status) = 0;
 
 	/**
 	 * @brief Return most recent command received, command is updated after each call of @makeRequest().
@@ -40,19 +41,20 @@ public:
 	 */
 	Command getCommand();
 
+	/**
+	 * @brief Check if connection is alive
+	 * @return true if connection is alive, false otherwise
+	 */
+	[[nodiscard]] bool isConnected() const;
+
+	virtual ~ICommunication() = default;
+
 protected:
-	Command command_; ///most actual command
-	std::shared_ptr<bringauto::virtual_vehicle::GlobalContext> globalContext_; ///global context with settings
-
-	/**
-	 * Method sends status to desired location
-	 * @param status status to send
-	 */
-	virtual void sendStatus(const Status &status) = 0;
-
-	/**
-	 * Method for receiving command, received command will be stored in command_ variable
-	 */
-	virtual void receiveCommand() = 0;
+	/// Current command
+	Command currentCommand_;
+	/// Global context with settings
+	std::shared_ptr<bringauto::virtual_vehicle::GlobalContext> globalContext_;
+	/// Indication if connection is alive
+	bool isConnected_ { false };
 };
 }

@@ -1,15 +1,16 @@
 #pragma once
 
 
-namespace bringauto::virtual_vehicle::gps_provider{
+namespace bringauto::virtual_vehicle::gps_provider {
 /**
  * @brief Structure for gps position
  */
-struct GpsPosition{
+struct GpsPosition {
 	float latitude;
 	float longitude;
 	float altitude;
 };
+
 /**
  * @brief Generic gps location provider interface, all gps tracker interfaces have to inherit from this class
  */

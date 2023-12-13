@@ -59,7 +59,7 @@ void Route::prepareRoute() {
 			osmium::geom::Coordinates { points_.front()->getLatitude(), points_.front()->getLongitude() },
 			osmium::geom::Coordinates { points_.back()->getLatitude(), points_.back()->getLongitude() });
 
-	routeIsCircular_ = (distanceBetweenStartAndEnd < roundRouteLimitInMeters);
+	routeIsCircular_ = (distanceBetweenStartAndEnd < CIRCULAR_ROUTE_THRESHOLD_M);
 	propagateSpeed();
 }
 
@@ -67,12 +67,12 @@ std::shared_ptr<Point> Route::getPosition() {
 	return *positionIt;
 }
 
-bool Route::areStopsPresent(const std::vector<std::string> &stopNames) {
-	for(const auto &stopName: stopNames) {
+bool Route::areStopsPresent(const std::vector<osm::Route::Station> &stops) {
+	for(const auto &stop: stops) {
 		auto pointIt = std::find_if(stops_.begin(), stops_.end(),
-									[stopName](const auto &point) { return stopName == point->getName(); });
+									[stop](const auto &point) { return stop.name == point->getName(); });
 		if(pointIt == stops_.end()) {
-			logging::Logger::logError("Unknown stop: " + stopName);
+			logging::Logger::logError("Unknown stop: " + stop.name);
 			return false;
 		}
 	}
@@ -86,9 +86,9 @@ void Route::appendWay(const std::shared_ptr<Way> &way) {
 		double distanceBetweenRoutes = osmium::geom::haversine::distance(
 				osmium::geom::Coordinates { points_.back()->getLatitude(), points_.back()->getLongitude() },
 				osmium::geom::Coordinates { points.front()->getLatitude(), points.front()->getLongitude() });
-		if(distanceBetweenRoutes > routesDistanceThresholdInMeters_) {
+		if(distanceBetweenRoutes > ROUTES_DISTANCE_THRESHOLD_M) {
 			logging::Logger::logWarning("Distance between part of routes is higher than threshold {}",
-										roundRouteLimitInMeters);
+										CIRCULAR_ROUTE_THRESHOLD_M);
 		}
 	}
 	points_.insert(points_.end(), points.begin(), points.end());
@@ -105,7 +105,7 @@ bool Route::isPointPresent(const Point &pointToFind) {
 	return std::any_of(points_.begin(), points_.end(), [pointToFind](const std::shared_ptr<Point> &point) {
 		return osmium::geom::haversine::distance(
 				osmium::geom::Coordinates { point->getLatitude(), point->getLongitude() },
-				osmium::geom::Coordinates { pointToFind.getLatitude(), pointToFind.getLongitude() }) < pointToleranceInMeters_;
+				osmium::geom::Coordinates { pointToFind.getLatitude(), pointToFind.getLongitude() }) < POINT_TOLERANCE_M;
 	});
 }
 
@@ -115,7 +115,7 @@ void Route::setPositionAndDirection(const Point &actualPosition, const std::stri
 		auto distance = osmium::geom::haversine::distance(
 				osmium::geom::Coordinates { it->get()->getLatitude(), it->get()->getLongitude() },
 				osmium::geom::Coordinates { actualPosition.getLatitude(), actualPosition.getLongitude() });
-		if(distance < distanceToleranceInMeters_) {
+		if(distance < DISTANCE_TOLERANCE_M) {
 			if(!routeIsCircular_) { // Circular routes must not be reversed
 				bool reverse = true;
 				for(auto it2 = it; it2 != points_.end(); it2++) {
@@ -131,7 +131,7 @@ void Route::setPositionAndDirection(const Point &actualPosition, const std::stri
 								osmium::geom::Coordinates { it->get()->getLatitude(), it->get()->getLongitude() },
 								osmium::geom::Coordinates { actualPosition.getLatitude(),
 															actualPosition.getLongitude() });
-						if(newDistance < distanceToleranceInMeters_) {
+						if(newDistance < DISTANCE_TOLERANCE_M) {
 							break;
 						}
 					}
@@ -166,7 +166,7 @@ void Route::compareStations(std::vector<Station> commandStations) {
 				auto stopDistance = osmium::geom::haversine::distance(
 						osmium::geom::Coordinates { stop->getLatitude(), stop->getLongitude() },
 						osmium::geom::Coordinates { commandStation.latitude, commandStation.longitude });
-				if(stopDistance > pointToleranceInMeters_) {
+				if(stopDistance > POINT_TOLERANCE_M) {
 					logging::Logger::logWarning(
 							"Station {} is on different location. Station position in command: lat = {}, long = {}, position on route: lat = {}, long = {}",
 							commandStation.name, commandStation.latitude, commandStation.longitude, stop->getLatitude(),

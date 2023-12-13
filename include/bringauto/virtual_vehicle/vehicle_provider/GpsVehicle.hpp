@@ -35,5 +35,6 @@ private:
 
 	void evaluateCommand();
 
+
 };
 }

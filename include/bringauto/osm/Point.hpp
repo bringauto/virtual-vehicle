@@ -59,10 +59,15 @@ public:
 	[[nodiscard]] const std::string &getName() const;
 
 private:
+	/// Longitude of point
 	double longitude_;
+	/// Latitude of point
 	double latitude_;
+	/// Planned speed on point in m/s
 	double speedInMetersPerSecond_ { 0 };
+	/// Is point also a stop
 	bool stop_ {};
+	/// Point name
 	std::string name_ {};
 };
 }

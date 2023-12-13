@@ -28,21 +28,25 @@ void GpsVehicle::initialize() {
 	stops_ = actualRoute_->getStops();
 
 	switch(globalContext_->settings->gpsProvider) {
-		case settings::GpsProvider::INVALID:
-			throw std::runtime_error("Unknown gps provider!");
-		case settings::GpsProvider::RUTX09:
+		case settings::GpsProvider::E_RUTX09:
 			gpsProvider_ = std::make_unique<gps_provider::RUTX09>(globalContext_->settings->rutxIp,
 																  globalContext_->settings->rutxPort,
 																  globalContext_->settings->rutxSlaveId);
 			break;
-		case settings::GpsProvider::UBLOX:
+		case settings::GpsProvider::E_UBLOX:
 			gpsProvider_ = std::make_unique<gps_provider::UBlocks>();
 			break;
-		case settings::GpsProvider::MAP:
+		case settings::GpsProvider::E_MAP:
 			gpsProvider_ = std::make_unique<gps_provider::MapGps>(actualRoute_);
+			break;
+		default:
+			throw std::runtime_error("Unknown gps provider!");
+
 	}
-	status_.state = communication::Status::IDLE;
+	status_.setState(communication::EAutonomyState::E_IDLE);
+
 	com_->initializeConnection();
+
 	eventDelayInSec_ = ((double)globalContext_->settings->messagePeriodMs)/1000;
 }
 
@@ -55,22 +59,23 @@ void GpsVehicle::nextEvent() {
 
 void GpsVehicle::updatePosition() {
 	auto position = gpsProvider_->getPosition();
-	double lastLatitude = status_.latitude;
-	double lastLongitude = status_.longitude;
-	status_.latitude = position.latitude;
-	status_.longitude = position.longitude;
-	auto speed = gpsProvider_->getSpeed();
+	double lastLatitude = status_.getLatitude();
+	double lastLongitude = status_.getLongitude();
+	status_.setLatitude(position.latitude);
+	status_.setLongitude(position.longitude);
 	if(currentStop_ != nullptr) {
 		auto distanceToStop = common_utils::CommonUtils::calculateDistanceInMeters(currentStop_->getLatitude(),
 																				   currentStop_->getLongitude(),
-																				   status_.latitude, status_.longitude);
+																				   status_.getLatitude(),
+																				   status_.getLongitude());
 		if(distanceToStop < globalContext_->settings->stopRadius) {
-			status_.state = communication::Status::IN_STOP;
+			status_.setState(communication::EAutonomyState::E_IN_STOP);
 			logging::Logger::logInfo("Car arrived at stop {}.", currentStop_->getName());
 		}
 	}
-	status_.speed = common_utils::CommonUtils::calculateDistanceInMeters(lastLatitude, lastLongitude, status_.latitude,
-																		 status_.longitude)/eventDelayInSec_;
+	status_.setSpeed(
+			common_utils::CommonUtils::calculateDistanceInMeters(lastLatitude, lastLongitude, status_.getLatitude(),
+																 status_.getLongitude())/eventDelayInSec_);
 }
 
 void GpsVehicle::makeRequest() {
@@ -84,30 +89,31 @@ void GpsVehicle::makeRequest() {
 void GpsVehicle::evaluateCommand() {
 	auto command = com_->getCommand();
 
-	auto route= map_.getRoute(command.route); /// Change of route, need to update available stops on it
-	if(!route){
-		logging::Logger::logWarning("Route {} was not found. Command will be ignored", command.route);
+	auto route = map_.getRoute(command.getRoute()); /// Change of route, need to update available stops on it
+	if(!route) {
+		logging::Logger::logWarning("Route {} was not found. Command will be ignored", command.getRoute());
 		return;
 	}
 
 	actualRoute_ = route;
 	stops_ = actualRoute_->getStops();
 
-	if(command.stops.empty()) {
-		status_.state = communication::Status::IDLE;
-		status_.nextStop = "";
+	if(command.getMission().empty()) {
+		status_.setState(communication::EAutonomyState::E_IDLE);
+		status_.setNextStop({});
 		currentStop_ = nullptr;
 	} else {
-		status_.state = communication::Status::DRIVE;
-		status_.nextStop = command.stops.front();
+		status_.setState(communication::EAutonomyState::E_DRIVE);
+		status_.setNextStop(command.getMission().front());
 		for(const auto &stop: stops_) {
-			if(stop->getName() == status_.nextStop) {
+			if(stop->getName() == status_.getNextStop().name) {
 				currentStop_ = stop;
 				break;
 			}
 		}
 		if(!currentStop_) {
-			logging::Logger::logWarning("Received stop with name {} but stop was not found on map.", status_.nextStop);
+			logging::Logger::logWarning("Received stop with name {} but stop was not found on map.",
+										status_.getNextStop().name);
 		}
 	}
 }

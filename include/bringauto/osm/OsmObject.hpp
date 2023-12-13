@@ -25,9 +25,7 @@ public:
 	[[nodiscard]] osmiumObjectId getId() const;
 
 protected:
-	/**
-	 * ID of object, in .osm file id='<object id>'
-	 */
+	/// ID of object, in .osm file id='<object id>'
 	osmiumObjectId id_ { -1 };
 };
 }

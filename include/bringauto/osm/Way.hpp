@@ -42,7 +42,9 @@ public:
 	[[nodiscard]] const std::vector<std::shared_ptr<Point>> &getPoints() const;
 
 private:
+	/// Vector of all stops on way
 	std::vector<std::shared_ptr<Point>> stops_ {};
+	/// Vector of all points on way
 	std::vector<std::shared_ptr<Point>> points_ {};
 
 };

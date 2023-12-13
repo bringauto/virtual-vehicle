@@ -49,8 +49,11 @@ public:
 	[[nodiscard]] const std::vector<std::shared_ptr<Route>> &getRoutes() const;
 
 private:
+	/// All points in map
 	std::vector<std::shared_ptr<Point>> points_;
+	/// All ways in map
 	std::vector<std::shared_ptr<Way>> ways_;
+	/// All routes in map
 	std::vector<std::shared_ptr<Route>> routes_;
 };
 }

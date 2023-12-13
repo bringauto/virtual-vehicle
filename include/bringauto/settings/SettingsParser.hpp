@@ -31,6 +31,41 @@ public:
 	std::string getFormattedSettings();
 
 private:
+	static const std::string CONFIG_PATH;
+	static const std::string VERBOSE;
+	static const std::string LOG_PATH;
+	static const std::string MODULE_GATEWAY_IP;
+	static const std::string MODULE_GATEWAY_PORT;
+	static const std::string STATUS_MESSAGE_PERIOD;
+	static const std::string VEHICLE_PROVIDER;
+	static const std::string FLEET_PROVIDER;
+	static const std::string HELP;
+
+	static const std::string OSM_MAP;
+	static const std::string OSM_ROUTE;
+	static const std::string OSM_STOP_WAIT_TIME;
+	static const std::string OSM_SPEED_OVERRIDE;
+	static const std::string OSM_SPEED_OVERRIDE_MPS;
+
+	static const std::string GPS_PROVIDER;
+	static const std::string RUT_IP;
+	static const std::string RUT_PORT;
+	static const std::string RUT_SLAVE_ID;
+	static const std::string STOP_RADIUS;
+	static const std::string DEVICE_NAME;
+	static const std::string DEVICE_ROLE;
+	static const std::string DEVICE_PRIORITY;
+	static const std::string RECONNECT_PERIOD;
+
+	static const std::string GENERAL_SETTINGS;
+	static const std::string VEHICLE_SETTINGS;
+	static const std::string GPS_SETTINGS;
+	static const std::string RUTX_09_SETTINGS;
+	static const std::string SIMULATION_SETTINGS;
+	static const std::string FLEET_SETTINGS;
+	static const std::string INTERNAL_PROTOCOL_SETTINGS;
+	static const std::string MAP_SETTINGS;
+
 	cxxopts::ParseResult cmdArguments_;
 	std::shared_ptr<Settings> settings_;
 
@@ -56,6 +91,6 @@ private:
 
 	void fillSimulationSettings(const nlohmann::json &file);
 
-	void fillProtobufSettings(const nlohmann::json &file);
+	void fillInternalProtocolSettings(const nlohmann::json &file);
 };
 }

@@ -42,34 +42,34 @@ state_smurf::diagram::StateDiagram StateSmurfDefinition::createStateDiagram() {
 }
 
 template<>
-void StateSmurfDefinition::changeToState(const std::shared_ptr<state_smurf::transition::StateTransition>& smurf, bringauto::communication::Status::State value) {
+void StateSmurfDefinition::changeToState(const std::shared_ptr<state_smurf::transition::StateTransition>& smurf, bringauto::communication::EAutonomyState value) {
 	switch(value) {
-		case communication::Status::IDLE:
+		case communication::EAutonomyState::E_IDLE:
 			smurf->goToState(bringauto::settings::idleState);
 			break;
-		case communication::Status::DRIVE:
+		case communication::EAutonomyState::E_DRIVE:
 			smurf->goToState(bringauto::settings::driveState);
 			break;
-		case communication::Status::IN_STOP:
+		case communication::EAutonomyState::E_IN_STOP:
 			smurf->goToState(bringauto::settings::inStopState);
 			break;
-		case communication::Status::OBSTACLE:
+		case communication::EAutonomyState::E_OBSTACLE:
 			break;
-		case communication::Status::ERROR:
+		case communication::EAutonomyState::E_ERROR:
 			break;
 	}
 
 }
 
 template<>
-void StateSmurfDefinition::changeToState(const std::shared_ptr<state_smurf::transition::StateTransition>& smurf, bringauto::communication::Command::Action value) {
+void StateSmurfDefinition::changeToState(const std::shared_ptr<state_smurf::transition::StateTransition>& smurf, bringauto::communication::EAutonomyAction value) {
 	switch(value) {
-		case communication::Command::NO_ACTION:
+		case communication::EAutonomyAction::E_NO_ACTION:
 			break;
-		case communication::Command::STOP:
+		case communication::EAutonomyAction::E_STOP:
 			smurf->goToState(bringauto::settings::stopReceivedState);
 			break;
-		case communication::Command::START:
+		case communication::EAutonomyAction::E_START:
 			smurf->goToState(bringauto::settings::startReceivedState);
 			break;
 	}

@@ -1,81 +1,121 @@
 #include <bringauto/common_utils/EnumUtils.hpp>
 
+#include <MissionModule.pb.h>
+
 #include <algorithm>
 
 
 
 namespace bringauto::common_utils {
-settings::VehicleProvider EnumUtils::stringToVehicleProvider(std::string toEnum) {
-	std::transform(toEnum.begin(), toEnum.end(), toEnum.begin(), ::toupper);
-	if(toEnum == "SIMULATION"){
-		return settings::VehicleProvider::SIMULATION;
-	}else if(toEnum == "GPS"){
-		return settings::VehicleProvider::GPS;
-	}
-	return settings::VehicleProvider::INVALID;
-}
 
-settings::GpsProvider EnumUtils::stringToGpsProvider(std::string toEnum) {
-	std::transform(toEnum.begin(), toEnum.end(), toEnum.begin(), ::toupper);
-	if(toEnum == "RUTX09"){
-		return settings::GpsProvider::RUTX09;
-	}else if(toEnum == "UBLOX"){
-		return settings::GpsProvider::UBLOX;
-	}else if(toEnum == "MAP"){
-		return settings::GpsProvider::MAP;
+template <>
+MissionModule::AutonomyStatus::State EnumUtils::valueToEnum(communication::EAutonomyState toEnum) {
+	switch(toEnum) {
+		case communication::EAutonomyState::E_IDLE:
+			return MissionModule::AutonomyStatus::IDLE;
+		case communication::EAutonomyState::E_DRIVE:
+			return MissionModule::AutonomyStatus::DRIVE;
+		case communication::EAutonomyState::E_IN_STOP:
+			return MissionModule::AutonomyStatus::IN_STOP;
+		case communication::EAutonomyState::E_OBSTACLE:
+			return MissionModule::AutonomyStatus::OBSTACLE;
+		case communication::EAutonomyState::E_ERROR:
+			return MissionModule::AutonomyStatus::ERROR;
+		default:
+			throw std::runtime_error("Invalid enum value of EAutonomyState");
 	}
-	return settings::GpsProvider::INVALID;
-}
-
-settings::FleetProvider EnumUtils::stringToFleetProvider(std::string toEnum) {
-	std::transform(toEnum.begin(), toEnum.end(), toEnum.begin(), ::toupper);
-	if(toEnum == "PROTOBUF"){
-		return settings::FleetProvider::PROTOBUF;
-	}else if(toEnum == "EMPTY"){
-		return settings::FleetProvider::NO_CONNECTION;
-	}
-	return settings::FleetProvider::INVALID;
 }
 
 template <>
-std::string EnumUtils::enumToString(communication::Command::Action value) {
+communication::EAutonomyAction EnumUtils::valueToEnum(MissionModule::AutonomyCommand::Action toEnum) {
+	switch(toEnum) {
+		case MissionModule::AutonomyCommand::START:
+			return communication::EAutonomyAction::E_START;
+		case MissionModule::AutonomyCommand::STOP:
+			return communication::EAutonomyAction::E_STOP;
+		case MissionModule::AutonomyCommand::NO_ACTION:
+			return communication::EAutonomyAction::E_NO_ACTION;
+		default:
+			return communication::EAutonomyAction::E_INVALID;
+	}
+}
+
+template <>
+settings::VehicleProvider EnumUtils::valueToEnum(std::string toEnum) {
+	std::transform(toEnum.begin(), toEnum.end(), toEnum.begin(), ::toupper);
+	if(toEnum == "SIMULATION") {
+		return settings::VehicleProvider::E_SIMULATION;
+	} else if(toEnum == "GPS") {
+		return settings::VehicleProvider::E_GPS;
+	}
+	return settings::VehicleProvider::E_INVALID;
+}
+
+template <>
+settings::GpsProvider EnumUtils::valueToEnum(std::string toEnum) {
+	std::transform(toEnum.begin(), toEnum.end(), toEnum.begin(), ::toupper);
+	if(toEnum == "RUTX09") {
+		return settings::GpsProvider::E_RUTX09;
+	} else if(toEnum == "UBLOX") {
+		return settings::GpsProvider::E_UBLOX;
+	} else if(toEnum == "MAP") {
+		return settings::GpsProvider::E_MAP;
+	}
+	return settings::GpsProvider::E_INVALID;
+}
+
+template <>
+settings::FleetProvider EnumUtils::valueToEnum(std::string toEnum) {
+	std::transform(toEnum.begin(), toEnum.end(), toEnum.begin(), ::toupper);
+	if(toEnum == "INTERNAL_PROTOCOL") {
+		return settings::FleetProvider::E_INTERNAL_PROTOCOL;
+	} else if(toEnum == "EMPTY") {
+		return settings::FleetProvider::E_NO_CONNECTION;
+	}
+	return settings::FleetProvider::E_INVALID;
+}
+
+template <>
+std::string EnumUtils::enumToString(communication::EAutonomyAction value) {
 	switch(value) {
-		case communication::Command::NO_ACTION:
+		case communication::EAutonomyAction::E_NO_ACTION:
 			return "NO_ACTION";
-		case communication::Command::STOP:
+		case communication::EAutonomyAction::E_STOP:
 			return "STOP";
-		case communication::Command::START:
+		case communication::EAutonomyAction::E_START:
 			return "START";
+		default:
+			return "INVALID";
 	}
-	return "unknown action";
 }
 
 template <>
-std::string EnumUtils::enumToString(communication::Status::State value) {
+std::string EnumUtils::enumToString(communication::EAutonomyState value) {
 	switch(value) {
 
-		case communication::Status::IDLE:
+		case communication::EAutonomyState::E_IDLE:
 			return "IDLE";
-		case communication::Status::DRIVE:
+		case communication::EAutonomyState::E_DRIVE:
 			return "DRIVE";
-		case communication::Status::IN_STOP:
+		case communication::EAutonomyState::E_IN_STOP:
 			return "IN_STOP";
-		case communication::Status::OBSTACLE:
+		case communication::EAutonomyState::E_OBSTACLE:
 			return "OBSTACLE";
-		case communication::Status::ERROR:
+		case communication::EAutonomyState::E_ERROR:
 			return "ERROR";
+		default:
+			return "INVALID";
 	}
-	return "unknown state";
 }
 
 template <>
 std::string EnumUtils::enumToString(settings::VehicleProvider value) {
 	switch(value) {
-		case settings::VehicleProvider::SIMULATION:
+		case settings::VehicleProvider::E_SIMULATION:
 			return "SIMULATION";
-		case settings::VehicleProvider::GPS:
+		case settings::VehicleProvider::E_GPS:
 			return "GPS";
-		case settings::VehicleProvider::INVALID:
+		case settings::VehicleProvider::E_INVALID:
 		default:
 			return "INVALID";
 	}
@@ -84,13 +124,13 @@ std::string EnumUtils::enumToString(settings::VehicleProvider value) {
 template <>
 std::string EnumUtils::enumToString(settings::GpsProvider value) {
 	switch(value) {
-		case settings::GpsProvider::RUTX09:
+		case settings::GpsProvider::E_RUTX09:
 			return "RUTX09";
-		case settings::GpsProvider::UBLOX:
+		case settings::GpsProvider::E_UBLOX:
 			return "UBLOX";
-		case settings::GpsProvider::MAP:
+		case settings::GpsProvider::E_MAP:
 			return "MAP";
-		case settings::GpsProvider::INVALID:
+		case settings::GpsProvider::E_INVALID:
 		default:
 			return "INVALID";
 	}
@@ -99,11 +139,11 @@ std::string EnumUtils::enumToString(settings::GpsProvider value) {
 template <>
 std::string EnumUtils::enumToString(settings::FleetProvider value) {
 	switch(value) {
-		case settings::FleetProvider::PROTOBUF:
-			return "PROTOBUF";
-		case settings::FleetProvider::NO_CONNECTION:
+		case settings::FleetProvider::E_INTERNAL_PROTOCOL:
+			return "INTERNAL_PROTOCOL";
+		case settings::FleetProvider::E_NO_CONNECTION:
 			return "NO_CONNECTION";
-		case settings::FleetProvider::INVALID:
+		case settings::FleetProvider::E_INVALID:
 		default:
 			return "INVALID";
 	}
