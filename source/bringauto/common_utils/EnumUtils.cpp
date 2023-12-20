@@ -67,9 +67,9 @@ settings::GpsProvider EnumUtils::valueToEnum(std::string toEnum) {
 template <>
 settings::FleetProvider EnumUtils::valueToEnum(std::string toEnum) {
 	std::transform(toEnum.begin(), toEnum.end(), toEnum.begin(), ::toupper);
-	if(toEnum == "INTERNAL_PROTOCOL") {
+	if(toEnum == "INTERNAL-PROTOCOL") {
 		return settings::FleetProvider::E_INTERNAL_PROTOCOL;
-	} else if(toEnum == "EMPTY") {
+	} else if(toEnum == "NO-CONNECTION") {
 		return settings::FleetProvider::E_NO_CONNECTION;
 	}
 	return settings::FleetProvider::E_INVALID;
@@ -140,9 +140,9 @@ template <>
 std::string EnumUtils::enumToString(settings::FleetProvider value) {
 	switch(value) {
 		case settings::FleetProvider::E_INTERNAL_PROTOCOL:
-			return "INTERNAL_PROTOCOL";
+			return "INTERNAL-PROTOCOL";
 		case settings::FleetProvider::E_NO_CONNECTION:
-			return "NO_CONNECTION";
+			return "NO-CONNECTION";
 		case settings::FleetProvider::E_INVALID:
 		default:
 			return "INVALID";

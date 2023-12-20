@@ -61,7 +61,7 @@ examples in ./config/*.json
 * `wait-at-stop` - how many seconds will car wait in stop, int
 
 ## Fleet settings
-* `fleet-provider` - fleet provider, `internal-protocol` for use of internal protocol `empty` for use of dummy connection, string
+* `fleet-provider` - fleet provider, `internal-protocol` for use of internal protocol `no-connection` for use of dummy connection, string
 * `internal-protocol-settings` - internal protocol settings object - module 1, device type 1 is hardcoded
 ### internal protocol settings
 * `module-gateway-ip` - IPv4 or hostname of module gateway, string
