@@ -357,7 +357,7 @@ std::string SettingsParser::getFormattedSettings() {
 			formattedSettings << "\treconnect-period-s: " << settings_->reconnectPeriodS << "\n";
 			break;
 		case FleetProvider::E_NO_CONNECTION:
-			formattedSettings << "Fleet provider: EMPTY\n";
+			formattedSettings << "Fleet provider: NO-CONNECTION\n";
 			break;
 		default:
 			formattedSettings << "fleet-provider: INVALID\n";
