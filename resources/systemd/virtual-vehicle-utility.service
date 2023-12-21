@@ -6,7 +6,7 @@ After=network.target
 User=root
 Type=simple
 WorkingDirectory=/root/virtual-vehicle-utility/
-ExecStart=/root/virtual-vehicle-utility/bin/virtual-vehicle-utility --config=/etc/bringauto/virtual-vehicle-utility/config/example.json
+ExecStart=/root/virtual-vehicle-utility/bin/virtual-vehicle-utility --config=/etc/bringauto/virtual-vehicle-utility/config.json
 Restart=always
 RestartSec=10
 
