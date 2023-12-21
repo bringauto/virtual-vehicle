@@ -101,9 +101,14 @@ TARGET_LINK_LIBRARIES(virtual-vehicle-utility PUBLIC bringautolib)
 
 IF (BRINGAUTO_INSTALL)
     INCLUDE(GNUInstallDirs)
+    CONFIGURE_FILE(resources/systemd/virtual-vehicle-utility.service.in virtual-vehicle-utility.service @ONLY)
     CMDEF_INSTALL(TARGET virtual-vehicle-utility)
     BA_PACKAGE_DEPS_IMPORTED(virtual-vehicle-utility)
-    INSTALL(FILES "${CMAKE_CURRENT_LIST_DIR}/resources/systemd/virtual-vehicle-utility.service"
+    INSTALL(FILES "${CMAKE_CURRENT_LIST_DIR}/resources/config/default.json"
+            DESTINATION
+            "${CMAKE_INSTALL_SYSCONFDIR}/bringauto/virtual-vehicle-utility/"
+            RENAME "config.json")
+    INSTALL(FILES "${CMAKE_CURRENT_BINARY_DIR}/virtual-vehicle-utility.service"
             DESTINATION
             "${CMAKE_INSTALL_SYSCONFDIR}/systemd/system/"
     )
