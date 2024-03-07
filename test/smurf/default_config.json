@@ -1,0 +1,32 @@
+{
+  "general-settings": {
+    "log-path": "./_logs/",
+    "verbose": true,
+    "period-ms": 1000
+  },
+  "vehicle-settings": {
+    "vehicle-provider": "simulation",
+    "simulation-settings": {
+      "speed-override": false,
+      "speed-override-mps": 5,
+      "wait-at-stop-s": 30
+    }
+  },
+  "fleet-settings": {
+    "fleet-provider": "internal-protocol",
+    "internal-protocol-settings": {
+      "module-gateway-ip":"172.17.0.1",
+      "module-gateway-port": 1636,
+      "device-role": "autonomy",
+      "device-priority": 1,
+      "reconnect-period-s": 20,
+      "device-name": "virtual-vehicle"
+    },
+    "empty":{
+    }
+  },
+  "map-settings": {
+    "map": "../config/maps/Brno.osm",
+    "default-route": ""
+  }
+}

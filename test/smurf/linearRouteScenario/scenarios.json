@@ -1,8 +1,8 @@
 {
   "setup" : [
-    "docker-compose --file=../etna/docker-compose.yml --env-file=.env --profile=\"without-autonomy\" up -d"
+    "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices up -d"
   ],
-  "between_runs" : [ "docker-compose --file=../etna/docker-compose.yml --env-file=.env --profile=\"without-autonomy\" restart" ],
+  "between_runs" : [ "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices restart" ],
   "scenarios" : [
     {
       "name" : "fewNodes",
@@ -10,14 +10,9 @@
       "arguments" : {
         "--map" : "../maps/1.osm",
         "--route" : "default",
-        "--verbose" : "",
-        "--daemon-ip" : "172.17.0.1",
-        "--daemon-port" : 1636,
-        "--wait" : 4,
-        "--period" : 1000,
+        "--wait-at-stop-s" : 4,
         "--speed-override" : 55,
-        "--vehicle-provider" : "simulation",
-        "--log-path" : "../_logs/"
+        "--config" : "../default_config.json"
       }
     },
     {
@@ -26,14 +21,9 @@
       "arguments" : {
         "--map" : "../maps/2.osm",
         "--route" : "default",
-        "--verbose" : "",
-        "--daemon-ip" : "172.17.0.1",
-        "--daemon-port" : 1636,
-        "--wait" : 4,
-        "--period" : 1000,
+        "--wait-at-stop-s" : 4,
         "--speed-override" : 150,
-        "--vehicle-provider" : "simulation",
-        "--log-path" : "../_logs/"
+        "--config" : "../default_config.json"
       }
     },
     {
@@ -42,18 +32,13 @@
       "arguments" : {
         "--map" : "../maps/1.osm",
         "--route" : "default",
-        "--verbose" : "",
-        "--daemon-ip" : "172.17.0.1",
-        "--daemon-port" : 1636,
-        "--wait" : 15,
-        "--period" : 1000,
+        "--wait-at-stop-s" : 15,
         "--speed-override" : 35,
-        "--vehicle-provider" : "simulation",
-        "--log-path" : "../_logs/"
+        "--config" : "../default_config.json"
       }
     }
   ],
   "cleanup" : [
-    "docker-compose --profile=without-autonomy --file=../etna/docker-compose.yml down"
+    "docker compose --profile=without-devices --file=../etna/docker-compose.yml down"
   ]
 }

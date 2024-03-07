@@ -101,7 +101,10 @@ TARGET_LINK_LIBRARIES(virtual-vehicle-utility PUBLIC bringautolib)
 
 IF (BRINGAUTO_INSTALL)
     INCLUDE(GNUInstallDirs)
-    CMDEF_INSTALL(TARGET virtual-vehicle-utility)
+    CMDEF_INSTALL(
+            TARGET virtual-vehicle-utility
+            NAMESPACE virtual-vehicle-utility::
+    )
     BA_PACKAGE_DEPS_IMPORTED(virtual-vehicle-utility)
     INSTALL(DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/resources/config/"
             DESTINATION

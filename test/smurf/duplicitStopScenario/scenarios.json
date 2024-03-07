@@ -1,8 +1,8 @@
 {
   "setup" : [
-    "docker-compose --file=../etna/docker-compose.yml --env-file=.env --profile=\"without-autonomy\" up -d"
+    "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices up -d"
   ],
-  "between_runs" : [ "docker-compose --file=../etna/docker-compose.yml --env-file=.env --profile=\"without-autonomy\" restart" ],
+  "between_runs" : [ "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices restart" ],
   "scenarios" : [
     {
       "name" : "fewNodes",
@@ -54,6 +54,6 @@
     }
   ],
   "cleanup" : [
-    "docker-compose --profile=without-autonomy --file=../etna/docker-compose.yml down"
+    "docker compose --profile=without-devices --file=../etna/docker-compose.yml down"
   ]
 }
