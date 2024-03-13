@@ -55,59 +55,62 @@ FIND_PACKAGE(modbuspp 0.3.1 REQUIRED)
 FIND_PACKAGE(internal_client REQUIRED)
 FIND_PACKAGE(Protobuf 3.21.12 REQUIRED)
 
-INCLUDE_DIRECTORIES(${OSMIUM_INCLUDE_DIRS})
 #------------protobuf----------------#
 SET(Protobuf_USE_STATIC_LIBS ON)
 ADD_LIBRARY(protobuff_lib STATIC
         ${CMAKE_CURRENT_SOURCE_DIR}/lib/proto/MissionModule.pb.cc
         ${CMAKE_CURRENT_SOURCE_DIR}/lib/proto/MissionModule.pb.h)
 TARGET_LINK_LIBRARIES(protobuff_lib PUBLIC protobuf::libprotobuf)
-TARGET_INCLUDE_DIRECTORIES(protobuff_lib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/libs/proto/")
+TARGET_INCLUDE_DIRECTORIES(protobuff_lib PUBLIC "${CMAKE_CURRENT_LIST_DIR}/lib/proto/")
 
+
+
+FILE(GLOB_RECURSE source_files "source/*")
+
+CMDEF_ADD_EXECUTABLE(
+        TARGET virtual-vehicle-utility
+        SOURCES main.cpp ${source_files}
+        INCLUDE_DIRECTORIES "${CMAKE_CURRENT_LIST_DIR}/include/" ${OSMIUM_INCLUDE_DIRS}
+        VERSION ${VIRTUAL_VEHICLE_UTILITY_VERSION}
+)
+TARGET_LINK_LIBRARIES(virtual-vehicle-utility
+        PRIVATE
+        protobuff_lib
+        bringauto_logger::bringauto_logger
+        PUBLIC
+        nlohmann_json::nlohmann_json
+        cxxopts::cxxopts
+        internal_client
+        ${OSMIUM_XML_LIBRARIES}
+        modbuspp_lib
+)
+IF (STATE_SMURF)
+    FIND_PACKAGE(state_smurf 2.0.0 REQUIRED)
+    ADD_COMPILE_DEFINITIONS(STATE_SMURF)
+    TARGET_LINK_LIBRARIES(virtual-vehicle-utility PUBLIC
+            diagram_smurf_lib
+            transition_smurf_lib)
+ENDIF ()
 
 IF (BRINGAUTO_TESTS)
     ENABLE_TESTING()
     INCLUDE(${CMAKE_CURRENT_SOURCE_DIR}/test/CMakeLists.txt)
 ENDIF (BRINGAUTO_TESTS)
 
-
-FILE(GLOB_RECURSE source_files "source/*")
-ADD_LIBRARY(bringautolib STATIC ${source_files})
-TARGET_INCLUDE_DIRECTORIES(bringautolib PUBLIC "lib/proto/" "include/")
-TARGET_LINK_LIBRARIES(bringautolib PUBLIC
-        nlohmann_json::nlohmann_json
-        cxxopts::cxxopts
-        protobuff_lib ${OSMIUM_XML_LIBRARIES}
-        bringauto_logger::bringauto_logger
-        modbuspp_lib
-        internal_client)
-
-
-IF (STATE_SMURF)
-    FIND_PACKAGE(state_smurf 2.0.0 REQUIRED)
-    ADD_COMPILE_DEFINITIONS(STATE_SMURF)
-    TARGET_LINK_LIBRARIES(bringautolib PUBLIC
-            diagram_smurf_lib
-            transition_smurf_lib)
-ENDIF ()
-
-
-CMDEF_ADD_EXECUTABLE(
-        TARGET virtual-vehicle-utility
-        SOURCES main.cpp
-        VERSION ${VIRTUAL_VEHICLE_UTILITY_VERSION}
-)
-TARGET_LINK_LIBRARIES(virtual-vehicle-utility PUBLIC bringautolib)
-
 IF (BRINGAUTO_INSTALL)
-    INCLUDE(GNUInstallDirs)
     CONFIGURE_FILE(resources/systemd/virtual-vehicle-utility.service.in virtual-vehicle-utility.service @ONLY)
-    CMDEF_INSTALL(TARGET virtual-vehicle-utility)
+    CMDEF_INSTALL(
+            TARGET virtual-vehicle-utility
+            NAMESPACE virtual-vehicle-utility::
+    )
     BA_PACKAGE_DEPS_IMPORTED(virtual-vehicle-utility)
+
+    INCLUDE(GNUInstallDirs)
     INSTALL(FILES "${CMAKE_CURRENT_LIST_DIR}/resources/config/default.json"
             DESTINATION
             "${CMAKE_INSTALL_SYSCONFDIR}/bringauto/virtual-vehicle-utility/"
-            RENAME "config.json")
+            RENAME "config.json"
+    )
     INSTALL(FILES "${CMAKE_CURRENT_BINARY_DIR}/virtual-vehicle-utility.service"
             DESTINATION
             "${CMAKE_INSTALL_SYSCONFDIR}/systemd/system/"
@@ -121,8 +124,5 @@ IF (BRINGAUTO_PACKAGE)
     )
     SET(CPACK_GENERATOR ZIP)
     SET(CPACK_PACKAGE_CONTACT "Bring Auto s.r.o. <maintainers@bringauto.com>")
-    SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Bring Auto s.r.o <maintainers@bringauto.com>")
-    SET(CPACK_DEBIAN_PACKAGE_GENERATE_SHLIBS ON)
-    SET(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
     INCLUDE(CPack)
 ENDIF ()

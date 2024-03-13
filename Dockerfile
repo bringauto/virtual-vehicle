@@ -1,4 +1,4 @@
-FROM eu.gcr.io/bringauto-infrastructure/teamcity-build-images/debian11:latest
+FROM europe-west1-docker.pkg.dev/bringauto-infrastructure/teamcity-build-images/debian11:latest
 WORKDIR /virtual-vehicle-utility
 
 RUN sudo chown -R bringauto:bringauto /virtual-vehicle-utility
