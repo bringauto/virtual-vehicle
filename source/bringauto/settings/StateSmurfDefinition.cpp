@@ -31,6 +31,7 @@ state_smurf::diagram::StateDiagram StateSmurfDefinition::createStateDiagram() {
 	stateDiagram.setEdge(startReceived, inStop);
 
 	stateDiagram.setEdge(idle, connected);
+	stateDiagram.setEdge(idle, idle);
 	stateDiagram.setEdge(idle, carStatusSent);
 	stateDiagram.setEdge(drive, carStatusSent);
 	stateDiagram.setEdge(drive, inStop);
