@@ -3,7 +3,7 @@ PROJECT(virtual-vehicle-utility)
 
 SET(CMAKE_CXX_STANDARD 17)
 
-SET(VIRTUAL_VEHICLE_UTILITY_VERSION 2.6.0)
+SET(VIRTUAL_VEHICLE_UTILITY_VERSION 2.6.3)
 ADD_DEFINITIONS( -DVIRTUAL_VEHICLE_UTILITY_VERSION="${VIRTUAL_VEHICLE_UTILITY_VERSION}" )
 
 # for linking .so after make install (actually ba_logger):
@@ -95,7 +95,10 @@ TARGET_LINK_LIBRARIES(virtual-vehicle-utility PUBLIC bringautolib)
 
 IF (BRINGAUTO_INSTALL)
     INCLUDE(GNUInstallDirs)
-	CMDEF_INSTALL(TARGET virtual-vehicle-utility)
+	CMDEF_INSTALL(
+            TARGET virtual-vehicle-utility
+            NAMESPACE virtual-vehicle-utility::
+    )
 	BA_PACKAGE_DEPS_IMPORTED(virtual-vehicle-utility)
     INSTALL(DIRECTORY "${CMAKE_CURRENT_LIST_DIR}/resources/config/"
             DESTINATION
