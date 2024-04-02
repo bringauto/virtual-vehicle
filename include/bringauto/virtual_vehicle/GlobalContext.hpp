@@ -4,15 +4,9 @@
 
 #include <boost/asio.hpp>
 
-
-
 #ifdef STATE_SMURF
-
 #include <state_smurf/transition/StateTransition.hpp>
 #include <bringauto/settings/StateSmurfDefinition.hpp>
-
-
-
 #endif
 
 

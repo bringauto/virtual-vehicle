@@ -4,11 +4,29 @@ PROJECT(virtual-vehicle-utility)
 SET(CMAKE_CXX_STANDARD 17)
 #------------gtest-------------------#
 FIND_PACKAGE(GTest REQUIRED)
-INCLUDE_DIRECTORIES(${GTEST_INCLUDE_DIRS} "${CMAKE_CURRENT_LIST_DIR}/include/")
 FILE(GLOB_RECURSE source_test_files "${CMAKE_CURRENT_LIST_DIR}/source/*")
-ADD_EXECUTABLE(vvutests ${source_test_files} ${CMAKE_CURRENT_LIST_DIR}/mainTests.cpp)
-TARGET_INCLUDE_DIRECTORIES(vvutests PUBLIC "${CMAKE_CURRENT_LIST_DIR}/include/")
-TARGET_LINK_LIBRARIES(vvutests PUBLIC ${GTEST_LIBRARIES} pthread bringautolib)
+ADD_EXECUTABLE(vvutests ${source_test_files} ${source_files} ${CMAKE_CURRENT_LIST_DIR}/mainTests.cpp)
+TARGET_INCLUDE_DIRECTORIES(vvutests PUBLIC "${CMAKE_CURRENT_LIST_DIR}/include/" "${CMAKE_CURRENT_LIST_DIR}/../include/" ${OSMIUM_INCLUDE_DIRS})
+
+TARGET_LINK_LIBRARIES(vvutests
+        PUBLIC
+        gtest
+        pthread
+        protobuff_lib
+        bringauto_logger::bringauto_logger
+        nlohmann_json::nlohmann_json
+        cxxopts::cxxopts
+        internal_client
+        ${OSMIUM_XML_LIBRARIES}
+        modbuspp_lib
+)
+
+IF (STATE_SMURF)
+    TARGET_LINK_LIBRARIES(vvutests PUBLIC
+            diagram_smurf_lib
+            transition_smurf_lib)
+ENDIF ()
+
 INCLUDE(GoogleTest)
 GTEST_DISCOVER_TESTS(vvutests)
 

@@ -26,7 +26,7 @@
 * `--wait=<int>` how many seconds will car wait in stop, default is 10s
 * `--period=<int>` maximum time period between two status messages send to daemon
 * `--speed-override=<int>` override map speed
-* `--fleet-provider=<string>` choose fleet provider, `internal-protocol` for use of internal protocol `empty` for use of dummy connection
+* `--fleet-provider=<string>` choose fleet provider, `internal-protocol` for use of internal protocol `no-connection` for use of dummy connection
 * `--vehicle-provider=<string>` choose vehicle provider, `simulation` for use of osm map `gps` for use of gps provider
 * `--gps-provider=<string>` choose gps provider, `rutx09` or `ublox`
 * `--rutx-ip=<int>` ip address to modbus server on rutx09
@@ -78,7 +78,7 @@ examples in ./config/*.json
 # Fleet provider
 Virtual vehicle provides ability to choose a fleet communication provider with `--fleet-provider=<string>` argument. The options are:
 * `internal-protocol` - connection to daemon using protobuf will be established, requires `--ip=<string>` and `--port=<int>` arguments to specify module gateway connection 
-* `empty` - no connection will be established, statuses will be discarded and default command will be returned, for testing purposes
+* `no-connection` - no connection will be established, statuses will be discarded and default command will be returned, for testing purposes
 
 # Vehicle provider
 Virtual vehicle provides ability to choose a different simulation implementations with `--vehicle-provider=<string>` argument. The options are:

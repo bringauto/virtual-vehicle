@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IVirtualVehicle.hpp"
+#include <bringauto/virtual_vehicle/vehicle_provider/IVirtualVehicle.hpp>
 
 #include <utility>
 
