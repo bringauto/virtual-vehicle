@@ -6,11 +6,11 @@ SET(CMAKE_CXX_STANDARD 17)
 FIND_PACKAGE(GTest REQUIRED)
 FILE(GLOB_RECURSE source_test_files "${CMAKE_CURRENT_LIST_DIR}/source/*")
 ADD_EXECUTABLE(vvutests ${source_test_files} ${source_files} ${CMAKE_CURRENT_LIST_DIR}/mainTests.cpp)
-TARGET_INCLUDE_DIRECTORIES(vvutests PUBLIC "${CMAKE_CURRENT_LIST_DIR}/include/" "${CMAKE_CURRENT_LIST_DIR}/../include/" ${OSMIUM_INCLUDE_DIRS})
+TARGET_INCLUDE_DIRECTORIES(vvutests PUBLIC "${CMAKE_CURRENT_LIST_DIR}/include/" "${CMAKE_CURRENT_LIST_DIR}/../include/" ${OSMIUM_INCLUDE_DIRS} ${PROTOZERO_INCLUDE_DIR})
 
 TARGET_LINK_LIBRARIES(vvutests
         PUBLIC
-        gtest
+        GTest::gtest
         pthread
         protobuff_lib
         bringauto_logger::bringauto_logger
@@ -19,6 +19,7 @@ TARGET_LINK_LIBRARIES(vvutests
         internal_client
         ${OSMIUM_XML_LIBRARIES}
         modbuspp_lib
+        Boost::system
 )
 
 IF (STATE_SMURF)
