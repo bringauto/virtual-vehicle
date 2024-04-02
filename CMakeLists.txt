@@ -54,6 +54,8 @@ FIND_PACKAGE(libbringauto_logger 1.2.0 REQUIRED)
 FIND_PACKAGE(modbuspp 0.3.1 REQUIRED)
 FIND_PACKAGE(internal_client REQUIRED)
 FIND_PACKAGE(Protobuf 3.21.12 REQUIRED)
+FIND_PACKAGE(Boost REQUIRED COMPONENTS system)
+FIND_PACKAGE(Protozero REQUIRED)
 
 #------------protobuf----------------#
 SET(Protobuf_USE_STATIC_LIBS ON)
@@ -70,7 +72,7 @@ FILE(GLOB_RECURSE source_files "source/*")
 CMDEF_ADD_EXECUTABLE(
         TARGET virtual-vehicle-utility
         SOURCES main.cpp ${source_files}
-        INCLUDE_DIRECTORIES "${CMAKE_CURRENT_LIST_DIR}/include/" ${OSMIUM_INCLUDE_DIRS}
+        INCLUDE_DIRECTORIES "${CMAKE_CURRENT_LIST_DIR}/include/" ${OSMIUM_INCLUDE_DIRS} ${PROTOZERO_INCLUDE_DIR}
         VERSION ${VIRTUAL_VEHICLE_UTILITY_VERSION}
 )
 TARGET_LINK_LIBRARIES(virtual-vehicle-utility
@@ -83,6 +85,7 @@ TARGET_LINK_LIBRARIES(virtual-vehicle-utility
         internal_client
         ${OSMIUM_XML_LIBRARIES}
         modbuspp_lib
+        Boost::system
 )
 IF (STATE_SMURF)
     FIND_PACKAGE(state_smurf 2.0.0 REQUIRED)
