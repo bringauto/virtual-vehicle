@@ -1,6 +1,6 @@
 {
   "general-settings": {
-    "log-path": "./_logs/",
+    "log-path": "../_logs/",
     "verbose": true,
     "period-ms": 1000
   },
@@ -26,7 +26,7 @@
     }
   },
   "map-settings": {
-    "map": "../config/maps/Brno.osm",
+    "map": "../maps/map.osm",
     "default-route": ""
   }
 }
