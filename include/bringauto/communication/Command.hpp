@@ -41,10 +41,6 @@ public:
 
 	void setRoute(const std::string &route);
 
-	[[nodiscard]] const std::vector<osm::Route::Station> &getRouteStations() const;
-
-	void setRouteStations(const std::vector<osm::Route::Station> &routeStations);
-
 	inline bool operator==(const Command &toCompare) const {
 		if(action_ != toCompare.getAction()) {
 			return false;
@@ -70,7 +66,5 @@ private:
 	EAutonomyAction action_ { EAutonomyAction::E_INVALID };
 	/// Name of the route
 	std::string route_;
-	/// Stations on the route.
-	std::vector<osm::Route::Station> routeStations_;
 };
 }

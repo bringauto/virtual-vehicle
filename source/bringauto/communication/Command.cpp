@@ -10,10 +10,6 @@ std::ostream &operator<<(std::ostream &stream, const Command &command) {
 	for(const auto &stop: command.getMission()) {
 		stream << "[" << stop.name << ";" << stop.latitude << ";" << stop.longitude << "],";
 	}
-	stream << "route stations: ";
-	for(const auto &station: command.getRouteStations()) {
-		stream << station.name << ", ";
-	}
 	return stream;
 }
 
@@ -39,13 +35,5 @@ const std::string &Command::getRoute() const {
 
 void Command::setRoute(const std::string &route) {
 	route_ = route;
-}
-
-const std::vector<osm::Route::Station> &Command::getRouteStations() const {
-	return routeStations_;
-}
-
-void Command::setRouteStations(const std::vector<osm::Route::Station> &routeStations) {
-	routeStations_ = routeStations;
 }
 }

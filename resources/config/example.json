@@ -18,7 +18,7 @@
 		"simulation-settings": {
 			"speed-override": true,
 			"speed-override-mps": 5,
-			"wait-at-stop-s": 30
+			"wait-at-stop-s": 10
 		}
 	},
 	"fleet-settings": {
@@ -29,13 +29,13 @@
 			"device-role": "autonomy",
 			"device-priority": 1,
 			"reconnect-period-s": 20,
-			"device-name": "virtual-vehicle"
+			"device-name": "virtual_vehicle"
 		},
 		"empty":{
 		}
 	},
 	"map-settings": {
-		"map": "../config/maps/Brno.osm",
+		"map": "../resources/maps/Brno.osm",
 		"default-route": ""
 	}
 }

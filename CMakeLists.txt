@@ -60,10 +60,10 @@ FIND_PACKAGE(Protozero REQUIRED)
 #------------protobuf----------------#
 SET(Protobuf_USE_STATIC_LIBS ON)
 ADD_LIBRARY(protobuff_lib STATIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/proto/MissionModule.pb.cc
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/proto/MissionModule.pb.h)
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/mission-module/lib/protobuf-mission-module/MissionModule.pb.cc
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/mission-module/lib/protobuf-mission-module/MissionModule.pb.h)
 TARGET_LINK_LIBRARIES(protobuff_lib PUBLIC protobuf::libprotobuf)
-TARGET_INCLUDE_DIRECTORIES(protobuff_lib PUBLIC "${CMAKE_CURRENT_LIST_DIR}/lib/proto/")
+TARGET_INCLUDE_DIRECTORIES(protobuff_lib PUBLIC "${CMAKE_CURRENT_LIST_DIR}/lib/mission-module/lib/protobuf-mission-module/")
 
 
 
