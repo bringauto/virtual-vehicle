@@ -1,0 +1,14 @@
+[Unit]
+Description=Virtual vehicle service
+After=network.target
+
+[Service]
+User=root
+Type=simple
+WorkingDirectory=@CMAKE_INSTALL_PREFIX@/
+ExecStart=@CMAKE_INSTALL_PREFIX@/bin/virtual-vehicle-utility --config=@CMAKE_INSTALL_SYSCONFDIR@/bringauto/virtual-vehicle-utility/config.json
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

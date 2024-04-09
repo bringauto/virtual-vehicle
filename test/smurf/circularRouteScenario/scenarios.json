@@ -1,0 +1,59 @@
+{
+  "setup" : [
+    "docker-compose --file=../etna/docker-compose.yml --env-file=.env --profile=\"without-autonomy\" up -d"
+  ],
+  "between_runs" : [ "docker-compose --file=../etna/docker-compose.yml --env-file=.env --profile=\"without-autonomy\" restart" ],
+  "scenarios" : [
+    {
+      "name" : "fewNodes",
+      "timeout" : 80,
+      "arguments" : {
+        "--map" : "../maps/1.osm",
+        "--route" : "lap",
+        "--verbose" : "",
+        "--daemon-ip" : "172.17.0.1",
+        "--daemon-port" : 1636,
+        "--wait" : 4,
+        "--period" : 1000,
+        "--speed-override" : 55,
+        "--vehicle-provider" : "simulation",
+        "--log-path" : "../_logs/"
+      }
+    },
+    {
+      "name" : "manyNodes",
+      "timeout" : 100,
+      "arguments" : {
+        "--map" : "../maps/2.osm",
+        "--route" : "lap",
+        "--verbose" : "",
+        "--daemon-ip" : "172.17.0.1",
+        "--daemon-port" : 1636,
+        "--wait" : 4,
+        "--period" : 1000,
+        "--speed-override" : 155,
+        "--vehicle-provider" : "simulation",
+        "--log-path" : "../_logs/"
+      }
+    },
+    {
+      "name" : "slowCar",
+      "timeout" : 120,
+      "arguments" : {
+        "--map" : "../maps/1.osm",
+        "--route" : "lap",
+        "--verbose" : "",
+        "--daemon-ip" : "172.17.0.1",
+        "--daemon-port" : 1636,
+        "--wait" : 15,
+        "--period" : 1000,
+        "--speed-override" : 35,
+        "--vehicle-provider" : "simulation",
+        "--log-path" : "../_logs/"
+      }
+    }
+  ],
+  "cleanup" : [
+    "docker-compose --profile=without-autonomy --file=../etna/docker-compose.yml down"
+  ]
+}

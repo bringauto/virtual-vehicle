@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<osm version='0.6' upload='false' generator='JOSM'>
+  <node id='-101752' action='modify' lat='49.22863941855' lon='16.59438414031'>
+    <tag k='name' v='first' />
+    <tag k='speed' v='10' />
+    <tag k='stop' v='true' />
+  </node>
+  <node id='-101759' action='modify' lat='49.22767' lon='16.59242'>
+    <tag k='name' v='second' />
+    <tag k='stop' v='true' />
+  </node>
+  <node id='-101765' action='modify' lat='49.22596' lon='16.59349'>
+    <tag k='name' v='third' />
+    <tag k='stop' v='true' />
+  </node>
+  <node id='-101773' lat='49.22589' lon='16.59533'>
+    <tag k='gpx:name' v='TP022' />
+  </node>
+  <node id='-101778' lat='49.22568' lon='16.59606'>
+    <tag k='gpx:name' v='TP027' />
+  </node>
+  <node id='-101782' action='modify' lat='49.22571' lon='16.59643'>
+    <tag k='name' v='fourth' />
+    <tag k='stop' v='true' />
+  </node>
+  <node id='-101783' lat='49.22574' lon='16.59652'>
+    <tag k='gpx:name' v='TP032' />
+  </node>
+  <node id='-101795' action='modify' lat='49.22823' lon='16.59514'>
+    <tag k='name' v='fifth' />
+    <tag k='stop' v='true' />
+  </node>
+  <node id='-101798' lat='49.2288025' lon='16.5947012'>
+    <tag k='gpx:name' v='TP047' />
+  </node>
+  <way id='-101782' action='modify'>
+    <nd ref='-101752' />
+    <nd ref='-101759' />
+    <nd ref='-101765' />
+    <nd ref='-101773' />
+    <nd ref='-101778' />
+    <nd ref='-101782' />
+    <nd ref='-101783' />
+    <nd ref='-101795' />
+    <nd ref='-101798' />
+    <nd ref='-101752' />
+  </way>
+  <way id='-102019' action='modify'>
+    <nd ref='-101752' />
+    <nd ref='-101759' />
+    <nd ref='-101765' />
+    <nd ref='-101773' />
+    <nd ref='-101778' />
+    <nd ref='-101782' />
+    <nd ref='-101783' />
+    <nd ref='-101795' />
+    <nd ref='-101798' />
+  </way>
+  <relation id='-99753' action='modify'>
+    <member type='way' ref='-101782' role='' />
+    <tag k='name' v='lap' />
+    <tag k='type' v='way' />
+  </relation>
+  <relation id='-99761' action='modify'>
+    <member type='way' ref='-102019' role='' />
+    <tag k='name' v='default' />
+    <tag k='type' v='way' />
+  </relation>
+</osm>
