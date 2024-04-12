@@ -52,7 +52,8 @@ FIND_PACKAGE(cxxopts 3.0.0 REQUIRED)
 FIND_PACKAGE(nlohmann_json 3.2.0 REQUIRED)
 FIND_PACKAGE(libbringauto_logger 1.2.0 REQUIRED)
 FIND_PACKAGE(modbuspp 0.3.1 REQUIRED)
-FIND_PACKAGE(internal_client REQUIRED)
+FIND_PACKAGE(internal-client-shared 1.1.0 REQUIRED)
+FIND_PACKAGE(fleet-protocol-interface 2.0.0 REQUIRED)
 FIND_PACKAGE(Protobuf 3.21.12 REQUIRED)
 FIND_PACKAGE(Boost REQUIRED COMPONENTS system)
 FIND_PACKAGE(Protozero REQUIRED)
@@ -82,7 +83,8 @@ TARGET_LINK_LIBRARIES(virtual-vehicle-utility
         PUBLIC
         nlohmann_json::nlohmann_json
         cxxopts::cxxopts
-        internal_client
+        internal-client-shared::internal-client-shared
+        fleet-protocol-interface::internal-client-interface
         ${OSMIUM_XML_LIBRARIES}
         modbuspp_lib
         Boost::system
