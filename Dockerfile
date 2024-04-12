@@ -1,4 +1,4 @@
-FROM europe-west1-docker.pkg.dev/bringauto-infrastructure/teamcity-build-images/debian11:latest
+FROM bringauto/cpp-build-environment:latest
 WORKDIR /virtual-vehicle-utility
 
 RUN sudo chown -R bringauto:bringauto /virtual-vehicle-utility
