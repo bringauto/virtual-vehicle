@@ -130,7 +130,7 @@ void SimVehicle::evaluateCommand() {
 	settings::StateSmurfDefinition::changeToState(globalContext_->transitions, command.getAction());
 #endif
 	if(command.getRoute() != actualRouteName_ && !command.getRoute().empty()) {
-		auto nextRoute = map_.getRoute(nextRouteName_);
+		auto nextRoute = map_.getRoute(command.getRoute());
 		if(!nextRoute) {
 			logging::Logger::logWarning("Route {} was not found. Command will be ignored", command.getRoute());
 			return;

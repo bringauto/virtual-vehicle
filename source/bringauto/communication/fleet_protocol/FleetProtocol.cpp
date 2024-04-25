@@ -149,17 +149,6 @@ void FleetProtocol::processBufferData(const buffer &bufferData) {
 	command.setMission(missions);
 	command.setRoute(protoCommand.route());
 
-	std::vector<osm::Route::Station> mission;
-	for(const auto &routeStation: protoCommand.routestations()) {
-		osm::Route::Station tmpStation;
-		tmpStation.name = routeStation.name();
-		tmpStation.latitude = routeStation.position().latitude();
-		tmpStation.longitude = routeStation.position().longitude();
-		mission.push_back(tmpStation);
-	}
-
-	command.setMission(mission);
-
 	if(currentCommand_ != command) {
 		currentCommand_ = command;
 		std::stringstream is;

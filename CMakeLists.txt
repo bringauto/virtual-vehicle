@@ -3,7 +3,7 @@ PROJECT(virtual-vehicle-utility)
 
 SET(CMAKE_CXX_STANDARD 17)
 
-SET(VIRTUAL_VEHICLE_UTILITY_VERSION 3.0.2)
+SET(VIRTUAL_VEHICLE_UTILITY_VERSION 3.1.1)
 ADD_DEFINITIONS(-DVIRTUAL_VEHICLE_UTILITY_VERSION="${VIRTUAL_VEHICLE_UTILITY_VERSION}")
 
 # for linking .so after make install (actually ba_logger):
@@ -52,7 +52,8 @@ FIND_PACKAGE(cxxopts 3.0.0 REQUIRED)
 FIND_PACKAGE(nlohmann_json 3.2.0 REQUIRED)
 FIND_PACKAGE(libbringauto_logger 1.2.0 REQUIRED)
 FIND_PACKAGE(modbuspp 0.3.1 REQUIRED)
-FIND_PACKAGE(internal_client REQUIRED)
+FIND_PACKAGE(internal-client-shared 1.1.0 REQUIRED)
+FIND_PACKAGE(fleet-protocol-interface 2.0.0 REQUIRED)
 FIND_PACKAGE(Protobuf 3.21.12 REQUIRED)
 FIND_PACKAGE(Boost REQUIRED COMPONENTS system)
 FIND_PACKAGE(Protozero REQUIRED)
@@ -60,10 +61,10 @@ FIND_PACKAGE(Protozero REQUIRED)
 #------------protobuf----------------#
 SET(Protobuf_USE_STATIC_LIBS ON)
 ADD_LIBRARY(protobuff_lib STATIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/proto/MissionModule.pb.cc
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/proto/MissionModule.pb.h)
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/mission-module/lib/protobuf-mission-module/MissionModule.pb.cc
+        ${CMAKE_CURRENT_SOURCE_DIR}/lib/mission-module/lib/protobuf-mission-module/MissionModule.pb.h)
 TARGET_LINK_LIBRARIES(protobuff_lib PUBLIC protobuf::libprotobuf)
-TARGET_INCLUDE_DIRECTORIES(protobuff_lib PUBLIC "${CMAKE_CURRENT_LIST_DIR}/lib/proto/")
+TARGET_INCLUDE_DIRECTORIES(protobuff_lib PUBLIC "${CMAKE_CURRENT_LIST_DIR}/lib/mission-module/lib/protobuf-mission-module/")
 
 
 
@@ -82,7 +83,8 @@ TARGET_LINK_LIBRARIES(virtual-vehicle-utility
         PUBLIC
         nlohmann_json::nlohmann_json
         cxxopts::cxxopts
-        internal_client
+        internal-client-shared::internal-client-shared
+        fleet-protocol-interface::internal-client-interface
         ${OSMIUM_XML_LIBRARIES}
         modbuspp_lib
         Boost::system

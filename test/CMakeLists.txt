@@ -16,7 +16,8 @@ TARGET_LINK_LIBRARIES(vvutests
         bringauto_logger::bringauto_logger
         nlohmann_json::nlohmann_json
         cxxopts::cxxopts
-        internal_client
+        internal-client-shared::internal-client-shared
+        fleet-protocol-interface::internal-client-interface
         ${OSMIUM_XML_LIBRARIES}
         modbuspp_lib
         Boost::system

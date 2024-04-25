@@ -4,7 +4,7 @@
 #include <bringauto/virtual_vehicle/GlobalContext.hpp>
 
 #include <MissionModule.pb.h>
-#include <internal_client.h>
+#include <fleet_protocol/internal_client/internal_client.h>
 
 #include <boost/asio.hpp>
 
