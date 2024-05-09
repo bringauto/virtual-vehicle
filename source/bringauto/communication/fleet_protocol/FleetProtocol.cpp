@@ -135,6 +135,7 @@ void FleetProtocol::processBufferData(const buffer &bufferData) {
 		logging::Logger::logWarning("Cannot parse car command!");
 		return;
 	}
+	logging::Logger::logInfo("Parsing command: {}", protoCommand.ShortDebugString());
 
 	command.setAction(common_utils::EnumUtils::valueToEnum<EAutonomyAction>(protoCommand.action()));
 
@@ -179,6 +180,7 @@ std::string FleetProtocol::generateCarStatusString(const Status &status) {
 	carStatus.set_state(common_utils::EnumUtils::valueToEnum<MissionModule::AutonomyStatus_State>(status.getState()));
 	carStatus.set_allocated_telemetry(telemetry);
 	carStatus.set_allocated_nextstop(stop);
+	logging::Logger::logInfo("Generating car status: {}", carStatus.ShortDebugString());
 	return carStatus.SerializeAsString();
 }
 
