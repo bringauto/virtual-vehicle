@@ -8,7 +8,7 @@
       "name" : "fewNodes",
       "timeout" : 80,
       "arguments" : {
-        "--map" : "../maps/1.osm",
+        "--map" : "../maps/lap.osm",
         "--default-route" : "lap",
         "--wait-at-stop-s" : 4,
         "--speed-override" : 55,
@@ -19,7 +19,7 @@
       "name" : "manyNodes",
       "timeout" : 100,
       "arguments" : {
-        "--map" : "../maps/2.osm",
+        "--map" : "../maps/linear.osm",
         "--default-route" : "lap",
         "--wait-at-stop-s" : 4,
         "--speed-override": 155,
@@ -30,7 +30,7 @@
       "name" : "slowCar",
       "timeout" : 120,
       "arguments" : {
-        "--map" : "../maps/1.osm",
+        "--map" : "../maps/lap.osm",
         "--default-route" : "lap",
         "--wait-at-stop-s" : 15,
         "--speed-override": 35,

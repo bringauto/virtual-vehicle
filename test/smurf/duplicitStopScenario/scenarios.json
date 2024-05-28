@@ -8,7 +8,7 @@
       "name" : "fewNodes",
       "timeout" : 60,
       "arguments" : {
-        "--map" : "../maps/1.osm",
+        "--map" : "../maps/lap.osm",
         "--route" : "lap",
         "--verbose" : "",
         "--daemon-ip" : "172.17.0.1",
@@ -24,7 +24,7 @@
       "name" : "manyNodes",
       "timeout" : 60,
       "arguments" : {
-        "--map" : "../maps/2.osm",
+        "--map" : "../maps/linear.osm",
         "--route" : "lap",
         "--verbose" : "",
         "--daemon-ip" : "172.17.0.1",
@@ -40,7 +40,7 @@
       "name" : "slowCar",
       "timeout" : 120,
       "arguments" : {
-        "--map" : "../maps/1.osm",
+        "--map" : "../maps/lap.osm",
         "--route" : "lap",
         "--verbose" : "",
         "--daemon-ip" : "172.17.0.1",
