@@ -6,11 +6,11 @@
   "scenarios" : [
     {
       "name" : "delayedChange",
-      "timeout" : 40,
+      "timeout" : 100,
       "arguments" : {
         "--map" : "../maps/route_change.osm",
-        "--wait-at-stop-s" : 4,
-        "--speed-override" : 40,
+        "--wait-at-stop-s" : 10,
+        "--speed-override" : 30,
         "--config" : "../default_config.json"
       }
     }

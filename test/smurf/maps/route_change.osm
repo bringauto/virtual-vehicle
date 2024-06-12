@@ -2,6 +2,8 @@
 <osm version='0.6' generator='JOSM'>
   <node id='-137709' action='modify' visible='true' lat='49.22824453831' lon='16.5951007551'>
     <tag k='speed' v='50' />
+    <tag k='name' v='route_change_starting_station' />
+    <tag k='stop' v='true' />
   </node>
   <node id='-137711' action='modify' visible='true' lat='49.22880505017' lon='16.59468769491' />
   <node id='-137712' action='modify' visible='true' lat='49.22808689321' lon='16.5932875818'>

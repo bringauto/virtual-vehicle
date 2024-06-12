@@ -5,13 +5,12 @@
   "between_runs" : [ "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices restart" ],
   "scenarios" : [
     {
-      "name" : "fewNodes",
-      "timeout" : 60,
+      "name" : "default",
+      "timeout" : 600,
       "arguments" : {
-        "--map" : "../maps/lap.osm",
-        "--default-route" : "lap",
-        "--wait-at-stop-s" : 4,
-        "--speed-override" : 50,
+        "--map" : "../maps/moravske_namesti.osm",
+        "--wait-at-stop-s" : 30,
+        "--speed-override": 5,
         "--config" : "../default_config.json"
       }
     }

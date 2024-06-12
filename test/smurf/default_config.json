@@ -7,7 +7,7 @@
   "vehicle-settings": {
     "vehicle-provider": "simulation",
     "simulation-settings": {
-      "speed-override": false,
+      "speed-override": true,
       "speed-override-mps": 5,
       "wait-at-stop-s": 30
     }
@@ -20,7 +20,7 @@
       "device-role": "autonomy",
       "device-priority": 1,
       "reconnect-period-s": 20,
-      "device-name": "virtual-vehicle"
+      "device-name": "smurf_virtual_vehicle"
     },
     "empty":{
     }
