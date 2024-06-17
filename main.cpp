@@ -63,11 +63,7 @@ int main(int argc, char **argv) {
 		return EXIT_FAILURE;
 	}
 
-#ifdef STATE_SMURF
-	auto stateDiagram = bringauto::settings::StateSmurfDefinition::createStateDiagram();
-	auto transitions = std::make_shared<state_smurf::transition::StateTransition>(stateDiagram);
-	context->transitions = transitions;
-#endif
+
 	try {
 		boost::asio::signal_set signals { context->ioContext, SIGINT, SIGTERM };
 		signals.async_wait([context](auto, auto) { context->ioContext.stop(); });
@@ -96,7 +92,11 @@ int main(int argc, char **argv) {
 			default:
 				throw std::runtime_error("Unsupported vehicle provider");
 		}
-
+#ifdef STATE_SMURF
+		auto stateDiagram = bringauto::settings::StateSmurfDefinition::createStateDiagram();
+		auto transitions = std::make_shared<state_smurf::transition::StateTransition>(stateDiagram);
+		context->transitions = transitions;
+#endif
 		vehicle->initialize();
 		vehicle->drive();
 
