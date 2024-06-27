@@ -17,14 +17,14 @@
 		},
 		"simulation-settings": {
 			"speed-override": true,
-			"speed-override-mps": 5,
+			"speed-override-mps": 60,
 			"wait-at-stop-s": 10
 		}
 	},
 	"fleet-settings": {
 		"fleet-provider": "internal-protocol",
 		"internal-protocol-settings": {
-			"module-gateway-ip":"127.0.0.1",
+			"module-gateway-ip":"172.17.0.1",
 			"module-gateway-port": 1636,
 			"device-role": "autonomy",
 			"device-priority": 1,
@@ -35,7 +35,7 @@
 		}
 	},
 	"map-settings": {
-		"map": "../resources/maps/Brno.osm",
+		"map": "../resources/maps/moravske_namesti.osm",
 		"default-route": ""
 	}
 }

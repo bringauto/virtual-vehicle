@@ -13,6 +13,7 @@ state_smurf::diagram::StateDiagram StateSmurfDefinition::createStateDiagram() {
 	auto carCommandReceived = stateDiagram.addVertex(commandReceivedState);
 	auto startReceived = stateDiagram.addVertex(startReceivedState);
 	auto stopReceived = stateDiagram.addVertex(stopReceivedState);
+	auto noActionReceived = stateDiagram.addVertex(noActionReceivedState);
 	auto idle = stateDiagram.addVertex(idleState);
 	auto drive = stateDiagram.addVertex(driveState);
 	auto inStop = stateDiagram.addVertex(inStopState);
@@ -24,13 +25,16 @@ state_smurf::diagram::StateDiagram StateSmurfDefinition::createStateDiagram() {
 	stateDiagram.setEdge(carCommandReceived, carStatusSent);
 	stateDiagram.setEdge(carCommandReceived, stopReceived);
 	stateDiagram.setEdge(carCommandReceived, startReceived);
+	stateDiagram.setEdge(carCommandReceived, noActionReceived);
 
 	stateDiagram.setEdge(stopReceived, idle);
+	stateDiagram.setEdge(noActionReceived, idle);
 	stateDiagram.setEdge(startReceived, idle);
 	stateDiagram.setEdge(startReceived, drive);
 	stateDiagram.setEdge(startReceived, inStop);
 
 	stateDiagram.setEdge(idle, connected);
+	stateDiagram.setEdge(idle, idle);
 	stateDiagram.setEdge(idle, carStatusSent);
 	stateDiagram.setEdge(drive, carStatusSent);
 	stateDiagram.setEdge(drive, inStop);
@@ -65,6 +69,7 @@ template<>
 void StateSmurfDefinition::changeToState(const std::shared_ptr<state_smurf::transition::StateTransition>& smurf, bringauto::communication::EAutonomyAction value) {
 	switch(value) {
 		case communication::EAutonomyAction::E_NO_ACTION:
+			smurf->goToState(bringauto::settings::noActionReceivedState);
 			break;
 		case communication::EAutonomyAction::E_STOP:
 			smurf->goToState(bringauto::settings::stopReceivedState);
