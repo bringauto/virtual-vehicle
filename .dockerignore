@@ -3,7 +3,6 @@ cmake-build-*
 daemon
 virtual_vehicle_error_log.*
 VirtualVehicle
-_tmp
-_build
+_*/
 build
 .vscode/
