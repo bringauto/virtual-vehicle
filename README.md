@@ -123,7 +123,7 @@ Provider used for GPS-based position reporting. The options are:
 
 ## Cmake parameters
 
-* `BRINGAUTO_TESTS` - if set to ON, tests will be also compiled, tests can be run with command ctest after successful
+* `BRINGAUTO_TESTS` - if set to ON, tests will also be compiled, tests can be run with command ctest after successful build
   build
 * `BRINGAUTO_PACKAGE` - if set to ON creates a package of vvu
 * `BRINGAUTO_INSTALL` - if set to ON enables make install command
