@@ -1,4 +1,6 @@
-# Prerequisites #
+# Virtual Vehicle
+
+## Prerequisites
 
 * [cxxopts](https://github.com/jarro2783/cxxopts) >= 3.0.0
 * [protobuf](https://github.com/protocolbuffers/protobuf/tree/main/src) = 3.17.3
@@ -8,13 +10,13 @@
 
 * [libosmium](https://github.com/osmcode/libosmium) >= 2.17.3
 
-```
-  $ sudo apt install libosmium2-dev
+``` bash
+  sudo apt install libosmium2-dev
 ```
 
 * [cmlib](https://github.com/cmakelib/cmakelib), need to export CMLIB_DIR
 
-# Arguments
+## Arguments
 
 * `--config-path <string>` path to JSON configuration file
 * `--map <string>` full path to .osm file containing map
@@ -39,7 +41,7 @@
 ## Settings
 
 JSON file is used for setting all parameters of the program. Those settings can be overwritten by command line arguments.
-examples in ./config/*.json
+examples in `./config/*.json`
 
 ## general settings
 
@@ -90,7 +92,7 @@ examples in ./config/*.json
 * `map` - full path to .osm file containing map, string
 * `default-route` - the name of the route that will be set as default, string
 
-# Fleet provider
+## Fleet provider
 
 Virtual vehicle provides the ability to choose a fleet communication provider with `--fleet-provider=<string>` argument. The
 options are:
@@ -100,7 +102,7 @@ options are:
 * `no-connection` - no connection will be established, statuses will be discarded and the default command will be returned,
   for testing purposes
 
-# Vehicle provider
+## Vehicle provider
 
 Virtual vehicle provides the ability to choose different simulation implementation with `--vehicle-provider=<string>`
 argument. The options are:
@@ -111,7 +113,7 @@ argument. The options are:
 * `gps` - virtual vehicle will report position based on external GPS source, no mission logic is implemented. Required
   parameters: `--gps-provider=<string>`
 
-# Gps provider
+## Gps provider
 
 Provider used for GPS-based position reporting. The options are:
 
@@ -119,26 +121,28 @@ Provider used for GPS-based position reporting. The options are:
   parameters: `--rutx-ip=<string>`, `--rutx-port=<int>`, `rutx-slave-id=<int>`
 * `ublox` - position is obtained from ublox device, NOT IMPLEMENTED
 
-# Cmake parameters
+## Cmake parameters
 
-* BRINGAUTO_TESTS - if set to ON, tests will be also compiled, tests can be run with command ctest after successful
+* `BRINGAUTO_TESTS` - if set to ON, tests will be also compiled, tests can be run with command ctest after successful
   build
-* BRINGAUTO_PACKAGE - if set to ON creates a package of vvu
-* BRINGAUTO_INSTALL - if set to ON enables make install command
-* BRINGAUTO_SYSTEM_DEP - if set to ON cmake will use system dependencies instead of CMlib storage packages
-* BRINGAUTO_SAMPLES - if set to ON sample app will be compiled
-* STATE_SMURF - enable state smurf compilation
-* CMLIB_DIR - specify the path to cmakelib
+* `BRINGAUTO_PACKAGE` - if set to ON creates a package of vvu
+* `BRINGAUTO_INSTALL` - if set to ON enables make install command
+* `BRINGAUTO_SYSTEM_DEP` - if set to ON cmake will use system dependencies instead of CMlib storage packages
+* `BRINGAUTO_SAMPLES` - if set to ON sample app will be compiled
+* `STATE_SMURF` - enable state smurf compilation
+* `CMLIB_DIR` - specify the path to cmakelib
 
-# Build
+## Build
 
-```
+``` bash
+git clone https://github.com/bringauto/virtual-vehicle.git
+git submodule update --init --recursive
 mkdir _build && cd _build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j 8
 ```
 
-# Tests
+## Tests
 
 Documentation for tests is in [test/README.md](test/README.md)
 
@@ -148,7 +152,7 @@ Smurf integration tests are used to test Virtual vehicle integration with who Fl
 
 Details and usage are described in [StateSmurf](test/smurf/README.md) documentation.
 
-# Map creation
+## Map creation
 
 For creating maps we use openstreet map editor. Maps are saved in open street map format (.osm). Each map contains a list
 of nodes (points on the route), a list of ways (parts of routes, connecting points), and a list of routes (composed of ways). One
@@ -157,36 +161,36 @@ a stop and if it is a stop, it has to be named.
 
 ## Start a new map
 
-* Install java openstreet map editor (https://josm.openstreetmap.de/wiki/Cs:WikiStart)
+* Install java openstreet map editor (<https://josm.openstreetmap.de/wiki/Cs:WikiStart>)
 * Under Imagery choose map source to visualize map (b&w open street map recommended)
 * Under File create a new layer, name it (right side of the app), layer represents .osm file
 
 ## Route creation
 
-* Choose the draw nodes tool(left toolbar) and draw way (list of points connected by a line) by adding points, press ESC when
+* Choose the draw nodes tool (left toolbar) and draw way (list of points connected by a line) by adding points, press ESC when
   finished, repeat until you have all the ways you need (usually one is enough if you do not want to share ways in multiple
   routes)
 * With the select/move tool select all ways you want to include in the route and in the relation tab add a relation with the plus button
-* in pop-up add required tags - type=way and name=<route name>
+* in pop-up add required tags - `type=<way>` and `name=<route name>`
 * in the same pop-up window add ways (selection tab) to route (members tab) and apply role "way"
 * repeat if you want multiple routes, routes can share some parts with each other, that is why they consist of ways. If
   you do not intend to share parts of routes use one way per route
 
-  <img src="documentation/josm_selection.png" alt="pop up image">
+  ![pop up image](documentation/josm_selection.png)
 
 ## Stop addition
 
 * select the point you want to make into stop (yellow dot and stop can be defined only on nodes, not on the line between them)
-* in tags/membership tab click the plus button with the selected point and add tag stop=true and name=<stop name> (name has to
+* in tags/membership tab click the plus button with the selected point and add tag `stop=true` and `name=<stop name>` (name has to
   be unique)
-* you can also add speed=<target speed in m/s> as a tag to ANY point, it will set the MAXIMUM speed on that point
+* you can also add `speed=<target speed in m/s>` as a tag to ANY point, it will set the MAXIMUM speed on that point
 
 ## Export map
 
-* Under file save map as <map name>.osm file
+* Under file save map as `<map name>.osm` file
 * .osm map example:
 
-```
+``` xml
 <?xml version='1.0' encoding='UTF-8'?>
 <osm version='0.6' generator='JOSM'>
   <node id='-101752' action='modify' visible='true' lat='49.17426200443' lon='16.55092476726' />
@@ -264,22 +268,24 @@ a stop and if it is a stop, it has to be named.
 
 Build docker image using
 
-```
+``` bash
+git clone https://github.com/bringauto/virtual-vehicle.git
+git submodule update --init --recursive
 docker build --tag virtual-vehicle-utility .
 ```
 
 Run docker with parameters
 
-```
+``` bash
 docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config-path=<path to json file> --map=<path to map file> -v --route=<route name> --ip=<daemon ip> --port=<daemon port> --wait=<time to wait in stop in sec>
 ```
 
 Examples:
 
-```
+``` bash
 docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config-path=/virtual-vehicle-utility/config/example.json
 ```
 
-```
+``` bash
 docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config-path=/virtual-vehicle-utility/config/example.json --map=/virtual-vehicle-utility/tests/maps/BorsodChem.osm -v --route=borsodchem --ip=127.0.0.1 --port=1536 --wait=10 
 ```
