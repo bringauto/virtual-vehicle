@@ -101,12 +101,33 @@ void Route::speedOverride(unsigned int speed) {
 	}
 }
 
-bool Route::isPointPresent(const Point &pointToFind) {
-	return std::any_of(points_.begin(), points_.end(), [pointToFind](const std::shared_ptr<Point> &point) {
+std::shared_ptr<Point> Route::getClosestPoint(const Point &pointToFind) const {
+	if(points_.empty()) {
+		return nullptr;
+	}
+
+	auto haversineDistance = [&pointToFind](const std::shared_ptr<Point> &point) {
 		return osmium::geom::haversine::distance(
-				osmium::geom::Coordinates { point->getLatitude(), point->getLongitude() },
-				osmium::geom::Coordinates { pointToFind.getLatitude(), pointToFind.getLongitude() }) < POINT_TOLERANCE_M;
-	});
+				osmium::geom::Coordinates {point->getLatitude(), point->getLongitude()},
+				osmium::geom::Coordinates {pointToFind.getLatitude(), pointToFind.getLongitude()});
+	};
+
+	auto closestPointIter = std::min_element(points_.begin(), points_.end(),
+											 [&haversineDistance](const std::shared_ptr<Point> &a, const std::shared_ptr<Point> &b) {
+												 return haversineDistance(a) < haversineDistance(b);
+											 });
+
+	if(closestPointIter == points_.end()) {
+		return nullptr;
+	}
+
+	double closestDistance = haversineDistance(*closestPointIter);
+
+	if(closestDistance < POINT_TOLERANCE_M) {
+		return *closestPointIter;
+	}
+
+	return nullptr;
 }
 
 void Route::setPositionAndDirection(const Point &actualPosition, const std::string &nextStopName) {
