@@ -130,12 +130,12 @@ std::shared_ptr<Point> Route::getClosestPoint(const Point &pointToFind) const {
 	return nullptr;
 }
 
-void Route::setPositionAndDirection(const Point &actualPosition, const std::string &nextStopName) {
+void Route::setPositionAndDirection(const Point &newPosition, const std::string &nextStopName) {
 	positionIt = points_.begin();
 	for(auto it = points_.begin(); it != points_.end(); it++) { //todo refactor
 		auto distance = osmium::geom::haversine::distance(
 				osmium::geom::Coordinates { it->get()->getLatitude(), it->get()->getLongitude() },
-				osmium::geom::Coordinates { actualPosition.getLatitude(), actualPosition.getLongitude() });
+				osmium::geom::Coordinates { newPosition.getLatitude(), newPosition.getLongitude() });
 		if(distance < DISTANCE_TOLERANCE_M) {
 			if(!routeIsCircular_) { // Circular routes must not be reversed
 				bool reverse = true;
@@ -150,8 +150,8 @@ void Route::setPositionAndDirection(const Point &actualPosition, const std::stri
 					for(it = points_.begin(); it != points_.end(); it++) {
 						auto newDistance = osmium::geom::haversine::distance(
 								osmium::geom::Coordinates { it->get()->getLatitude(), it->get()->getLongitude() },
-								osmium::geom::Coordinates { actualPosition.getLatitude(),
-															actualPosition.getLongitude() });
+								osmium::geom::Coordinates { newPosition.getLatitude(),
+															newPosition.getLongitude() });
 						if(newDistance < DISTANCE_TOLERANCE_M) {
 							break;
 						}
@@ -162,6 +162,7 @@ void Route::setPositionAndDirection(const Point &actualPosition, const std::stri
 			return;
 		}
 	}
+	logging::Logger::logWarning("Position not found on route, setting to first point of route");
 }
 
 std::vector<std::shared_ptr<Point>> Route::getStops() {
