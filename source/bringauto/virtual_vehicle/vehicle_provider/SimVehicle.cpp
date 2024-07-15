@@ -252,8 +252,8 @@ void SimVehicle::updateVehicleState(communication::EAutonomyState state) {
 void SimVehicle::changeRoute() {
 	auto nextRoute = map_.getRoute(nextRouteName_);
 	if(nextRoute) {
-		if(nextRoute->isPointPresent(*actualPosition_)) {
-			actualRoute_->setNextPosition();
+		std::shared_ptr<osm::Point> nextPosition = nextRoute->getClosestPoint(*actualPosition_);
+		if(nextPosition) {
 			actualRoute_ = nextRoute;
 			actualRouteName_ = nextRouteName_;
 			logging::Logger::logInfo("Route changed to: {}.", nextRouteName_);
@@ -269,7 +269,7 @@ void SimVehicle::changeRoute() {
 
 			changeRoute_ = false;
 			checkStations_ = true;
-			actualRoute_->setPositionAndDirection(*actualPosition_, nextStop_.name);
+			actualRoute_->setPositionAndDirection(*nextPosition, nextStop_.name);
 		} else {
 			logging::Logger::logInfo("Vehicle is not on a the new route and cannot switch routes yet");
 		}

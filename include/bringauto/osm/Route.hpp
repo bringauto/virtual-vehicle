@@ -77,11 +77,11 @@ public:
 	bool areStopsPresent(const std::vector<osm::Route::Station> &stops);
 
 	/**
-	 * @brief Check if point is present on route
-	 * @param point point to be checked
-	 * @return true if point is present on route
+	 * @brief Get closest point to given point that is closer than POINT_TOLERANCE_M
+	 * @param point point to which the closest point will be found
+	 * @return closest point or nullptr if no point is found
 	 */
-	bool isPointPresent(const Point &point);
+	std::shared_ptr<Point> getClosestPoint(const Point &point) const;
 
 	void setPositionAndDirection(const Point &actualPosition, const std::string &nextStopName);
 
