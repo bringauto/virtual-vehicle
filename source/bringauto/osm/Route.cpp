@@ -113,9 +113,9 @@ std::shared_ptr<Point> Route::getClosestPoint(const Point &pointToFind) const {
 	};
 
 	auto closestPointIter = std::min_element(points_.begin(), points_.end(),
-											 [&haversineDistance](const std::shared_ptr<Point> &a, const std::shared_ptr<Point> &b) {
-												 return haversineDistance(a) < haversineDistance(b);
-											 });
+	                                        [&haversineDistance](const std::shared_ptr<Point> &a, const std::shared_ptr<Point> &b) {
+                                            	return haversineDistance(a) < haversineDistance(b);
+	                                        });
 
 	if(closestPointIter == points_.end()) {
 		return nullptr;
