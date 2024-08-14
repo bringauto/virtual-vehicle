@@ -4,9 +4,13 @@
 
 #include <bringauto/logging/Logger.hpp>
 
+#include <nlohmann/json.hpp>
 
 
 namespace bringauto::communication::fleet_protocol {
+
+using json = nlohmann::ordered_json;
+
 bool FleetProtocol::initializeConnection() {
 	using boost::asio::ip::tcp;
 	boost::asio::io_service ios;
@@ -129,26 +133,34 @@ bool FleetProtocol::receiveCommand() {
 
 void FleetProtocol::processBufferData(const buffer &bufferData) {
 	Command command;
-	MissionModule::AutonomyCommand protoCommand {};
+	json commandJson;
+	char *data = static_cast<char*>(bufferData.data);
 
-	if(!protoCommand.ParseFromArray(bufferData.data, bufferData.size_in_bytes)) {
+	try {
+		commandJson = json::parse(data, data + bufferData.size_in_bytes);
+		logging::Logger::logInfo("Parsing command: {}", commandJson.dump());
+	} catch (json::parse_error &) {
 		logging::Logger::logWarning("Cannot parse car command!");
 		return;
 	}
-	logging::Logger::logInfo("Parsing command: {}", protoCommand.ShortDebugString());
-
-	command.setAction(common_utils::EnumUtils::valueToEnum<EAutonomyAction>(protoCommand.action()));
 
 	std::vector<osm::Route::Station> missions;
-	for(const auto &messageStop: protoCommand.stops()) {
-		osm::Route::Station station;
-		station.name = messageStop.name();
-		station.latitude = messageStop.position().latitude();
-		station.longitude = messageStop.position().longitude();
-		missions.push_back(station);
+
+	try {
+		for(int i = 0; i < commandJson.at("stops").size(); i++) {
+			osm::Route::Station station;
+			station.name = commandJson.at("stops").at(i).at("name");
+			station.latitude = commandJson.at("stops").at(i).at("position").at("latitude");
+			station.longitude = commandJson.at("stops").at(i).at("position").at("longitude");
+			missions.push_back(station);
+		}
+		command.setMission(missions);
+		command.setRoute(commandJson.at("route"));
+		command.setAction(common_utils::EnumUtils::valueToEnum<EAutonomyAction>(std::string(commandJson.at("action"))));
+	} catch (json::exception &) {
+		logging::Logger::logWarning("Cannot parse car command!");
+		return;
 	}
-	command.setMission(missions);
-	command.setRoute(protoCommand.route());
 
 	if(currentCommand_ != command) {
 		currentCommand_ = command;
@@ -159,35 +171,23 @@ void FleetProtocol::processBufferData(const buffer &bufferData) {
 }
 
 std::string FleetProtocol::generateCarStatusString(const Status &status) {
-	MissionModule::AutonomyStatus carStatus;
-
-	auto position = new MissionModule::Position();
-	position->set_longitude(status.getLongitude());
-	position->set_latitude(status.getLatitude());
-
-	auto telemetry = new MissionModule::AutonomyStatus_Telemetry();
-	telemetry->set_speed(status.getSpeed());
-	telemetry->set_fuel(0.42);
-	telemetry->set_allocated_position(position);
-
-	auto stop = new MissionModule::Station();
-	stop->set_name(status.getNextStop().name);
-	auto stopPosition = new MissionModule::Position();
-	stopPosition->set_latitude(status.getNextStop().latitude);
-	stopPosition->set_longitude(status.getNextStop().longitude);
-	stop->set_allocated_position(stopPosition);
-
-	carStatus.set_state(common_utils::EnumUtils::valueToEnum<MissionModule::AutonomyStatus_State>(status.getState()));
-	carStatus.set_allocated_telemetry(telemetry);
-	carStatus.set_allocated_nextstop(stop);
-	logging::Logger::logInfo("Generating car status: {}", carStatus.ShortDebugString());
-	return carStatus.SerializeAsString();
+	json statusJson;
+	statusJson["telemetry"]["position"]["altitude"] = 0;
+	statusJson["telemetry"]["position"]["latitude"] = status.getLatitude();
+	statusJson["telemetry"]["position"]["longitude"] = status.getLongitude();
+	statusJson["telemetry"]["speed"] = status.getSpeed();
+	statusJson["telemetry"]["fuel"] = 0.42;
+	statusJson["nextStop"]["name"] = status.getNextStop().name;
+	statusJson["nextStop"]["position"]["altitude"] = 0;
+	statusJson["nextStop"]["position"]["latitude"] = status.getNextStop().latitude;
+	statusJson["nextStop"]["position"]["longitude"] = status.getNextStop().longitude;
+	statusJson["state"] = common_utils::EnumUtils::enumToString<EAutonomyState>(status.getState());
+	logging::Logger::logInfo("Generating car status: {}", statusJson.dump());
+	return statusJson.dump();
 }
 
 FleetProtocol::~FleetProtocol() {
 	destroy_connection(&internalClientContext_);
-	google::protobuf::ShutdownProtobufLibrary();
-	bringauto::logging::Logger::logInfo("Closing proto buffer");
 }
 
 }

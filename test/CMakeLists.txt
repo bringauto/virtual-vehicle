@@ -12,7 +12,6 @@ TARGET_LINK_LIBRARIES(vvutests
         PUBLIC
         GTest::gtest
         pthread
-        protobuff_lib
         bringauto_logger::bringauto_logger
         nlohmann_json::nlohmann_json
         cxxopts::cxxopts
