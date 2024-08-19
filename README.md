@@ -1,5 +1,21 @@
 # Virtual Vehicle
 
+Virtual vehicle simulates a robot movement on a map fulfilling orders from Fleet Management.
+
+It also serves as a backup autonomy. It sends GPS location from a GPS device to Fleet Management.
+In this case, it doesn't drive but still can fulfill orders, if it is at the target station.
+
+**Functionality:**
+- GPS location reporting
+- Non-trivial set of cars. Each of them has its own route
+- Each car reacts to orders from Fleet Management
+
+**Use cases:**
+- Backup autonomy
+- Testing of Fleet Management
+- Load testing of Fleet Management
+- Presentation purposes
+
 ## Prerequisites
 
 * [cxxopts](https://github.com/jarro2783/cxxopts) >= 3.0.0
