@@ -1,9 +1,9 @@
-[2024-06-13 09:39:34.549] [virtual-vehicle-utility] [info] Version: 3.1.4 Settings:
+[2024-08-22 13:24:07.554] [virtual-vehicle-utility] [info] Version: 3.2.0 Settings:
 config-file: ""
 verbose: TRUE
 log-path: "../_logs/"
 period-ms: 1000
-fleet-providerr: INTERNAL_PROTOCOL
+fleet-provider: INTERNAL_PROTOCOL
 	module-gateway-ip: 172.17.0.1
 	module-gateway-port: 1636
 	device-role: autonomy
@@ -16,750 +16,344 @@ vehicle-provider: SIMULATION
 	wait-at-stop-s: 10
 map: "../maps/route_change.osm"
 default-route: ""
-[2024-06-13 09:39:34.550] [virtual-vehicle-utility] [debug] [DiagramSmurf] CarCommandReceived :	CarStatusSent StopReceived StartReceived NoActionReceived 
-[2024-06-13 09:39:34.550] [virtual-vehicle-utility] [debug] [DiagramSmurf] StartReceived :	Idle Drive InStop 
-[2024-06-13 09:39:34.550] [virtual-vehicle-utility] [debug] [DiagramSmurf] __START__ :	Idle 
-[2024-06-13 09:39:34.550] [virtual-vehicle-utility] [debug] [DiagramSmurf] Connected :	CarStatusSent 
-[2024-06-13 09:39:34.550] [virtual-vehicle-utility] [debug] [DiagramSmurf] CarStatusSent :	CarCommandReceived 
-[2024-06-13 09:39:34.550] [virtual-vehicle-utility] [debug] [DiagramSmurf] Idle :	Connected Idle CarStatusSent 
-[2024-06-13 09:39:34.550] [virtual-vehicle-utility] [debug] [DiagramSmurf] Drive :	CarStatusSent InStop 
-[2024-06-13 09:39:34.550] [virtual-vehicle-utility] [debug] [DiagramSmurf] InStop :	CarStatusSent 
-[2024-06-13 09:39:34.550] [virtual-vehicle-utility] [debug] [DiagramSmurf] StopReceived :	Idle 
-[2024-06-13 09:39:34.550] [virtual-vehicle-utility] [debug] [DiagramSmurf] NoActionReceived :	Idle 
-[2024-06-13 09:39:34.550] [virtual-vehicle-utility] [debug] [TransitionSmurf] Start of Run
-[2024-06-13 09:39:34.551] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:34.553] [virtual-vehicle-utility] [info] Connected to module gateway
-[2024-06-13 09:39:34.553] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Connected
-[2024-06-13 09:39:35.553] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:35.554] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:35.598] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:35.598] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:35.598] [virtual-vehicle-utility] [info] Received new command: action: NO_ACTION, route:  mission stops: 
-[2024-06-13 09:39:35.598] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:35.598] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:35.598] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:36.598] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:36.598] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:36.642] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:36.642] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:36.642] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:36.643] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:36.643] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:37.643] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:37.643] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:37.686] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:37.687] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:37.687] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:37.687] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:37.687] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:38.687] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:38.687] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:38.730] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:38.730] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:38.730] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:38.731] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:38.731] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:39.731] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:39.731] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:39.778] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:39.778] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:39.778] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:39.778] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:39.778] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:40.778] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:40.778] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:40.826] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:40.826] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:40.826] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:40.827] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:40.827] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:41.827] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:41.828] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:41.874] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:41.875] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:41.875] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:41.875] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:41.875] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:42.875] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:42.876] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:42.919] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:42.919] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:42.919] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:42.919] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:42.919] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:43.919] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:43.920] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:43.962] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:43.962] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:43.962] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:43.962] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:43.963] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:44.963] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:44.963] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:45.006] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:45.007] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:45.007] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:45.007] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:45.007] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:46.007] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:46.008] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:46.050] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:46.051] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:46.051] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:46.051] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:46.051] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:47.051] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:47.052] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:47.094] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:47.095] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:47.095] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:47.095] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:47.095] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:48.095] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:48.096] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:48.138] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:48.139] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:48.139] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:48.139] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:48.139] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:49.139] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:49.140] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:49.182] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:49.183] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:49.183] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:49.183] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:49.183] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:50.183] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:50.184] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:50.231] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:50.231] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:50.231] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:50.231] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:50.231] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:51.232] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:51.232] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:51.275] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:51.275] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:51.275] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:51.275] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:51.275] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:52.275] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:52.276] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { } }
-[2024-06-13 09:39:52.322] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:52.323] [virtual-vehicle-utility] [info] Parsing command: stops { name: "route_change_starting_station" position { latitude: 49.228245 longitude: 16.5951 } } route: "First" action: START
-[2024-06-13 09:39:52.323] [virtual-vehicle-utility] [info] Received new command: action: START, route: First mission stops: [route_change_starting_station;49.2282;16.5951],
-[2024-06-13 09:39:52.323] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:52.323] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:39:52.323] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:39:52.323] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
-[2024-06-13 09:39:52.324] [virtual-vehicle-utility] [info] Car have arrived at the stop route_change_starting_station
-[2024-06-13 09:39:52.324] [virtual-vehicle-utility] [info] Sending status state: IN_STOP latitude: 49.2282 longitude: 16.5951 next stop: route_change_starting_station
-[2024-06-13 09:39:52.324] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } state: IN_STOP nextStop { name: "route_change_starting_station" position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:39:52.409] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:52.410] [virtual-vehicle-utility] [info] Parsing command: stops { name: "route_change_starting_station" position { latitude: 49.228245 longitude: 16.5951 } } route: "First" action: START
-[2024-06-13 09:39:52.410] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:52.410] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:39:52.410] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
-[2024-06-13 09:39:53.411] [virtual-vehicle-utility] [info] Sending status state: IN_STOP latitude: 49.2282 longitude: 16.5951 next stop: route_change_starting_station
-[2024-06-13 09:39:53.411] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } state: IN_STOP nextStop { name: "route_change_starting_station" position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:39:53.454] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:53.455] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:53.455] [virtual-vehicle-utility] [info] Received new command: action: NO_ACTION, route:  mission stops: 
-[2024-06-13 09:39:53.455] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:53.455] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:53.455] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:54.455] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:54.456] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:39:54.498] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:54.498] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:54.498] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:54.498] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:54.498] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:55.498] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:55.499] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:39:55.542] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:55.543] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:55.543] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:55.543] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:55.543] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:56.543] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:56.544] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:39:56.586] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:56.587] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:56.587] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:56.587] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:56.587] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:57.587] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:57.588] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:39:57.630] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:57.630] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:57.631] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:57.631] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:57.631] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:58.631] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:58.631] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:39:58.674] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:58.674] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:58.674] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:58.675] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:58.675] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:39:59.675] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:39:59.675] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:39:59.717] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:39:59.717] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:39:59.717] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:39:59.717] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:39:59.717] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:00.718] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:40:00.718] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:40:00.765] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:00.765] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:00.765] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:00.765] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:00.765] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:01.766] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:40:01.766] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:40:01.810] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:01.811] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:01.811] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:01.811] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:01.811] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:02.811] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:40:02.811] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:40:02.854] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:02.855] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:02.855] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:02.855] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:02.855] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:03.855] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:40:03.856] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:40:03.902] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:03.902] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:03.902] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:03.902] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:03.902] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:04.903] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:40:04.904] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:40:04.950] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:04.950] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:04.951] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:04.951] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:04.951] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:05.951] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:40:05.951] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:40:05.997] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:05.997] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:05.997] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:05.997] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:05.997] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:06.997] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:40:06.998] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:40:07.041] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:07.041] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:07.041] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:07.041] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:07.041] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:08.041] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:40:08.042] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:40:08.086] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:08.086] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:08.086] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:08.087] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:08.087] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:09.087] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:40:09.087] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:40:09.130] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:09.131] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:09.131] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:09.131] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:09.131] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:10.131] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:40:10.132] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:40:10.177] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:10.177] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:10.177] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:10.177] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:10.178] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:11.178] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
-[2024-06-13 09:40:11.178] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } nextStop { position { latitude: 49.228245 longitude: 16.5951 } }
-[2024-06-13 09:40:11.226] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:11.226] [virtual-vehicle-utility] [info] Parsing command: stops { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } } route: "First" action: START
-[2024-06-13 09:40:11.226] [virtual-vehicle-utility] [info] Received new command: action: START, route: First mission stops: [first_route_stop;49.2281;16.5933],
-[2024-06-13 09:40:11.226] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:11.227] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:11.227] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:12.227] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2282 longitude: 16.5951 next stop: first_route_stop
-[2024-06-13 09:40:12.228] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } state: DRIVE nextStop { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:12.269] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:12.269] [virtual-vehicle-utility] [info] Parsing command: stops { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } } route: "First" action: START
-[2024-06-13 09:40:12.269] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:12.269] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:12.269] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:13.270] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2282 longitude: 16.5951 next stop: first_route_stop
-[2024-06-13 09:40:13.270] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.2282445 longitude: 16.5951008 } } state: DRIVE nextStop { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:13.314] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:13.315] [virtual-vehicle-utility] [info] Parsing command: stops { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } } route: "First" action: START
-[2024-06-13 09:40:13.315] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:13.315] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:13.315] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:13.827] [virtual-vehicle-utility] [info] First route, distance to drive: 173.53m, time to get there: 5.78s
-[2024-06-13 09:40:13.828] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2288 longitude: 16.5947 next stop: first_route_stop
-[2024-06-13 09:40:13.828] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.2288051 longitude: 16.5946877 } } state: DRIVE nextStop { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:13.870] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:13.870] [virtual-vehicle-utility] [info] Parsing command: stops { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } } route: "First" action: START
-[2024-06-13 09:40:13.870] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:13.871] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:13.871] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:14.871] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2288 longitude: 16.5947 next stop: first_route_stop
-[2024-06-13 09:40:14.871] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.2288051 longitude: 16.5946877 } } state: DRIVE nextStop { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:14.913] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:14.913] [virtual-vehicle-utility] [info] Parsing command: stops { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } } route: "First" action: START
-[2024-06-13 09:40:14.913] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:14.913] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:14.913] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:15.914] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2288 longitude: 16.5947 next stop: first_route_stop
-[2024-06-13 09:40:15.914] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.2288051 longitude: 16.5946877 } } state: DRIVE nextStop { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:15.958] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:15.958] [virtual-vehicle-utility] [info] Parsing command: stops { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } } route: "First" action: START
-[2024-06-13 09:40:15.958] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:15.958] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:15.958] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:16.959] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2288 longitude: 16.5947 next stop: first_route_stop
-[2024-06-13 09:40:16.959] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.2288051 longitude: 16.5946877 } } state: DRIVE nextStop { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:17.002] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:17.002] [virtual-vehicle-utility] [info] Parsing command: stops { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } } route: "First" action: START
-[2024-06-13 09:40:17.003] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:17.003] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:17.003] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:18.003] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2288 longitude: 16.5947 next stop: first_route_stop
-[2024-06-13 09:40:18.004] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.2288051 longitude: 16.5946877 } } state: DRIVE nextStop { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:18.046] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:18.047] [virtual-vehicle-utility] [info] Parsing command: stops { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } } route: "First" action: START
-[2024-06-13 09:40:18.047] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:18.047] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:18.047] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:19.047] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2288 longitude: 16.5947 next stop: first_route_stop
-[2024-06-13 09:40:19.048] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.2288051 longitude: 16.5946877 } } state: DRIVE nextStop { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:19.090] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:19.091] [virtual-vehicle-utility] [info] Parsing command: stops { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } } route: "First" action: START
-[2024-06-13 09:40:19.091] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:19.091] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:19.091] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:19.876] [virtual-vehicle-utility] [info] First route, distance to drive: 96.47m, time to get there: 3.21s
-[2024-06-13 09:40:19.876] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2281 longitude: 16.5933 next stop: first_route_stop
-[2024-06-13 09:40:19.877] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } state: DRIVE nextStop { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:19.926] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:19.927] [virtual-vehicle-utility] [info] Parsing command: stops { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } } route: "First" action: START
-[2024-06-13 09:40:19.927] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:19.927] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:19.927] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:19.927] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
-[2024-06-13 09:40:19.927] [virtual-vehicle-utility] [info] Car have arrived at the stop first_route_stop
-[2024-06-13 09:40:19.927] [virtual-vehicle-utility] [info] Sending status state: IN_STOP latitude: 49.2281 longitude: 16.5933 next stop: first_route_stop
-[2024-06-13 09:40:19.927] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } state: IN_STOP nextStop { name: "first_route_stop" position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:20.018] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:20.018] [virtual-vehicle-utility] [info] Parsing command: route: "First" action: START
-[2024-06-13 09:40:20.018] [virtual-vehicle-utility] [info] Received new command: action: START, route: First mission stops: 
-[2024-06-13 09:40:20.018] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:20.018] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:20.018] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:21.019] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:21.019] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:21.063] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:21.063] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:21.063] [virtual-vehicle-utility] [info] Received new command: action: NO_ACTION, route:  mission stops: 
-[2024-06-13 09:40:21.063] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:21.063] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:21.063] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:22.064] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:22.064] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:22.106] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:22.107] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:22.107] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:22.107] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:22.107] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:23.107] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:23.108] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:23.154] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:23.155] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:23.155] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:23.155] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:23.155] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:24.155] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:24.156] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:24.198] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:24.199] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:24.199] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:24.199] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:24.199] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:25.199] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:25.200] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:25.246] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:25.247] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:25.247] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:25.247] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:25.247] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:26.247] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:26.248] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:26.290] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:26.291] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:26.291] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:26.291] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:26.291] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:27.291] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:27.292] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:27.334] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:27.335] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:27.335] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:27.335] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:27.335] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:28.335] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:28.336] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:28.378] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:28.379] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:28.379] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:28.379] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:28.379] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:29.379] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:29.380] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:29.423] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:29.423] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:29.423] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:29.423] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:29.423] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:30.424] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:30.424] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:30.471] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:30.471] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:30.471] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:30.471] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:30.471] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:31.472] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:31.472] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:31.514] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:31.515] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:31.515] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:31.515] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:31.515] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:32.515] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:32.516] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:32.558] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:32.559] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:32.559] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:32.559] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:32.559] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:33.559] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:33.560] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:33.602] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:33.603] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:33.603] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:33.603] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:33.603] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:34.603] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:34.604] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:34.647] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:34.647] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:34.647] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:34.647] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:34.647] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:35.647] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:35.648] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:35.695] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:35.695] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:35.695] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:35.695] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:35.695] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:36.696] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:36.696] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:36.742] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:36.743] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:36.743] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:36.743] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:36.743] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:37.743] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:37.743] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:37.786] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:37.786] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:37.786] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:37.786] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:37.787] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:38.787] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:38.787] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:38.829] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:38.829] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:38.829] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:38.829] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:38.829] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:39.830] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:39.830] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:39.873] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:39.874] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:39.874] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:39.874] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:39.874] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:40.874] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:40.874] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:40.917] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:40.917] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:40.917] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:40.917] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:40.917] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:41.917] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:41.918] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:41.962] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:41.962] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:41.962] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:41.962] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:41.962] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:42.963] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:42.963] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:43.006] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:43.007] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:43.007] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:43.007] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:43.007] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:44.007] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:44.008] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:44.054] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:44.054] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:44.055] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:44.055] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:44.055] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:45.055] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:45.055] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:45.098] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:45.098] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:45.098] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:45.099] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:45.099] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:46.099] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:46.100] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:46.142] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:46.143] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:46.143] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:46.143] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:46.143] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:47.143] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:47.144] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:47.186] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:47.186] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:47.186] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:47.186] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:47.186] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:48.187] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:48.187] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:48.234] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:48.234] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:48.234] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:48.234] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:48.234] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:49.235] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:49.235] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:49.283] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:49.283] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:49.283] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:49.283] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:49.283] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:50.283] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:50.284] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:50.327] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:50.327] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:50.327] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:50.327] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:50.327] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:51.327] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:51.328] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:51.371] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:51.371] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:40:51.371] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:51.371] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:40:51.371] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:40:52.372] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
-[2024-06-13 09:40:52.372] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } nextStop { position { latitude: 49.22809 longitude: 16.593288 } }
-[2024-06-13 09:40:52.423] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:52.423] [virtual-vehicle-utility] [info] Parsing command: stops { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } } route: "Second" action: START
-[2024-06-13 09:40:52.423] [virtual-vehicle-utility] [info] Received new command: action: START, route: Second mission stops: [second_route_stop;49.2286;16.5919],
-[2024-06-13 09:40:52.423] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:52.423] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:52.423] [virtual-vehicle-utility] [info] New route received.
-[2024-06-13 09:40:52.424] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:53.424] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2281 longitude: 16.5933 next stop: second_route_stop
-[2024-06-13 09:40:53.425] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } state: DRIVE nextStop { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:40:53.470] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:53.471] [virtual-vehicle-utility] [info] Parsing command: stops { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } } route: "Second" action: START
-[2024-06-13 09:40:53.471] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:53.471] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:53.471] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:54.471] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2281 longitude: 16.5933 next stop: second_route_stop
-[2024-06-13 09:40:54.472] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } state: DRIVE nextStop { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:40:54.517] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:54.517] [virtual-vehicle-utility] [info] Parsing command: stops { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } } route: "Second" action: START
-[2024-06-13 09:40:54.517] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:54.517] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:54.517] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:55.518] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2281 longitude: 16.5933 next stop: second_route_stop
-[2024-06-13 09:40:55.518] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.2280869 longitude: 16.5932876 } } state: DRIVE nextStop { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:40:55.562] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:55.563] [virtual-vehicle-utility] [info] Parsing command: stops { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } } route: "Second" action: START
-[2024-06-13 09:40:55.563] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:55.563] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:55.563] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:55.778] [virtual-vehicle-utility] [info] Vehicle is not on a the new route and cannot switch routes yet
-[2024-06-13 09:40:55.779] [virtual-vehicle-utility] [info] First route, distance to drive: 126.93m, time to get there: 4.23s
-[2024-06-13 09:40:55.779] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
-[2024-06-13 09:40:55.779] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.227698 longitude: 16.5925044 } } state: DRIVE nextStop { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:40:55.826] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:55.827] [virtual-vehicle-utility] [info] Parsing command: stops { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } } route: "Second" action: START
-[2024-06-13 09:40:55.827] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:55.827] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:55.827] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:56.827] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
-[2024-06-13 09:40:56.828] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.227698 longitude: 16.5925044 } } state: DRIVE nextStop { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:40:56.874] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:56.875] [virtual-vehicle-utility] [info] Parsing command: stops { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } } route: "Second" action: START
-[2024-06-13 09:40:56.875] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:56.875] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:56.875] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:57.875] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
-[2024-06-13 09:40:57.876] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.227698 longitude: 16.5925044 } } state: DRIVE nextStop { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:40:57.918] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:57.919] [virtual-vehicle-utility] [info] Parsing command: stops { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } } route: "Second" action: START
-[2024-06-13 09:40:57.919] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:57.919] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:57.919] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:58.919] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
-[2024-06-13 09:40:58.920] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.227698 longitude: 16.5925044 } } state: DRIVE nextStop { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:40:58.962] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:40:58.963] [virtual-vehicle-utility] [info] Parsing command: stops { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } } route: "Second" action: START
-[2024-06-13 09:40:58.963] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:40:58.963] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:40:58.963] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:40:59.963] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
-[2024-06-13 09:40:59.964] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.227698 longitude: 16.5925044 } } state: DRIVE nextStop { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:00.009] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:00.009] [virtual-vehicle-utility] [info] Parsing command: stops { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } } route: "Second" action: START
-[2024-06-13 09:41:00.009] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:00.009] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:41:00.009] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:41:00.241] [virtual-vehicle-utility] [info] Route changed to: Second.
-[2024-06-13 09:41:00.241] [virtual-vehicle-utility] [info] Second route, distance to drive: 116.34m, time to get there: 3.88s
-[2024-06-13 09:41:00.241] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
-[2024-06-13 09:41:00.241] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.227698 longitude: 16.5925044 } } state: DRIVE nextStop { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:00.286] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:00.287] [virtual-vehicle-utility] [info] Parsing command: stops { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } } route: "Second" action: START
-[2024-06-13 09:41:00.287] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:00.287] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:41:00.287] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:41:01.287] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
-[2024-06-13 09:41:01.288] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.227698 longitude: 16.5925044 } } state: DRIVE nextStop { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:01.330] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:01.330] [virtual-vehicle-utility] [info] Parsing command: stops { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } } route: "Second" action: START
-[2024-06-13 09:41:01.331] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:01.331] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:41:01.331] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:41:02.331] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
-[2024-06-13 09:41:02.331] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.227698 longitude: 16.5925044 } } state: DRIVE nextStop { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:02.374] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:02.375] [virtual-vehicle-utility] [info] Parsing command: stops { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } } route: "Second" action: START
-[2024-06-13 09:41:02.375] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:02.375] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:41:02.375] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:41:03.375] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
-[2024-06-13 09:41:03.376] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.227698 longitude: 16.5925044 } } state: DRIVE nextStop { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:03.418] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:03.419] [virtual-vehicle-utility] [info] Parsing command: stops { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } } route: "Second" action: START
-[2024-06-13 09:41:03.419] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:03.419] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:41:03.419] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:41:04.296] [virtual-vehicle-utility] [info] End of route has been reached, continuing another lap
-[2024-06-13 09:41:04.296] [virtual-vehicle-utility] [info] Route is not circular, reversing.
-[2024-06-13 09:41:04.296] [virtual-vehicle-utility] [info] Second route, distance to drive: 116.34m, time to get there: 3.88s
-[2024-06-13 09:41:04.297] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2286 longitude: 16.5919 next stop: second_route_stop
-[2024-06-13 09:41:04.297] [virtual-vehicle-utility] [info] Generating car status: telemetry { speed: 30 fuel: 0.42 position { latitude: 49.2285914 longitude: 16.5919036 } } state: DRIVE nextStop { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:04.342] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:04.343] [virtual-vehicle-utility] [info] Parsing command: stops { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } } route: "Second" action: START
-[2024-06-13 09:41:04.343] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:04.343] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:41:04.343] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
-[2024-06-13 09:41:04.343] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
-[2024-06-13 09:41:04.343] [virtual-vehicle-utility] [info] Car have arrived at the stop second_route_stop
-[2024-06-13 09:41:04.343] [virtual-vehicle-utility] [info] Sending status state: IN_STOP latitude: 49.2286 longitude: 16.5919 next stop: second_route_stop
-[2024-06-13 09:41:04.343] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2285914 longitude: 16.5919036 } } state: IN_STOP nextStop { name: "second_route_stop" position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:04.429] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:04.429] [virtual-vehicle-utility] [info] Parsing command: route: "Second" action: START
-[2024-06-13 09:41:04.429] [virtual-vehicle-utility] [info] Received new command: action: START, route: Second mission stops: 
-[2024-06-13 09:41:04.429] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:04.429] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state StartReceived
-[2024-06-13 09:41:04.429] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:41:05.430] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
-[2024-06-13 09:41:05.430] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2285914 longitude: 16.5919036 } } nextStop { position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:05.475] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:05.475] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:41:05.475] [virtual-vehicle-utility] [info] Received new command: action: NO_ACTION, route:  mission stops: 
-[2024-06-13 09:41:05.475] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:05.475] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:41:05.475] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:41:06.475] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
-[2024-06-13 09:41:06.476] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2285914 longitude: 16.5919036 } } nextStop { position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:06.517] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:06.517] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:41:06.517] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:06.517] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:41:06.517] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:41:07.518] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
-[2024-06-13 09:41:07.518] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2285914 longitude: 16.5919036 } } nextStop { position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:07.562] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:07.562] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:41:07.562] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:07.562] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:41:07.562] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:41:08.563] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
-[2024-06-13 09:41:08.563] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2285914 longitude: 16.5919036 } } nextStop { position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:08.610] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:08.611] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:41:08.611] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:08.611] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:41:08.611] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:41:09.611] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
-[2024-06-13 09:41:09.612] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2285914 longitude: 16.5919036 } } nextStop { position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:09.654] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:09.654] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:41:09.654] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:09.654] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:41:09.654] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:41:10.655] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
-[2024-06-13 09:41:10.655] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2285914 longitude: 16.5919036 } } nextStop { position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:10.698] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:10.698] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:41:10.699] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:10.699] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:41:10.699] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:41:11.699] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
-[2024-06-13 09:41:11.699] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2285914 longitude: 16.5919036 } } nextStop { position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:11.742] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:11.742] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:41:11.742] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:11.742] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:41:11.742] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:41:12.742] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
-[2024-06-13 09:41:12.743] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2285914 longitude: 16.5919036 } } nextStop { position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:12.785] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:12.785] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:41:12.785] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:12.785] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:41:12.785] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:41:13.786] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
-[2024-06-13 09:41:13.786] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2285914 longitude: 16.5919036 } } nextStop { position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:13.831] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:13.831] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:41:13.831] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:13.831] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:41:13.831] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:41:14.831] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
-[2024-06-13 09:41:14.832] [virtual-vehicle-utility] [info] Generating car status: telemetry { fuel: 0.42 position { latitude: 49.2285914 longitude: 16.5919036 } } nextStop { position { latitude: 49.228592 longitude: 16.591904 } }
-[2024-06-13 09:41:14.874] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarStatusSent
-[2024-06-13 09:41:14.874] [virtual-vehicle-utility] [info] Parsing command: 
-[2024-06-13 09:41:14.875] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state CarCommandReceived
-[2024-06-13 09:41:14.875] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state NoActionReceived
-[2024-06-13 09:41:14.875] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
-[2024-06-13 09:41:14.876] [virtual-vehicle-utility] [info] Closing proto buffer
+[2024-08-22 13:24:07.555] [virtual-vehicle-utility] [debug] [DiagramSmurf] __START__ :	Connected 
+[2024-08-22 13:24:07.555] [virtual-vehicle-utility] [debug] [DiagramSmurf] Drive :	InStop Idle 
+[2024-08-22 13:24:07.555] [virtual-vehicle-utility] [debug] [DiagramSmurf] InStop :	Drive Idle 
+[2024-08-22 13:24:07.555] [virtual-vehicle-utility] [debug] [DiagramSmurf] Connected :	Drive 
+[2024-08-22 13:24:07.555] [virtual-vehicle-utility] [debug] [DiagramSmurf] Idle :	Drive InStop 
+[2024-08-22 13:24:07.555] [virtual-vehicle-utility] [debug] [TransitionSmurf] Start of Run
+[2024-08-22 13:24:07.558] [virtual-vehicle-utility] [info] Connected to module gateway
+[2024-08-22 13:24:07.558] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Connected
+[2024-08-22 13:24:08.559] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
+[2024-08-22 13:24:08.559] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":5.0162788347027e-310,"longitude":0.0}},"state":"IDLE"}
+[2024-08-22 13:24:08.602] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:08.602] [virtual-vehicle-utility] [info] Received new command: action: NO_ACTION, route:  mission stops: 
+[2024-08-22 13:24:09.602] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
+[2024-08-22 13:24:09.602] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":5.0162788347027e-310,"longitude":0.0}},"state":"IDLE"}
+[2024-08-22 13:24:09.645] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:10.646] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
+[2024-08-22 13:24:10.646] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":5.0162788347027e-310,"longitude":0.0}},"state":"IDLE"}
+[2024-08-22 13:24:10.687] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:11.688] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
+[2024-08-22 13:24:11.688] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":5.0162788347027e-310,"longitude":0.0}},"state":"IDLE"}
+[2024-08-22 13:24:11.729] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:12.730] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
+[2024-08-22 13:24:12.730] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":5.0162788347027e-310,"longitude":0.0}},"state":"IDLE"}
+[2024-08-22 13:24:12.772] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:13.772] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
+[2024-08-22 13:24:13.773] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":5.0162788347027e-310,"longitude":0.0}},"state":"IDLE"}
+[2024-08-22 13:24:13.815] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"First","stops":[{"name":"route_change_starting_station","position":{"altitude":0,"latitude":49.228245,"longitude":16.5951}}]}
+[2024-08-22 13:24:13.815] [virtual-vehicle-utility] [info] Received new command: action: START, route: First mission stops: [route_change_starting_station;49.2282;16.5951],
+[2024-08-22 13:24:13.815] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2024-08-22 13:24:13.815] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
+[2024-08-22 13:24:13.815] [virtual-vehicle-utility] [info] Car have arrived at the stop route_change_starting_station
+[2024-08-22 13:24:13.815] [virtual-vehicle-utility] [info] Sending status state: IN_STOP latitude: 49.2282 longitude: 16.5951 next stop: route_change_starting_station
+[2024-08-22 13:24:13.815] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"route_change_starting_station","position":{"altitude":0,"latitude":49.228245,"longitude":16.5951}},"state":"IN_STOP"}
+[2024-08-22 13:24:13.898] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"First","stops":[{"name":"route_change_starting_station","position":{"altitude":0,"latitude":49.228245,"longitude":16.5951}}]}
+[2024-08-22 13:24:14.899] [virtual-vehicle-utility] [info] Sending status state: IN_STOP latitude: 49.2282 longitude: 16.5951 next stop: route_change_starting_station
+[2024-08-22 13:24:14.899] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"route_change_starting_station","position":{"altitude":0,"latitude":49.228245,"longitude":16.5951}},"state":"IN_STOP"}
+[2024-08-22 13:24:14.941] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:14.941] [virtual-vehicle-utility] [info] Received new command: action: NO_ACTION, route:  mission stops: 
+[2024-08-22 13:24:14.941] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2024-08-22 13:24:15.942] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
+[2024-08-22 13:24:15.942] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228245,"longitude":16.5951}},"state":"IDLE"}
+[2024-08-22 13:24:15.984] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:16.984] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
+[2024-08-22 13:24:16.985] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228245,"longitude":16.5951}},"state":"IDLE"}
+[2024-08-22 13:24:17.026] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:18.026] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
+[2024-08-22 13:24:18.027] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228245,"longitude":16.5951}},"state":"IDLE"}
+[2024-08-22 13:24:18.069] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:19.069] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
+[2024-08-22 13:24:19.069] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228245,"longitude":16.5951}},"state":"IDLE"}
+[2024-08-22 13:24:19.112] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:20.113] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
+[2024-08-22 13:24:20.113] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228245,"longitude":16.5951}},"state":"IDLE"}
+[2024-08-22 13:24:20.156] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:21.156] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
+[2024-08-22 13:24:21.156] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228245,"longitude":16.5951}},"state":"IDLE"}
+[2024-08-22 13:24:21.199] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:22.199] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
+[2024-08-22 13:24:22.199] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228245,"longitude":16.5951}},"state":"IDLE"}
+[2024-08-22 13:24:22.242] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:23.242] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2282 longitude: 16.5951 next stop: 
+[2024-08-22 13:24:23.242] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228245,"longitude":16.5951}},"state":"IDLE"}
+[2024-08-22 13:24:23.285] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"First","stops":[{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}}]}
+[2024-08-22 13:24:23.285] [virtual-vehicle-utility] [info] Received new command: action: START, route: First mission stops: [first_route_stop;49.2281;16.5933],
+[2024-08-22 13:24:23.285] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2024-08-22 13:24:24.286] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2282 longitude: 16.5951 next stop: first_route_stop
+[2024-08-22 13:24:24.286] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":30.0,"fuel":0.42},"nextStop":{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"DRIVE"}
+[2024-08-22 13:24:24.329] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"First","stops":[{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}}]}
+[2024-08-22 13:24:25.330] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2282 longitude: 16.5951 next stop: first_route_stop
+[2024-08-22 13:24:25.330] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2282445,"longitude":16.5951008},"speed":30.0,"fuel":0.42},"nextStop":{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"DRIVE"}
+[2024-08-22 13:24:25.374] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"First","stops":[{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}}]}
+[2024-08-22 13:24:25.886] [virtual-vehicle-utility] [info] First route, distance to drive: 173.53m, time to get there: 5.78s
+[2024-08-22 13:24:25.886] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2288 longitude: 16.5947 next stop: first_route_stop
+[2024-08-22 13:24:25.886] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2288051,"longitude":16.5946877},"speed":30.0,"fuel":0.42},"nextStop":{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"DRIVE"}
+[2024-08-22 13:24:25.928] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"First","stops":[{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}}]}
+[2024-08-22 13:24:26.929] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2288 longitude: 16.5947 next stop: first_route_stop
+[2024-08-22 13:24:26.929] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2288051,"longitude":16.5946877},"speed":30.0,"fuel":0.42},"nextStop":{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"DRIVE"}
+[2024-08-22 13:24:26.971] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"First","stops":[{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}}]}
+[2024-08-22 13:24:27.972] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2288 longitude: 16.5947 next stop: first_route_stop
+[2024-08-22 13:24:27.972] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2288051,"longitude":16.5946877},"speed":30.0,"fuel":0.42},"nextStop":{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"DRIVE"}
+[2024-08-22 13:24:28.013] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"First","stops":[{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}}]}
+[2024-08-22 13:24:29.014] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2288 longitude: 16.5947 next stop: first_route_stop
+[2024-08-22 13:24:29.014] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2288051,"longitude":16.5946877},"speed":30.0,"fuel":0.42},"nextStop":{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"DRIVE"}
+[2024-08-22 13:24:29.056] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"First","stops":[{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}}]}
+[2024-08-22 13:24:30.057] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2288 longitude: 16.5947 next stop: first_route_stop
+[2024-08-22 13:24:30.057] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2288051,"longitude":16.5946877},"speed":30.0,"fuel":0.42},"nextStop":{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"DRIVE"}
+[2024-08-22 13:24:30.099] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"First","stops":[{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}}]}
+[2024-08-22 13:24:31.100] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2288 longitude: 16.5947 next stop: first_route_stop
+[2024-08-22 13:24:31.100] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2288051,"longitude":16.5946877},"speed":30.0,"fuel":0.42},"nextStop":{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"DRIVE"}
+[2024-08-22 13:24:31.142] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"First","stops":[{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}}]}
+[2024-08-22 13:24:31.927] [virtual-vehicle-utility] [info] First route, distance to drive: 96.47m, time to get there: 3.21s
+[2024-08-22 13:24:31.927] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2281 longitude: 16.5933 next stop: first_route_stop
+[2024-08-22 13:24:31.927] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":30.0,"fuel":0.42},"nextStop":{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"DRIVE"}
+[2024-08-22 13:24:31.969] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"First","stops":[{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}}]}
+[2024-08-22 13:24:31.969] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
+[2024-08-22 13:24:31.969] [virtual-vehicle-utility] [info] Car have arrived at the stop first_route_stop
+[2024-08-22 13:24:31.969] [virtual-vehicle-utility] [info] Sending status state: IN_STOP latitude: 49.2281 longitude: 16.5933 next stop: first_route_stop
+[2024-08-22 13:24:31.969] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IN_STOP"}
+[2024-08-22 13:24:32.052] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"First","stops":[{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}}]}
+[2024-08-22 13:24:33.052] [virtual-vehicle-utility] [info] Sending status state: IN_STOP latitude: 49.2281 longitude: 16.5933 next stop: first_route_stop
+[2024-08-22 13:24:33.053] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"first_route_stop","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IN_STOP"}
+[2024-08-22 13:24:33.095] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:33.095] [virtual-vehicle-utility] [info] Received new command: action: NO_ACTION, route:  mission stops: 
+[2024-08-22 13:24:33.095] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2024-08-22 13:24:34.096] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:34.096] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:34.138] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:35.138] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:35.139] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:35.181] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:36.181] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:36.181] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:36.223] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:37.223] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:37.223] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:37.266] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:38.266] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:38.266] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:38.307] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:39.308] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:39.308] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:39.351] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:40.352] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:40.352] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:40.393] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:41.394] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:41.394] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:41.436] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:42.437] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:42.437] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:42.480] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:43.480] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:43.480] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:43.523] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:44.524] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:44.524] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:44.566] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:45.566] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:45.566] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:45.608] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:46.608] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:46.608] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:46.651] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:47.651] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:47.651] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:47.693] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:48.694] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:48.694] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:48.736] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:49.736] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:49.736] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:49.779] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:50.780] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:50.780] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:50.822] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:51.822] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:51.822] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:51.865] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:52.866] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:52.866] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:52.908] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:53.908] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:53.909] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:53.950] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:54.951] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:54.951] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:54.993] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:55.993] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:55.993] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:56.037] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:57.037] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:57.038] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:57.080] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:58.080] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:58.081] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:58.123] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:24:59.124] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:24:59.124] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:24:59.166] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:00.166] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:25:00.166] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:25:00.209] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:01.209] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:25:01.210] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:25:01.252] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:02.253] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:25:02.253] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:25:02.296] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:03.296] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:25:03.297] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:25:03.339] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"First","stops":[]}
+[2024-08-22 13:25:03.339] [virtual-vehicle-utility] [info] Received new command: action: START, route: First mission stops: 
+[2024-08-22 13:25:04.340] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:25:04.340] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:25:04.383] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"First","stops":[]}
+[2024-08-22 13:25:05.384] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2281 longitude: 16.5933 next stop: 
+[2024-08-22 13:25:05.384] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.22809,"longitude":16.593288}},"state":"IDLE"}
+[2024-08-22 13:25:05.426] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"Second","stops":[{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}}]}
+[2024-08-22 13:25:05.426] [virtual-vehicle-utility] [info] Received new command: action: START, route: Second mission stops: [second_route_stop;49.2286;16.5919],
+[2024-08-22 13:25:05.427] [virtual-vehicle-utility] [info] New route received.
+[2024-08-22 13:25:05.427] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Drive
+[2024-08-22 13:25:06.427] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2281 longitude: 16.5933 next stop: second_route_stop
+[2024-08-22 13:25:06.427] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":30.0,"fuel":0.42},"nextStop":{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"DRIVE"}
+[2024-08-22 13:25:06.470] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"Second","stops":[{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}}]}
+[2024-08-22 13:25:07.471] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2281 longitude: 16.5933 next stop: second_route_stop
+[2024-08-22 13:25:07.471] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":30.0,"fuel":0.42},"nextStop":{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"DRIVE"}
+[2024-08-22 13:25:07.513] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"Second","stops":[{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}}]}
+[2024-08-22 13:25:08.514] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2281 longitude: 16.5933 next stop: second_route_stop
+[2024-08-22 13:25:08.514] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2280869,"longitude":16.5932876},"speed":30.0,"fuel":0.42},"nextStop":{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"DRIVE"}
+[2024-08-22 13:25:08.556] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"Second","stops":[{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}}]}
+[2024-08-22 13:25:08.771] [virtual-vehicle-utility] [info] Vehicle is not on a the new route and cannot switch routes yet
+[2024-08-22 13:25:08.771] [virtual-vehicle-utility] [info] First route, distance to drive: 126.93m, time to get there: 4.23s
+[2024-08-22 13:25:08.771] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
+[2024-08-22 13:25:08.771] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.227698,"longitude":16.5925044},"speed":30.0,"fuel":0.42},"nextStop":{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"DRIVE"}
+[2024-08-22 13:25:08.814] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"Second","stops":[{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}}]}
+[2024-08-22 13:25:09.815] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
+[2024-08-22 13:25:09.815] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.227698,"longitude":16.5925044},"speed":30.0,"fuel":0.42},"nextStop":{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"DRIVE"}
+[2024-08-22 13:25:09.857] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"Second","stops":[{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}}]}
+[2024-08-22 13:25:10.857] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
+[2024-08-22 13:25:10.857] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.227698,"longitude":16.5925044},"speed":30.0,"fuel":0.42},"nextStop":{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"DRIVE"}
+[2024-08-22 13:25:10.899] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"Second","stops":[{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}}]}
+[2024-08-22 13:25:11.900] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
+[2024-08-22 13:25:11.900] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.227698,"longitude":16.5925044},"speed":30.0,"fuel":0.42},"nextStop":{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"DRIVE"}
+[2024-08-22 13:25:11.942] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"Second","stops":[{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}}]}
+[2024-08-22 13:25:12.942] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
+[2024-08-22 13:25:12.943] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.227698,"longitude":16.5925044},"speed":30.0,"fuel":0.42},"nextStop":{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"DRIVE"}
+[2024-08-22 13:25:12.984] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"Second","stops":[{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}}]}
+[2024-08-22 13:25:13.216] [virtual-vehicle-utility] [info] Route changed to: Second.
+[2024-08-22 13:25:13.216] [virtual-vehicle-utility] [info] Second route, distance to drive: 116.34m, time to get there: 3.88s
+[2024-08-22 13:25:13.216] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
+[2024-08-22 13:25:13.216] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.227698,"longitude":16.5925044},"speed":30.0,"fuel":0.42},"nextStop":{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"DRIVE"}
+[2024-08-22 13:25:13.258] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"Second","stops":[{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}}]}
+[2024-08-22 13:25:14.259] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
+[2024-08-22 13:25:14.259] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.227698,"longitude":16.5925044},"speed":30.0,"fuel":0.42},"nextStop":{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"DRIVE"}
+[2024-08-22 13:25:14.302] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"Second","stops":[{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}}]}
+[2024-08-22 13:25:15.303] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
+[2024-08-22 13:25:15.303] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.227698,"longitude":16.5925044},"speed":30.0,"fuel":0.42},"nextStop":{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"DRIVE"}
+[2024-08-22 13:25:15.345] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"Second","stops":[{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}}]}
+[2024-08-22 13:25:16.345] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2277 longitude: 16.5925 next stop: second_route_stop
+[2024-08-22 13:25:16.346] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.227698,"longitude":16.5925044},"speed":30.0,"fuel":0.42},"nextStop":{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"DRIVE"}
+[2024-08-22 13:25:16.388] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"Second","stops":[{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}}]}
+[2024-08-22 13:25:17.266] [virtual-vehicle-utility] [info] End of route has been reached, continuing another lap
+[2024-08-22 13:25:17.266] [virtual-vehicle-utility] [info] Route is not circular, reversing.
+[2024-08-22 13:25:17.266] [virtual-vehicle-utility] [info] Second route, distance to drive: 116.34m, time to get there: 3.88s
+[2024-08-22 13:25:17.266] [virtual-vehicle-utility] [info] Sending status state: DRIVE latitude: 49.2286 longitude: 16.5919 next stop: second_route_stop
+[2024-08-22 13:25:17.266] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":30.0,"fuel":0.42},"nextStop":{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"DRIVE"}
+[2024-08-22 13:25:17.308] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"Second","stops":[{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}}]}
+[2024-08-22 13:25:17.308] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state InStop
+[2024-08-22 13:25:17.308] [virtual-vehicle-utility] [info] Car have arrived at the stop second_route_stop
+[2024-08-22 13:25:17.308] [virtual-vehicle-utility] [info] Sending status state: IN_STOP latitude: 49.2286 longitude: 16.5919 next stop: second_route_stop
+[2024-08-22 13:25:17.308] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IN_STOP"}
+[2024-08-22 13:25:17.391] [virtual-vehicle-utility] [info] Parsing command: {"action":"START","route":"Second","stops":[{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}}]}
+[2024-08-22 13:25:18.391] [virtual-vehicle-utility] [info] Sending status state: IN_STOP latitude: 49.2286 longitude: 16.5919 next stop: second_route_stop
+[2024-08-22 13:25:18.392] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"second_route_stop","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IN_STOP"}
+[2024-08-22 13:25:18.434] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:18.434] [virtual-vehicle-utility] [info] Received new command: action: NO_ACTION, route:  mission stops: 
+[2024-08-22 13:25:18.434] [virtual-vehicle-utility] [debug] [TransitionSmurf] Going to state Idle
+[2024-08-22 13:25:19.435] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:19.435] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:19.477] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:20.478] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:20.478] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:20.520] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:21.521] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:21.521] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:21.563] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:22.567] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:22.567] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:22.608] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:23.609] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:23.609] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:23.651] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:24.652] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:24.652] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:24.694] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:25.694] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:25.694] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:25.737] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:26.738] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:26.738] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:26.781] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:27.781] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:27.782] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:27.823] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:28.824] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:28.824] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:28.866] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:29.866] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:29.867] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:29.909] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:30.910] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:30.910] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:30.952] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:31.952] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:31.952] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:31.994] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:32.995] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:32.995] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:33.036] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:34.037] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:34.037] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:34.078] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:35.079] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:35.079] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:35.122] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:36.123] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:36.123] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:36.165] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:37.165] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:37.165] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:37.211] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:38.211] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:38.211] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:38.254] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:39.254] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:39.255] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:39.296] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:40.297] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:40.297] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:40.338] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:41.339] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:41.339] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:41.382] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:42.382] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:42.382] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:42.424] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:43.424] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:43.424] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:43.466] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:44.467] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:44.467] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:44.509] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:45.509] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:45.510] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:45.552] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:46.553] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:46.553] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:46.597] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
+[2024-08-22 13:25:47.597] [virtual-vehicle-utility] [info] Sending status state: IDLE latitude: 49.2286 longitude: 16.5919 next stop: 
+[2024-08-22 13:25:47.597] [virtual-vehicle-utility] [info] Generating car status: {"telemetry":{"position":{"altitude":0,"latitude":49.2285914,"longitude":16.5919036},"speed":0.0,"fuel":0.42},"nextStop":{"name":"","position":{"altitude":0,"latitude":49.228592,"longitude":16.591904}},"state":"IDLE"}
+[2024-08-22 13:25:47.640] [virtual-vehicle-utility] [info] Parsing command: {"action":"NO_ACTION","route":"","stops":[]}
