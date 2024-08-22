@@ -88,13 +88,13 @@ void SettingsParser::parseCmdArguments(int argc, char **argv) {
 													   "Wait time in stops in seconds, default is 10s",
 													   cxxopts::value<uint32_t>());
 	options.add_options("fleet")(FLEET_PROVIDER,
-								 R"(Provider of communication with fleet, "protobuf" or "empty")",
+								 R"(Provider of communication with fleet, "INTERNAL-PROTOCOL" or empty)",
 								 cxxopts::value<std::string>());
-	options.add_options("protobuf fleet provider")(MODULE_GATEWAY_IP,
-												   "IPv4 address or hostname of server side application",
-												   cxxopts::value<std::string>());
-	options.add_options("protobuf fleet provider")(MODULE_GATEWAY_PORT, "Port of server side application",
-												   cxxopts::value<int>());
+	options.add_options("JSON fleet provider")(MODULE_GATEWAY_IP,
+											   "IPv4 address or hostname of server side application",
+											   cxxopts::value<std::string>());
+	options.add_options("JSON fleet provider")(MODULE_GATEWAY_PORT, "Port of server side application",
+											   cxxopts::value<int>());
 	options.add_options("map")(OSM_MAP, "Path to .osm map file", cxxopts::value<std::string>());
 	options.add_options("map")(OSM_ROUTE, "Name of route that will be set on initialization",
 							   cxxopts::value<std::string>());
@@ -348,7 +348,7 @@ std::string SettingsParser::getFormattedSettings() {
 	formattedSettings << "period-ms: " << settings_->messagePeriodMs << "\n";
 	switch(settings_->fleetProvider) {
 		case FleetProvider::E_INTERNAL_PROTOCOL:
-			formattedSettings << "fleet-providerr: INTERNAL_PROTOCOL\n";
+			formattedSettings << "fleet-provider: INTERNAL_PROTOCOL\n";
 			formattedSettings << "\tmodule-gateway-ip: " << settings_->moduleGatewayIp << "\n";
 			formattedSettings << "\tmodule-gateway-port: " << settings_->moduleGatewayPort << "\n";
 			formattedSettings << "\tdevice-role: " << settings_->deviceRole << "\n";

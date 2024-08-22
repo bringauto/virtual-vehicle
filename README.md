@@ -19,7 +19,6 @@ In this case, it doesn't drive but still can fulfill orders, if it is at the tar
 ## Prerequisites
 
 * [cxxopts](https://github.com/jarro2783/cxxopts) >= 3.0.0
-* [protobuf](https://github.com/protocolbuffers/protobuf/tree/main/src) = 3.17.3
 * [balogger](https://github.com/bringauto/ba-logger) >= 1.2.0
 * [statesmurf](https://github.com/Melky-Phoe/StateSmurf) >= 2.0.1
 * [modbuspp](https://github.com/bringauto/modbuspp) >= 0.3.1

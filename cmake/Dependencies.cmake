@@ -2,7 +2,6 @@
 SET(CMAKE_FIND_USE_CMAKE_SYSTEM_PATH FALSE)
 
 BA_PACKAGE_LIBRARY(cxxopts          v3.0.5  PLATFORM_STRING_MODE any_machine NO_DEBUG ON)
-BA_PACKAGE_LIBRARY(protobuf         v4.21.12)
 BA_PACKAGE_LIBRARY(ba-logger        v1.2.0)
 BA_PACKAGE_LIBRARY(statesmurf       v2.0.1)
 BA_PACKAGE_LIBRARY(modbuspp         v0.3.1  PLATFORM_STRING_MODE any_machine NO_DEBUG ON)

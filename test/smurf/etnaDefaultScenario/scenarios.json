@@ -6,13 +6,13 @@
   "scenarios" : [
     {
       "name" : "default",
-      "timeout" : 600,
-      "arguments" : {
-        "--map" : "../maps/moravske_namesti.osm",
-        "--wait-at-stop-s" : 30,
-        "--speed-override": 5,
-        "--config" : "../default_config.json"
-      }
+      "timeout_s" : 100,
+      "arguments" : [
+        "--map", "../maps/moravske_namesti.osm",
+        "--wait-at-stop-s", "4",
+        "--speed-override", "50",
+        "--config", "../default_config.json"
+      ]
     }
   ],
   "cleanup" : [

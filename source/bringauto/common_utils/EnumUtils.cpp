@@ -1,7 +1,5 @@
 #include <bringauto/common_utils/EnumUtils.hpp>
 
-#include <MissionModule.pb.h>
-
 #include <algorithm>
 
 
@@ -9,35 +7,15 @@
 namespace bringauto::common_utils {
 
 template <>
-MissionModule::AutonomyStatus::State EnumUtils::valueToEnum(communication::EAutonomyState toEnum) {
-	switch(toEnum) {
-		case communication::EAutonomyState::E_IDLE:
-			return MissionModule::AutonomyStatus::IDLE;
-		case communication::EAutonomyState::E_DRIVE:
-			return MissionModule::AutonomyStatus::DRIVE;
-		case communication::EAutonomyState::E_IN_STOP:
-			return MissionModule::AutonomyStatus::IN_STOP;
-		case communication::EAutonomyState::E_OBSTACLE:
-			return MissionModule::AutonomyStatus::OBSTACLE;
-		case communication::EAutonomyState::E_ERROR:
-			return MissionModule::AutonomyStatus::ERROR;
-		default:
-			throw std::runtime_error("Invalid enum value of EAutonomyState");
+communication::EAutonomyAction EnumUtils::valueToEnum(std::string toEnum) {
+	if (toEnum == "START") {
+		return communication::EAutonomyAction::E_START;
+	} else if (toEnum == "STOP") {
+		return communication::EAutonomyAction::E_STOP;
+	} else if (toEnum == "NO_ACTION") {
+		return communication::EAutonomyAction::E_NO_ACTION;
 	}
-}
-
-template <>
-communication::EAutonomyAction EnumUtils::valueToEnum(MissionModule::AutonomyCommand::Action toEnum) {
-	switch(toEnum) {
-		case MissionModule::AutonomyCommand::START:
-			return communication::EAutonomyAction::E_START;
-		case MissionModule::AutonomyCommand::STOP:
-			return communication::EAutonomyAction::E_STOP;
-		case MissionModule::AutonomyCommand::NO_ACTION:
-			return communication::EAutonomyAction::E_NO_ACTION;
-		default:
-			return communication::EAutonomyAction::E_INVALID;
-	}
+	return communication::EAutonomyAction::E_INVALID;
 }
 
 template <>

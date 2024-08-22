@@ -6,14 +6,14 @@
   "scenarios" : [
     {
       "name" : "fewNodes",
-      "timeout" : 60,
-      "arguments" : {
-        "--map" : "../maps/lap.osm",
-        "--default-route" : "lap",
-        "--wait-at-stop-s" : 4,
-        "--speed-override" : 50,
-        "--config" : "../default_config.json"
-      }
+      "timeout_s" : 60,
+      "arguments" : [
+        "--map", "../maps/lap.osm",
+        "--default-route", "lap",
+        "--wait-at-stop-s", "4",
+        "--speed-override", "50",
+        "--config", "../default_config.json"
+      ]
     }
   ],
   "cleanup" : [

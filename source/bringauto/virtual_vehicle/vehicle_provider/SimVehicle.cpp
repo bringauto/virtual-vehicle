@@ -126,9 +126,6 @@ void SimVehicle::request() {
 
 void SimVehicle::evaluateCommand() {
 	auto command = com_->getCommand();
-#ifdef STATE_SMURF
-	settings::StateSmurfDefinition::changeToState(globalContext_->transitions, command.getAction());
-#endif
 	if(command.getRoute() != actualRouteName_ && !command.getRoute().empty()) {
 		auto nextRoute = map_.getRoute(command.getRoute());
 		if(!nextRoute) {
@@ -222,12 +219,12 @@ void SimVehicle::updateVehicleState(communication::EAutonomyState state) {
 		state_ = bringauto::communication::EAutonomyState::E_ERROR;
 		return;
 	}
-#ifdef STATE_SMURF
-	settings::StateSmurfDefinition::changeToState(globalContext_->transitions, state);
-#endif
 	if(state_ == state) {
 		return;
 	}
+#ifdef STATE_SMURF
+	settings::StateSmurfDefinition::changeToState(globalContext_->transitions, state);
+#endif
 	state_ = state;
 	switch(state_) {
 		case communication::EAutonomyState::E_IDLE:
