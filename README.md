@@ -305,3 +305,10 @@ docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehi
 ``` bash
 docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config-path=/virtual-vehicle-utility/config/example.json --map=/virtual-vehicle-utility/tests/maps/BorsodChem.osm -v --route=borsodchem --ip=127.0.0.1 --port=1536 --wait=10 
 ```
+
+
+## Troubleshooting
+
+#### RUTX09 GPS provider sending invalid data
+
+Make sure that the RUTX09 firmware version is >= RUTX_R_00.07.08.3
