@@ -3,6 +3,7 @@ PROJECT(virtual-vehicle-utility)
 
 SET(CMAKE_CXX_STANDARD 20)
 set(CMAKE_POSITION_INDEPENDENT_EXECUTABLE OFF)
+set(CMAKE_POSITION_INDEPENDENT_CODE  OFF)
 
 #------------gtest-------------------#
 FIND_PACKAGE(GTest REQUIRED)
