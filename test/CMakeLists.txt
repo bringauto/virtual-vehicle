@@ -2,6 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.20)
 PROJECT(virtual-vehicle-utility)
 
 SET(CMAKE_CXX_STANDARD 20)
+set(CMAKE_POSITION_INDEPENDENT_EXECUTABLE ON)
+
 #------------gtest-------------------#
 FIND_PACKAGE(GTest REQUIRED)
 FILE(GLOB_RECURSE source_test_files "${CMAKE_CURRENT_LIST_DIR}/source/*")
