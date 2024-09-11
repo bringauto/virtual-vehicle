@@ -64,6 +64,7 @@ void GpsVehicle::updatePosition() {
 																				   status_.getLatitude(),
 																				   status_.getLongitude());
 		if(distanceToStop < globalContext_->settings->stopRadiusM) { // TODO put drive }
+		}
 	}
 
 }
@@ -88,6 +89,34 @@ void GpsVehicle::evaluateCommand() {
 		nextStop_ = std::make_shared<osm::Route::Station>(command.getMission().front());
 		status_.setNextStop(*nextStop_);
 	}
+
+	switch(status_.getState()) {
+		case communication::EAutonomyState::E_IDLE:
+			if(command.getAction() == communication::EAutonomyAction::E_START) {
+				status_.setState(communication::EAutonomyState::E_DRIVE);
+			}
+			break;
+		case communication::EAutonomyState::E_DRIVE:
+			if(command.getAction() == communication::EAutonomyAction::E_STOP) {
+				status_.setState(communication::EAutonomyState::E_IDLE);
+			}
+			break;
+		case communication::EAutonomyState::E_IN_STOP:
+			// TODO should it stay IN_STOP if nextStop null??
+			if(command.getAction() != communication::EAutonomyAction::E_START /* || nextStop_ == nullptr */) {
+				status_.setState(communication::EAutonomyState::E_IDLE);
+			}
+			break;
+		case communication::EAutonomyState::E_OBSTACLE:
+		case communication::EAutonomyState::E_ERROR:
+		default:
+			break;
+	}
+	// TODO when is the station removed from command? I need to act on it
+//	if(status_.getState() != communication::EAutonomyState::E_IN_STOP) {
+//		nextStop_ = mission_.front();
+//	}
+
 }
 
 void GpsVehicle::checkForStop() {
