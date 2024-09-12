@@ -20,6 +20,8 @@ bool FleetProtocol::initializeConnection() {
 	}
 	lastConnectAttemptS_ = currentTime;
 
+	settings::Logger::logInfo("Initializing connection to module gateway on {}:{}", globalContext_->settings->moduleGatewayIp,
+							  globalContext_->settings->moduleGatewayPort);
 
 	boost::asio::ip::tcp::resolver::query resolver_query(globalContext_->settings->moduleGatewayIp,
 														 std::to_string(globalContext_->settings->moduleGatewayPort),

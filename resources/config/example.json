@@ -5,7 +5,7 @@
 		"period-ms": 1000
 	},
 	"vehicle-settings": {
-		"vehicle-provider": "gps",
+		"vehicle-provider": "simulation",
 		"gps-settings": {
 			"gps-provider": "map",
 			"rutx09-settings" : {

@@ -15,7 +15,13 @@ float MapGps::getSpeed() {
 	return 0;
 }
 
-MapGps::MapGps(const std::shared_ptr<osm::Route> &route): route_(route) {
-	route_->prepareRoute();
+MapGps::MapGps(const std::string &mapName, const std::string &routeName) {
+	map_.loadMapFromFile(mapName);
+	map_.prepareRoutes();
+	if(!routeName.empty()) {
+		route_ = map_.getRoute(routeName);
+	} else {
+		route_ = map_.getAllRoutes()[0];
+	}
 }
 }

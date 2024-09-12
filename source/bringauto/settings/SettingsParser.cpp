@@ -210,7 +210,7 @@ void SettingsParser::fillSettings() {
 	fillGeneralSettings(file[GENERAL_SETTINGS]);
 	fillVehicleSettings(file[VEHICLE_SETTINGS]);
 	fillFleetSettings(file[FLEET_SETTINGS]);
-	fillMapSettings(file[MAP_SETTINGS]);
+//	fillMapSettings(file[MAP_SETTINGS]);
 }
 
 void SettingsParser::fillGeneralSettings(const nlohmann::json &section) {

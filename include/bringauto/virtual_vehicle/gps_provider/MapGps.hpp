@@ -2,6 +2,7 @@
 
 #include <bringauto/virtual_vehicle/gps_provider/IGpsProvider.hpp>
 #include <bringauto/osm/Route.hpp>
+#include <bringauto/virtual_vehicle/Map.hpp>
 
 
 
@@ -11,7 +12,7 @@ namespace bringauto::virtual_vehicle::gps_provider {
  */
 class MapGps: public IGpsProvider {
 public:
-	MapGps(const std::shared_ptr<osm::Route> &route);
+	MapGps(const std::string &mapName, const std::string &routeName);
 
 	/**
 	 * @brief Get gps position from map
@@ -26,6 +27,7 @@ public:
 	float getSpeed() override;
 
 private:
+	bringauto::virtual_vehicle::Map map_;
 	std::shared_ptr<osm::Route> route_;
 };
 }

@@ -24,7 +24,8 @@ void GpsVehicle::initialize() {
 			gpsProvider_ = std::make_unique<gps_provider::UBlocks>();
 			break;
 		case settings::GpsProvider::E_MAP:
-//			gpsProvider_ = std::make_unique<gps_provider::MapGps>(actualRoute_); TODO update this
+			gpsProvider_ = std::make_unique<gps_provider::MapGps>(globalContext_->settings->mapFilePath, globalContext_->settings->routeName);
+
 			break;
 		default:
 			throw std::runtime_error("Unknown gps provider!");
@@ -53,17 +54,22 @@ void GpsVehicle::updatePosition() {
 
 	const auto &speed = common_utils::CommonUtils::calculateDistanceInMeters(
 			lastLatitude, lastLongitude,
-			status_.getLatitude(),status_.getLongitude()
-			) / eventDelayInSec_;
+			status_.getLatitude(), status_.getLongitude()
+	)/eventDelayInSec_;
 	status_.setSpeed(speed);
-	if (status_.getState() == communication::EAutonomyState::E_DRIVE) {
+	if(status_.getState() == communication::EAutonomyState::E_DRIVE) {
 		checkForStop();
-	} else if (status_.getState() == communication::EAutonomyState::E_IN_STOP) {
-		auto distanceToStop = common_utils::CommonUtils::calculateDistanceInMeters(nextStop_->latitude,
-																				   nextStop_->longitude,
-																				   status_.getLatitude(),
-																				   status_.getLongitude());
-		if(distanceToStop < globalContext_->settings->stopRadiusM) { // TODO put drive }
+	} else if(status_.getState() == communication::EAutonomyState::E_IN_STOP) {
+		const auto &distanceToStop = common_utils::CommonUtils::calculateDistanceInMeters(status_.getNextStop().latitude,
+																						  status_.getNextStop().longitude,
+																						  status_.getLatitude(),
+																						  status_.getLongitude());
+		if(distanceToStop > globalContext_->settings->stopRadiusM) {
+			settings::Logger::logInfo("Car has left stop area. Changing state to DRIVE.");
+			timerRunning_ = false;
+
+			status_.setState(communication::EAutonomyState::E_DRIVE);
+			status_.setNextStop(*nextStop_);
 		}
 	}
 
@@ -83,20 +89,21 @@ void GpsVehicle::evaluateCommand() {
 		status_.setState(communication::EAutonomyState::E_IDLE);
 		status_.setNextStop({});
 		nextStop_ = nullptr;
+		return;
 	} else {
-		//	TODO change to DRIVE immidiately after IN_STOP??
-		status_.setState(communication::EAutonomyState::E_DRIVE);
 		nextStop_ = std::make_shared<osm::Route::Station>(command.getMission().front());
-		status_.setNextStop(*nextStop_);
+//		status_.setNextStop(*nextStop_);
 	}
 
 	switch(status_.getState()) {
 		case communication::EAutonomyState::E_IDLE:
 			if(command.getAction() == communication::EAutonomyAction::E_START) {
+				status_.setNextStop(*nextStop_);
 				status_.setState(communication::EAutonomyState::E_DRIVE);
 			}
 			break;
 		case communication::EAutonomyState::E_DRIVE:
+			status_.setNextStop(*nextStop_);
 			if(command.getAction() == communication::EAutonomyAction::E_STOP) {
 				status_.setState(communication::EAutonomyState::E_IDLE);
 			}
@@ -127,7 +134,7 @@ void GpsVehicle::checkForStop() {
 																				   status_.getLongitude());
 		if(distanceToStop < globalContext_->settings->stopRadiusM) {
 //			bool lowSpeed = (speed < MAX_STOP_SPEED); TODO is it necessary to act according to speed?
-			if (!timerRunning_) {
+			if(!timerRunning_) {
 				settings::Logger::logInfo("The car is near station {}. Starting stop timer.", nextStop_->name);
 				timerStart_ = std::chrono::steady_clock::now();
 				timerRunning_ = true;
