@@ -176,10 +176,6 @@ std::vector<std::shared_ptr<Point>> Route::getStops() {
 }
 
 void Route::compareStations(std::vector<Station> commandStations) {
-	if(commandStations.size() != stops_.size()) {
-		settings::Logger::logError("There isn't the same number of stops in the command ({}) as on the route ({})", commandStations.size(), stops_.size());
-		return;
-	}
 	for(auto commandStation : commandStations) {
 		bool stationFound = false;
 		for(const auto &stop: stops_) {
