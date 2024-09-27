@@ -4,8 +4,7 @@
 #include <bringauto/logging/Logger.hpp>
 
 #include <thread>
-
-
+#include <bringauto/common_utils/EnumUtils.hpp>
 
 namespace bringauto::virtual_vehicle::vehicle_provider {
 void SimVehicle::initialize() {
@@ -129,62 +128,47 @@ void SimVehicle::evaluateCommand() {
 #ifdef STATE_SMURF
 	settings::StateSmurfDefinition::changeToState(globalContext_->transitions, command.getAction());
 #endif
-	if(command.getRoute() != actualRouteName_ && !command.getRoute().empty()) {
-		auto nextRoute = map_.getRoute(command.getRoute());
-		if(!nextRoute) {
-			logging::Logger::logWarning("Route {} was not found. Command will be ignored", command.getRoute());
-			return;
-		}
-		if(!changeRoute_) {
-			logging::Logger::logInfo("New route received.");
-		}
-		changeRoute_ = true;
-		nextRouteName_ = command.getRoute();
-	}
-
-	if(command.getMission().empty()) {
-		updateVehicleState(communication::EAutonomyState::E_IDLE);
-		return;
-	}
-
-	if(checkStations_) {
-		actualRoute_->compareStations(command.getMission());
-		checkStations_ = false;
-	}
-
-
-	if(!common_utils::CommonUtils::compareMissions(mission_, command.getMission())) {
-		if(!changeRoute_) {
-			if(!actualRoute_->areStopsPresent(command.getMission())) {
-				logging::Logger::logWarning(
-						"Received stopNames are not on route, stopNames will be completely ignored {}",
-						common_utils::CommonUtils::constructMissionString(mission_));
-				mission_.clear();
-				missionValidity_ = false;
+	switch (command.getAction()) {
+		case communication::EAutonomyAction::E_START:
+			if(command.getMission().empty()) {
+				updateVehicleState(communication::EAutonomyState::E_IDLE);
 				return;
 			}
-		}
-		missionValidity_ = true;
-		mission_ = command.getMission();
-	}
 
-	switch(state_) {
-		case communication::EAutonomyState::E_IDLE:
-			if(command.getAction() == communication::EAutonomyAction::E_START) {
-				updateVehicleState(communication::EAutonomyState::E_DRIVE);
-			} else {
-				updateVehicleState(communication::EAutonomyState::E_IDLE);
+			if(command.getRoute() != actualRouteName_ && !command.getRoute().empty()) {
+				auto nextRoute = map_.getRoute(command.getRoute());
+				if(!nextRoute) {
+					logging::Logger::logWarning("Route {} was not found. Command will be ignored", command.getRoute());
+					return;
+				}
+				if(!changeRoute_) {
+					logging::Logger::logInfo("New route received.");
+				}
+				changeRoute_ = true;
+				nextRouteName_ = command.getRoute();
 			}
-			break;
-		case communication::EAutonomyState::E_DRIVE:
-			if(command.getAction() == communication::EAutonomyAction::E_STOP) {
-				updateVehicleState(communication::EAutonomyState::E_IDLE);
-			} else {
-				updateVehicleState(communication::EAutonomyState::E_DRIVE);
+
+			if(checkStations_) {
+				actualRoute_->compareStations(command.getMission());
+				checkStations_ = false;
 			}
-			break;
-		case communication::EAutonomyState::E_IN_STOP:
-			if(command.getAction() == communication::EAutonomyAction::E_START) {
+
+			if(!common_utils::CommonUtils::compareMissions(mission_, command.getMission())) {
+				if(!changeRoute_) {
+					if(!actualRoute_->areStopsPresent(command.getMission())) {
+						logging::Logger::logWarning(
+								"Received stopNames are not on route, stopNames will be completely ignored {}",
+								common_utils::CommonUtils::constructMissionString(mission_));
+						mission_.clear();
+						missionValidity_ = false;
+						return;
+					}
+				}
+				missionValidity_ = true;
+				mission_ = command.getMission();
+			}
+
+			if(state_ == communication::EAutonomyState::E_IN_STOP) {
 				if(inStopMillisecondsLeft_ == 0) {
 					if(mission_.empty()) {
 						updateVehicleState(communication::EAutonomyState::E_IDLE);
@@ -195,16 +179,22 @@ void SimVehicle::evaluateCommand() {
 					updateVehicleState(communication::EAutonomyState::E_IN_STOP);
 				}
 			} else {
-				updateVehicleState(communication::EAutonomyState::E_IDLE);
+				updateVehicleState(communication::EAutonomyState::E_DRIVE);
+			}
+
+			if(state_ != communication::EAutonomyState::E_IN_STOP) {
+				nextStop_ = mission_.front();
 			}
 			break;
-		case communication::EAutonomyState::E_OBSTACLE:
-		case communication::EAutonomyState::E_ERROR:
-			break;
-	}
 
-	if(state_ != communication::EAutonomyState::E_IN_STOP) {
-		nextStop_ = mission_.front();
+		case communication::EAutonomyAction::E_STOP:
+		case communication::EAutonomyAction::E_NO_ACTION:
+			updateVehicleState(communication::EAutonomyState::E_IDLE);
+			break;
+
+	default:
+			logging::Logger::logWarning("Unknown action received: {}", common_utils::EnumUtils::enumToString(command.getAction()));
+			break;
 	}
 }
 
