@@ -1,7 +1,7 @@
 #include <bringauto/virtual_vehicle/vehicle_provider/SimVehicle.hpp>
 #include <bringauto/common_utils/CommonUtils.hpp>
 
-#include <bringauto/logging/Logger.hpp>
+#include <bringauto/settings/LoggerId.hpp>
 
 #include <thread>
 #include <bringauto/common_utils/EnumUtils.hpp>
@@ -83,12 +83,12 @@ void SimVehicle::handleInStopEvent() {
 
 void SimVehicle::handleObstacleEvent() {
 	std::this_thread::sleep_for(std::chrono::milliseconds(globalContext_->settings->messagePeriodMs));
-	logging::Logger::logWarning("Cars state is obstacle, this state is not supported.");
+	settings::Logger::logWarning("Cars state is obstacle, this state is not supported.");
 }
 
 void SimVehicle::handleErrorEvent() {
 	std::this_thread::sleep_for(std::chrono::milliseconds(globalContext_->settings->messagePeriodMs));
-	logging::Logger::logWarning("Car is in error state.");
+	settings::Logger::logWarning("Car is in error state.");
 }
 
 void SimVehicle::setNextPosition() {
@@ -102,7 +102,7 @@ void SimVehicle::setNextPosition() {
 			actualSpeed_);
 
 	if(state_ == communication::EAutonomyState::E_DRIVE) {
-		logging::Logger::logInfo("{} route, distance to drive: {:.2f}m, time to get there: {:.2f}s", actualRouteName_,
+		settings::Logger::logInfo("{} route, distance to drive: {:.2f}m, time to get there: {:.2f}s", actualRouteName_,
 								 common_utils::CommonUtils::calculateDistanceInMeters(*actualPosition_, *nextPosition_),
 								 (double)driveMillisecondLeft_/1000);
 	}
@@ -118,7 +118,7 @@ void SimVehicle::request() {
 
 	std::stringstream is;
 	is << status;
-	logging::Logger::logInfo("Sending status {}", is.str());
+	settings::Logger::logInfo("Sending status {}", is.str());
 	com_->makeRequest(status);
 	evaluateCommand();
 }
@@ -138,11 +138,11 @@ void SimVehicle::evaluateCommand() {
 			if(command.getRoute() != actualRouteName_ && !command.getRoute().empty()) {
 				auto nextRoute = map_.getRoute(command.getRoute());
 				if(!nextRoute) {
-					logging::Logger::logWarning("Route {} was not found. Command will be ignored", command.getRoute());
+					settings::Logger::logWarning("Route {} was not found. Command will be ignored", command.getRoute());
 					return;
 				}
 				if(!changeRoute_) {
-					logging::Logger::logInfo("New route received.");
+					settings::Logger::logInfo("New route received.");
 				}
 				changeRoute_ = true;
 				nextRouteName_ = command.getRoute();
@@ -156,7 +156,7 @@ void SimVehicle::evaluateCommand() {
 			if(!common_utils::CommonUtils::compareMissions(mission_, command.getMission())) {
 				if(!changeRoute_) {
 					if(!actualRoute_->areStopsPresent(command.getMission())) {
-						logging::Logger::logWarning(
+						settings::Logger::logWarning(
 								"Received stopNames are not on route, stopNames will be completely ignored {}",
 								common_utils::CommonUtils::constructMissionString(mission_));
 						mission_.clear();
@@ -193,7 +193,7 @@ void SimVehicle::evaluateCommand() {
 			break;
 
 	default:
-			logging::Logger::logWarning("Unknown action received: {}", common_utils::EnumUtils::enumToString(command.getAction()));
+			settings::Logger::logWarning("Unknown action received: {}", common_utils::EnumUtils::enumToString(command.getAction()));
 			break;
 	}
 }
@@ -201,7 +201,7 @@ void SimVehicle::evaluateCommand() {
 bool SimVehicle::checkForStop() {
 	if(actualPosition_->isStop() && actualPosition_->getName() == nextStop_.name) {
 		updateVehicleState(communication::EAutonomyState::E_IN_STOP);
-		bringauto::logging::Logger::logInfo("Car have arrived at the stop {}", nextStop_.name);
+		settings::Logger::logInfo("Car have arrived at the stop {}", nextStop_.name);
 		return true;
 	}
 	return false;
@@ -246,10 +246,10 @@ void SimVehicle::changeRoute() {
 		if(nextPosition) {
 			actualRoute_ = nextRoute;
 			actualRouteName_ = nextRouteName_;
-			logging::Logger::logInfo("Route changed to: {}.", nextRouteName_);
+			settings::Logger::logInfo("Route changed to: {}.", nextRouteName_);
 
 			if(!actualRoute_->areStopsPresent(mission_)) {  // Check if all stops are present on the new route
-				logging::Logger::logWarning(
+				settings::Logger::logWarning(
 						"Received stopNames are not on route, stopNames will be completely ignored {}",
 						common_utils::CommonUtils::constructMissionString(mission_));
 				mission_.clear();
@@ -261,10 +261,10 @@ void SimVehicle::changeRoute() {
 			checkStations_ = true;
 			actualRoute_->setPositionAndDirection(*nextPosition, nextStop_.name);
 		} else {
-			logging::Logger::logInfo("Vehicle is not on a the new route and cannot switch routes yet");
+			settings::Logger::logInfo("Vehicle is not on a the new route and cannot switch routes yet");
 		}
 	} else {
-		logging::Logger::logWarning("Route {} was not found.", nextRouteName_);
+		settings::Logger::logWarning("Route {} was not found.", nextRouteName_);
 	}
 
 }

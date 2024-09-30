@@ -5,7 +5,7 @@
 #include <bringauto/communication/Status.hpp>
 #include <bringauto/common_utils/CommonUtils.hpp>
 
-#include <bringauto/logging/Logger.hpp>
+#include <bringauto/settings/LoggerId.hpp>
 
 #include <thread>
 
@@ -70,7 +70,7 @@ void GpsVehicle::updatePosition() {
 																				   status_.getLongitude());
 		if(distanceToStop < globalContext_->settings->stopRadius) {
 			status_.setState(communication::EAutonomyState::E_IN_STOP);
-			logging::Logger::logInfo("Car arrived at stop {}.", currentStop_->getName());
+			settings::Logger::logInfo("Car arrived at stop {}.", currentStop_->getName());
 		}
 	}
 	status_.setSpeed(
@@ -82,7 +82,7 @@ void GpsVehicle::makeRequest() {
 	com_->makeRequest(status_);
 	std::stringstream is;
 	is << status_;
-	logging::Logger::logInfo("Sending status {}", is.str());
+	settings::Logger::logInfo("Sending status {}", is.str());
 	evaluateCommand();
 }
 
@@ -91,7 +91,7 @@ void GpsVehicle::evaluateCommand() {
 
 	auto route = map_.getRoute(command.getRoute()); /// Change of route, need to update available stops on it
 	if(!route) {
-		logging::Logger::logWarning("Route {} was not found. Command will be ignored", command.getRoute());
+		settings::Logger::logWarning("Route {} was not found. Command will be ignored", command.getRoute());
 		return;
 	}
 
@@ -112,7 +112,7 @@ void GpsVehicle::evaluateCommand() {
 			}
 		}
 		if(!currentStop_) {
-			logging::Logger::logWarning("Received stop with name {} but stop was not found on map.",
+			settings::Logger::logWarning("Received stop with name {} but stop was not found on map.",
 										status_.getNextStop().name);
 		}
 	}

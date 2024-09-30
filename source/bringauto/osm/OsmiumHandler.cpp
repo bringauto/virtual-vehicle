@@ -1,6 +1,6 @@
 #include <bringauto/osm/OsmiumHandler.hpp>
 
-#include <bringauto/logging/Logger.hpp>
+#include <bringauto/settings/LoggerId.hpp>
 #include <osmium/geom/haversine.hpp>
 
 
@@ -18,7 +18,7 @@ void OsmiumHandler::node(const osmium::Node &node) {
 
 	if(stop) {
 		if(!node.tags().has_key("name")) {
-			logging::Logger::logWarning("Warning! Found unnamed stop that will be ignored!");
+			settings::Logger::logWarning("Warning! Found unnamed stop that will be ignored!");
 			stop = false;
 		} else {
 			stopName = std::string { node.tags().get_value_by_key("name") };
