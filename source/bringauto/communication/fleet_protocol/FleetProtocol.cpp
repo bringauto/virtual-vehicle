@@ -87,17 +87,11 @@ bool FleetProtocol::makeRequest(const Status &status) {
 		isConnected_ = false;
 		return false;
 	}
-#ifdef STATE_SMURF
-	globalContext_->transitions->goToState(bringauto::settings::statusSentState);
-#endif
+
 	if(!receiveCommand()) {
 		isConnected_ = false;
 		return false;
 	}
-
-#ifdef STATE_SMURF
-	globalContext_->transitions->goToState(bringauto::settings::commandReceivedState);
-#endif
 	return true;
 }
 

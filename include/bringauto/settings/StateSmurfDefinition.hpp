@@ -12,11 +12,6 @@
 namespace bringauto::settings {
 /// State names
 const std::string connectedState { "Connected" };
-const std::string statusSentState { "CarStatusSent" };
-const std::string commandReceivedState { "CarCommandReceived" };
-const std::string startReceivedState { "StartReceived" };
-const std::string stopReceivedState { "StopReceived" };
-const std::string noActionReceivedState { "NoActionReceived" };
 const std::string idleState { "Idle" };
 const std::string driveState { "Drive" };
 const std::string inStopState { "InStop" };
