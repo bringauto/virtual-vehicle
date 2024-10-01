@@ -66,8 +66,6 @@ void GpsVehicle::updatePosition() {
 																						  status_.getLongitude());
 		if(distanceToStop > globalContext_->settings->stopRadiusM) {
 			settings::Logger::logInfo("Car has left stop area. Changing state to DRIVE.");
-			timerRunning_ = false;
-
 			status_.setState(communication::EAutonomyState::E_DRIVE);
 			status_.setNextStop(*nextStop_);
 		}
@@ -92,7 +90,6 @@ void GpsVehicle::evaluateCommand() {
 		return;
 	} else {
 		nextStop_ = std::make_shared<osm::Route::Station>(command.getMission().front());
-//		status_.setNextStop(*nextStop_);
 	}
 
 	switch(status_.getState()) {
@@ -109,8 +106,7 @@ void GpsVehicle::evaluateCommand() {
 			}
 			break;
 		case communication::EAutonomyState::E_IN_STOP:
-			// TODO should it stay IN_STOP if nextStop null??
-			if(command.getAction() != communication::EAutonomyAction::E_START /* || nextStop_ == nullptr */) {
+			if(command.getAction() != communication::EAutonomyAction::E_START  || nextStop_ == nullptr ) {
 				status_.setState(communication::EAutonomyState::E_IDLE);
 			}
 			break;
@@ -134,18 +130,18 @@ void GpsVehicle::checkForStop() {
 																				   status_.getLongitude());
 		if(distanceToStop < globalContext_->settings->stopRadiusM) {
 //			bool lowSpeed = (speed < MAX_STOP_SPEED); TODO is it necessary to act according to speed?
-			if(!timerRunning_) {
+			if(!timer_.isRunning()) {
 				settings::Logger::logInfo("The car is near station {}. Starting stop timer.", nextStop_->name);
-				timerStart_ = std::chrono::steady_clock::now();
-				timerRunning_ = true;
+				timer_.start();
 			}
-			if(std::chrono::steady_clock::now() - timerStart_ >= globalContext_->settings->inStopDelayS) {
+			if(timer_.getElapsedTime() >= globalContext_->settings->inStopDelayS) {
 				status_.setState(communication::EAutonomyState::E_IN_STOP);
 				settings::Logger::logInfo("Car arrived at stop {}.", nextStop_->name);
+				timer_.stop();
 			}
-		} else {
+		} else if (timer_.isRunning()) {
 			settings::Logger::logInfo("Stop timer cancelled, the car has exited the station area.", nextStop_->name);
-			timerRunning_ = false;
+			timer_.stop();
 		}
 	}
 }
