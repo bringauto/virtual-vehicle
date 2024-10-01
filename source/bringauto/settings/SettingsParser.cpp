@@ -308,7 +308,16 @@ void SettingsParser::fillSimulationSettings(const nlohmann::json &section) {
 		settings_->speedOverrideMS = section[OSM_SPEED_OVERRIDE_MPS];
 	}
 
-	fillMapSettings(section);
+	if(cmdArguments_.count(OSM_MAP)) {
+		settings_->mapFilePath = cmdArguments_[OSM_MAP].as<std::string>();
+	} else {
+		settings_->mapFilePath = std::filesystem::path(section[OSM_MAP]);
+	}
+	if(cmdArguments_.count(OSM_ROUTE)) {
+		settings_->routeName = cmdArguments_[OSM_ROUTE].as<std::string>();
+	} else {
+		settings_->routeName = section[OSM_ROUTE];
+	}
 }
 
 void SettingsParser::fillFleetSettings(const nlohmann::json &section) {
@@ -346,11 +355,6 @@ void SettingsParser::fillMapSettings(const nlohmann::json &section) {
 		settings_->mapFilePath = cmdArguments_[OSM_MAP].as<std::string>();
 	} else {
 		settings_->mapFilePath = std::filesystem::path(section[OSM_MAP]);
-	}
-	if(cmdArguments_.count(OSM_ROUTE)) {
-		settings_->routeName = cmdArguments_[OSM_ROUTE].as<std::string>();
-	} else {
-		settings_->routeName = section[OSM_ROUTE];
 	}
 }
 

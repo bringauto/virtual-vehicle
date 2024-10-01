@@ -13,12 +13,17 @@
 				"rutx-port": 502,
 				"rutx-slave-id": 1
 			},
+			"map-settings": {
+				"map": ""
+			},
 			"stop-radius-m": 5
 		},
 		"simulation-settings": {
 			"speed-override": false,
 			"speed-override-mps": 1,
-			"wait-at-stop-s": 10
+			"wait-at-stop-s": 10,
+			"map": "",
+			"default-route": ""
 		}
 	},
 	"fleet-settings": {
@@ -33,9 +38,5 @@
 		},
 		"empty":{
 		}
-	},
-	"map-settings": {
-		"map": "",
-		"default-route": ""
 	}
 }

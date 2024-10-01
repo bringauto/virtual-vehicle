@@ -14,8 +14,7 @@
 				"rutx-slave-id": 1
 			},
 			"map-settings": {
-				"map": "../resources/maps/moravske_namesti.osm",
-				"default-route": ""
+				"map": "../resources/maps/moravske_namesti.osm"
 			},
 			"stop-radius-m": 5,
 			"in-stop-delay-s": 10
