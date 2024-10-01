@@ -85,6 +85,7 @@ examples in `./config/*.json`
 
 #### map settings
 * `map` - full path to .osm file containing map, string
+* `default-route` - the name of the route that will be set as default, string
 
 ### simulation settings
 
@@ -137,7 +138,7 @@ Provider used for GPS-based position reporting. The options are:
 * `rutx09` - position is obtained from RUTX09 router from Teltonika. Required
   parameters: `--rutx-ip=<string>`, `--rutx-port=<int>`, `rutx-slave-id=<int>`
 * `ublox` - position is obtained from ublox device, NOT IMPLEMENTED
-* `map` - position is obtained from the map, for testing purposes. Required parameters: `--map=<string>`
+* `map` - position is obtained from the map, for testing purposes. Required parameters: `--map=<string>` and `--default-route=<string>`
 
 ## Cmake parameters
 

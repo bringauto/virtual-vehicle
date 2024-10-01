@@ -88,7 +88,7 @@ void Route::appendWay(const std::shared_ptr<Way> &way) {
 				osmium::geom::Coordinates { points.front()->getLatitude(), points.front()->getLongitude() });
 		if(distanceBetweenRoutes > ROUTES_DISTANCE_THRESHOLD_M) {
 			settings::Logger::logWarning("Distance between part of routes is higher than threshold {}",
-										CIRCULAR_ROUTE_THRESHOLD_M);
+										ROUTES_DISTANCE_THRESHOLD_M);
 		}
 	}
 	points_.insert(points_.end(), points.begin(), points.end());

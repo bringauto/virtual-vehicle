@@ -20,7 +20,7 @@ public:
 		}
 	}
 
-	bool isRunning() {
+	bool isRunning() const {
 		return timerRunning_;
 	}
 private:

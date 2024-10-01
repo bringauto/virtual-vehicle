@@ -20,8 +20,14 @@ MapGps::MapGps(const std::string &mapName, const std::string &routeName) {
 	map_.prepareRoutes();
 	if(!routeName.empty()) {
 		route_ = map_.getRoute(routeName);
+		if(route_ == nullptr) {
+			throw std::runtime_error("Route not found: " + routeName);
+		}
 	} else {
-		route_ = map_.getAllRoutes()[0];
+		route_ = map_.getAllRoutes().front();
+		if(route_ == nullptr) {
+			throw std::runtime_error("No routes found in map");
+		}
 	}
 }
 }

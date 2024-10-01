@@ -14,7 +14,8 @@
 				"rutx-slave-id": 1
 			},
 			"map-settings": {
-				"map": ""
+				"map": "",
+				"default-route": ""
 			},
 			"stop-radius-m": 5
 		},
