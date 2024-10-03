@@ -1,8 +1,13 @@
 {
   "setup" : [
-    "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices up -d"
+    "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices pull",
+    "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices up -d",
+    "sleep 5"
   ],
-  "between_runs" : [ "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices restart" ],
+  "between_runs" : [
+    "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices restart",
+    "sleep 5"
+  ],
   "scenarios" : [
     {
       "name" : "fewNodes",
