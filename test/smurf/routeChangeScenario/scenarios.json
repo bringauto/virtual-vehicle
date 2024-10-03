@@ -1,6 +1,6 @@
 {
   "setup" : [
-    "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices up -d",
+    "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices pull",
     "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices up -d",
     "sleep 5"
   ],
