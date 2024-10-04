@@ -4,9 +4,7 @@
     "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices up -d",
     "sleep 15"
   ],
-  "between_runs" : [
-    "sleep 15"
-  ],
+  "between_runs" : [],
   "scenarios" : [
     {
       "name" : "default",
