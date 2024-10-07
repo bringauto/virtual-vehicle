@@ -1,6 +1,6 @@
 {
 	"general-settings": {
-		"log-path": "",
+		"log-path": "./",
 		"verbose": true,
 		"period-ms": 1000
 	},
