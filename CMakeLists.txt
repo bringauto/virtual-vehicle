@@ -1,9 +1,9 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.23)
 PROJECT(virtual-vehicle-utility)
 
-SET(CMAKE_CXX_STANDARD 17)
+SET(CMAKE_CXX_STANDARD 20)
 
-SET(VIRTUAL_VEHICLE_UTILITY_VERSION 3.1.1)
+SET(VIRTUAL_VEHICLE_UTILITY_VERSION 3.2.0)
 ADD_DEFINITIONS(-DVIRTUAL_VEHICLE_UTILITY_VERSION="${VIRTUAL_VEHICLE_UTILITY_VERSION}")
 
 # for linking .so after make install (actually ba_logger):
@@ -22,6 +22,7 @@ OPTION(BRINGAUTO_PACKAGE "Package creation" OFF)
 OPTION(BRINGAUTO_INSTALL "Disable install" OFF)
 OPTION(BRINGAUTO_SYSTEM_DEP "Enable system dependencies" OFF)
 OPTION(BRINGAUTO_SAMPLES "Enable build of sample app, not used in project" OFF)
+OPTION(BRINGAUTO_GET_PACKAGES_ONLY "Only download packages for this project" OFF)
 OPTION(STATE_SMURF "Enables state smurf" OFF)
 
 IF (BRINGAUTO_PACKAGE)
@@ -38,6 +39,9 @@ FIND_PACKAGE(CMLIB
 
 IF (NOT BRINGAUTO_SYSTEM_DEP)
     INCLUDE(cmake/Dependencies.cmake)
+    IF (BRINGAUTO_GET_PACKAGES_ONLY)
+        RETURN()
+    ENDIF ()
 ENDIF ()
 
 
@@ -50,9 +54,9 @@ ENDIF ()
 
 FIND_PACKAGE(cxxopts 3.0.0 REQUIRED)
 FIND_PACKAGE(nlohmann_json 3.2.0 REQUIRED)
-FIND_PACKAGE(libbringauto_logger 1.2.0 REQUIRED)
+FIND_PACKAGE(libbringauto_logger 2.0.0 REQUIRED)
 FIND_PACKAGE(modbuspp 0.3.1 REQUIRED)
-FIND_PACKAGE(internal-client-shared 1.1.0 REQUIRED)
+FIND_PACKAGE(internal-client-shared 1.1.1 REQUIRED)
 FIND_PACKAGE(fleet-protocol-interface 2.0.0 REQUIRED)
 FIND_PACKAGE(Protobuf 3.21.12 REQUIRED)
 FIND_PACKAGE(Boost REQUIRED COMPONENTS system)
@@ -90,7 +94,7 @@ TARGET_LINK_LIBRARIES(virtual-vehicle-utility
         Boost::system
 )
 IF (STATE_SMURF)
-    FIND_PACKAGE(state_smurf 2.0.0 REQUIRED)
+    FIND_PACKAGE(state_smurf 2.2.0 REQUIRED)
     ADD_COMPILE_DEFINITIONS(STATE_SMURF)
     TARGET_LINK_LIBRARIES(virtual-vehicle-utility PUBLIC
             diagram_smurf_lib

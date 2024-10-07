@@ -53,6 +53,7 @@ private:
 	static const std::string RUT_PORT;
 	static const std::string RUT_SLAVE_ID;
 	static const std::string STOP_RADIUS;
+	static const std::string IN_STOP_DELAY_S;
 	static const std::string DEVICE_NAME;
 	static const std::string DEVICE_ROLE;
 	static const std::string DEVICE_PRIORITY;

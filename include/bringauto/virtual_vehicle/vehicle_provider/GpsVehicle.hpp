@@ -2,7 +2,7 @@
 
 #include <bringauto/virtual_vehicle/vehicle_provider/IVirtualVehicle.hpp>
 #include <bringauto/virtual_vehicle/gps_provider/IGpsProvider.hpp>
-
+#include <bringauto/common_utils/Timer.hpp>
 
 
 namespace bringauto::virtual_vehicle::vehicle_provider {
@@ -21,11 +21,16 @@ public:
 
 
 private:
+	void checkForStop();
 	std::unique_ptr<gps_provider::IGpsProvider> gpsProvider_;
 	communication::Status status_;
 	double eventDelayInSec_;
-	std::vector<std::shared_ptr<osm::Point>> stops_;
-	std::shared_ptr<osm::Point> currentStop_;
+	std::shared_ptr<osm::Route::Station> nextStop_;
+
+	/// The car speed can be > 0 even if the car is stopped, because of the GPS inaccuracy
+	/// static constexpr double MAX_STOP_SPEED = 0.5;
+
+	common_utils::Timer timer_;
 
 	void nextEvent() override;
 

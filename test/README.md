@@ -1,3 +1,15 @@
-# About
+# Tests
 
-Tests are build by cmake in main repository, target is named vvutests. After build run ./vvutest from build folder.
+Unit tests are configured by CMake parameter `-DBRINGAUTO_TESTS=ON`
+start unit tests:
+
+```asm
+cd _build
+cmake -DBRINGAUTO_TESTS=ON ..
+make
+ctest
+```
+
+## Integration tests
+
+Integration tests by StateSmurf are decribed in [test/smurf/README.md](test/smurf/README.md).

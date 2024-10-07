@@ -94,10 +94,12 @@ struct Settings {
 	/// IP address of RUTX gps router
 	std::string rutxIp;
 	/// Port of modbus service
-	int rutxPort{-1};
+	uint16_t rutxPort{0};
 	/// Modbus service slave ID
 	int rutxSlaveId{-1};
 	/// Distance from the stop enough to be marked as in stop
-	int stopRadius{-1};
+	uint32_t stopRadiusM{ 0};
+	/// Time in seconds, how long has the vehicle be in the stopRadiusM to change to IN_STOP
+	std::chrono::seconds inStopDelayS{0};
 };
 }

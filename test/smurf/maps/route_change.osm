@@ -2,17 +2,19 @@
 <osm version='0.6' generator='JOSM'>
   <node id='-137709' action='modify' visible='true' lat='49.22824453831' lon='16.5951007551'>
     <tag k='speed' v='50' />
+    <tag k='name' v='route_change_starting_station' />
+    <tag k='stop' v='true' />
   </node>
   <node id='-137711' action='modify' visible='true' lat='49.22880505017' lon='16.59468769491' />
   <node id='-137712' action='modify' visible='true' lat='49.22808689321' lon='16.5932875818'>
-    <tag k='name' v='first' />
+    <tag k='name' v='first_route_stop' />
     <tag k='stop' v='true' />
   </node>
   <node id='-137713' action='modify' visible='true' lat='49.22769803312' lon='16.59250437677' />
   <node id='-137714' action='modify' visible='true' lat='49.22668207793' lon='16.59309982717' />
   <node id='-137715' action='modify' visible='true' lat='49.22717954825' lon='16.59571229875' />
   <node id='-137716' action='modify' visible='true' lat='49.22859135578' lon='16.59190356195'>
-    <tag k='name' v='second' />
+    <tag k='name' v='second_route_stop' />
     <tag k='stop' v='true' />
   </node>
   <way id='-103224' action='modify' visible='true'>

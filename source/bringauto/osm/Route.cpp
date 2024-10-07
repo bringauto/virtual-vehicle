@@ -1,6 +1,6 @@
 #include <bringauto/osm/Route.hpp>
 
-#include <bringauto/logging/Logger.hpp>
+#include <bringauto/settings/LoggerId.hpp>
 
 
 
@@ -19,7 +19,7 @@ void Route::propagateSpeed() {
 		speed = points_.front()->getSpeedInMetersPerSecond();
 	} else {
 		speed = 5;
-		logging::Logger::logWarning(
+		settings::Logger::logWarning(
 				"First point of route {} does not contain speed, defaulting to 5m/s", getRouteName());
 	}
 
@@ -37,9 +37,9 @@ void Route::setNextPosition() {
 	if(positionIt != points_.end()) {
 		return;
 	}
-	logging::Logger::logInfo("End of route has been reached, continuing another lap");
+	settings::Logger::logInfo("End of route has been reached, continuing another lap");
 	if(!routeIsCircular_) {
-		logging::Logger::logInfo("Route is not circular, reversing.");
+		settings::Logger::logInfo("Route is not circular, reversing.");
 		std::reverse(points_.begin(), points_.end());
 		positionIt = points_.begin();
 		positionIt++;
@@ -72,7 +72,7 @@ bool Route::areStopsPresent(const std::vector<osm::Route::Station> &stops) {
 		auto pointIt = std::find_if(stops_.begin(), stops_.end(),
 									[stop](const auto &point) { return stop.name == point->getName(); });
 		if(pointIt == stops_.end()) {
-			logging::Logger::logError("Unknown stop: " + stop.name);
+			settings::Logger::logError("Unknown stop: " + stop.name);
 			return false;
 		}
 	}
@@ -87,8 +87,8 @@ void Route::appendWay(const std::shared_ptr<Way> &way) {
 				osmium::geom::Coordinates { points_.back()->getLatitude(), points_.back()->getLongitude() },
 				osmium::geom::Coordinates { points.front()->getLatitude(), points.front()->getLongitude() });
 		if(distanceBetweenRoutes > ROUTES_DISTANCE_THRESHOLD_M) {
-			logging::Logger::logWarning("Distance between part of routes is higher than threshold {}",
-										CIRCULAR_ROUTE_THRESHOLD_M);
+			settings::Logger::logWarning("Distance between part of routes is higher than threshold {}",
+										ROUTES_DISTANCE_THRESHOLD_M);
 		}
 	}
 	points_.insert(points_.end(), points.begin(), points.end());
@@ -101,20 +101,41 @@ void Route::speedOverride(unsigned int speed) {
 	}
 }
 
-bool Route::isPointPresent(const Point &pointToFind) {
-	return std::any_of(points_.begin(), points_.end(), [pointToFind](const std::shared_ptr<Point> &point) {
+std::shared_ptr<Point> Route::getClosestPoint(const Point &pointToFind) const {
+	if(points_.empty()) {
+		return nullptr;
+	}
+
+	auto haversineDistance = [&pointToFind](const std::shared_ptr<Point> &point) {
 		return osmium::geom::haversine::distance(
-				osmium::geom::Coordinates { point->getLatitude(), point->getLongitude() },
-				osmium::geom::Coordinates { pointToFind.getLatitude(), pointToFind.getLongitude() }) < POINT_TOLERANCE_M;
-	});
+				osmium::geom::Coordinates {point->getLatitude(), point->getLongitude()},
+				osmium::geom::Coordinates {pointToFind.getLatitude(), pointToFind.getLongitude()});
+	};
+
+	auto closestPointIter = std::min_element(points_.begin(), points_.end(),
+	                                        [&haversineDistance](const std::shared_ptr<Point> &a, const std::shared_ptr<Point> &b) {
+                                            	return haversineDistance(a) < haversineDistance(b);
+	                                        });
+
+	if(closestPointIter == points_.end()) {
+		return nullptr;
+	}
+
+	double closestDistance = haversineDistance(*closestPointIter);
+
+	if(closestDistance < POINT_TOLERANCE_M) {
+		return *closestPointIter;
+	}
+
+	return nullptr;
 }
 
-void Route::setPositionAndDirection(const Point &actualPosition, const std::string &nextStopName) {
+void Route::setPositionAndDirection(const Point &newPosition, const std::string &nextStopName) {
 	positionIt = points_.begin();
 	for(auto it = points_.begin(); it != points_.end(); it++) { //todo refactor
 		auto distance = osmium::geom::haversine::distance(
 				osmium::geom::Coordinates { it->get()->getLatitude(), it->get()->getLongitude() },
-				osmium::geom::Coordinates { actualPosition.getLatitude(), actualPosition.getLongitude() });
+				osmium::geom::Coordinates { newPosition.getLatitude(), newPosition.getLongitude() });
 		if(distance < DISTANCE_TOLERANCE_M) {
 			if(!routeIsCircular_) { // Circular routes must not be reversed
 				bool reverse = true;
@@ -129,8 +150,8 @@ void Route::setPositionAndDirection(const Point &actualPosition, const std::stri
 					for(it = points_.begin(); it != points_.end(); it++) {
 						auto newDistance = osmium::geom::haversine::distance(
 								osmium::geom::Coordinates { it->get()->getLatitude(), it->get()->getLongitude() },
-								osmium::geom::Coordinates { actualPosition.getLatitude(),
-															actualPosition.getLongitude() });
+								osmium::geom::Coordinates { newPosition.getLatitude(),
+															newPosition.getLongitude() });
 						if(newDistance < DISTANCE_TOLERANCE_M) {
 							break;
 						}
@@ -141,6 +162,7 @@ void Route::setPositionAndDirection(const Point &actualPosition, const std::stri
 			return;
 		}
 	}
+	settings::Logger::logWarning("Position not found on route, setting to first point of route");
 }
 
 std::vector<std::shared_ptr<Point>> Route::getStops() {
@@ -154,10 +176,6 @@ std::vector<std::shared_ptr<Point>> Route::getStops() {
 }
 
 void Route::compareStations(std::vector<Station> commandStations) {
-	if(commandStations.size() != stops_.size()) {
-		logging::Logger::logError("There isn't the same number of stops in the command ({}) as on the route ({})", commandStations.size(), stops_.size());
-		return;
-	}
 	for(auto commandStation : commandStations) {
 		bool stationFound = false;
 		for(const auto &stop: stops_) {
@@ -167,7 +185,7 @@ void Route::compareStations(std::vector<Station> commandStations) {
 						osmium::geom::Coordinates { stop->getLatitude(), stop->getLongitude() },
 						osmium::geom::Coordinates { commandStation.latitude, commandStation.longitude });
 				if(stopDistance > POINT_TOLERANCE_M) {
-					logging::Logger::logWarning(
+					settings::Logger::logWarning(
 							"Station {} is on different location. Station position in command: lat = {}, long = {}, position on route: lat = {}, long = {}",
 							commandStation.name, commandStation.latitude, commandStation.longitude, stop->getLatitude(),
 							stop->getLongitude());
@@ -175,7 +193,7 @@ void Route::compareStations(std::vector<Station> commandStations) {
 			}
 		}
 		if(!stationFound) {
-			logging::Logger::logError("Station {} sent in command is not on the route", commandStation.name);
+			settings::Logger::logError("Station {} sent in command is not on the route", commandStation.name);
 		}
 	}
 }

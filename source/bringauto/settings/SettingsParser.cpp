@@ -29,6 +29,7 @@ const std::string SettingsParser::RUT_IP { "rutx-ip" };
 const std::string SettingsParser::RUT_PORT { "rutx-port" };
 const std::string SettingsParser::RUT_SLAVE_ID { "rutx-slave-id" };
 const std::string SettingsParser::STOP_RADIUS { "stop-radius-m" };
+const std::string SettingsParser::IN_STOP_DELAY_S { "in-stop-delay-s" };
 const std::string SettingsParser::DEVICE_NAME { "device-name" };
 const std::string SettingsParser::DEVICE_ROLE { "device-role" };
 const std::string SettingsParser::DEVICE_PRIORITY { "device-priority" };
@@ -82,11 +83,16 @@ void SettingsParser::parseCmdArguments(int argc, char **argv) {
 												cxxopts::value<int>());
 	options.add_options("gps vehicle provider")(STOP_RADIUS, "Radius from stop for marking it done.",
 												cxxopts::value<int>());
+	options.add_options("gps vehicle provider")(IN_STOP_DELAY_S, "Delay in seconds, for which the vehicle has to be in stop radius to mark it as done.",
+												cxxopts::value<int>());
 	options.add_options("simulation vehicle provider")(OSM_SPEED_OVERRIDE, "Override map speed on all points, in m/s",
 													   cxxopts::value<uint32_t>());
 	options.add_options("simulation vehicle provider")(OSM_STOP_WAIT_TIME,
 													   "Wait time in stops in seconds, default is 10s",
 													   cxxopts::value<uint32_t>());
+	options.add_options("simulation vehicle provider")(OSM_MAP, "Path to .osm map file", cxxopts::value<std::string>());
+	options.add_options("simulation vehicle provider")(OSM_ROUTE, "Name of route that will be set on initialization",
+							   cxxopts::value<std::string>());
 	options.add_options("fleet")(FLEET_PROVIDER,
 								 R"(Provider of communication with fleet, "protobuf" or "empty")",
 								 cxxopts::value<std::string>());
@@ -95,9 +101,6 @@ void SettingsParser::parseCmdArguments(int argc, char **argv) {
 												   cxxopts::value<std::string>());
 	options.add_options("protobuf fleet provider")(MODULE_GATEWAY_PORT, "Port of server side application",
 												   cxxopts::value<int>());
-	options.add_options("map")(OSM_MAP, "Path to .osm map file", cxxopts::value<std::string>());
-	options.add_options("map")(OSM_ROUTE, "Name of route that will be set on initialization",
-							   cxxopts::value<std::string>());
 	options.add_options()("h, " + HELP, "Print usage");
 
 	cmdArguments_ = options.parse(argc, argv);
@@ -207,7 +210,7 @@ void SettingsParser::fillSettings() {
 	fillGeneralSettings(file[GENERAL_SETTINGS]);
 	fillVehicleSettings(file[VEHICLE_SETTINGS]);
 	fillFleetSettings(file[FLEET_SETTINGS]);
-	fillMapSettings(file[MAP_SETTINGS]);
+//	fillMapSettings(file[MAP_SETTINGS]);
 }
 
 void SettingsParser::fillGeneralSettings(const nlohmann::json &section) {
@@ -255,12 +258,21 @@ void SettingsParser::fillGpsSettings(const nlohmann::json &section) {
 
 	}
 	if(cmdArguments_.count(STOP_RADIUS)) {
-		settings_->stopRadius = cmdArguments_[STOP_RADIUS].as<int>();
+		settings_->stopRadiusM = cmdArguments_[STOP_RADIUS].as<uint32_t >();
 	} else {
-		settings_->stopRadius = section[STOP_RADIUS];
+		settings_->stopRadiusM = section[STOP_RADIUS];
 	}
+
+	if(cmdArguments_.count(IN_STOP_DELAY_S)) {
+		settings_->inStopDelayS = cmdArguments_[IN_STOP_DELAY_S].as<std::chrono::seconds>();
+	} else {
+		settings_->inStopDelayS = std::chrono::seconds(section[IN_STOP_DELAY_S]);
+	}
+
 	if(settings_->gpsProvider == GpsProvider::E_RUTX09) {
 		fillRutx09Settings(section[RUTX_09_SETTINGS]);
+	} else if(settings_->gpsProvider == GpsProvider::E_MAP) {
+		fillMapSettings(section[MAP_SETTINGS]);
 	}
 }
 
@@ -271,7 +283,7 @@ void SettingsParser::fillRutx09Settings(const nlohmann::json &section) {
 		settings_->rutxIp = section[RUT_IP];
 	}
 	if(cmdArguments_.count(RUT_PORT)) {
-		settings_->rutxPort = cmdArguments_[RUT_PORT].as<int>();
+		settings_->rutxPort = cmdArguments_[RUT_PORT].as<uint16_t >();
 	} else {
 		settings_->rutxPort = section[RUT_PORT];
 	}
@@ -296,6 +308,8 @@ void SettingsParser::fillSimulationSettings(const nlohmann::json &section) {
 		settings_->speedOverride = section[OSM_SPEED_OVERRIDE];
 		settings_->speedOverrideMS = section[OSM_SPEED_OVERRIDE_MPS];
 	}
+
+	fillMapSettings(section);
 }
 
 void SettingsParser::fillFleetSettings(const nlohmann::json &section) {

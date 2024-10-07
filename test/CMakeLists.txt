@@ -1,7 +1,9 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.20)
 PROJECT(virtual-vehicle-utility)
 
-SET(CMAKE_CXX_STANDARD 17)
+SET(CMAKE_CXX_STANDARD 20)
+set(CMAKE_POSITION_INDEPENDENT_CODE  OFF)
+
 #------------gtest-------------------#
 FIND_PACKAGE(GTest REQUIRED)
 FILE(GLOB_RECURSE source_test_files "${CMAKE_CURRENT_LIST_DIR}/source/*")
@@ -30,7 +32,10 @@ IF (STATE_SMURF)
 ENDIF ()
 
 INCLUDE(GoogleTest)
-GTEST_DISCOVER_TESTS(vvutests)
+GTEST_DISCOVER_TESTS(
+        vvutests
+        XML_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/test_result
+)
 
 ADD_CUSTOM_COMMAND(TARGET vvutests PRE_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
