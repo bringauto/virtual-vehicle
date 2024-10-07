@@ -1,18 +1,20 @@
 {
   "setup" : [
-    "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices up -d"
+    "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices pull",
+    "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices up -d",
+    "sleep 15"
   ],
-  "between_runs" : [ "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices restart" ],
+  "between_runs" : [],
   "scenarios" : [
     {
       "name" : "delayedChange",
-      "timeout" : 100,
-      "arguments" : {
-        "--map" : "../maps/route_change.osm",
-        "--wait-at-stop-s" : 10,
-        "--speed-override" : 30,
-        "--config" : "../default_config.json"
-      }
+      "timeout_s" : 100,
+      "arguments" : [
+        "--map", "../maps/route_change.osm",
+        "--wait-at-stop-s", "10",
+        "--speed-override", "30",
+        "--config", "../default_config.json"
+      ]
     }
   ],
   "cleanup" : [

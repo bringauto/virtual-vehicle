@@ -9,38 +9,21 @@ state_smurf::diagram::StateDiagram StateSmurfDefinition::createStateDiagram() {
 	state_smurf::diagram::StateDiagram stateDiagram;
 	/// Creating Vertexes, they are accessible by name.
 	auto connected = stateDiagram.addVertex(connectedState);
-	auto carStatusSent = stateDiagram.addVertex(statusSentState);
-	auto carCommandReceived = stateDiagram.addVertex(commandReceivedState);
-	auto startReceived = stateDiagram.addVertex(startReceivedState);
-	auto stopReceived = stateDiagram.addVertex(stopReceivedState);
-	auto noActionReceived = stateDiagram.addVertex(noActionReceivedState);
 	auto idle = stateDiagram.addVertex(idleState);
 	auto drive = stateDiagram.addVertex(driveState);
 	auto inStop = stateDiagram.addVertex(inStopState);
 
 	/// Setting Edges, from each state to every state it can transition
-	stateDiagram.setEdge(connected, carStatusSent);
+	stateDiagram.setEdge(connected, drive);
 
-	stateDiagram.setEdge(carStatusSent, carCommandReceived);
-	stateDiagram.setEdge(carCommandReceived, carStatusSent);
-	stateDiagram.setEdge(carCommandReceived, stopReceived);
-	stateDiagram.setEdge(carCommandReceived, startReceived);
-	stateDiagram.setEdge(carCommandReceived, noActionReceived);
-
-	stateDiagram.setEdge(stopReceived, idle);
-	stateDiagram.setEdge(noActionReceived, idle);
-	stateDiagram.setEdge(startReceived, idle);
-	stateDiagram.setEdge(startReceived, drive);
-	stateDiagram.setEdge(startReceived, inStop);
-
-	stateDiagram.setEdge(idle, connected);
-	stateDiagram.setEdge(idle, idle);
-	stateDiagram.setEdge(idle, carStatusSent);
-	stateDiagram.setEdge(drive, carStatusSent);
 	stateDiagram.setEdge(drive, inStop);
-	stateDiagram.setEdge(inStop, carStatusSent);
+	stateDiagram.setEdge(drive, idle);
+	stateDiagram.setEdge(inStop, drive);
+	stateDiagram.setEdge(inStop, idle);
+	stateDiagram.setEdge(idle, drive);
+	stateDiagram.setEdge(idle, inStop);
 
-	stateDiagram.setStartVertex(idle);
+	stateDiagram.setStartVertex(connected);
 
 	return stateDiagram;
 }
@@ -63,21 +46,6 @@ void StateSmurfDefinition::changeToState(const std::shared_ptr<state_smurf::tran
 			break;
 	}
 
-}
-
-template<>
-void StateSmurfDefinition::changeToState(const std::shared_ptr<state_smurf::transition::StateTransition>& smurf, bringauto::communication::EAutonomyAction value) {
-	switch(value) {
-		case communication::EAutonomyAction::E_NO_ACTION:
-			smurf->goToState(bringauto::settings::noActionReceivedState);
-			break;
-		case communication::EAutonomyAction::E_STOP:
-			smurf->goToState(bringauto::settings::stopReceivedState);
-			break;
-		case communication::EAutonomyAction::E_START:
-			smurf->goToState(bringauto::settings::startReceivedState);
-			break;
-	}
 }
 
 #endif

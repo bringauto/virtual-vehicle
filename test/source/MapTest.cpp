@@ -1,10 +1,7 @@
 #include <bringauto/virtual_vehicle/Map.hpp>
 #include <MapTest.hpp>
 
-#include <osmium/visitor.hpp>
 #include <gtest/gtest.h>
-#include <bringauto/logging/Logger.hpp>
-#include <bringauto/logging/ConsoleSink.hpp>
 
 
 

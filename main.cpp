@@ -5,36 +5,41 @@
 #include <bringauto/communication/terminal/TerminalOutput.hpp>
 #include <bringauto/virtual_vehicle/GlobalContext.hpp>
 #include <bringauto/settings/SettingsParser.hpp>
+#include <bringauto/settings/LoggerId.hpp>
+
+#include <bringauto/logging/Logger.hpp>
+#include <bringauto/logging/ConsoleSink.hpp>
+#include <bringauto/logging/FileSink.hpp>
+#include <bringauto/logging/SizeLiterals.hpp>
 
 
 
 #ifdef STATE_SMURF
 #include <bringauto/settings/StateSmurfDefinition.hpp>
+#include <state_smurf/transition/StateTransitionLoggerId.hpp>
 #endif
-
-#include <libbringauto_logger/bringauto/logging/Logger.hpp>
-#include <libbringauto_logger/bringauto/logging/FileSink.hpp>
-#include <libbringauto_logger/bringauto/logging/ConsoleSink.hpp>
-
 
 
 void initLogger(const std::string &logPath, bool verbose) {
 	using namespace bringauto::logging;
 #ifdef STATE_SMURF
-	verbose = true;
+	state_smurf::transition::Logger::addSink<bringauto::logging::ConsoleSink>();
+	bringauto::logging::LoggerSettings smurfLoggerParams { "VirtualVehicleStateSmurf",
+												bringauto::logging::LoggerVerbosity::Debug };
+	state_smurf::transition::Logger::init(smurfLoggerParams);
 #endif
 	if(verbose) {
-		Logger::addSink<bringauto::logging::ConsoleSink>();
+		bringauto::settings::Logger::addSink<bringauto::logging::ConsoleSink>();
 	}
-	FileSink::Params paramFileSink { logPath, "virtual-vehicle-utility.log" };
+	bringauto::logging::FileSink::Params paramFileSink { logPath, "virtual-vehicle-utility.log" };
 	paramFileSink.maxFileSize = 50_MiB;
 	paramFileSink.numberOfRotatedFiles = 5;
-	paramFileSink.verbosity = Logger::Verbosity::Debug;
+	paramFileSink.verbosity = bringauto::logging::LoggerVerbosity::Info;
 
-	Logger::addSink<bringauto::logging::FileSink>(paramFileSink);
-	Logger::LoggerSettings params { "virtual-vehicle-utility",
-									Logger::Verbosity::Debug };
-	Logger::init(params);
+	bringauto::settings::Logger::addSink<bringauto::logging::FileSink>(paramFileSink);
+	bringauto::logging::LoggerSettings params { "VirtualVehicle",
+												bringauto::logging::LoggerVerbosity::Debug };
+	bringauto::settings::Logger::init(params);
 }
 
 int main(int argc, char **argv) {
@@ -55,7 +60,7 @@ int main(int argc, char **argv) {
 		settings = settingsParser.getSettings();
 		context->settings = settings;
 		initLogger(settings->logPath, settings->verbose);
-		logging::Logger::logInfo("Version: {} Settings:\n{}", VIRTUAL_VEHICLE_UTILITY_VERSION,
+		settings::Logger::logInfo("Version: {} Settings:\n{}", VIRTUAL_VEHICLE_UTILITY_VERSION,
 								 settingsParser.getFormattedSettings());
 
 	} catch(std::exception &e) {
@@ -102,10 +107,10 @@ int main(int argc, char **argv) {
 
 	} catch(const std::exception &e) {
 		exitCode = EXIT_FAILURE;
-		bringauto::logging::Logger::logError(e.what());
+		settings::Logger::logError(e.what());
 	} catch(...) {
 		exitCode = EXIT_FAILURE;
-		bringauto::logging::Logger::logError("error: unknown exceptions");
+		settings::Logger::logError("error: unknown exceptions");
 	}
 	if(!context->ioContext.stopped()) {
 		context->ioContext.stop();

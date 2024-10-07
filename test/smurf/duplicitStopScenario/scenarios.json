@@ -1,19 +1,21 @@
 {
   "setup" : [
-    "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices up -d"
+    "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices pull",
+    "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices up -d",
+    "sleep 15"
   ],
-  "between_runs" : [ "docker compose --file=../etna/docker-compose.yml --env-file=.env --profile=without-devices restart" ],
+  "between_runs" : [],
   "scenarios" : [
     {
       "name" : "fewNodes",
-      "timeout" : 60,
-      "arguments" : {
-        "--map" : "../maps/lap.osm",
-        "--default-route" : "lap",
-        "--wait-at-stop-s" : 4,
-        "--speed-override" : 50,
-        "--config" : "../default_config.json"
-      }
+      "timeout_s" : 60,
+      "arguments" : [
+        "--map", "../maps/lap.osm",
+        "--default-route", "lap",
+        "--wait-at-stop-s", "4",
+        "--speed-override", "50",
+        "--config", "../default_config.json"
+      ]
     }
   ],
   "cleanup" : [
