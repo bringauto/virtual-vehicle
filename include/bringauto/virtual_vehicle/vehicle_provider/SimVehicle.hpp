@@ -21,6 +21,10 @@ public:
 	void initialize() override;
 
 private:
+	/// Driving map
+	bringauto::virtual_vehicle::Map map_;
+	/// Current route of the vehicle
+	std::shared_ptr<osm::Route> actualRoute_;
 	std::shared_ptr<osm::Point> actualPosition_;
 	std::shared_ptr<osm::Point> nextPosition_;
 	double actualSpeed_ { 0 }; //meters per second

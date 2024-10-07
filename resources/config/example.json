@@ -7,35 +7,38 @@
 	"vehicle-settings": {
 		"vehicle-provider": "simulation",
 		"gps-settings": {
-			"gps-provider": "rutx09",
+			"gps-provider": "map",
 			"rutx09-settings" : {
-				"rutx-ip": "127.0.0.2",
+				"rutx-ip": "192.168.2.1",
 				"rutx-port": 502,
 				"rutx-slave-id": 1
 			},
-			"stop-radius-m": 8
+			"map-settings": {
+				"map": "../resources/maps/moravske_namesti.osm",
+				"default-route": ""
+			},
+			"stop-radius-m": 5,
+			"in-stop-delay-s": 10
 		},
 		"simulation-settings": {
 			"speed-override": true,
 			"speed-override-mps": 60,
-			"wait-at-stop-s": 10
+			"wait-at-stop-s": 10,
+			"map": "../resources/maps/moravske_namesti.osm",
+			"default-route": ""
 		}
 	},
 	"fleet-settings": {
 		"fleet-provider": "internal-protocol",
 		"internal-protocol-settings": {
-			"module-gateway-ip":"172.17.0.1",
+			"module-gateway-ip":"localhost",
 			"module-gateway-port": 1636,
 			"device-role": "autonomy",
 			"device-priority": 1,
 			"reconnect-period-s": 20,
-			"device-name": "virtual_vehicle"
+			"device-name": "bap2021_01"
 		},
 		"empty":{
 		}
-	},
-	"map-settings": {
-		"map": "../resources/maps/moravske_namesti.osm",
-		"default-route": ""
 	}
 }

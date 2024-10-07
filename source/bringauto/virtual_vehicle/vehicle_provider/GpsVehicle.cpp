@@ -5,7 +5,7 @@
 #include <bringauto/communication/Status.hpp>
 #include <bringauto/common_utils/CommonUtils.hpp>
 
-#include <bringauto/logging/Logger.hpp>
+#include <bringauto/settings/LoggerId.hpp>
 
 #include <thread>
 
@@ -14,19 +14,6 @@
 namespace bringauto::virtual_vehicle::vehicle_provider {
 
 void GpsVehicle::initialize() {
-	map_.loadMapFromFile(globalContext_->settings->mapFilePath);
-	if(globalContext_->settings->speedOverride) {
-		map_.speedOverride(globalContext_->settings->speedOverrideMS);
-	}
-	map_.prepareRoutes();
-
-	if(!globalContext_->settings->routeName.empty()) { /// Override default route by argument
-		actualRoute_ = map_.getRoute(globalContext_->settings->routeName);
-	} else { /// Make actualRoute_ the first in the vector for initialization reason
-		actualRoute_ = map_.getAllRoutes()[0];
-	}
-	stops_ = actualRoute_->getStops();
-
 	switch(globalContext_->settings->gpsProvider) {
 		case settings::GpsProvider::E_RUTX09:
 			gpsProvider_ = std::make_unique<gps_provider::RUTX09>(globalContext_->settings->rutxIp,
@@ -37,7 +24,8 @@ void GpsVehicle::initialize() {
 			gpsProvider_ = std::make_unique<gps_provider::UBlocks>();
 			break;
 		case settings::GpsProvider::E_MAP:
-			gpsProvider_ = std::make_unique<gps_provider::MapGps>(actualRoute_);
+			gpsProvider_ = std::make_unique<gps_provider::MapGps>(globalContext_->settings->mapFilePath, globalContext_->settings->routeName);
+
 			break;
 		default:
 			throw std::runtime_error("Unknown gps provider!");
@@ -63,57 +51,92 @@ void GpsVehicle::updatePosition() {
 	double lastLongitude = status_.getLongitude();
 	status_.setLatitude(position.latitude);
 	status_.setLongitude(position.longitude);
-	if(currentStop_ != nullptr) {
-		auto distanceToStop = common_utils::CommonUtils::calculateDistanceInMeters(currentStop_->getLatitude(),
-																				   currentStop_->getLongitude(),
-																				   status_.getLatitude(),
-																				   status_.getLongitude());
-		if(distanceToStop < globalContext_->settings->stopRadius) {
-			status_.setState(communication::EAutonomyState::E_IN_STOP);
-			logging::Logger::logInfo("Car arrived at stop {}.", currentStop_->getName());
+
+	const auto &speed = common_utils::CommonUtils::calculateDistanceInMeters(
+			lastLatitude, lastLongitude,
+			status_.getLatitude(), status_.getLongitude()
+	)/eventDelayInSec_;
+	status_.setSpeed(speed);
+	if(status_.getState() == communication::EAutonomyState::E_DRIVE) {
+		checkForStop();
+	} else if(status_.getState() == communication::EAutonomyState::E_IN_STOP) {
+		const auto &distanceToStop = common_utils::CommonUtils::calculateDistanceInMeters(status_.getNextStop().latitude,
+																						  status_.getNextStop().longitude,
+																						  status_.getLatitude(),
+																						  status_.getLongitude());
+		if(distanceToStop > globalContext_->settings->stopRadiusM) {
+			settings::Logger::logInfo("Car has left stop area. Changing state to DRIVE.");
+			status_.setState(communication::EAutonomyState::E_DRIVE);
+			status_.setNextStop(*nextStop_); // if nextStop is null, state is set to IDLE, this becomes unreachable
 		}
 	}
-	status_.setSpeed(
-			common_utils::CommonUtils::calculateDistanceInMeters(lastLatitude, lastLongitude, status_.getLatitude(),
-																 status_.getLongitude())/eventDelayInSec_);
+
 }
 
 void GpsVehicle::makeRequest() {
 	com_->makeRequest(status_);
 	std::stringstream is;
 	is << status_;
-	logging::Logger::logInfo("Sending status {}", is.str());
+	settings::Logger::logInfo("Sending status {}", is.str());
 	evaluateCommand();
 }
 
 void GpsVehicle::evaluateCommand() {
 	auto command = com_->getCommand();
-
-	auto route = map_.getRoute(command.getRoute()); /// Change of route, need to update available stops on it
-	if(!route) {
-		logging::Logger::logWarning("Route {} was not found. Command will be ignored", command.getRoute());
-		return;
-	}
-
-	actualRoute_ = route;
-	stops_ = actualRoute_->getStops();
-
 	if(command.getMission().empty()) {
 		status_.setState(communication::EAutonomyState::E_IDLE);
 		status_.setNextStop({});
-		currentStop_ = nullptr;
+		nextStop_ = nullptr;
+		return;
 	} else {
-		status_.setState(communication::EAutonomyState::E_DRIVE);
-		status_.setNextStop(command.getMission().front());
-		for(const auto &stop: stops_) {
-			if(stop->getName() == status_.getNextStop().name) {
-				currentStop_ = stop;
-				break;
+		nextStop_ = std::make_shared<osm::Route::Station>(command.getMission().front());
+	}
+
+	switch(status_.getState()) {
+		case communication::EAutonomyState::E_IDLE:
+			if(command.getAction() == communication::EAutonomyAction::E_START) {
+				status_.setNextStop(*nextStop_);
+				status_.setState(communication::EAutonomyState::E_DRIVE);
 			}
-		}
-		if(!currentStop_) {
-			logging::Logger::logWarning("Received stop with name {} but stop was not found on map.",
-										status_.getNextStop().name);
+			break;
+		case communication::EAutonomyState::E_DRIVE:
+			status_.setNextStop(*nextStop_);
+			if(command.getAction() == communication::EAutonomyAction::E_STOP) {
+				status_.setState(communication::EAutonomyState::E_IDLE);
+			}
+			break;
+		case communication::EAutonomyState::E_IN_STOP:
+			if(command.getAction() != communication::EAutonomyAction::E_START  || nextStop_ == nullptr ) {
+				status_.setState(communication::EAutonomyState::E_IDLE);
+			}
+			break;
+		case communication::EAutonomyState::E_OBSTACLE:
+		case communication::EAutonomyState::E_ERROR:
+		default:
+			break;
+	}
+}
+
+void GpsVehicle::checkForStop() {
+	if(nextStop_ != nullptr) {
+		auto distanceToStop = common_utils::CommonUtils::calculateDistanceInMeters(nextStop_->latitude,
+																				   nextStop_->longitude,
+																				   status_.getLatitude(),
+																				   status_.getLongitude());
+		if(distanceToStop < globalContext_->settings->stopRadiusM) {
+//			bool lowSpeed = (speed < MAX_STOP_SPEED); TODO is it necessary to act according to speed?
+			if(!timer_.isRunning()) {
+				settings::Logger::logInfo("The car is near station {}. Starting stop timer.", nextStop_->name);
+				timer_.start();
+			}
+			if(timer_.getElapsedTime() >= globalContext_->settings->inStopDelayS) {
+				status_.setState(communication::EAutonomyState::E_IN_STOP);
+				settings::Logger::logInfo("Car arrived at stop {}.", nextStop_->name);
+				timer_.stop();
+			}
+		} else if (timer_.isRunning()) {
+			settings::Logger::logInfo("Stop timer cancelled, the car has exited the area of station {}.", nextStop_->name);
+			timer_.stop();
 		}
 	}
 }

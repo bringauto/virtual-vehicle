@@ -72,9 +72,10 @@ examples in `./config/*.json`
 
 ### gps settings
 
-* `gps-provider` - gps provider, `rutx09` or `ublox`, string
+* `gps-provider` - gps provider, `rutx09`, `ublox`, or `map` (serving for testing purposes), string
 * `stop-radius` - distance from a stop that will be determined as arrival to the stop, int
 * `rutx09-settings` - rutx09 settings object
+* `map-settings` - map settings object
 
 #### rutx09 settings
 
@@ -82,11 +83,17 @@ examples in `./config/*.json`
 * `rutx-port` - port of Modbus server on rutx09, int
 * `rutx-slave-id` - slave id of Modbus server on rutx09, int
 
+#### map settings
+* `map` - full path to .osm file containing map, string
+* `default-route` - the name of the route that will be set as default, string
+
 ### simulation settings
 
 * `speed-override` - override map speed enable, bool
 * `map-override-mps` - override map speed, int
 * `wait-at-stop` - how many seconds will car wait in stop, int
+* `map` - full path to .osm file containing map, string
+* `default-route` - the name of the route that will be set as default, string
 
 ## Fleet settings
 
@@ -102,11 +109,6 @@ examples in `./config/*.json`
 * `device-name` - device name, string - part of device identification
 * `device-priority` - device priority, int - part of device identification
 * `reconnect-period-s` - period of reconnection to module gateway, int
-
-## map settings
-
-* `map` - full path to .osm file containing map, string
-* `default-route` - the name of the route that will be set as default, string
 
 ## Fleet provider
 
@@ -136,6 +138,8 @@ Provider used for GPS-based position reporting. The options are:
 * `rutx09` - position is obtained from RUTX09 router from Teltonika. Required
   parameters: `--rutx-ip=<string>`, `--rutx-port=<int>`, `rutx-slave-id=<int>`
 * `ublox` - position is obtained from ublox device, NOT IMPLEMENTED
+* `map` - position is obtained from the map, for testing purposes. It is always driving on the route gained from settings. 
+  Required parameters: `--map=<string>` and `--default-route=<string>`
 
 ## Cmake parameters
 
@@ -305,3 +309,10 @@ docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehi
 ``` bash
 docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config-path=/virtual-vehicle-utility/config/example.json --map=/virtual-vehicle-utility/tests/maps/BorsodChem.osm -v --route=borsodchem --ip=127.0.0.1 --port=1536 --wait=10 
 ```
+
+
+## Troubleshooting
+
+#### RUTX09 GPS provider sending invalid data
+
+Make sure that the RUTX09 firmware version is >= RUTX_R_00.07.08.3
