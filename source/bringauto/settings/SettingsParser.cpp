@@ -222,7 +222,6 @@ void SettingsParser::fillSettings() {
 }
 
 void SettingsParser::fillGeneralSettings(const nlohmann::json &section) {
-// TODO check if contain, should we check config files as whole? Should they always contain everything?
 	if(cmdArguments_.count(LOG_PATH)) {
 		settings_->logPath = cmdArguments_[LOG_PATH].as<std::string>();
 	} else {
