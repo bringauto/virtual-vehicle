@@ -115,11 +115,6 @@ void GpsVehicle::evaluateCommand() {
 		default:
 			break;
 	}
-	// TODO when is the station removed from command? I need to act on it
-//	if(status_.getState() != communication::EAutonomyState::E_IN_STOP) {
-//		nextStop_ = mission_.front();
-//	}
-
 }
 
 void GpsVehicle::checkForStop() {
@@ -140,7 +135,7 @@ void GpsVehicle::checkForStop() {
 				timer_.stop();
 			}
 		} else if (timer_.isRunning()) {
-			settings::Logger::logInfo("Stop timer cancelled, the car has exited the station area.", nextStop_->name);
+			settings::Logger::logInfo("Stop timer cancelled, the car has exited the area of station {}.", nextStop_->name);
 			timer_.stop();
 		}
 	}

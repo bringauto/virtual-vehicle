@@ -9,6 +9,8 @@
 namespace bringauto::virtual_vehicle::gps_provider {
 /**
  * @brief Class for testing purposes, that acts as GPS vehicle, but the location is provided based on a map
+ *
+ * Map vehicle cannot change route and is always driving on the route from config.
  */
 class MapGps: public IGpsProvider {
 public:

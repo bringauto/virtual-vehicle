@@ -138,7 +138,8 @@ Provider used for GPS-based position reporting. The options are:
 * `rutx09` - position is obtained from RUTX09 router from Teltonika. Required
   parameters: `--rutx-ip=<string>`, `--rutx-port=<int>`, `rutx-slave-id=<int>`
 * `ublox` - position is obtained from ublox device, NOT IMPLEMENTED
-* `map` - position is obtained from the map, for testing purposes. Required parameters: `--map=<string>` and `--default-route=<string>`
+* `map` - position is obtained from the map, for testing purposes. It is always driving on the route gained from settings. 
+  Required parameters: `--map=<string>` and `--default-route=<string>`
 
 ## Cmake parameters
 
