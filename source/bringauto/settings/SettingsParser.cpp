@@ -174,7 +174,11 @@ bool SettingsParser::areSettingsCorrect() {
 	if(!std::filesystem::exists(settings_->logPath)) {
 		std::cerr << "Parse arguments error: Given log-path (" << settings_->logPath << ") does not exist." << std::endl;
 		isCorrect = false;
+	} else if (!std::filesystem::is_directory(settings_->logPath)) {
+		std::cerr << "Parse arguments error: Given log-path (" << settings_->logPath << ") is not a directory." << std::endl;
+		isCorrect = false;
 	}
+
 
 	if(settings_->vehicleProvider == VehicleProvider::E_SIMULATION) {
 		if(!std::filesystem::exists(settings_->mapFilePath)) {
@@ -193,6 +197,11 @@ bool SettingsParser::areSettingsCorrect() {
 		isCorrect = false;
 	}
 
+	if(settings_->messagePeriodMs == 0) {
+		std::cerr << "Message period (period-ms) must be > 0\n";
+		isCorrect = false;
+	}
+
 	return isCorrect;
 }
 
@@ -205,12 +214,11 @@ void SettingsParser::fillSettings() {
 
 	auto configPath = cmdArguments_[CONFIG_PATH].as<std::string>();
 	std::ifstream inputFile(configPath);
-	auto file = nlohmann::json::parse(inputFile);
 
+	auto file = nlohmann::json::parse(inputFile);
 	fillGeneralSettings(file[GENERAL_SETTINGS]);
 	fillVehicleSettings(file[VEHICLE_SETTINGS]);
 	fillFleetSettings(file[FLEET_SETTINGS]);
-//	fillMapSettings(file[MAP_SETTINGS]);
 }
 
 void SettingsParser::fillGeneralSettings(const nlohmann::json &section) {
@@ -218,17 +226,17 @@ void SettingsParser::fillGeneralSettings(const nlohmann::json &section) {
 	if(cmdArguments_.count(LOG_PATH)) {
 		settings_->logPath = cmdArguments_[LOG_PATH].as<std::string>();
 	} else {
-		settings_->logPath = std::filesystem::path(section[LOG_PATH]);
+		settings_->logPath = std::filesystem::path(section.at(LOG_PATH));
 	}
 	if(cmdArguments_.count(VERBOSE)) {
 		settings_->verbose = cmdArguments_.count(VERBOSE) == 1;
 	} else {
-		settings_->verbose = section[VERBOSE];
+		settings_->verbose = section.at(VERBOSE);
 	}
 	if(cmdArguments_.count(STATUS_MESSAGE_PERIOD)) {
 		settings_->messagePeriodMs = cmdArguments_[STATUS_MESSAGE_PERIOD].as<uint32_t>();
 	} else {
-		settings_->messagePeriodMs = section[STATUS_MESSAGE_PERIOD];
+		settings_->messagePeriodMs = section.at(STATUS_MESSAGE_PERIOD);
 	}
 }
 
@@ -238,13 +246,13 @@ void SettingsParser::fillVehicleSettings(const nlohmann::json &section) {
 				cmdArguments_[VEHICLE_PROVIDER].as<std::string>());
 	} else {
 		settings_->vehicleProvider = common_utils::EnumUtils::valueToEnum<settings::VehicleProvider, std::string>(
-				section[VEHICLE_PROVIDER]);
+				section.at(VEHICLE_PROVIDER));
 	}
 	if(settings_->vehicleProvider == VehicleProvider::E_GPS) {
-		fillGpsSettings(section[GPS_SETTINGS]);
+		fillGpsSettings(section.at(GPS_SETTINGS));
 	}
 	if(settings_->vehicleProvider == VehicleProvider::E_SIMULATION) {
-		fillSimulationSettings(section[SIMULATION_SETTINGS]);
+		fillSimulationSettings(section.at(SIMULATION_SETTINGS));
 	}
 }
 
@@ -254,25 +262,25 @@ void SettingsParser::fillGpsSettings(const nlohmann::json &section) {
 				cmdArguments_[GPS_PROVIDER].as<std::string>());
 	} else {
 		settings_->gpsProvider = common_utils::EnumUtils::valueToEnum<settings::GpsProvider, std::string>(
-				section[GPS_PROVIDER]);
+				section.at(GPS_PROVIDER));
 
 	}
 	if(cmdArguments_.count(STOP_RADIUS)) {
 		settings_->stopRadiusM = cmdArguments_[STOP_RADIUS].as<uint32_t >();
 	} else {
-		settings_->stopRadiusM = section[STOP_RADIUS];
+		settings_->stopRadiusM = section.at(STOP_RADIUS);
 	}
 
 	if(cmdArguments_.count(IN_STOP_DELAY_S)) {
 		settings_->inStopDelayS = cmdArguments_[IN_STOP_DELAY_S].as<std::chrono::seconds>();
 	} else {
-		settings_->inStopDelayS = std::chrono::seconds(section[IN_STOP_DELAY_S]);
+		settings_->inStopDelayS = std::chrono::seconds(section.at(IN_STOP_DELAY_S));
 	}
 
 	if(settings_->gpsProvider == GpsProvider::E_RUTX09) {
-		fillRutx09Settings(section[RUTX_09_SETTINGS]);
+		fillRutx09Settings(section.at(RUTX_09_SETTINGS));
 	} else if(settings_->gpsProvider == GpsProvider::E_MAP) {
-		fillMapSettings(section[MAP_SETTINGS]);
+		fillMapSettings(section.at(MAP_SETTINGS));
 	}
 }
 
@@ -280,17 +288,17 @@ void SettingsParser::fillRutx09Settings(const nlohmann::json &section) {
 	if(cmdArguments_.count(RUT_IP)) {
 		settings_->rutxIp = cmdArguments_[RUT_IP].as<std::string>();
 	} else {
-		settings_->rutxIp = section[RUT_IP];
+		settings_->rutxIp = section.at(RUT_IP);
 	}
 	if(cmdArguments_.count(RUT_PORT)) {
 		settings_->rutxPort = cmdArguments_[RUT_PORT].as<uint16_t >();
 	} else {
-		settings_->rutxPort = section[RUT_PORT];
+		settings_->rutxPort = section.at(RUT_PORT);
 	}
 	if(cmdArguments_.count(RUT_SLAVE_ID)) {
 		settings_->rutxSlaveId = cmdArguments_[RUT_SLAVE_ID].as<int>();
 	} else {
-		settings_->rutxSlaveId = section[RUT_SLAVE_ID];
+		settings_->rutxSlaveId = section.at(RUT_SLAVE_ID);
 	}
 }
 
@@ -298,15 +306,15 @@ void SettingsParser::fillSimulationSettings(const nlohmann::json &section) {
 	if(cmdArguments_.count(OSM_STOP_WAIT_TIME)) {
 		settings_->stopWaitTime = cmdArguments_[OSM_STOP_WAIT_TIME].as<uint32_t>();
 	} else {
-		settings_->stopWaitTime = section[OSM_STOP_WAIT_TIME];
+		settings_->stopWaitTime = section.at(OSM_STOP_WAIT_TIME);
 	}
 
 	if(cmdArguments_.count(OSM_SPEED_OVERRIDE)) {
 		settings_->speedOverride = true;
 		settings_->speedOverrideMS = cmdArguments_[OSM_SPEED_OVERRIDE].as<uint32_t>();
 	} else {
-		settings_->speedOverride = section[OSM_SPEED_OVERRIDE];
-		settings_->speedOverrideMS = section[OSM_SPEED_OVERRIDE_MPS];
+		settings_->speedOverride = section.at(OSM_SPEED_OVERRIDE);
+		settings_->speedOverrideMS = section.at(OSM_SPEED_OVERRIDE_MPS);
 	}
 
 	fillMapSettings(section);
@@ -318,10 +326,10 @@ void SettingsParser::fillFleetSettings(const nlohmann::json &section) {
 				cmdArguments_[FLEET_PROVIDER].as<std::string>());
 	} else {
 		settings_->fleetProvider = common_utils::EnumUtils::valueToEnum<settings::FleetProvider, std::string>(
-				section[FLEET_PROVIDER]);
+				section.at(FLEET_PROVIDER));
 	}
 	if(settings_->fleetProvider == FleetProvider::E_INTERNAL_PROTOCOL) {
-		fillInternalProtocolSettings(section[INTERNAL_PROTOCOL_SETTINGS]);
+		fillInternalProtocolSettings(section.at(INTERNAL_PROTOCOL_SETTINGS));
 	}
 }
 
@@ -329,29 +337,29 @@ void SettingsParser::fillInternalProtocolSettings(const nlohmann::json &section)
 	if(cmdArguments_.count(MODULE_GATEWAY_IP)) {
 		settings_->moduleGatewayIp = cmdArguments_[MODULE_GATEWAY_IP].as<std::string>();
 	} else {
-		settings_->moduleGatewayIp = section[MODULE_GATEWAY_IP];
+		settings_->moduleGatewayIp = section.at(MODULE_GATEWAY_IP);
 	}
 	if(cmdArguments_.count(MODULE_GATEWAY_PORT)) {
 		settings_->moduleGatewayPort = cmdArguments_[MODULE_GATEWAY_PORT].as<int>();
 	} else {
-		settings_->moduleGatewayPort = section[MODULE_GATEWAY_PORT];
+		settings_->moduleGatewayPort = section.at(MODULE_GATEWAY_PORT);
 	}
-	settings_->deviceName = section[DEVICE_NAME];
-	settings_->deviceRole = section[DEVICE_ROLE];
-	settings_->devicePriority = section[DEVICE_PRIORITY];
-	settings_->reconnectPeriodS = section[RECONNECT_PERIOD];
+	settings_->deviceName = section.at(DEVICE_NAME);
+	settings_->deviceRole = section.at(DEVICE_ROLE);
+	settings_->devicePriority = section.at(DEVICE_PRIORITY);
+	settings_->reconnectPeriodS = section.at(RECONNECT_PERIOD);
 }
 
 void SettingsParser::fillMapSettings(const nlohmann::json &section) {
 	if(cmdArguments_.count(OSM_MAP)) {
 		settings_->mapFilePath = cmdArguments_[OSM_MAP].as<std::string>();
 	} else {
-		settings_->mapFilePath = std::filesystem::path(section[OSM_MAP]);
+		settings_->mapFilePath = std::filesystem::path(section.at(OSM_MAP));
 	}
 	if(cmdArguments_.count(OSM_ROUTE)) {
 		settings_->routeName = cmdArguments_[OSM_ROUTE].as<std::string>();
 	} else {
-		settings_->routeName = section[OSM_ROUTE];
+		settings_->routeName = section.at(OSM_ROUTE);
 	}
 }
 
