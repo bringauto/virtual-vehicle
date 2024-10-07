@@ -67,7 +67,7 @@ void GpsVehicle::updatePosition() {
 		if(distanceToStop > globalContext_->settings->stopRadiusM) {
 			settings::Logger::logInfo("Car has left stop area. Changing state to DRIVE.");
 			status_.setState(communication::EAutonomyState::E_DRIVE);
-			status_.setNextStop(*nextStop_);
+			status_.setNextStop(*nextStop_); // if nextStop is null, state is set to IDLE, this becomes unreachable
 		}
 	}
 
