@@ -17,13 +17,7 @@ bool TerminalOutput::makeRequest(const Status &status) {
 										status.getLongitude(), status.getSpeed());
 
 	bringauto::settings::Logger::logInfo("Sending status");
-#ifdef STATE_SMURF
-	globalContext_->transitions->goToState(bringauto::settings::statusSentState);
-#endif
 	bringauto::settings::Logger::logInfo("Received command");
-#ifdef STATE_SMURF
-	globalContext_->transitions->goToState(bringauto::settings::commandReceivedState);
-#endif
 	return true;
 }
 }

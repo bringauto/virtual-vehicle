@@ -370,7 +370,7 @@ std::string SettingsParser::getFormattedSettings() {
 	formattedSettings << "period-ms: " << settings_->messagePeriodMs << "\n";
 	switch(settings_->fleetProvider) {
 		case FleetProvider::E_INTERNAL_PROTOCOL:
-			formattedSettings << "fleet-providerr: INTERNAL_PROTOCOL\n";
+			formattedSettings << "fleet-provider: INTERNAL_PROTOCOL\n";
 			formattedSettings << "\tmodule-gateway-ip: " << settings_->moduleGatewayIp << "\n";
 			formattedSettings << "\tmodule-gateway-port: " << settings_->moduleGatewayPort << "\n";
 			formattedSettings << "\tdevice-role: " << settings_->deviceRole << "\n";

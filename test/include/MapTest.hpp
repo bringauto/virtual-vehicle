@@ -11,7 +11,7 @@ protected:
 	void SetUp() override {
 		bringauto::settings::Logger::addSink<bringauto::logging::ConsoleSink>();
 		bringauto::logging::LoggerSettings params { "virtual-vehicle-mapTest",
-															bringauto::logging::LoggerVerbosity::Info };
+													bringauto::logging::LoggerVerbosity::Info };
 		bringauto::settings::Logger::init(params);
 	}
 
