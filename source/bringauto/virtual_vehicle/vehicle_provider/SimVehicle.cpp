@@ -1,11 +1,10 @@
 #include <bringauto/virtual_vehicle/vehicle_provider/SimVehicle.hpp>
 #include <bringauto/common_utils/CommonUtils.hpp>
 
-#include <bringauto/logging/Logger.hpp>
+#include <bringauto/settings/LoggerId.hpp>
 
 #include <thread>
-
-
+#include <bringauto/common_utils/EnumUtils.hpp>
 
 namespace bringauto::virtual_vehicle::vehicle_provider {
 void SimVehicle::initialize() {
@@ -84,12 +83,12 @@ void SimVehicle::handleInStopEvent() {
 
 void SimVehicle::handleObstacleEvent() {
 	std::this_thread::sleep_for(std::chrono::milliseconds(globalContext_->settings->messagePeriodMs));
-	logging::Logger::logWarning("Cars state is obstacle, this state is not supported.");
+	settings::Logger::logWarning("Cars state is obstacle, this state is not supported.");
 }
 
 void SimVehicle::handleErrorEvent() {
 	std::this_thread::sleep_for(std::chrono::milliseconds(globalContext_->settings->messagePeriodMs));
-	logging::Logger::logWarning("Car is in error state.");
+	settings::Logger::logWarning("Car is in error state.");
 }
 
 void SimVehicle::setNextPosition() {
@@ -103,7 +102,7 @@ void SimVehicle::setNextPosition() {
 			actualSpeed_);
 
 	if(state_ == communication::EAutonomyState::E_DRIVE) {
-		logging::Logger::logInfo("{} route, distance to drive: {:.2f}m, time to get there: {:.2f}s", actualRouteName_,
+		settings::Logger::logInfo("{} route, distance to drive: {:.2f}m, time to get there: {:.2f}s", actualRouteName_,
 								 common_utils::CommonUtils::calculateDistanceInMeters(*actualPosition_, *nextPosition_),
 								 (double)driveMillisecondLeft_/1000);
 	}
@@ -119,72 +118,54 @@ void SimVehicle::request() {
 
 	std::stringstream is;
 	is << status;
-	logging::Logger::logInfo("Sending status {}", is.str());
+	settings::Logger::logInfo("Sending status {}", is.str());
 	com_->makeRequest(status);
 	evaluateCommand();
 }
 
 void SimVehicle::evaluateCommand() {
 	auto command = com_->getCommand();
-#ifdef STATE_SMURF
-	settings::StateSmurfDefinition::changeToState(globalContext_->transitions, command.getAction());
-#endif
-	if(command.getRoute() != actualRouteName_ && !command.getRoute().empty()) {
-		auto nextRoute = map_.getRoute(command.getRoute());
-		if(!nextRoute) {
-			logging::Logger::logWarning("Route {} was not found. Command will be ignored", command.getRoute());
-			return;
-		}
-		if(!changeRoute_) {
-			logging::Logger::logInfo("New route received.");
-		}
-		changeRoute_ = true;
-		nextRouteName_ = command.getRoute();
-	}
-
-	if(command.getMission().empty()) {
-		updateVehicleState(communication::EAutonomyState::E_IDLE);
-		return;
-	}
-
-	if(checkStations_) {
-		actualRoute_->compareStations(command.getMission());
-		checkStations_ = false;
-	}
-
-
-	if(!common_utils::CommonUtils::compareMissions(mission_, command.getMission())) {
-		if(!changeRoute_) {
-			if(!actualRoute_->areStopsPresent(command.getMission())) {
-				logging::Logger::logWarning(
-						"Received stopNames are not on route, stopNames will be completely ignored {}",
-						common_utils::CommonUtils::constructMissionString(mission_));
-				mission_.clear();
-				missionValidity_ = false;
+	switch (command.getAction()) {
+		case communication::EAutonomyAction::E_START:
+			if(command.getMission().empty()) {
+				updateVehicleState(communication::EAutonomyState::E_IDLE);
 				return;
 			}
-		}
-		missionValidity_ = true;
-		mission_ = command.getMission();
-	}
 
-	switch(state_) {
-		case communication::EAutonomyState::E_IDLE:
-			if(command.getAction() == communication::EAutonomyAction::E_START) {
-				updateVehicleState(communication::EAutonomyState::E_DRIVE);
-			} else {
-				updateVehicleState(communication::EAutonomyState::E_IDLE);
+			if(command.getRoute() != actualRouteName_ && !command.getRoute().empty()) {
+				auto nextRoute = map_.getRoute(command.getRoute());
+				if(!nextRoute) {
+					settings::Logger::logWarning("Route {} was not found. Command will be ignored", command.getRoute());
+					return;
+				}
+				if(!changeRoute_) {
+					settings::Logger::logInfo("New route received.");
+				}
+				changeRoute_ = true;
+				nextRouteName_ = command.getRoute();
 			}
-			break;
-		case communication::EAutonomyState::E_DRIVE:
-			if(command.getAction() == communication::EAutonomyAction::E_STOP) {
-				updateVehicleState(communication::EAutonomyState::E_IDLE);
-			} else {
-				updateVehicleState(communication::EAutonomyState::E_DRIVE);
+
+			if(checkStations_) {
+				actualRoute_->compareStations(command.getMission());
+				checkStations_ = false;
 			}
-			break;
-		case communication::EAutonomyState::E_IN_STOP:
-			if(command.getAction() == communication::EAutonomyAction::E_START) {
+
+			if(!common_utils::CommonUtils::compareMissions(mission_, command.getMission())) {
+				if(!changeRoute_) {
+					if(!actualRoute_->areStopsPresent(command.getMission())) {
+						settings::Logger::logWarning(
+								"Received stopNames are not on route, stopNames will be completely ignored {}",
+								common_utils::CommonUtils::constructMissionString(mission_));
+						mission_.clear();
+						missionValidity_ = false;
+						return;
+					}
+				}
+				missionValidity_ = true;
+				mission_ = command.getMission();
+			}
+
+			if(state_ == communication::EAutonomyState::E_IN_STOP) {
 				if(inStopMillisecondsLeft_ == 0) {
 					if(mission_.empty()) {
 						updateVehicleState(communication::EAutonomyState::E_IDLE);
@@ -195,23 +176,29 @@ void SimVehicle::evaluateCommand() {
 					updateVehicleState(communication::EAutonomyState::E_IN_STOP);
 				}
 			} else {
-				updateVehicleState(communication::EAutonomyState::E_IDLE);
+				updateVehicleState(communication::EAutonomyState::E_DRIVE);
+			}
+
+			if(state_ != communication::EAutonomyState::E_IN_STOP) {
+				nextStop_ = mission_.front();
 			}
 			break;
-		case communication::EAutonomyState::E_OBSTACLE:
-		case communication::EAutonomyState::E_ERROR:
-			break;
-	}
 
-	if(state_ != communication::EAutonomyState::E_IN_STOP) {
-		nextStop_ = mission_.front();
+		case communication::EAutonomyAction::E_STOP:
+		case communication::EAutonomyAction::E_NO_ACTION:
+			updateVehicleState(communication::EAutonomyState::E_IDLE);
+			break;
+
+	default:
+			settings::Logger::logWarning("Unknown action received: {}", common_utils::EnumUtils::enumToString(command.getAction()));
+			break;
 	}
 }
 
 bool SimVehicle::checkForStop() {
 	if(actualPosition_->isStop() && actualPosition_->getName() == nextStop_.name) {
 		updateVehicleState(communication::EAutonomyState::E_IN_STOP);
-		bringauto::logging::Logger::logInfo("Car have arrived at the stop {}", nextStop_.name);
+		settings::Logger::logInfo("Car have arrived at the stop {}", nextStop_.name);
 		return true;
 	}
 	return false;
@@ -222,12 +209,12 @@ void SimVehicle::updateVehicleState(communication::EAutonomyState state) {
 		state_ = bringauto::communication::EAutonomyState::E_ERROR;
 		return;
 	}
-#ifdef STATE_SMURF
-	settings::StateSmurfDefinition::changeToState(globalContext_->transitions, state);
-#endif
 	if(state_ == state) {
 		return;
 	}
+#ifdef STATE_SMURF
+	settings::StateSmurfDefinition::changeToState(globalContext_->transitions, state);
+#endif
 	state_ = state;
 	switch(state_) {
 		case communication::EAutonomyState::E_IDLE:
@@ -256,10 +243,10 @@ void SimVehicle::changeRoute() {
 		if(nextPosition) {
 			actualRoute_ = nextRoute;
 			actualRouteName_ = nextRouteName_;
-			logging::Logger::logInfo("Route changed to: {}.", nextRouteName_);
+			settings::Logger::logInfo("Route changed to: {}.", nextRouteName_);
 
 			if(!actualRoute_->areStopsPresent(mission_)) {  // Check if all stops are present on the new route
-				logging::Logger::logWarning(
+				settings::Logger::logWarning(
 						"Received stopNames are not on route, stopNames will be completely ignored {}",
 						common_utils::CommonUtils::constructMissionString(mission_));
 				mission_.clear();
@@ -271,10 +258,10 @@ void SimVehicle::changeRoute() {
 			checkStations_ = true;
 			actualRoute_->setPositionAndDirection(*nextPosition, nextStop_.name);
 		} else {
-			logging::Logger::logInfo("Vehicle is not on a the new route and cannot switch routes yet");
+			settings::Logger::logInfo("Vehicle is not on a the new route and cannot switch routes yet");
 		}
 	} else {
-		logging::Logger::logWarning("Route {} was not found.", nextRouteName_);
+		settings::Logger::logWarning("Route {} was not found.", nextRouteName_);
 	}
 
 }
