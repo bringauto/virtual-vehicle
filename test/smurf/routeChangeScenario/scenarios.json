@@ -8,10 +8,10 @@
   "scenarios" : [
     {
       "name" : "delayedChange",
-      "timeout_s" : 100,
+      "timeout_s" : 90,
       "arguments" : [
         "--map", "../maps/route_change.osm",
-        "--wait-at-stop-s", "10",
+        "--wait-at-stop-s", "5",
         "--speed-override", "30",
         "--config", "../default_config.json"
       ]

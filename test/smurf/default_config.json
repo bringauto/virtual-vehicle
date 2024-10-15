@@ -9,7 +9,9 @@
     "simulation-settings": {
       "speed-override": true,
       "speed-override-mps": 5,
-      "wait-at-stop-s": 30
+      "wait-at-stop-s": 30,
+      "map": "../maps/map.osm",
+      "default-route": ""
     }
   },
   "fleet-settings": {
@@ -24,9 +26,5 @@
     },
     "empty":{
     }
-  },
-  "map-settings": {
-    "map": "../maps/map.osm",
-    "default-route": ""
   }
 }

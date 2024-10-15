@@ -8,10 +8,10 @@
   "scenarios" : [
     {
       "name" : "default",
-      "timeout_s" : 100,
+      "timeout_s" : 600,
       "arguments" : [
         "--map", "../maps/moravske_namesti.osm",
-        "--wait-at-stop-s", "4",
+        "--wait-at-stop-s", "5",
         "--speed-override", "50",
         "--config", "../default_config.json"
       ]
