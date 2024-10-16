@@ -32,11 +32,6 @@ public:
 	virtual ~IVirtualVehicle() = default;
 
 protected:
-	/// Driving map
-	bringauto::virtual_vehicle::Map map_;
-	/// Current route of the vehicle
-	std::shared_ptr<osm::Route> actualRoute_;
-
 	/// Communication interface
 	std::shared_ptr<communication::ICommunication> com_;
 	/// Global context

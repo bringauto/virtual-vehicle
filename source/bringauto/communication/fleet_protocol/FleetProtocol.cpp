@@ -2,7 +2,7 @@
 #include <bringauto/common_utils/EnumUtils.hpp>
 #include <bringauto/communication/fleet_protocol/Message.hpp>
 
-#include <bringauto/logging/Logger.hpp>
+#include <bringauto/settings/LoggerId.hpp>
 
 #include <nlohmann/json.hpp>
 
@@ -24,6 +24,8 @@ bool FleetProtocol::initializeConnection() {
 	}
 	lastConnectAttemptS_ = currentTime;
 
+	settings::Logger::logInfo("Initializing connection to module gateway on {}:{}", globalContext_->settings->moduleGatewayIp,
+							  globalContext_->settings->moduleGatewayPort);
 
 	boost::asio::ip::tcp::resolver::query resolver_query(globalContext_->settings->moduleGatewayIp,
 														 std::to_string(globalContext_->settings->moduleGatewayPort),
@@ -67,11 +69,11 @@ bool FleetProtocol::initializeConnection() {
 
 	if(retCode != OK) {
 		destroy_connection(&internalClientContext_);
-		logging::Logger::logError("Failed to connect to module gateway, err code: {}", retCode);
+		settings::Logger::logError("Failed to connect to module gateway, err code: {}", retCode);
 		return false;
 	}
 
-	logging::Logger::logInfo("Connected to module gateway");
+	settings::Logger::logInfo("Connected to module gateway");
 	isConnected_ = true;
 
 #ifdef STATE_SMURF
@@ -104,7 +106,7 @@ bool FleetProtocol::sendStatus(const Status &status) {
 	int retCode = send_status(internalClientContext_, message.getBuffer(), 60);
 	if(retCode != OK) {
 		destroy_connection(&internalClientContext_);
-		logging::Logger::logError("Failed to send status to module gateway, err code: {}", retCode);
+		settings::Logger::logError("Failed to send status to module gateway, err code: {}", retCode);
 		return false;
 	}
 	return true;
@@ -116,7 +118,7 @@ bool FleetProtocol::receiveCommand() {
 	int retCode = get_command(internalClientContext_, &command_buffer);
 	if(retCode != OK) {
 		destroy_connection(&internalClientContext_);
-		logging::Logger::logError("Failed to get command from module gateway, err code: {}", retCode);
+		settings::Logger::logError("Failed to get command from module gateway, err code: {}", retCode);
 		return false;
 	}
 
@@ -132,9 +134,9 @@ void FleetProtocol::processBufferData(const buffer &bufferData) {
 
 	try {
 		commandJson = json::parse(data, data + bufferData.size_in_bytes);
-		logging::Logger::logInfo("Parsing command: {}", commandJson.dump());
+		settings::Logger::logInfo("Parsing command: {}", commandJson.dump());
 	} catch (json::parse_error &) {
-		logging::Logger::logWarning("Cannot parse car command!");
+		settings::Logger::logWarning("Cannot parse car command!");
 		return;
 	}
 
@@ -152,7 +154,7 @@ void FleetProtocol::processBufferData(const buffer &bufferData) {
 		command.setRoute(commandJson.at("route"));
 		command.setAction(common_utils::EnumUtils::valueToEnum<EAutonomyAction>(std::string(commandJson.at("action"))));
 	} catch (json::exception &) {
-		logging::Logger::logWarning("Cannot parse car command!");
+		settings::Logger::logWarning("Cannot parse car command!");
 		return;
 	}
 
@@ -160,7 +162,7 @@ void FleetProtocol::processBufferData(const buffer &bufferData) {
 		currentCommand_ = command;
 		std::stringstream is;
 		is << currentCommand_;
-		logging::Logger::logInfo("Received new command: {}", is.str());
+		settings::Logger::logInfo("Received new command: {}", is.str());
 	}
 }
 
@@ -176,7 +178,7 @@ std::string FleetProtocol::generateCarStatusString(const Status &status) {
 	statusJson["nextStop"]["position"]["latitude"] = status.getNextStop().latitude;
 	statusJson["nextStop"]["position"]["longitude"] = status.getNextStop().longitude;
 	statusJson["state"] = common_utils::EnumUtils::enumToString<EAutonomyState>(status.getState());
-	logging::Logger::logInfo("Generating car status: {}", statusJson.dump());
+	settings::Logger::logInfo("Generating car status: {}", statusJson.dump());
 	return statusJson.dump();
 }
 
