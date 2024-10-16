@@ -13,7 +13,6 @@
 #include <bringauto/logging/SizeLiterals.hpp>
 
 
-
 #ifdef STATE_SMURF
 #include <bringauto/settings/StateSmurfDefinition.hpp>
 #include <state_smurf/transition/StateTransitionLoggerId.hpp>
@@ -21,7 +20,6 @@
 
 
 void initLogger(const std::string &logPath, bool verbose) {
-	using namespace bringauto::logging;
 #ifdef STATE_SMURF
 	state_smurf::transition::Logger::addSink<bringauto::logging::ConsoleSink>();
 	bringauto::logging::LoggerSettings smurfLoggerParams { "VirtualVehicleStateSmurf",
@@ -32,13 +30,14 @@ void initLogger(const std::string &logPath, bool verbose) {
 		bringauto::settings::Logger::addSink<bringauto::logging::ConsoleSink>();
 	}
 	bringauto::logging::FileSink::Params paramFileSink { logPath, "virtual-vehicle-utility.log" };
+	using namespace bringauto::logging;
 	paramFileSink.maxFileSize = 50_MiB;
 	paramFileSink.numberOfRotatedFiles = 5;
 	paramFileSink.verbosity = bringauto::logging::LoggerVerbosity::Info;
 
 	bringauto::settings::Logger::addSink<bringauto::logging::FileSink>(paramFileSink);
 	bringauto::logging::LoggerSettings params { "VirtualVehicle",
-												bringauto::logging::LoggerVerbosity::Debug };
+												bringauto::logging::LoggerVerbosity::Info };
 	bringauto::settings::Logger::init(params);
 }
 

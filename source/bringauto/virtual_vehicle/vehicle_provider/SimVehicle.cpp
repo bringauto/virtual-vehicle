@@ -52,7 +52,10 @@ void SimVehicle::handleIdleEvent() {
 }
 
 void SimVehicle::handleDriveEvent() {
-	if(checkForStop()) { return; }
+	if(checkForStop()) { 
+		settings::Logger::logInfo("Car has arrived at the stop {}", nextStop_.name);
+		return;
+	}
 
 	if(driveMillisecondLeft_ < globalContext_->settings->messagePeriodMs) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(driveMillisecondLeft_));
@@ -70,14 +73,12 @@ void SimVehicle::handleDriveEvent() {
 }
 
 void SimVehicle::handleInStopEvent() {
-	if(inStopMillisecondsLeft_ > globalContext_->settings->messagePeriodMs) {
-		std::this_thread::sleep_for(std::chrono::milliseconds(globalContext_->settings->messagePeriodMs));
-	} else {
-		std::this_thread::sleep_for(std::chrono::milliseconds(inStopMillisecondsLeft_));
-	}
-	inStopMillisecondsLeft_ -= globalContext_->settings->messagePeriodMs;
-	if(inStopMillisecondsLeft_ < 0) {
+	std::this_thread::sleep_for(std::chrono::milliseconds(globalContext_->settings->messagePeriodMs));
+
+	if(inStopMillisecondsLeft_ < globalContext_->settings->messagePeriodMs) {
 		inStopMillisecondsLeft_ = 0;
+	} else {
+		inStopMillisecondsLeft_ -= globalContext_->settings->messagePeriodMs;
 	}
 }
 
@@ -165,8 +166,10 @@ void SimVehicle::evaluateCommand() {
 				mission_ = command.getMission();
 			}
 
+			nextStop_ = mission_.front();
+
 			if(state_ == communication::EAutonomyState::E_IN_STOP) {
-				if(inStopMillisecondsLeft_ == 0) {
+				if(inStopMillisecondsLeft_ == 0 && !checkForStop()) {
 					if(mission_.empty()) {
 						updateVehicleState(communication::EAutonomyState::E_IDLE);
 					} else {
@@ -177,10 +180,6 @@ void SimVehicle::evaluateCommand() {
 				}
 			} else {
 				updateVehicleState(communication::EAutonomyState::E_DRIVE);
-			}
-
-			if(state_ != communication::EAutonomyState::E_IN_STOP) {
-				nextStop_ = mission_.front();
 			}
 			break;
 
@@ -198,7 +197,6 @@ void SimVehicle::evaluateCommand() {
 bool SimVehicle::checkForStop() {
 	if(actualPosition_->isStop() && actualPosition_->getName() == nextStop_.name) {
 		updateVehicleState(communication::EAutonomyState::E_IN_STOP);
-		settings::Logger::logInfo("Car have arrived at the stop {}", nextStop_.name);
 		return true;
 	}
 	return false;

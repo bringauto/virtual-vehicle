@@ -32,7 +32,10 @@ IF (STATE_SMURF)
 ENDIF ()
 
 INCLUDE(GoogleTest)
-GTEST_DISCOVER_TESTS(vvutests)
+GTEST_DISCOVER_TESTS(
+        vvutests
+        XML_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/test_result
+)
 
 ADD_CUSTOM_COMMAND(TARGET vvutests PRE_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory

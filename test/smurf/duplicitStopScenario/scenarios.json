@@ -12,8 +12,8 @@
       "arguments" : [
         "--map", "../maps/lap.osm",
         "--default-route", "lap",
-        "--wait-at-stop-s", "4",
-        "--speed-override", "50",
+        "--wait-at-stop-s", "5",
+        "--speed-override", "30",
         "--config", "../default_config.json"
       ]
     }
