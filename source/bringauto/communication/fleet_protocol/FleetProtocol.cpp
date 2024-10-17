@@ -135,7 +135,7 @@ void FleetProtocol::processBufferData(const buffer &bufferData) {
 	try {
 		commandJson = json::parse(data, data + bufferData.size_in_bytes);
 		settings::Logger::logInfo("Parsing command: {}", commandJson.dump());
-	} catch (json::parse_error &) {
+	} catch (json::exception &) {
 		settings::Logger::logWarning("Cannot parse car command!");
 		return;
 	}

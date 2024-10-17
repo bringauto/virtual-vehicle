@@ -58,6 +58,6 @@ private:
 	/// Current state of the autonomy
 	EAutonomyState state_ { EAutonomyState::E_INVALID };
 	/// Next stop on the route
-	osm::Route::Station nextStop_;
+	osm::Route::Station nextStop_ {};
 };
 }
