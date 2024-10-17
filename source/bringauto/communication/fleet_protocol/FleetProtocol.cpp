@@ -143,11 +143,11 @@ void FleetProtocol::processBufferData(const buffer &bufferData) {
 	std::vector<osm::Route::Station> missions;
 
 	try {
-		for(int i = 0; i < commandJson.at("stops").size(); i++) {
+		for(const auto& stop : commandJson.at("stops")) {
 			osm::Route::Station station;
-			station.name = commandJson.at("stops").at(i).at("name");
-			station.latitude = commandJson.at("stops").at(i).at("position").at("latitude");
-			station.longitude = commandJson.at("stops").at(i).at("position").at("longitude");
+			station.name = stop.at("name");
+			station.latitude = stop.at("position").at("latitude");
+			station.longitude = stop.at("position").at("longitude");
 			missions.push_back(station);
 		}
 		command.setMission(missions);
