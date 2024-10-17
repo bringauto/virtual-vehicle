@@ -12,6 +12,7 @@
 #include <bringauto/logging/FileSink.hpp>
 #include <bringauto/logging/SizeLiterals.hpp>
 
+#include <iostream>
 
 #ifdef STATE_SMURF
 #include <bringauto/settings/StateSmurfDefinition.hpp>

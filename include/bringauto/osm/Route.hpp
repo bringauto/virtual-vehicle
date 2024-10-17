@@ -25,9 +25,9 @@ public:
 	}
 
 	struct Station {
-		std::string name;
-		double latitude;
-		double longitude;
+		std::string name {};
+		double latitude { 0.0 };
+		double longitude { 0.0 };
 	};
 
 	/**

@@ -3,7 +3,7 @@ PROJECT(virtual-vehicle-utility)
 
 SET(CMAKE_CXX_STANDARD 20)
 
-SET(VIRTUAL_VEHICLE_UTILITY_VERSION 3.2.0)
+SET(VIRTUAL_VEHICLE_UTILITY_VERSION 3.3.0)
 ADD_DEFINITIONS(-DVIRTUAL_VEHICLE_UTILITY_VERSION="${VIRTUAL_VEHICLE_UTILITY_VERSION}")
 
 # for linking .so after make install (actually ba_logger):
@@ -58,19 +58,8 @@ FIND_PACKAGE(libbringauto_logger 2.0.0 REQUIRED)
 FIND_PACKAGE(modbuspp 0.3.1 REQUIRED)
 FIND_PACKAGE(internal-client-shared 1.1.1 REQUIRED)
 FIND_PACKAGE(fleet-protocol-interface 2.0.0 REQUIRED)
-FIND_PACKAGE(Protobuf 3.21.12 REQUIRED)
 FIND_PACKAGE(Boost REQUIRED COMPONENTS system)
 FIND_PACKAGE(Protozero REQUIRED)
-
-#------------protobuf----------------#
-SET(Protobuf_USE_STATIC_LIBS ON)
-ADD_LIBRARY(protobuff_lib STATIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/mission-module/lib/protobuf-mission-module/MissionModule.pb.cc
-        ${CMAKE_CURRENT_SOURCE_DIR}/lib/mission-module/lib/protobuf-mission-module/MissionModule.pb.h)
-TARGET_LINK_LIBRARIES(protobuff_lib PUBLIC protobuf::libprotobuf)
-TARGET_INCLUDE_DIRECTORIES(protobuff_lib PUBLIC "${CMAKE_CURRENT_LIST_DIR}/lib/mission-module/lib/protobuf-mission-module/")
-
-
 
 FILE(GLOB_RECURSE source_files "source/*")
 
@@ -82,7 +71,6 @@ CMDEF_ADD_EXECUTABLE(
 )
 TARGET_LINK_LIBRARIES(virtual-vehicle-utility
         PRIVATE
-        protobuff_lib
         bringauto_logger::bringauto_logger
         PUBLIC
         nlohmann_json::nlohmann_json

@@ -1,7 +1,4 @@
 [submodule "test/smurf/etna"]
 	path = test/smurf/etna
 	url = https://github.com/bringauto/etna.git
-	branch = main
-[submodule "lib/mission-module"]
-	path = lib/mission-module
-	url = https://github.com/bringauto/mission-module.git
+    branch = main
