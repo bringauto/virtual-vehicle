@@ -166,19 +166,19 @@ void SimVehicle::evaluateCommand() {
 				mission_ = command.getMission();
 			}
 
-			nextStop_ = mission_.front();
-
 			if(state_ == communication::EAutonomyState::E_IN_STOP) {
-				if(inStopMillisecondsLeft_ == 0 && !checkForStop()) {
+				if(inStopMillisecondsLeft_ == 0) {
 					if(mission_.empty()) {
 						updateVehicleState(communication::EAutonomyState::E_IDLE);
 					} else {
+						nextStop_ = mission_.front();
 						updateVehicleState(communication::EAutonomyState::E_DRIVE);
 					}
 				} else {
 					updateVehicleState(communication::EAutonomyState::E_IN_STOP);
 				}
 			} else {
+				nextStop_ = mission_.front();
 				updateVehicleState(communication::EAutonomyState::E_DRIVE);
 			}
 			break;
