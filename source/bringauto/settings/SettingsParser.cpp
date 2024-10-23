@@ -171,12 +171,14 @@ bool SettingsParser::areSettingsCorrect() {
 		isCorrect = false;
 	}
 
-	if(!std::filesystem::exists(settings_->logPath)) {
-		std::cerr << "Parse arguments error: Given log-path (" << settings_->logPath << ") does not exist." << std::endl;
-		isCorrect = false;
-	} else if (!std::filesystem::is_directory(settings_->logPath)) {
-		std::cerr << "Parse arguments error: Given log-path (" << settings_->logPath << ") is not a directory." << std::endl;
-		isCorrect = false;
+	if(!settings_->logPath.empty()) {
+		if(!std::filesystem::exists(settings_->logPath)) {
+			std::cerr << "Parse arguments error: Given log-path (" << settings_->logPath << ") does not exist." << std::endl;
+			isCorrect = false;
+		} else if (!std::filesystem::is_directory(settings_->logPath)) {
+			std::cerr << "Parse arguments error: Given log-path (" << settings_->logPath << ") is not a directory." << std::endl;
+			isCorrect = false;
+		}
 	}
 
 

@@ -29,13 +29,15 @@ void initLogger(const std::string &logPath, bool verbose) {
 	if(verbose) {
 		bringauto::settings::Logger::addSink<bringauto::logging::ConsoleSink>();
 	}
-	bringauto::logging::FileSink::Params paramFileSink { logPath, "virtual-vehicle-utility.log" };
-	using namespace bringauto::logging;
-	paramFileSink.maxFileSize = 50_MiB;
-	paramFileSink.numberOfRotatedFiles = 5;
-	paramFileSink.verbosity = bringauto::logging::LoggerVerbosity::Info;
+	if(!logPath.empty()) {
+		bringauto::logging::FileSink::Params paramFileSink { logPath, "virtual-vehicle-utility.log" };
+		using namespace bringauto::logging;
+		paramFileSink.maxFileSize = 50_MiB;
+		paramFileSink.numberOfRotatedFiles = 5;
+		paramFileSink.verbosity = bringauto::logging::LoggerVerbosity::Info;
+		bringauto::settings::Logger::addSink<bringauto::logging::FileSink>(paramFileSink);
+	}
 
-	bringauto::settings::Logger::addSink<bringauto::logging::FileSink>(paramFileSink);
 	bringauto::logging::LoggerSettings params { "VirtualVehicle",
 												bringauto::logging::LoggerVerbosity::Info };
 	bringauto::settings::Logger::init(params);

@@ -61,7 +61,7 @@ examples in `./config/*.json`
 
 ## general settings
 
-* `log-path` - path to log file, string
+* `log-path` - path to log file, can be empty to disable logging to a file, string
 * `verbose` - if true, logs will be printed to the console, bool
 * `period` - the time period between two status messages sent to Module Gateway, int
 
