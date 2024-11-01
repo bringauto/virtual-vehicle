@@ -37,8 +37,6 @@ In this case, it doesn't drive but still can fulfill orders, if it is at the tar
 * `--config-path <string>` path to JSON configuration file
 * `--map <string>` full path to .osm file containing map
 * `--default-route <string>` - name of the route that will be set as default
-* `-v | --verbose` logs will be printed to console
-* `--log-path <path>` logs will be saved to the provided path, default is .\/
 * `--module-gateway-ip <string>` IPv4 or hostname of ba daemon
 * `--module-gateway-port <int>` ba daemon port
 * `-h | --help` print help
@@ -61,9 +59,22 @@ examples in `./config/*.json`
 
 ## general settings
 
-* `log-path` - path to log file, can be empty to disable logging to a file, string
-* `verbose` - if true, logs will be printed to the console, bool
 * `period` - the time period between two status messages sent to Module Gateway, int
+
+## logging
+
+### console
+
+* `level` - console logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+* `use` - if logs will be printed to console, bool
+
+### file
+
+* `level` - file logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+* `use` - if logs will be printed to files, bool
+* `path` - logs will be saved to provided folder, path can be both relative and absolute, string
+
+Note: at least one logging sink needs to be used
 
 ## vehicle settings
 
@@ -297,7 +308,7 @@ docker build --tag virtual-vehicle-utility .
 Run docker with parameters
 
 ``` bash
-docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config-path=<path to json file> --map=<path to map file> -v --route=<route name> --ip=<daemon ip> --port=<daemon port> --wait=<time to wait in stop in sec>
+docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config-path=<path to json file> --map=<path to map file> --route=<route name> --ip=<daemon ip> --port=<daemon port> --wait=<time to wait in stop in sec>
 ```
 
 Examples:
@@ -307,7 +318,7 @@ docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehi
 ```
 
 ``` bash
-docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config-path=/virtual-vehicle-utility/config/example.json --map=/virtual-vehicle-utility/tests/maps/BorsodChem.osm -v --route=borsodchem --ip=127.0.0.1 --port=1536 --wait=10 
+docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config-path=/virtual-vehicle-utility/config/example.json --map=/virtual-vehicle-utility/tests/maps/BorsodChem.osm --route=borsodchem --ip=127.0.0.1 --port=1536 --wait=10 
 ```
 
 

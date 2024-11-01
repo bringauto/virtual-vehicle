@@ -33,8 +33,6 @@ public:
 
 private:
 	static const std::string CONFIG_PATH;
-	static const std::string VERBOSE;
-	static const std::string LOG_PATH;
 	static const std::string MODULE_GATEWAY_IP;
 	static const std::string MODULE_GATEWAY_PORT;
 	static const std::string STATUS_MESSAGE_PERIOD;
@@ -68,6 +66,13 @@ private:
 	static const std::string INTERNAL_PROTOCOL_SETTINGS;
 	static const std::string MAP_SETTINGS;
 
+	static const std::string LOGGING;
+	static const std::string LOGGING_CONSOLE;
+	static const std::string LOGGING_FILE;
+	static const std::string LOG_LEVEL;
+	static const std::string LOG_USE;
+	static const std::string LOG_PATH;
+
 	cxxopts::ParseResult cmdArguments_;
 	std::shared_ptr<Settings> settings_;
 
@@ -80,6 +85,8 @@ private:
 	void fillSettings();
 
 	void fillGeneralSettings(const nlohmann::json &file);
+
+	void fillLoggingSettings(const nlohmann::json &file);
 
 	void fillVehicleSettings(const nlohmann::json &file);
 

@@ -9,8 +9,6 @@
 namespace bringauto::settings {
 
 const std::string SettingsParser::CONFIG_PATH { "config" };
-const std::string SettingsParser::VERBOSE { "verbose" };
-const std::string SettingsParser::LOG_PATH { "log-path" };
 const std::string SettingsParser::MODULE_GATEWAY_IP { "module-gateway-ip" };
 const std::string SettingsParser::MODULE_GATEWAY_PORT { "module-gateway-port" };
 const std::string SettingsParser::STATUS_MESSAGE_PERIOD { "period-ms" };
@@ -44,6 +42,14 @@ const std::string SettingsParser::FLEET_SETTINGS { "fleet-settings" };
 const std::string SettingsParser::INTERNAL_PROTOCOL_SETTINGS { "internal-protocol-settings" };
 const std::string SettingsParser::MAP_SETTINGS { "map-settings" };
 
+const std::string SettingsParser::LOGGING { "logging" };
+const std::string SettingsParser::LOGGING_CONSOLE { "console" };
+const std::string SettingsParser::LOGGING_FILE { "file" };
+const std::string SettingsParser::LOG_LEVEL { "level" };
+const std::string SettingsParser::LOG_USE { "use" };
+const std::string SettingsParser::LOG_PATH { "path" };
+
+
 bool SettingsParser::parseSettings(int argc, char **argv) {
 	parseCmdArguments(argc, argv);
 	if(cmdArguments_.count("help") || argc == 1) {
@@ -66,8 +72,6 @@ bool SettingsParser::parseSettings(int argc, char **argv) {
 void SettingsParser::parseCmdArguments(int argc, char **argv) {
 	cxxopts::Options options { "VirtualVehicle", "BringAuto virtual vehicle utility" };
 	options.add_options("general")("c, " + CONFIG_PATH, "Path to configuration file", cxxopts::value<std::string>());
-	options.add_options("general")(LOG_PATH, "Path to logs", cxxopts::value<std::string>());
-	options.add_options("general")("v, " + VERBOSE, "Print log messages into terminal");
 	options.add_options("general")(STATUS_MESSAGE_PERIOD, "Period in ms for sending status messages",
 								   cxxopts::value<uint32_t>());
 	options.add_options("vehicle")(VEHICLE_PROVIDER,
@@ -116,10 +120,8 @@ bool SettingsParser::areCmdArgumentsCorrect() {
 			CONFIG_PATH
 	};
 	std::vector<std::string> allParameters = { CONFIG_PATH,
-											   VERBOSE,
 											   OSM_MAP,
 											   OSM_ROUTE,
-											   LOG_PATH,
 											   MODULE_GATEWAY_IP,
 											   MODULE_GATEWAY_PORT,
 											   OSM_STOP_WAIT_TIME,
@@ -171,12 +173,14 @@ bool SettingsParser::areSettingsCorrect() {
 		isCorrect = false;
 	}
 
-	if(!settings_->logPath.empty()) {
-		if(!std::filesystem::exists(settings_->logPath)) {
-			std::cerr << "Parse arguments error: Given log-path (" << settings_->logPath << ") does not exist." << std::endl;
+	if(settings_->loggingSettings.file.use) {
+		if(!std::filesystem::exists(settings_->loggingSettings.file.path)) {
+			std::cerr << "Parse arguments error: Given log-path (" << settings_->loggingSettings.file.path
+				<< ") does not exist." << std::endl;
 			isCorrect = false;
-		} else if (!std::filesystem::is_directory(settings_->logPath)) {
-			std::cerr << "Parse arguments error: Given log-path (" << settings_->logPath << ") is not a directory." << std::endl;
+		} else if (!std::filesystem::is_directory(settings_->loggingSettings.file.path)) {
+			std::cerr << "Parse arguments error: Given log-path (" << settings_->loggingSettings.file.path
+				<< ") is not a directory." << std::endl;
 			isCorrect = false;
 		}
 	}
@@ -219,26 +223,28 @@ void SettingsParser::fillSettings() {
 
 	auto file = nlohmann::json::parse(inputFile);
 	fillGeneralSettings(file[GENERAL_SETTINGS]);
+	fillLoggingSettings(file[LOGGING]);
 	fillVehicleSettings(file[VEHICLE_SETTINGS]);
 	fillFleetSettings(file[FLEET_SETTINGS]);
 }
 
 void SettingsParser::fillGeneralSettings(const nlohmann::json &section) {
-	if(cmdArguments_.count(LOG_PATH)) {
-		settings_->logPath = cmdArguments_[LOG_PATH].as<std::string>();
-	} else {
-		settings_->logPath = std::filesystem::path(section.at(LOG_PATH));
-	}
-	if(cmdArguments_.count(VERBOSE)) {
-		settings_->verbose = cmdArguments_.count(VERBOSE) == 1;
-	} else {
-		settings_->verbose = section.at(VERBOSE);
-	}
 	if(cmdArguments_.count(STATUS_MESSAGE_PERIOD)) {
 		settings_->messagePeriodMs = cmdArguments_[STATUS_MESSAGE_PERIOD].as<uint32_t>();
 	} else {
 		settings_->messagePeriodMs = section.at(STATUS_MESSAGE_PERIOD);
 	}
+}
+
+void SettingsParser::fillLoggingSettings(const nlohmann::json &section) {
+	settings_->loggingSettings.console.use = section[LOGGING_CONSOLE][LOG_USE];
+	settings_->loggingSettings.console.level = common_utils::EnumUtils::valueToEnum<logging::LoggerVerbosity>(
+		std::string(section[LOGGING_CONSOLE][LOG_LEVEL]));
+
+	settings_->loggingSettings.file.use = section[LOGGING_FILE][LOG_USE];
+	settings_->loggingSettings.file.level = common_utils::EnumUtils::valueToEnum<logging::LoggerVerbosity>(
+		std::string(section[LOGGING_FILE][LOG_LEVEL]));
+	settings_->loggingSettings.file.path = std::filesystem::path(section[LOGGING_FILE][LOG_PATH]);
 }
 
 void SettingsParser::fillVehicleSettings(const nlohmann::json &section) {
@@ -367,9 +373,21 @@ void SettingsParser::fillMapSettings(const nlohmann::json &section) {
 std::string SettingsParser::getFormattedSettings() {
 	std::stringstream formattedSettings;
 	formattedSettings << "config-file: " << settings_->config << "\n";
-	formattedSettings << "verbose: " << (settings_->verbose ? "TRUE" : "FALSE") << "\n";
-	formattedSettings << "log-path: " << settings_->logPath << "\n";
 	formattedSettings << "period-ms: " << settings_->messagePeriodMs << "\n";
+	formattedSettings << "logging:\n";
+	if(settings_->loggingSettings.console.use) {
+		formattedSettings << "\tconsole: TRUE\n";
+		formattedSettings << "\t\tlevel: " << common_utils::EnumUtils::enumToString(settings_->loggingSettings.console.level) << "\n";
+	} else {
+		formattedSettings << "\tconsole: FALSE\n";
+	}
+	if(settings_->loggingSettings.file.use) {
+		formattedSettings << "\tfile: TRUE\n";
+		formattedSettings << "\t\tlevel: " << common_utils::EnumUtils::enumToString(settings_->loggingSettings.file.level) << "\n";
+		formattedSettings << "\t\tpath: " << settings_->loggingSettings.file.path << "\n";
+	} else {
+		formattedSettings << "\tfile: FALSE\n";
+	}
 	switch(settings_->fleetProvider) {
 		case FleetProvider::E_INTERNAL_PROTOCOL:
 			formattedSettings << "fleet-provider: INTERNAL_PROTOCOL\n";
