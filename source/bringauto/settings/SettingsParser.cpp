@@ -75,9 +75,9 @@ void SettingsParser::parseCmdArguments(int argc, char **argv) {
 	options.add_options("general")(STATUS_MESSAGE_PERIOD, "Period in ms for sending status messages",
 								   cxxopts::value<uint32_t>());
 	options.add_options("vehicle")(VEHICLE_PROVIDER,
-								   R"(Choose virtual vehicle location provider, "simulation" or "gps".)",
+								   R"(Choose virtual vehicle location provider type: "simulation" or "gps".)",
 								   cxxopts::value<std::string>());
-	options.add_options("gps vehicle provider")(GPS_PROVIDER, R"(Choose gps provider, "rutx09" or "ublox".)",
+	options.add_options("gps vehicle provider")(GPS_PROVIDER, R"(Choose gps provider type: "rutx09" or "ublox".)",
 												cxxopts::value<std::string>());
 	options.add_options("gps vehicle provider")(RUT_IP, "Modbus server address for rutx09.",
 												cxxopts::value<std::string>());
@@ -98,12 +98,12 @@ void SettingsParser::parseCmdArguments(int argc, char **argv) {
 	options.add_options("simulation vehicle provider")(OSM_ROUTE, "Name of route that will be set on initialization",
 							   cxxopts::value<std::string>());
 	options.add_options("fleet")(FLEET_PROVIDER,
-								 R"(Provider of communication with fleet, "protobuf" or "empty")",
+								 R"(Provider of communication with fleet: "internal-protocol" or "no-connection".)",
 								 cxxopts::value<std::string>());
-	options.add_options("protobuf fleet provider")(MODULE_GATEWAY_IP,
+	options.add_options("internal protocol provider")(MODULE_GATEWAY_IP,
 												   "IPv4 address or hostname of server side application",
 												   cxxopts::value<std::string>());
-	options.add_options("protobuf fleet provider")(MODULE_GATEWAY_PORT, "Port of server side application",
+	options.add_options("internal protocol provider")(MODULE_GATEWAY_PORT, "Port of server side application",
 												   cxxopts::value<int>());
 	options.add_options()("h, " + HELP, "Print usage");
 
