@@ -12,8 +12,8 @@ const std::string SettingsParser::CONFIG_PATH { "config" };
 const std::string SettingsParser::MODULE_GATEWAY_IP { "module-gateway-ip" };
 const std::string SettingsParser::MODULE_GATEWAY_PORT { "module-gateway-port" };
 const std::string SettingsParser::STATUS_MESSAGE_PERIOD { "period-ms" };
-const std::string SettingsParser::VEHICLE_PROVIDER { "vehicle-provider" };
-const std::string SettingsParser::FLEET_PROVIDER { "fleet-provider" };
+const std::string SettingsParser::VEHICLE_PROVIDER { "vehicle-provider-type" };
+const std::string SettingsParser::FLEET_PROVIDER { "fleet-provider-type" };
 const std::string SettingsParser::HELP { "help" };
 
 const std::string SettingsParser::OSM_MAP { "map" };
@@ -22,7 +22,7 @@ const std::string SettingsParser::OSM_STOP_WAIT_TIME { "wait-at-stop-s" };
 const std::string SettingsParser::OSM_SPEED_OVERRIDE { "speed-override" };
 const std::string SettingsParser::OSM_SPEED_OVERRIDE_MPS { "speed-override-mps" };
 
-const std::string SettingsParser::GPS_PROVIDER { "gps-provider" };
+const std::string SettingsParser::GPS_PROVIDER { "gps-provider-type" };
 const std::string SettingsParser::RUT_IP { "rutx-ip" };
 const std::string SettingsParser::RUT_PORT { "rutx-port" };
 const std::string SettingsParser::RUT_SLAVE_ID { "rutx-slave-id" };
@@ -35,11 +35,11 @@ const std::string SettingsParser::RECONNECT_PERIOD { "reconnect-period-s" };
 
 const std::string SettingsParser::GENERAL_SETTINGS { "general-settings" };
 const std::string SettingsParser::VEHICLE_SETTINGS { "vehicle-settings" };
-const std::string SettingsParser::GPS_SETTINGS { "gps-settings" };
+const std::string SettingsParser::GPS_SETTINGS { "provider-gps-settings" };
 const std::string SettingsParser::RUTX_09_SETTINGS { "rutx09-settings" };
-const std::string SettingsParser::SIMULATION_SETTINGS { "simulation-settings" };
+const std::string SettingsParser::SIMULATION_SETTINGS { "provider-simulation-settings" };
 const std::string SettingsParser::FLEET_SETTINGS { "fleet-settings" };
-const std::string SettingsParser::INTERNAL_PROTOCOL_SETTINGS { "internal-protocol-settings" };
+const std::string SettingsParser::INTERNAL_PROTOCOL_SETTINGS { "provider-internal-protocol-settings" };
 const std::string SettingsParser::MAP_SETTINGS { "map-settings" };
 
 const std::string SettingsParser::LOGGING { "logging" };
