@@ -222,10 +222,10 @@ void SettingsParser::fillSettings() {
 	std::ifstream inputFile(configPath);
 
 	auto file = nlohmann::json::parse(inputFile);
-	fillGeneralSettings(file[GENERAL_SETTINGS]);
-	fillLoggingSettings(file[LOGGING]);
-	fillVehicleSettings(file[VEHICLE_SETTINGS]);
-	fillFleetSettings(file[FLEET_SETTINGS]);
+	fillGeneralSettings(file.at(GENERAL_SETTINGS));
+	fillLoggingSettings(file.at(LOGGING));
+	fillVehicleSettings(file.at(VEHICLE_SETTINGS));
+	fillFleetSettings(file.at(FLEET_SETTINGS));
 }
 
 void SettingsParser::fillGeneralSettings(const nlohmann::json &section) {
