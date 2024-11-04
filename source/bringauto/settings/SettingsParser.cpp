@@ -237,14 +237,14 @@ void SettingsParser::fillGeneralSettings(const nlohmann::json &section) {
 }
 
 void SettingsParser::fillLoggingSettings(const nlohmann::json &section) {
-	settings_->loggingSettings.console.use = section[LOGGING_CONSOLE][LOG_USE];
+	settings_->loggingSettings.console.use = section.at(LOGGING_CONSOLE).at(LOG_USE);
 	settings_->loggingSettings.console.level = common_utils::EnumUtils::valueToEnum<logging::LoggerVerbosity>(
-		std::string(section[LOGGING_CONSOLE][LOG_LEVEL]));
+		std::string(section.at(LOGGING_CONSOLE).at(LOG_LEVEL)));
 
-	settings_->loggingSettings.file.use = section[LOGGING_FILE][LOG_USE];
+	settings_->loggingSettings.file.use = section.at(LOGGING_FILE).at(LOG_USE);
 	settings_->loggingSettings.file.level = common_utils::EnumUtils::valueToEnum<logging::LoggerVerbosity>(
-		std::string(section[LOGGING_FILE][LOG_LEVEL]));
-	settings_->loggingSettings.file.path = std::filesystem::path(section[LOGGING_FILE][LOG_PATH]);
+		std::string(section.at(LOGGING_FILE).at(LOG_LEVEL)));
+	settings_->loggingSettings.file.path = std::filesystem::path(section.at(LOGGING_FILE).at(LOG_PATH));
 }
 
 void SettingsParser::fillVehicleSettings(const nlohmann::json &section) {
