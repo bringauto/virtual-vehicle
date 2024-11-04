@@ -46,8 +46,6 @@
 			"device-priority": 1,
 			"reconnect-period-s": 20,
 			"device-name": "bap2021_01"
-		},
-		"provider-no-connection-settings":{
 		}
 	}
 }

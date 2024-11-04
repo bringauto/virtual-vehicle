@@ -46,8 +46,6 @@
 			"device-priority": 0,
 			"reconnect-period-s": 30,
 			"device-name": ""
-		},
-		"provider-no-connection-settings":{
 		}
 	}
 }
