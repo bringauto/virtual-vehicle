@@ -43,10 +43,10 @@ In this case, it doesn't drive but still can fulfill orders, if it is at the tar
 * `--wait=<int>` how many seconds will the car wait in a stop, default is 10s
 * `--period=<int>` maximum time period between two status messages sent to Module Gateway
 * `--speed-override=<int>` override map speed
-* `--fleet-provider=<string>` choose fleet provider, `internal-protocol` to use of Internal Fleet Protocol `no-connection`
+* `--fleet-provider-type=<string>` choose fleet provider, `internal-protocol` to use of Internal Fleet Protocol `no-connection`
   to use of dummy connection
-* `--vehicle-provider=<string>` choose vehicle provider, `simulation` for use of OSM map `gps` for use of GPS provider
-* `--gps-provider=<string>` choose GPS provider, `rutx09` or `ublox`
+* `--vehicle-provider-type=<string>` choose vehicle provider, `simulation` for use of OSM map `gps` for use of GPS provider
+* `--gps-provider-type=<string>` choose GPS provider, `rutx09` or `ublox`
 * `--rutx-ip=<int>` IP address to Modbus server on rutx09
 * `--rutx-port=<int>` port of Modbus server on rutx09
 * `--rutx-slave-id=<int>` slave id of Modbus server on rutx09
@@ -78,12 +78,13 @@ Note: at least one logging sink needs to be used
 
 ## vehicle settings
 
-* `vehicle-provider` - vehicle provider, `simulation` for use of OSM map `gps` for use of GPS provider, string
-* `gps-settings` - gps settings object
+* `vehicle-provider-type` - vehicle provider, `simulation` for use of OSM map **or** `gps` for use of GPS provider, string
+* `provider-simulation-settings` - simulation provider settings object
+* `provider-gps-settings` - gps provider settings object
 
-### gps settings
+### gps provider settings
 
-* `gps-provider` - gps provider, `rutx09`, `ublox`, or `map` (serving for testing purposes), string
+* `gps-provider-type` - gps provider, `rutx09`, `ublox`, or `map` (serving for testing purposes), string
 * `stop-radius` - distance from a stop that will be determined as arrival to the stop, int
 * `rutx09-settings` - rutx09 settings object
 * `map-settings` - map settings object
@@ -98,7 +99,7 @@ Note: at least one logging sink needs to be used
 * `map` - full path to .osm file containing map, string
 * `default-route` - the name of the route that will be set as default, string
 
-### simulation settings
+### simulation provider settings
 
 * `speed-override` - override map speed enable, bool
 * `map-override-mps` - override map speed, int
@@ -108,11 +109,11 @@ Note: at least one logging sink needs to be used
 
 ## Fleet settings
 
-* `fleet-provider` - fleet provider, `internal-protocol` for use of internal protocol `no-connection` for use of dummy
+* `fleet-provider-type` - fleet provider, `internal-protocol` for use of internal protocol `no-connection` for use of dummy
   connection, string
-* `internal-protocol-settings` - internal protocol settings object - module 1, device type 1 is hardcoded
+* `provider-internal-protocol-settings` - internal protocol provider settings object - module 1, device type 1 is hardcoded
 
-### internal protocol settings
+### internal protocol provider settings
 
 * `module-gateway-ip` - IPv4 or hostname of module gateway, string
 * `module-gateway-port` - ba module gateway port, int
@@ -121,9 +122,9 @@ Note: at least one logging sink needs to be used
 * `device-priority` - device priority, int - part of device identification
 * `reconnect-period-s` - period of reconnection to module gateway, int
 
-## Fleet provider
+## Fleet provider type
 
-Virtual vehicle provides the ability to choose a fleet communication provider with `--fleet-provider=<string>` argument. The
+Virtual vehicle provides the ability to choose a fleet communication provider with `--fleet-provider-type=<string>` argument. The
 options are:
 
 * `internal-protocol` - connection to Module Gateway by Internal Client will be established, requires `--ip=<string>`
@@ -131,16 +132,16 @@ options are:
 * `no-connection` - no connection will be established, statuses will be discarded and the default command will be returned,
   for testing purposes
 
-## Vehicle provider
+## Vehicle provider type
 
-Virtual vehicle provides the ability to choose different simulation implementation with `--vehicle-provider=<string>`
+Virtual vehicle provides the ability to choose different simulation implementation with `--vehicle-provider-type=<string>`
 argument. The options are:
 
 * `simulation` - car movement will be simulated and position will be based on the given map file (.osm format). Required
   parameters: `--map=<string>`, `--route=<string>`,
   optional arguments: `--speed-override=<int>`, `--wait=<int>`
 * `gps` - virtual vehicle will report position based on external GPS source, no mission logic is implemented. Required
-  parameters: `--gps-provider=<string>`
+  parameters: `--gps-provider-type=<string>`
 
 ## Gps provider
 

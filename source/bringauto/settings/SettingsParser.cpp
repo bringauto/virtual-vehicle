@@ -12,8 +12,8 @@ const std::string SettingsParser::CONFIG_PATH { "config" };
 const std::string SettingsParser::MODULE_GATEWAY_IP { "module-gateway-ip" };
 const std::string SettingsParser::MODULE_GATEWAY_PORT { "module-gateway-port" };
 const std::string SettingsParser::STATUS_MESSAGE_PERIOD { "period-ms" };
-const std::string SettingsParser::VEHICLE_PROVIDER { "vehicle-provider" };
-const std::string SettingsParser::FLEET_PROVIDER { "fleet-provider" };
+const std::string SettingsParser::VEHICLE_PROVIDER { "vehicle-provider-type" };
+const std::string SettingsParser::FLEET_PROVIDER { "fleet-provider-type" };
 const std::string SettingsParser::HELP { "help" };
 
 const std::string SettingsParser::OSM_MAP { "map" };
@@ -22,7 +22,7 @@ const std::string SettingsParser::OSM_STOP_WAIT_TIME { "wait-at-stop-s" };
 const std::string SettingsParser::OSM_SPEED_OVERRIDE { "speed-override" };
 const std::string SettingsParser::OSM_SPEED_OVERRIDE_MPS { "speed-override-mps" };
 
-const std::string SettingsParser::GPS_PROVIDER { "gps-provider" };
+const std::string SettingsParser::GPS_PROVIDER { "gps-provider-type" };
 const std::string SettingsParser::RUT_IP { "rutx-ip" };
 const std::string SettingsParser::RUT_PORT { "rutx-port" };
 const std::string SettingsParser::RUT_SLAVE_ID { "rutx-slave-id" };
@@ -35,11 +35,11 @@ const std::string SettingsParser::RECONNECT_PERIOD { "reconnect-period-s" };
 
 const std::string SettingsParser::GENERAL_SETTINGS { "general-settings" };
 const std::string SettingsParser::VEHICLE_SETTINGS { "vehicle-settings" };
-const std::string SettingsParser::GPS_SETTINGS { "gps-settings" };
+const std::string SettingsParser::GPS_SETTINGS { "provider-gps-settings" };
 const std::string SettingsParser::RUTX_09_SETTINGS { "rutx09-settings" };
-const std::string SettingsParser::SIMULATION_SETTINGS { "simulation-settings" };
+const std::string SettingsParser::SIMULATION_SETTINGS { "provider-simulation-settings" };
 const std::string SettingsParser::FLEET_SETTINGS { "fleet-settings" };
-const std::string SettingsParser::INTERNAL_PROTOCOL_SETTINGS { "internal-protocol-settings" };
+const std::string SettingsParser::INTERNAL_PROTOCOL_SETTINGS { "provider-internal-protocol-settings" };
 const std::string SettingsParser::MAP_SETTINGS { "map-settings" };
 
 const std::string SettingsParser::LOGGING { "logging" };
@@ -75,9 +75,9 @@ void SettingsParser::parseCmdArguments(int argc, char **argv) {
 	options.add_options("general")(STATUS_MESSAGE_PERIOD, "Period in ms for sending status messages",
 								   cxxopts::value<uint32_t>());
 	options.add_options("vehicle")(VEHICLE_PROVIDER,
-								   R"(Choose virtual vehicle location provider, "simulation" or "gps".)",
+								   R"(Choose virtual vehicle location provider type: "simulation" or "gps".)",
 								   cxxopts::value<std::string>());
-	options.add_options("gps vehicle provider")(GPS_PROVIDER, R"(Choose gps provider, "rutx09" or "ublox".)",
+	options.add_options("gps vehicle provider")(GPS_PROVIDER, R"(Choose gps provider type: "rutx09" or "ublox".)",
 												cxxopts::value<std::string>());
 	options.add_options("gps vehicle provider")(RUT_IP, "Modbus server address for rutx09.",
 												cxxopts::value<std::string>());
@@ -98,12 +98,12 @@ void SettingsParser::parseCmdArguments(int argc, char **argv) {
 	options.add_options("simulation vehicle provider")(OSM_ROUTE, "Name of route that will be set on initialization",
 							   cxxopts::value<std::string>());
 	options.add_options("fleet")(FLEET_PROVIDER,
-								 R"(Provider of communication with fleet, "protobuf" or "empty")",
+								 R"(Provider of communication with fleet: "internal-protocol" or "no-connection".)",
 								 cxxopts::value<std::string>());
-	options.add_options("protobuf fleet provider")(MODULE_GATEWAY_IP,
+	options.add_options("internal protocol provider")(MODULE_GATEWAY_IP,
 												   "IPv4 address or hostname of server side application",
 												   cxxopts::value<std::string>());
-	options.add_options("protobuf fleet provider")(MODULE_GATEWAY_PORT, "Port of server side application",
+	options.add_options("internal protocol provider")(MODULE_GATEWAY_PORT, "Port of server side application",
 												   cxxopts::value<int>());
 	options.add_options()("h, " + HELP, "Print usage");
 
@@ -222,10 +222,10 @@ void SettingsParser::fillSettings() {
 	std::ifstream inputFile(configPath);
 
 	auto file = nlohmann::json::parse(inputFile);
-	fillGeneralSettings(file[GENERAL_SETTINGS]);
-	fillLoggingSettings(file[LOGGING]);
-	fillVehicleSettings(file[VEHICLE_SETTINGS]);
-	fillFleetSettings(file[FLEET_SETTINGS]);
+	fillGeneralSettings(file.at(GENERAL_SETTINGS));
+	fillLoggingSettings(file.at(LOGGING));
+	fillVehicleSettings(file.at(VEHICLE_SETTINGS));
+	fillFleetSettings(file.at(FLEET_SETTINGS));
 }
 
 void SettingsParser::fillGeneralSettings(const nlohmann::json &section) {
@@ -237,14 +237,14 @@ void SettingsParser::fillGeneralSettings(const nlohmann::json &section) {
 }
 
 void SettingsParser::fillLoggingSettings(const nlohmann::json &section) {
-	settings_->loggingSettings.console.use = section[LOGGING_CONSOLE][LOG_USE];
+	settings_->loggingSettings.console.use = section.at(LOGGING_CONSOLE).at(LOG_USE);
 	settings_->loggingSettings.console.level = common_utils::EnumUtils::valueToEnum<logging::LoggerVerbosity>(
-		std::string(section[LOGGING_CONSOLE][LOG_LEVEL]));
+		std::string(section.at(LOGGING_CONSOLE).at(LOG_LEVEL)));
 
-	settings_->loggingSettings.file.use = section[LOGGING_FILE][LOG_USE];
+	settings_->loggingSettings.file.use = section.at(LOGGING_FILE).at(LOG_USE);
 	settings_->loggingSettings.file.level = common_utils::EnumUtils::valueToEnum<logging::LoggerVerbosity>(
-		std::string(section[LOGGING_FILE][LOG_LEVEL]));
-	settings_->loggingSettings.file.path = std::filesystem::path(section[LOGGING_FILE][LOG_PATH]);
+		std::string(section.at(LOGGING_FILE).at(LOG_LEVEL)));
+	settings_->loggingSettings.file.path = std::filesystem::path(section.at(LOGGING_FILE).at(LOG_PATH));
 }
 
 void SettingsParser::fillVehicleSettings(const nlohmann::json &section) {
