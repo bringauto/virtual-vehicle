@@ -14,8 +14,8 @@
     }
   },
   "vehicle-settings": {
-    "vehicle-provider": "simulation",
-    "simulation-settings": {
+    "vehicle-provider-type": "simulation",
+    "provider-simulation-settings": {
       "speed-override": true,
       "speed-override-mps": 5,
       "wait-at-stop-s": 30,
@@ -24,8 +24,8 @@
     }
   },
   "fleet-settings": {
-    "fleet-provider": "internal-protocol",
-    "internal-protocol-settings": {
+    "fleet-provider-type": "internal-protocol",
+    "provider-internal-protocol-settings": {
       "module-gateway-ip":"172.17.0.1",
       "module-gateway-port": 1636,
       "device-role": "autonomy",
