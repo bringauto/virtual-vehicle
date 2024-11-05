@@ -18,6 +18,9 @@
 #include <state_smurf/transition/StateTransitionLoggerId.hpp>
 #endif
 
+#ifndef VIRTUAL_VEHICLE_UTILITY_VERSION
+#define VIRTUAL_VEHICLE_UTILITY_VERSION "VERSION_NOT_SET"
+#endif
 
 void initLogger(const bringauto::settings::LoggingSettings &settings) {
 #ifdef STATE_SMURF
