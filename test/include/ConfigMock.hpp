@@ -23,10 +23,10 @@ public:
 		} logging;
 
 		struct VehicleSettings {
-			std::string vehicle_provider { "simulation" };
+			std::string vehicle_provider { "SIMULATION" };
 
 			struct GpsSettings {
-				std::string gps_provider { "map" };
+				std::string gps_provider { "MAP" };
 				struct Rutx09Settings {
 					std::string rutx_ip { "192.168.2.1" };
 					int rutx_port { 502 };
@@ -50,7 +50,7 @@ public:
 		} vehicle_settings;
 
 		struct FleetSettings {
-			std::string fleet_provider { "internal-protocol" };
+			std::string fleet_provider { "INTERNAL-PROTOCOL" };
 			struct InternalProtocolSettings {
 				std::string module_gateway_ip { "localhost" };
 				int module_gateway_port { 1636 };
@@ -84,9 +84,9 @@ public:
 					"}}\n"
 				"}},\n"
 				"\"vehicle-settings\": {{\n"
-					"\"vehicle-provider\": \"{}\",\n"
-					"\"gps-settings\": {{\n"
-						"\"gps-provider\": \"{}\",\n"
+					"\"vehicle-provider-type\": \"{}\",\n"
+					"\"provider-gps-settings\": {{\n"
+						"\"gps-provider-type\": \"{}\",\n"
 						"\"rutx09-settings\" : {{\n"
 							"\"rutx-ip\": \"{}\",\n"
 							"\"rutx-port\": {},\n"
@@ -99,7 +99,7 @@ public:
 						"\"stop-radius-m\": {},\n"
 						"\"in-stop-delay-s\": {}\n"
 					"}},\n"
-					"\"simulation-settings\": {{\n"
+					"\"provider-simulation-settings\": {{\n"
 						"\"speed-override\": {},\n"
 						"\"speed-override-mps\": {},\n"
 						"\"wait-at-stop-s\": {},\n"
@@ -108,8 +108,8 @@ public:
 					"}}\n"
 				"}},\n"
 				"\"fleet-settings\": {{\n"
-					"\"fleet-provider\": \"{}\",\n"
-					"\"internal-protocol-settings\": {{\n"
+					"\"fleet-provider-type\": \"{}\",\n"
+					"\"provider-internal-protocol-settings\": {{\n"
 						"\"module-gateway-ip\":\"{}\",\n"
 						"\"module-gateway-port\": {},\n"
 						"\"device-role\": \"{}\",\n"

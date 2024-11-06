@@ -84,9 +84,6 @@ struct LoggingSettings {
  * @brief Struct to store settings from cmd arguments
  */
 struct Settings {
-	/// path to configuration file
-	std::filesystem::path config;
-
 	/// Settings for logging
 	LoggingSettings loggingSettings {};
 	/// Path to map file in .osm format

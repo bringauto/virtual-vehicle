@@ -57,7 +57,7 @@ bool SettingsParser::parseSettings(int argc, char **argv) {
 	}
 
 	if(!areCmdArgumentsCorrect()) {
-		throw std::invalid_argument("Cmd arguments are not correct");
+		throw std::invalid_argument("Cmd arguments are not correct.");
 	}
 
 	fillSettings();
@@ -77,18 +77,18 @@ void SettingsParser::parseCmdArguments(int argc, char **argv) {
 	options.add_options("vehicle")(VEHICLE_PROVIDER,
 								   R"(Choose virtual vehicle location provider type: "simulation" or "gps".)",
 								   cxxopts::value<std::string>());
-	options.add_options("gps vehicle provider")(GPS_PROVIDER, R"(Choose gps provider type: "rutx09" or "ublox".)",
+	options.add_options("gps vehicle provider")(GPS_PROVIDER, R"(Choose gps provider type: "rutx09" or "map".)",
 												cxxopts::value<std::string>());
 	options.add_options("gps vehicle provider")(RUT_IP, "Modbus server address for rutx09.",
 												cxxopts::value<std::string>());
 	options.add_options("gps vehicle provider")(RUT_PORT, "Modbus server port for rutx09.",
-												cxxopts::value<int>());
+												cxxopts::value<uint16_t>());
 	options.add_options("gps vehicle provider")(RUT_SLAVE_ID, "Modbus server slave id for rutx09.",
 												cxxopts::value<int>());
 	options.add_options("gps vehicle provider")(STOP_RADIUS, "Radius from stop for marking it done.",
-												cxxopts::value<int>());
+												cxxopts::value<uint32_t>());
 	options.add_options("gps vehicle provider")(IN_STOP_DELAY_S, "Delay in seconds, for which the vehicle has to be in stop radius to mark it as done.",
-												cxxopts::value<int>());
+												cxxopts::value<uint32_t>());
 	options.add_options("simulation vehicle provider")(OSM_SPEED_OVERRIDE, "Override map speed on all points, in m/s",
 													   cxxopts::value<uint32_t>());
 	options.add_options("simulation vehicle provider")(OSM_STOP_WAIT_TIME,
@@ -98,7 +98,7 @@ void SettingsParser::parseCmdArguments(int argc, char **argv) {
 	options.add_options("simulation vehicle provider")(OSM_ROUTE, "Name of route that will be set on initialization",
 							   cxxopts::value<std::string>());
 	options.add_options("fleet")(FLEET_PROVIDER,
-								 R"(Provider of communication with fleet: "internal-protocol" or "no-connection".)",
+								 R"(Provider of communication with fleet: "internal-protocol".)",
 								 cxxopts::value<std::string>());
 	options.add_options("internal protocol provider")(MODULE_GATEWAY_IP,
 												   "IPv4 address or hostname of server side application",
@@ -107,6 +107,7 @@ void SettingsParser::parseCmdArguments(int argc, char **argv) {
 												   cxxopts::value<int>());
 	options.add_options()("h, " + HELP, "Print usage");
 
+	options.allow_unrecognised_options();
 	cmdArguments_ = options.parse(argc, argv);
 
 	if(cmdArguments_.count("help") || argc == 1) {
@@ -273,13 +274,13 @@ void SettingsParser::fillGpsSettings(const nlohmann::json &section) {
 
 	}
 	if(cmdArguments_.count(STOP_RADIUS)) {
-		settings_->stopRadiusM = cmdArguments_[STOP_RADIUS].as<uint32_t >();
+		settings_->stopRadiusM = cmdArguments_[STOP_RADIUS].as<uint32_t>();
 	} else {
 		settings_->stopRadiusM = section.at(STOP_RADIUS);
 	}
 
 	if(cmdArguments_.count(IN_STOP_DELAY_S)) {
-		settings_->inStopDelayS = cmdArguments_[IN_STOP_DELAY_S].as<std::chrono::seconds>();
+		settings_->inStopDelayS = std::chrono::seconds(cmdArguments_[IN_STOP_DELAY_S].as<uint32_t>());
 	} else {
 		settings_->inStopDelayS = std::chrono::seconds(section.at(IN_STOP_DELAY_S));
 	}
@@ -298,7 +299,7 @@ void SettingsParser::fillRutx09Settings(const nlohmann::json &section) {
 		settings_->rutxIp = section.at(RUT_IP);
 	}
 	if(cmdArguments_.count(RUT_PORT)) {
-		settings_->rutxPort = cmdArguments_[RUT_PORT].as<uint16_t >();
+		settings_->rutxPort = cmdArguments_[RUT_PORT].as<uint16_t>();
 	} else {
 		settings_->rutxPort = section.at(RUT_PORT);
 	}
@@ -372,7 +373,6 @@ void SettingsParser::fillMapSettings(const nlohmann::json &section) {
 
 std::string SettingsParser::getFormattedSettings() {
 	std::stringstream formattedSettings;
-	formattedSettings << "config-file: " << settings_->config << "\n";
 	formattedSettings << "period-ms: " << settings_->messagePeriodMs << "\n";
 	formattedSettings << "logging:\n";
 	if(settings_->loggingSettings.console.use) {

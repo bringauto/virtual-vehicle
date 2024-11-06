@@ -34,14 +34,14 @@ In this case, it doesn't drive but still can fulfill orders, if it is at the tar
 
 ## Arguments
 
-* `--config-path <string>` path to JSON configuration file
-* `--map <string>` full path to .osm file containing map
-* `--default-route <string>` - name of the route that will be set as default
-* `--module-gateway-ip <string>` IPv4 or hostname of ba daemon
-* `--module-gateway-port <int>` ba daemon port
+* `--config=<string>` path to JSON configuration file
+* `--map=<string>` full path to .osm file containing map
+* `--default-route=<string>` - name of the route that will be set as default
+* `--module-gateway-ip=<string>` IPv4 or hostname of ba daemon
+* `--module-gateway-port=<int>` ba daemon port
 * `-h | --help` print help
-* `--wait=<int>` how many seconds will the car wait in a stop, default is 10s
-* `--period=<int>` maximum time period between two status messages sent to Module Gateway
+* `--wait-at-stop-s=<int>` how many seconds will the car wait in a stop, default is 10s (simulation)
+* `--period-ms=<int>` maximum time period between two status messages sent to Module Gateway
 * `--speed-override=<int>` override map speed
 * `--fleet-provider-type=<string>` choose fleet provider, `internal-protocol` to use of Internal Fleet Protocol `no-connection`
   to use of dummy connection
@@ -50,7 +50,8 @@ In this case, it doesn't drive but still can fulfill orders, if it is at the tar
 * `--rutx-ip=<int>` IP address to Modbus server on rutx09
 * `--rutx-port=<int>` port of Modbus server on rutx09
 * `--rutx-slave-id=<int>` slave id of Modbus server on rutx09
-* `--stop-radius=<int>` distance from a stop that will be determined as arrival at the stop
+* `--stop-radius-m=<int>` distance from a stop that will be determined as arrival at the stop
+* `--in-stop-delay-s=<int>` how many seconds will the car wait in a stop, default is 10s (gps)
 
 ## Settings
 
@@ -309,17 +310,17 @@ docker build --tag virtual-vehicle-utility .
 Run docker with parameters
 
 ``` bash
-docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config-path=<path to json file> --map=<path to map file> --route=<route name> --ip=<daemon ip> --port=<daemon port> --wait=<time to wait in stop in sec>
+docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config=<path to json file> --map=<path to map file> --route=<route name> --ip=<daemon ip> --port=<daemon port> --wait=<time to wait in stop in sec>
 ```
 
 Examples:
 
 ``` bash
-docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config-path=/virtual-vehicle-utility/config/example.json
+docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config=/virtual-vehicle-utility/config/example.json
 ```
 
 ``` bash
-docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config-path=/virtual-vehicle-utility/config/example.json --map=/virtual-vehicle-utility/tests/maps/BorsodChem.osm --route=borsodchem --ip=127.0.0.1 --port=1536 --wait=10 
+docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config=/virtual-vehicle-utility/config/example.json --map=/virtual-vehicle-utility/tests/maps/BorsodChem.osm --route=borsodchem --ip=127.0.0.1 --port=1536 --wait=10 
 ```
 
 
