@@ -310,17 +310,17 @@ docker build --tag virtual-vehicle-utility .
 Run docker with parameters
 
 ``` bash
-docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config=<path to json file> --map=<path to map file> --route=<route name> --ip=<daemon ip> --port=<daemon port> --wait=<time to wait in stop in sec>
+docker run -ti --rm virtual-vehicle-utility --config=<path to json file> --map=<path to map file> --route=<route name> --module-gateway-ip=<module gateway ip> --module-gateway-port=<module gateway port> --wait-at-stop-s=<time to wait in stop in sec>
 ```
 
 Examples:
 
 ``` bash
-docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config=/virtual-vehicle-utility/config/example.json
+docker run -ti --rm virtual-vehicle-utility --config=/virtual-vehicle-utility/config/example.json
 ```
 
 ``` bash
-docker run -ti --rm virtual-vehicle-utility /virtual-vehicle-utility/VirtualVehicle --config=/virtual-vehicle-utility/config/example.json --map=/virtual-vehicle-utility/tests/maps/BorsodChem.osm --route=borsodchem --ip=127.0.0.1 --port=1536 --wait=10 
+docker run -ti --rm virtual-vehicle-utility --config=/virtual-vehicle-utility/config/example.json --map=/virtual-vehicle-utility/tests/maps/BorsodChem.osm --route=borsodchem --module-gateway-ip=127.0.0.1 --module-gateway-port=1536 --wait-at-stop-s=10 
 ```
 
 
