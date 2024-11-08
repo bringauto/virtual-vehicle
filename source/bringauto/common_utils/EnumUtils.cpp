@@ -1,4 +1,5 @@
 #include <bringauto/common_utils/EnumUtils.hpp>
+#include <bringauto/logging/LoggerVerbosity.hpp>
 
 #include <MissionModule.pb.h>
 
@@ -76,6 +77,24 @@ settings::FleetProvider EnumUtils::valueToEnum(std::string toEnum) {
 }
 
 template <>
+logging::LoggerVerbosity EnumUtils::valueToEnum(std::string toEnum) {
+	std::transform(toEnum.begin(), toEnum.end(), toEnum.begin(), ::toupper);
+	if(toEnum == "DEBUG") {
+		return logging::LoggerVerbosity::Debug;
+	} else if(toEnum == "INFO") {
+		return logging::LoggerVerbosity::Info;
+	} else if(toEnum == "WARNING") {
+		return logging::LoggerVerbosity::Warning;
+	} else if(toEnum == "ERROR") {
+		return logging::LoggerVerbosity::Error;
+	} else if(toEnum == "CRITICAL") {
+		return logging::LoggerVerbosity::Critical;
+	}
+	std::cerr << "Invalid verbosity level: " << toEnum << std::endl;
+	return logging::LoggerVerbosity::Debug;
+}
+
+template <>
 std::string EnumUtils::enumToString(communication::EAutonomyAction value) {
 	switch(value) {
 		case communication::EAutonomyAction::E_NO_ACTION:
@@ -144,6 +163,24 @@ std::string EnumUtils::enumToString(settings::FleetProvider value) {
 		case settings::FleetProvider::E_NO_CONNECTION:
 			return "NO-CONNECTION";
 		case settings::FleetProvider::E_INVALID:
+		default:
+			return "INVALID";
+	}
+}
+
+template <>
+std::string EnumUtils::enumToString(logging::LoggerVerbosity value) {
+	switch(value) {
+		case logging::LoggerVerbosity::Debug:
+			return "DEBUG";
+		case logging::LoggerVerbosity::Info:
+			return "INFO";
+		case logging::LoggerVerbosity::Warning:
+			return "WARNING";
+		case logging::LoggerVerbosity::Error:
+			return "ERROR";
+		case logging::LoggerVerbosity::Critical:
+			return "CRITICAL";
 		default:
 			return "INVALID";
 	}

@@ -18,23 +18,27 @@
 #include <state_smurf/transition/StateTransitionLoggerId.hpp>
 #endif
 
+#ifndef VIRTUAL_VEHICLE_UTILITY_VERSION
+#define VIRTUAL_VEHICLE_UTILITY_VERSION "VERSION_NOT_SET"
+#endif
 
-void initLogger(const std::string &logPath, bool verbose) {
+void initLogger(const bringauto::settings::LoggingSettings &settings) {
 #ifdef STATE_SMURF
 	state_smurf::transition::Logger::addSink<bringauto::logging::ConsoleSink>();
 	bringauto::logging::LoggerSettings smurfLoggerParams { "VirtualVehicleStateSmurf",
 												bringauto::logging::LoggerVerbosity::Debug };
 	state_smurf::transition::Logger::init(smurfLoggerParams);
 #endif
-	if(verbose) {
-		bringauto::settings::Logger::addSink<bringauto::logging::ConsoleSink>();
+	if(settings.console.use) {
+		bringauto::logging::ConsoleSink::Params paramConsoleSink { settings.console.level };
+		bringauto::settings::Logger::addSink<bringauto::logging::ConsoleSink>(paramConsoleSink);
 	}
-	if(!logPath.empty()) {
-		bringauto::logging::FileSink::Params paramFileSink { logPath, "virtual-vehicle-utility.log" };
+	if(settings.file.use) {
+		bringauto::logging::FileSink::Params paramFileSink { settings.file.path, "virtual-vehicle-utility.log" };
 		using namespace bringauto::logging;
 		paramFileSink.maxFileSize = 50_MiB;
 		paramFileSink.numberOfRotatedFiles = 5;
-		paramFileSink.verbosity = bringauto::logging::LoggerVerbosity::Info;
+		paramFileSink.verbosity = settings.file.level;
 		bringauto::settings::Logger::addSink<bringauto::logging::FileSink>(paramFileSink);
 	}
 
@@ -60,7 +64,7 @@ int main(int argc, char **argv) {
 		context = std::make_shared<virtual_vehicle::GlobalContext>();
 		settings = settingsParser.getSettings();
 		context->settings = settings;
-		initLogger(settings->logPath, settings->verbose);
+		initLogger(settings->loggingSettings);
 		settings::Logger::logInfo("Version: {} Settings:\n{}", VIRTUAL_VEHICLE_UTILITY_VERSION,
 								 settingsParser.getFormattedSettings());
 

@@ -9,13 +9,11 @@
 namespace bringauto::settings {
 
 const std::string SettingsParser::CONFIG_PATH { "config" };
-const std::string SettingsParser::VERBOSE { "verbose" };
-const std::string SettingsParser::LOG_PATH { "log-path" };
 const std::string SettingsParser::MODULE_GATEWAY_IP { "module-gateway-ip" };
 const std::string SettingsParser::MODULE_GATEWAY_PORT { "module-gateway-port" };
 const std::string SettingsParser::STATUS_MESSAGE_PERIOD { "period-ms" };
-const std::string SettingsParser::VEHICLE_PROVIDER { "vehicle-provider" };
-const std::string SettingsParser::FLEET_PROVIDER { "fleet-provider" };
+const std::string SettingsParser::VEHICLE_PROVIDER { "vehicle-provider-type" };
+const std::string SettingsParser::FLEET_PROVIDER { "fleet-provider-type" };
 const std::string SettingsParser::HELP { "help" };
 
 const std::string SettingsParser::OSM_MAP { "map" };
@@ -24,7 +22,7 @@ const std::string SettingsParser::OSM_STOP_WAIT_TIME { "wait-at-stop-s" };
 const std::string SettingsParser::OSM_SPEED_OVERRIDE { "speed-override" };
 const std::string SettingsParser::OSM_SPEED_OVERRIDE_MPS { "speed-override-mps" };
 
-const std::string SettingsParser::GPS_PROVIDER { "gps-provider" };
+const std::string SettingsParser::GPS_PROVIDER { "gps-provider-type" };
 const std::string SettingsParser::RUT_IP { "rutx-ip" };
 const std::string SettingsParser::RUT_PORT { "rutx-port" };
 const std::string SettingsParser::RUT_SLAVE_ID { "rutx-slave-id" };
@@ -37,12 +35,20 @@ const std::string SettingsParser::RECONNECT_PERIOD { "reconnect-period-s" };
 
 const std::string SettingsParser::GENERAL_SETTINGS { "general-settings" };
 const std::string SettingsParser::VEHICLE_SETTINGS { "vehicle-settings" };
-const std::string SettingsParser::GPS_SETTINGS { "gps-settings" };
+const std::string SettingsParser::GPS_SETTINGS { "provider-gps-settings" };
 const std::string SettingsParser::RUTX_09_SETTINGS { "rutx09-settings" };
-const std::string SettingsParser::SIMULATION_SETTINGS { "simulation-settings" };
+const std::string SettingsParser::SIMULATION_SETTINGS { "provider-simulation-settings" };
 const std::string SettingsParser::FLEET_SETTINGS { "fleet-settings" };
-const std::string SettingsParser::INTERNAL_PROTOCOL_SETTINGS { "internal-protocol-settings" };
+const std::string SettingsParser::INTERNAL_PROTOCOL_SETTINGS { "provider-internal-protocol-settings" };
 const std::string SettingsParser::MAP_SETTINGS { "map-settings" };
+
+const std::string SettingsParser::LOGGING { "logging" };
+const std::string SettingsParser::LOGGING_CONSOLE { "console" };
+const std::string SettingsParser::LOGGING_FILE { "file" };
+const std::string SettingsParser::LOG_LEVEL { "level" };
+const std::string SettingsParser::LOG_USE { "use" };
+const std::string SettingsParser::LOG_PATH { "path" };
+
 
 bool SettingsParser::parseSettings(int argc, char **argv) {
 	parseCmdArguments(argc, argv);
@@ -51,7 +57,7 @@ bool SettingsParser::parseSettings(int argc, char **argv) {
 	}
 
 	if(!areCmdArgumentsCorrect()) {
-		throw std::invalid_argument("Cmd arguments are not correct");
+		throw std::invalid_argument("Cmd arguments are not correct.");
 	}
 
 	fillSettings();
@@ -66,25 +72,23 @@ bool SettingsParser::parseSettings(int argc, char **argv) {
 void SettingsParser::parseCmdArguments(int argc, char **argv) {
 	cxxopts::Options options { "VirtualVehicle", "BringAuto virtual vehicle utility" };
 	options.add_options("general")("c, " + CONFIG_PATH, "Path to configuration file", cxxopts::value<std::string>());
-	options.add_options("general")(LOG_PATH, "Path to logs", cxxopts::value<std::string>());
-	options.add_options("general")("v, " + VERBOSE, "Print log messages into terminal");
 	options.add_options("general")(STATUS_MESSAGE_PERIOD, "Period in ms for sending status messages",
 								   cxxopts::value<uint32_t>());
 	options.add_options("vehicle")(VEHICLE_PROVIDER,
-								   R"(Choose virtual vehicle location provider, "simulation" or "gps".)",
+								   R"(Choose virtual vehicle location provider type: "simulation" or "gps".)",
 								   cxxopts::value<std::string>());
-	options.add_options("gps vehicle provider")(GPS_PROVIDER, R"(Choose gps provider, "rutx09" or "ublox".)",
+	options.add_options("gps vehicle provider")(GPS_PROVIDER, R"(Choose gps provider type: "rutx09" or "map".)",
 												cxxopts::value<std::string>());
 	options.add_options("gps vehicle provider")(RUT_IP, "Modbus server address for rutx09.",
 												cxxopts::value<std::string>());
 	options.add_options("gps vehicle provider")(RUT_PORT, "Modbus server port for rutx09.",
-												cxxopts::value<int>());
+												cxxopts::value<uint16_t>());
 	options.add_options("gps vehicle provider")(RUT_SLAVE_ID, "Modbus server slave id for rutx09.",
 												cxxopts::value<int>());
 	options.add_options("gps vehicle provider")(STOP_RADIUS, "Radius from stop for marking it done.",
-												cxxopts::value<int>());
+												cxxopts::value<uint32_t>());
 	options.add_options("gps vehicle provider")(IN_STOP_DELAY_S, "Delay in seconds, for which the vehicle has to be in stop radius to mark it as done.",
-												cxxopts::value<int>());
+												cxxopts::value<uint32_t>());
 	options.add_options("simulation vehicle provider")(OSM_SPEED_OVERRIDE, "Override map speed on all points, in m/s",
 													   cxxopts::value<uint32_t>());
 	options.add_options("simulation vehicle provider")(OSM_STOP_WAIT_TIME,
@@ -94,15 +98,16 @@ void SettingsParser::parseCmdArguments(int argc, char **argv) {
 	options.add_options("simulation vehicle provider")(OSM_ROUTE, "Name of route that will be set on initialization",
 							   cxxopts::value<std::string>());
 	options.add_options("fleet")(FLEET_PROVIDER,
-								 R"(Provider of communication with fleet, "protobuf" or "empty")",
+								 R"(Provider of communication with fleet: "internal-protocol".)",
 								 cxxopts::value<std::string>());
-	options.add_options("protobuf fleet provider")(MODULE_GATEWAY_IP,
+	options.add_options("internal protocol provider")(MODULE_GATEWAY_IP,
 												   "IPv4 address or hostname of server side application",
 												   cxxopts::value<std::string>());
-	options.add_options("protobuf fleet provider")(MODULE_GATEWAY_PORT, "Port of server side application",
+	options.add_options("internal protocol provider")(MODULE_GATEWAY_PORT, "Port of server side application",
 												   cxxopts::value<int>());
 	options.add_options()("h, " + HELP, "Print usage");
 
+	options.allow_unrecognised_options();
 	cmdArguments_ = options.parse(argc, argv);
 
 	if(cmdArguments_.count("help") || argc == 1) {
@@ -116,10 +121,8 @@ bool SettingsParser::areCmdArgumentsCorrect() {
 			CONFIG_PATH
 	};
 	std::vector<std::string> allParameters = { CONFIG_PATH,
-											   VERBOSE,
 											   OSM_MAP,
 											   OSM_ROUTE,
-											   LOG_PATH,
 											   MODULE_GATEWAY_IP,
 											   MODULE_GATEWAY_PORT,
 											   OSM_STOP_WAIT_TIME,
@@ -171,12 +174,14 @@ bool SettingsParser::areSettingsCorrect() {
 		isCorrect = false;
 	}
 
-	if(!settings_->logPath.empty()) {
-		if(!std::filesystem::exists(settings_->logPath)) {
-			std::cerr << "Parse arguments error: Given log-path (" << settings_->logPath << ") does not exist." << std::endl;
+	if(settings_->loggingSettings.file.use) {
+		if(!std::filesystem::exists(settings_->loggingSettings.file.path)) {
+			std::cerr << "Parse arguments error: Given log-path (" << settings_->loggingSettings.file.path
+				<< ") does not exist." << std::endl;
 			isCorrect = false;
-		} else if (!std::filesystem::is_directory(settings_->logPath)) {
-			std::cerr << "Parse arguments error: Given log-path (" << settings_->logPath << ") is not a directory." << std::endl;
+		} else if (!std::filesystem::is_directory(settings_->loggingSettings.file.path)) {
+			std::cerr << "Parse arguments error: Given log-path (" << settings_->loggingSettings.file.path
+				<< ") is not a directory." << std::endl;
 			isCorrect = false;
 		}
 	}
@@ -218,27 +223,29 @@ void SettingsParser::fillSettings() {
 	std::ifstream inputFile(configPath);
 
 	auto file = nlohmann::json::parse(inputFile);
-	fillGeneralSettings(file[GENERAL_SETTINGS]);
-	fillVehicleSettings(file[VEHICLE_SETTINGS]);
-	fillFleetSettings(file[FLEET_SETTINGS]);
+	fillGeneralSettings(file.at(GENERAL_SETTINGS));
+	fillLoggingSettings(file.at(LOGGING));
+	fillVehicleSettings(file.at(VEHICLE_SETTINGS));
+	fillFleetSettings(file.at(FLEET_SETTINGS));
 }
 
 void SettingsParser::fillGeneralSettings(const nlohmann::json &section) {
-	if(cmdArguments_.count(LOG_PATH)) {
-		settings_->logPath = cmdArguments_[LOG_PATH].as<std::string>();
-	} else {
-		settings_->logPath = std::filesystem::path(section.at(LOG_PATH));
-	}
-	if(cmdArguments_.count(VERBOSE)) {
-		settings_->verbose = cmdArguments_.count(VERBOSE) == 1;
-	} else {
-		settings_->verbose = section.at(VERBOSE);
-	}
 	if(cmdArguments_.count(STATUS_MESSAGE_PERIOD)) {
 		settings_->messagePeriodMs = cmdArguments_[STATUS_MESSAGE_PERIOD].as<uint32_t>();
 	} else {
 		settings_->messagePeriodMs = section.at(STATUS_MESSAGE_PERIOD);
 	}
+}
+
+void SettingsParser::fillLoggingSettings(const nlohmann::json &section) {
+	settings_->loggingSettings.console.use = section.at(LOGGING_CONSOLE).at(LOG_USE);
+	settings_->loggingSettings.console.level = common_utils::EnumUtils::valueToEnum<logging::LoggerVerbosity>(
+		std::string(section.at(LOGGING_CONSOLE).at(LOG_LEVEL)));
+
+	settings_->loggingSettings.file.use = section.at(LOGGING_FILE).at(LOG_USE);
+	settings_->loggingSettings.file.level = common_utils::EnumUtils::valueToEnum<logging::LoggerVerbosity>(
+		std::string(section.at(LOGGING_FILE).at(LOG_LEVEL)));
+	settings_->loggingSettings.file.path = std::filesystem::path(section.at(LOGGING_FILE).at(LOG_PATH));
 }
 
 void SettingsParser::fillVehicleSettings(const nlohmann::json &section) {
@@ -267,13 +274,13 @@ void SettingsParser::fillGpsSettings(const nlohmann::json &section) {
 
 	}
 	if(cmdArguments_.count(STOP_RADIUS)) {
-		settings_->stopRadiusM = cmdArguments_[STOP_RADIUS].as<uint32_t >();
+		settings_->stopRadiusM = cmdArguments_[STOP_RADIUS].as<uint32_t>();
 	} else {
 		settings_->stopRadiusM = section.at(STOP_RADIUS);
 	}
 
 	if(cmdArguments_.count(IN_STOP_DELAY_S)) {
-		settings_->inStopDelayS = cmdArguments_[IN_STOP_DELAY_S].as<std::chrono::seconds>();
+		settings_->inStopDelayS = std::chrono::seconds(cmdArguments_[IN_STOP_DELAY_S].as<uint32_t>());
 	} else {
 		settings_->inStopDelayS = std::chrono::seconds(section.at(IN_STOP_DELAY_S));
 	}
@@ -292,7 +299,7 @@ void SettingsParser::fillRutx09Settings(const nlohmann::json &section) {
 		settings_->rutxIp = section.at(RUT_IP);
 	}
 	if(cmdArguments_.count(RUT_PORT)) {
-		settings_->rutxPort = cmdArguments_[RUT_PORT].as<uint16_t >();
+		settings_->rutxPort = cmdArguments_[RUT_PORT].as<uint16_t>();
 	} else {
 		settings_->rutxPort = section.at(RUT_PORT);
 	}
@@ -366,10 +373,21 @@ void SettingsParser::fillMapSettings(const nlohmann::json &section) {
 
 std::string SettingsParser::getFormattedSettings() {
 	std::stringstream formattedSettings;
-	formattedSettings << "config-file: " << settings_->config << "\n";
-	formattedSettings << "verbose: " << (settings_->verbose ? "TRUE" : "FALSE") << "\n";
-	formattedSettings << "log-path: " << settings_->logPath << "\n";
 	formattedSettings << "period-ms: " << settings_->messagePeriodMs << "\n";
+	formattedSettings << "logging:\n";
+	if(settings_->loggingSettings.console.use) {
+		formattedSettings << "\tconsole: TRUE\n";
+		formattedSettings << "\t\tlevel: " << common_utils::EnumUtils::enumToString(settings_->loggingSettings.console.level) << "\n";
+	} else {
+		formattedSettings << "\tconsole: FALSE\n";
+	}
+	if(settings_->loggingSettings.file.use) {
+		formattedSettings << "\tfile: TRUE\n";
+		formattedSettings << "\t\tlevel: " << common_utils::EnumUtils::enumToString(settings_->loggingSettings.file.level) << "\n";
+		formattedSettings << "\t\tpath: " << settings_->loggingSettings.file.path << "\n";
+	} else {
+		formattedSettings << "\tfile: FALSE\n";
+	}
 	switch(settings_->fleetProvider) {
 		case FleetProvider::E_INTERNAL_PROTOCOL:
 			formattedSettings << "fleet-provider: INTERNAL_PROTOCOL\n";

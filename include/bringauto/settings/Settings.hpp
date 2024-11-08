@@ -1,5 +1,7 @@
 #pragma once
 
+#include <bringauto/logging/LoggerVerbosity.hpp>
+
 #include <filesystem>
 
 
@@ -47,20 +49,47 @@ enum class GpsProvider {
 };
 
 /**
+ * @brief Structure for storing console logging settings
+ */
+struct ConsoleLogSettings {
+	/// Flag to enable console logging
+    bool use {};
+    /// Console log level
+    logging::LoggerVerbosity level {};
+};
+
+/**
+ * @brief Structure for storing file logging settings
+ */
+struct FileLogSettings {
+	/// Flag to enable file logging
+	bool use {};
+	/// File log level
+	logging::LoggerVerbosity level {};
+	/// Path to the log file directory
+	std::filesystem::path path {};
+};
+
+/**
+ * @brief Structure for storing logging settings
+ */
+struct LoggingSettings {
+	/// Console logging settings
+	ConsoleLogSettings console {};
+	/// File logging settings
+	FileLogSettings file {};
+};
+
+/**
  * @brief Struct to store settings from cmd arguments
  */
 struct Settings {
-	/// path to configuration file
-	std::filesystem::path config;
-
-	/// Verbose switch, if true, logs will be also printed to console
-	bool verbose{false};
+	/// Settings for logging
+	LoggingSettings loggingSettings {};
 	/// Path to map file in .osm format
 	std::filesystem::path mapFilePath;
 	/// Name of route that will be set on initialization, route have to be present in map file
 	std::string routeName;
-	/// Path to folder, where logs will be generated
-	std::filesystem::path logPath;
 	/// Time in seconds, how long will car wait in stop before stopping or moving to other stop
 	uint32_t stopWaitTime{5};
 	/// Maximal wait time between each message, in milliseconds

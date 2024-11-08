@@ -1,13 +1,22 @@
 {
 	"general-settings": {
-		"log-path": "./",
-		"verbose": true,
 		"period-ms": 1000
 	},
+	"logging": {
+		"console": {
+			"level": "DEBUG",
+			"use": true
+		},
+		"file": {
+			"level": "DEBUG",
+			"use": true,
+			"path": "./"
+		}
+	},
 	"vehicle-settings": {
-		"vehicle-provider": "simulation",
-		"gps-settings": {
-			"gps-provider": "map",
+		"vehicle-provider-type": "simulation",
+		"provider-gps-settings": {
+			"gps-provider-type": "map",
 			"rutx09-settings" : {
 				"rutx-ip": "192.168.2.1",
 				"rutx-port": 502,
@@ -20,7 +29,7 @@
 			"stop-radius-m": 5,
 			"in-stop-delay-s": 10
 		},
-		"simulation-settings": {
+		"provider-simulation-settings": {
 			"speed-override": true,
 			"speed-override-mps": 60,
 			"wait-at-stop-s": 10,
@@ -29,16 +38,14 @@
 		}
 	},
 	"fleet-settings": {
-		"fleet-provider": "internal-protocol",
-		"internal-protocol-settings": {
+		"fleet-provider-type": "internal-protocol",
+		"provider-internal-protocol-settings": {
 			"module-gateway-ip":"localhost",
 			"module-gateway-port": 1636,
 			"device-role": "autonomy",
 			"device-priority": 1,
 			"reconnect-period-s": 20,
 			"device-name": "bap2021_01"
-		},
-		"empty":{
 		}
 	}
 }
