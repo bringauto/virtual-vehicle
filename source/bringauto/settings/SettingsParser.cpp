@@ -233,11 +233,7 @@ void SettingsParser::fillGeneralSettings(const nlohmann::json &section) {
 	if(cmdArguments_.count(STATUS_MESSAGE_PERIOD)) {
 		settings_->messagePeriodMs = cmdArguments_[STATUS_MESSAGE_PERIOD].as<uint32_t>();
 	} else {
-		const auto& messagePeriod = section.at(STATUS_MESSAGE_PERIOD);
-		if(messagePeriod < 0) {
-			throw std::invalid_argument(STATUS_MESSAGE_PERIOD + " must be >= 0");
-		}
-		settings_->messagePeriodMs = messagePeriod;
+		settings_->messagePeriodMs = getAndValidateNonNegative<uint32_t>(section, STATUS_MESSAGE_PERIOD);
 	}
 }
 
@@ -280,21 +276,14 @@ void SettingsParser::fillGpsSettings(const nlohmann::json &section) {
 	if(cmdArguments_.count(STOP_RADIUS)) {
 		settings_->stopRadiusM = cmdArguments_[STOP_RADIUS].as<uint32_t>();
 	} else {
-		const auto& stopRadius = section.at(STOP_RADIUS);
-		if (stopRadius < 0) {
-			throw std::invalid_argument(STOP_RADIUS + " must be >= 0");
-		}
-		settings_->stopRadiusM = stopRadius;
+		settings_->stopRadiusM = getAndValidateNonNegative<uint32_t>(section, STOP_RADIUS);
 	}
 
 	if(cmdArguments_.count(IN_STOP_DELAY_S)) {
 		settings_->inStopDelayS = std::chrono::seconds(cmdArguments_[IN_STOP_DELAY_S].as<uint32_t>());
 	} else {
-		const auto& inStopDelay = section.at(IN_STOP_DELAY_S);
-		if (inStopDelay < 0) {
-			throw std::invalid_argument(IN_STOP_DELAY_S + " must be >= 0");
-		}
-		settings_->inStopDelayS = std::chrono::seconds(inStopDelay);
+		settings_->inStopDelayS = std::chrono::seconds(getAndValidateNonNegative<uint32_t>(section, IN_STOP_DELAY_S));
+
 	}
 
 	if(settings_->gpsProvider == GpsProvider::E_RUTX09) {
@@ -326,11 +315,7 @@ void SettingsParser::fillSimulationSettings(const nlohmann::json &section) {
 	if(cmdArguments_.count(OSM_STOP_WAIT_TIME)) {
 		settings_->stopWaitTime = cmdArguments_[OSM_STOP_WAIT_TIME].as<uint32_t>();
 	} else {
-		const auto& stopTime = section.at(OSM_STOP_WAIT_TIME);
-		if (stopTime < 0) {
-			throw std::invalid_argument(OSM_STOP_WAIT_TIME + " must be >= 0");
-		}
-		settings_->stopWaitTime = stopTime;
+		settings_->stopWaitTime = getAndValidateNonNegative<uint32_t>(section, OSM_STOP_WAIT_TIME);
 	}
 
 	if(cmdArguments_.count(OSM_SPEED_OVERRIDE)) {
@@ -338,11 +323,7 @@ void SettingsParser::fillSimulationSettings(const nlohmann::json &section) {
 		settings_->speedOverrideMS = cmdArguments_[OSM_SPEED_OVERRIDE].as<uint32_t>();
 	} else {
 		settings_->speedOverride = section.at(OSM_SPEED_OVERRIDE);
-		const auto& speedOverride = section.at(OSM_SPEED_OVERRIDE_MPS);
-		if (speedOverride < 0) {
-			throw std::invalid_argument(OSM_SPEED_OVERRIDE_MPS + " must be >= 0");
-		}
-		settings_->speedOverrideMS = speedOverride;
+		settings_->speedOverrideMS = getAndValidateNonNegative<uint32_t>(section, OSM_SPEED_OVERRIDE_MPS);
 	}
 
 	fillMapSettings(section);
@@ -466,5 +447,13 @@ std::string SettingsParser::getFormattedSettings() {
 	return formattedSettings.str();
 }
 
+template<typename T>
+	T SettingsParser::getAndValidateNonNegative(const nlohmann::json& section, const std::string& key) {
+			const auto& value = section.at(key);
+			if (value < 0) {
+					throw std::invalid_argument(key + " must be >= 0");
+				}
+			return value;
+		}
 }
 
