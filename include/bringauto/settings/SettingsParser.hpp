@@ -101,5 +101,8 @@ private:
 	void fillSimulationSettings(const nlohmann::json &file);
 
 	void fillInternalProtocolSettings(const nlohmann::json &file);
+
+	template<typename T>
+	T getAndValidateNonNegative(const nlohmann::json& section, const std::string& key);
 };
 }

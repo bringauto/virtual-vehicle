@@ -233,7 +233,7 @@ void SettingsParser::fillGeneralSettings(const nlohmann::json &section) {
 	if(cmdArguments_.count(STATUS_MESSAGE_PERIOD)) {
 		settings_->messagePeriodMs = cmdArguments_[STATUS_MESSAGE_PERIOD].as<uint32_t>();
 	} else {
-		settings_->messagePeriodMs = section.at(STATUS_MESSAGE_PERIOD);
+		settings_->messagePeriodMs = getAndValidateNonNegative<uint32_t>(section, STATUS_MESSAGE_PERIOD);
 	}
 }
 
@@ -276,13 +276,14 @@ void SettingsParser::fillGpsSettings(const nlohmann::json &section) {
 	if(cmdArguments_.count(STOP_RADIUS)) {
 		settings_->stopRadiusM = cmdArguments_[STOP_RADIUS].as<uint32_t>();
 	} else {
-		settings_->stopRadiusM = section.at(STOP_RADIUS);
+		settings_->stopRadiusM = getAndValidateNonNegative<uint32_t>(section, STOP_RADIUS);
 	}
 
 	if(cmdArguments_.count(IN_STOP_DELAY_S)) {
 		settings_->inStopDelayS = std::chrono::seconds(cmdArguments_[IN_STOP_DELAY_S].as<uint32_t>());
 	} else {
-		settings_->inStopDelayS = std::chrono::seconds(section.at(IN_STOP_DELAY_S));
+		settings_->inStopDelayS = std::chrono::seconds(getAndValidateNonNegative<uint32_t>(section, IN_STOP_DELAY_S));
+
 	}
 
 	if(settings_->gpsProvider == GpsProvider::E_RUTX09) {
@@ -314,7 +315,7 @@ void SettingsParser::fillSimulationSettings(const nlohmann::json &section) {
 	if(cmdArguments_.count(OSM_STOP_WAIT_TIME)) {
 		settings_->stopWaitTime = cmdArguments_[OSM_STOP_WAIT_TIME].as<uint32_t>();
 	} else {
-		settings_->stopWaitTime = section.at(OSM_STOP_WAIT_TIME);
+		settings_->stopWaitTime = getAndValidateNonNegative<uint32_t>(section, OSM_STOP_WAIT_TIME);
 	}
 
 	if(cmdArguments_.count(OSM_SPEED_OVERRIDE)) {
@@ -322,7 +323,7 @@ void SettingsParser::fillSimulationSettings(const nlohmann::json &section) {
 		settings_->speedOverrideMS = cmdArguments_[OSM_SPEED_OVERRIDE].as<uint32_t>();
 	} else {
 		settings_->speedOverride = section.at(OSM_SPEED_OVERRIDE);
-		settings_->speedOverrideMS = section.at(OSM_SPEED_OVERRIDE_MPS);
+		settings_->speedOverrideMS = getAndValidateNonNegative<uint32_t>(section, OSM_SPEED_OVERRIDE_MPS);
 	}
 
 	fillMapSettings(section);
@@ -446,5 +447,13 @@ std::string SettingsParser::getFormattedSettings() {
 	return formattedSettings.str();
 }
 
+template<typename T>
+	T SettingsParser::getAndValidateNonNegative(const nlohmann::json& section, const std::string& key) {
+			const auto& value = section.at(key);
+			if (value < 0) {
+					throw std::invalid_argument(key + " must be >= 0");
+				}
+			return value;
+		}
 }
 
